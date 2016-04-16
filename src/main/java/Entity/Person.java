@@ -1,3 +1,5 @@
+package Entity;
+
 import javax.persistence.*;
 
 /**
