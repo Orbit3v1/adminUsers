@@ -4,7 +4,7 @@
     <persistence-unit name="MainPU">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/sakila?useSSL=false"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/appOwner?useSSL=false"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="owner"/>
             <property name="hibernate.connection.password" value="Orbit3v!"/>
@@ -13,7 +13,6 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.useSSL" value="false"/>
         </properties>
     </persistence-unit>
 </persistence>
