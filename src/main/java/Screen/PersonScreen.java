@@ -25,44 +25,53 @@ public class PersonScreen {
 
     @PostConstruct
     public void init(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainPU");
-        EntityManager em = emf.createEntityManager();
-        person = em.find(Person.class, 1);
-        System.out.println(person.getRoles());
-
-        //Role roleP = em.find(Role.class, "CONST");
-        Role role = new Role("WORKER", "Worker", "Has all privileges2");
-        System.out.println("Role" + role);
-
-        Privilege privilege = new Privilege("DELETE", "delete", "delete all");
-        ArrayList<Privilege> privileges = new ArrayList<>();
-        privileges.add(privilege);
-
-        System.out.println("Privilege" + privilege);
-
-
-        em.getTransaction().begin();
-        em.persist(privilege);
-        System.out.println("1");
-        role.setPrivilege(privileges);
-        em.persist(role);
-        System.out.println("2");
-        person.getRoles().add(role);
-        em.persist(person); //em.merge(u); for updates
-        System.out.println("3");
-        em.getTransaction().commit();
-
-
-//        Role role = new Role("CEO", "Director", "Has all privileges2");
-//        Role role2 = new Role("CONST", "Constructor", "Has all privileges");
-//        em.getTransaction().begin();
-//        //em.merge(role); //em.merge(u); for updates
-//        em.persist(role2); //em.merge(u); for updates
-//        em.getTransaction().commit();
-//        em.close();
 
         System.out.println("Test " + person.getLastName());
         System.out.println("TestInjection " + testInjection.getMessage());
+
+        //createInitialTestData();
+        testPersist();
+    }
+
+    private void createInitialTestData(){
+        Privilege privilege = new Privilege("INIT", "Init Priv", "Test priv");
+        ArrayList<Privilege> privileges = new ArrayList<>();
+        privileges.add(privilege);
+
+        Role role = new Role("INIT", "Init Role", "Test role", privileges);
+        ArrayList<Role> roles = new ArrayList<>();
+        roles.add(role);
+
+        Person person = new Person("Init", "User", "init@ukr.net", "Active", roles);
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(privilege);
+        em.persist(role);
+        em.persist(person);
+        em.getTransaction().commit();
+    }
+
+    private void testPersist(){
+        Privilege privilege = new Privilege("Persist", "Persist Priv", "Test Persist");
+        ArrayList<Privilege> privileges = new ArrayList<>();
+        privileges.add(privilege);
+
+        Role role = new Role("Persist", "Persist Role", "Persist role", privileges);
+        ArrayList<Role> roles = new ArrayList<>();
+        roles.add(role);
+
+        Person person = new Person("Persist", "User", "persist@ukr.net", "Active", roles);
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        //don't persist child entities
+//        em.persist(privilege);
+//        em.persist(role);
+        em.persist(person);
+        em.getTransaction().commit();
     }
 
     public Person getPerson() {
