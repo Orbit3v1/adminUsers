@@ -39,6 +39,14 @@ public class Person {
         this.state = state;
     }
 
+    public Person(String firstName, String lastName, String email, String state, List<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.state = state;
+        this.roles = roles;
+    }
+
     public int getId() {
         return id;
     }

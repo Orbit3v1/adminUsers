@@ -1,6 +1,7 @@
 package Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,13 @@ public class Role {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Role(String id, String name, String description, List<Privilege> privilege) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.privilege = privilege;
     }
 
     public String getId() {

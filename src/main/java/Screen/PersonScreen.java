@@ -22,6 +22,8 @@ public class PersonScreen {
     private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
     @Inject
     private TestInjection testInjection;
+    @Inject
+    private EntityManager entityManager;
 
     @PostConstruct
     public void init(){
@@ -30,7 +32,8 @@ public class PersonScreen {
         System.out.println("TestInjection " + testInjection.getMessage());
 
         //createInitialTestData();
-        testPersist();
+        //testPersist();
+        testEntityManagerInjection();
     }
 
     private void createInitialTestData(){
@@ -72,6 +75,11 @@ public class PersonScreen {
 //        em.persist(role);
         em.persist(person);
         em.getTransaction().commit();
+    }
+
+    private void testEntityManagerInjection(){
+        System.out.print(entityManager);
+        person = entityManager.find(Person.class, 1);
     }
 
     public Person getPerson() {
