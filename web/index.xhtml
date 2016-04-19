@@ -4,16 +4,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"  >
 "Hello, world"
-    <h:form id="greetme">
+    <h:form id="greetme" >
         <p>
             <h:outputLabel value="Enter your name: " for="name"/>
             <h:inputText id="name" value="#{personScreen.person.lastName}"/>
         </p>
         <p>
             <h:commandButton value="Init" action="#{personScreen.init()}"/>
+            <!--<h:commandButton value="Persons" action="List/PersonList"/>-->
         </p>
 
     </h:form>
+
+    <h:commandButton value="Init" action="#{personScreen.init()}"/>
+    <a4j:commandButton value="Init_A4J" action="#{personScreen.init()}"/>
+    <h:link value="Persons" outcome="List/PersonList" />
+    <h:button value="Persons" outcome="List/PersonList" />
 </html>

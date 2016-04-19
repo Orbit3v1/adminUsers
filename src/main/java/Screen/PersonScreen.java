@@ -19,7 +19,7 @@ import java.util.List;
 @Scope("session")
 public class PersonScreen {
 
-    private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
+        private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
     @Inject
     private TestInjection testInjection;
     @Inject
@@ -35,7 +35,7 @@ public class PersonScreen {
         //testEntityManagerInjection();
         //testHierarchy();
 
-        testAddPrivilegeAction();
+        //testAddPrivilegeAction();
     }
 
     private void testAddPrivilegeAction(){
