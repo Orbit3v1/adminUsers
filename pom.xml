@@ -7,22 +7,25 @@
     <groupId>groupId</groupId>
     <artifactId>adminUsers</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <spring.version>3.1.2.RELEASE</spring.version>
+    </properties>
 
     <dependencies>
         <!-- Spring framework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
-        <!-- JSR-330 -->
+         <!-- JSR-330 -->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>

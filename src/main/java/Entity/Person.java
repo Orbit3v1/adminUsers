@@ -23,7 +23,7 @@ public class Person {
     @Column(name = "state")
     private String state;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "person_role",
         joinColumns = @JoinColumn(name = "person"),
         inverseJoinColumns = @JoinColumn(name = "role"))

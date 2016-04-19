@@ -1,8 +1,6 @@
 package Screen;
 
-import Entity.Person;
-import Entity.Privilege;
-import Entity.Role;
+import Entity.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +11,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 @Named("personScreen")
 @Scope("session")
@@ -32,8 +32,33 @@ public class PersonScreen {
         System.out.println("TestInjection " + testInjection.getMessage());
 
         //createInitialTestData();
-        //testPersist();
-        testEntityManagerInjection();
+        //testEntityManagerInjection();
+        //testHierarchy();
+
+        testAddPrivilegeAction();
+    }
+
+    private void testAddPrivilegeAction(){
+        Person person = entityManager.find(Person.class, 1);
+        Role role = person.getRoles().get(0);
+        Action action = entityManager.find(Action.class, "READ");
+        Privilege privilege = entityManager.find(Privilege.class, "TEST_P");
+        PrivilegeAction privilegeAction = new PrivilegeAction(new PrivilegeActionId(privilege.getId(), action.getId()));
+        role.getPrivilegeAction().add(privilegeAction);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(role);
+        entityManager.getTransaction().commit();
+
+    }
+
+    private void testHierarchy(){
+        Person person = entityManager.find(Person.class, 1);
+        System.out.println("Person: " + person.getEmail());
+        Role role = person.getRoles().get(0);
+        System.out.println("Role: " + role.getName());
+        PrivilegeAction privilegeAction = role.getPrivilegeAction().get(0);
+        System.out.println("PrivilegeAction: " + privilegeAction.getAction().getName() + " / " + privilegeAction.getPrivilege().getName());
     }
 
     private void createInitialTestData(){
@@ -41,7 +66,7 @@ public class PersonScreen {
         ArrayList<Privilege> privileges = new ArrayList<>();
         privileges.add(privilege);
 
-        Role role = new Role("INIT", "Init Role", "Test role", privileges);
+        Role role = new Role("INIT", "Init Role", "Test role", new ArrayList<>());
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(role);
 
@@ -56,26 +81,7 @@ public class PersonScreen {
         em.getTransaction().commit();
     }
 
-    private void testPersist(){
-        Privilege privilege = new Privilege("Persist", "Persist Priv", "Test Persist");
-        ArrayList<Privilege> privileges = new ArrayList<>();
-        privileges.add(privilege);
 
-        Role role = new Role("Persist", "Persist Role", "Persist role", privileges);
-        ArrayList<Role> roles = new ArrayList<>();
-        roles.add(role);
-
-        Person person = new Person("Persist", "User", "persist@ukr.net", "Active", roles);
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainPU");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        //don't persist child entities
-//        em.persist(privilege);
-//        em.persist(role);
-        em.persist(person);
-        em.getTransaction().commit();
-    }
 
     private void testEntityManagerInjection(){
         System.out.print(entityManager);

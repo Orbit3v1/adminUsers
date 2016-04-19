@@ -1,7 +1,6 @@
 package Entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +16,14 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @OneToMany
-    @JoinTable(name = "role_privilege",
+    @ManyToMany
+    @JoinTable(name = "role_privilege_action",
             joinColumns = @JoinColumn(name = "role"),
-            inverseJoinColumns = @JoinColumn(name = "privilege"))
-    private List<Privilege> privilege;
+            inverseJoinColumns = {
+                    @JoinColumn(name = "privilege", referencedColumnName = "privilege"),
+                    @JoinColumn(name = "action", referencedColumnName = "action")
+            })
+    private List<PrivilegeAction> privilegeAction;
 
     public Role() {
     }
@@ -32,11 +34,11 @@ public class Role {
         this.description = description;
     }
 
-    public Role(String id, String name, String description, List<Privilege> privilege) {
+    public Role(String id, String name, String description, List<PrivilegeAction> privilegeAction) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.privilege = privilege;
+        this.privilegeAction = privilegeAction;
     }
 
     public String getId() {
@@ -63,11 +65,11 @@ public class Role {
         this.description = description;
     }
 
-    public List<Privilege> getPrivilege() {
-        return privilege;
+    public List<PrivilegeAction> getPrivilegeAction() {
+        return privilegeAction;
     }
 
-    public void setPrivilege(List<Privilege> privilege) {
-        this.privilege = privilege;
+    public void setPrivilegeAction(List<PrivilegeAction> privilege) {
+        this.privilegeAction = privilege;
     }
 }
