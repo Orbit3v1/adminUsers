@@ -15,12 +15,27 @@
     <ui:define name="body">
         <h:form id="greetme">
             <h:commandButton value="Init" action="#{personList.init()}"/>
+
             <h:inputText id="name" value="#{personScreen.person.lastName}"/>
+
+
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" rowClasses="odd-row, even-row"
                             styleClass="stable">
                 <rich:column>
-                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">Last name</f:facet>
+                    <h:outputText value="#{row.lastName}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">First name</f:facet>
+                    <h:outputText value="#{row.firstName}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">email</f:facet>
                     <h:outputText value="#{row.email}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">State</f:facet>
+                    <h:outputText value="#{row.state}"/>
                 </rich:column>
             </rich:dataTable>
         </h:form>

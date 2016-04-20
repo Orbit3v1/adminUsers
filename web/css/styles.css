@@ -11,3 +11,16 @@
     background-color: #FFEBDA;
     cursor: pointer;
 }
+
+.actionBtn {
+    font-size:14px;
+}
+
+button, input[type="button"], input[type="submit"] {
+    color:#050;
+    font: bold 84% 'trebuchet ms',helvetica,sans-serif;
+    background-color:#fed;
+    border:1px solid;
+    border-color: #696 #363 #363 #696;
+    font-size:14px;
+}

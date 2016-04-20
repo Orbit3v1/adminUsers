@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j"  >
-"Hello, world"
-<h:form id="greetme" >
-    <p>
-        <h:outputLabel value="Enter your name: " for="name"/>
-        <h:inputText id="name" value="#{personScreen.person.lastName}"/>
-    </p>
-    <p>
+<ui:composition template="template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        "Hello, world"
+        <h:form id="greetme">
+            <p>
+                <h:outputLabel value="Enter your name: " for="name"/>
+                <h:inputText id="name" value="#{personScreen.person.lastName}"/>
+            </p>
+
+            <p>
+                <h:commandButton value="Init" action="#{personScreen.init()}" styleClass="actionBtn"/>
+                <h:commandButton value="NewPerson" action="#{personScreen.setNewPerson}" style="font-size: 14px"/>
+                <h:commandButton value="UpdatePerson" action="#{personScreen.updatePerson}"/>
+                <!--<h:commandButton value="Persons" action="List/PersonList"/>-->
+            </p>
+
+        </h:form>
+
         <h:commandButton value="Init" action="#{personScreen.init()}"/>
-        <h:commandButton value="NewPerson" action="#{personScreen.setNewPerson}"/>
-        <h:commandButton value="UpdatePerson" action="#{personScreen.updatePerson}"/>
-        <!--<h:commandButton value="Persons" action="List/PersonList"/>-->
-    </p>
-
-</h:form>
-
-<h:commandButton value="Init" action="#{personScreen.init()}"/>
-<a4j:commandButton value="Init_A4J" action="#{personScreen.init()}"/>
-<h:link value="Persons" outcome="list/PersonList" />
-<h:button value="Persons" outcome="list/PersonList" />
-</html>
+        <a4j:commandButton value="Init_A4J" action="#{personScreen.init()}"/>
+        <h:link value="Persons" outcome="list/PersonList"/>
+        <h:button value="Persons" outcome="list/PersonList"/>
+    </ui:define>
+</ui:composition>
