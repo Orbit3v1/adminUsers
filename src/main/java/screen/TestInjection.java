@@ -1,4 +1,4 @@
-package Screen2;
+package screen;
 
 import javax.inject.Named;
 

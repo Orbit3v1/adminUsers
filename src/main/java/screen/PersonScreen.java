@@ -1,4 +1,4 @@
-package Screen2;
+package screen;
 
 import entity.*;
 import org.springframework.context.annotation.Scope;
