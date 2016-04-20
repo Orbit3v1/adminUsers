@@ -1,6 +1,6 @@
 package Screen;
 
-import Entity2.*;
+import entity.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;

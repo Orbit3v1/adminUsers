@@ -1,6 +1,6 @@
 package List;
 
-import Entity2.Person;
+import entity.Person;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
