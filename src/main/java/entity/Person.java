@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "person")
-public class Person extends Person.AbstractVersionedEntity{
+public class Person extends AbstractVersionedEntity{
     @Id
     @GeneratedValue
     @Column(name = "id")
