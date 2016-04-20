@@ -3,6 +3,7 @@ use appOwner;
 
 create table person(
   id int primary key AUTO_INCREMENT,
+  version int default 0,
   first_name varchar(500),
   last_name varchar(500),
   email varchar(50),
@@ -12,6 +13,7 @@ create unique index person_U1 on person(email);
 
 create table role(
   id varchar(50) primary key,
+  version int default 0,
   name varchar(50),
   description varchar(500)
 );
