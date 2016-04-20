@@ -1,4 +1,4 @@
-package List;
+package List2;
 
 import entity.Person;
 import org.springframework.context.annotation.Scope;
