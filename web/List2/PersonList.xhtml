@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <ui:define name="title">
+        <h:outputText value="Person List"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="greetme">
+            <h:commandButton value="Init" action="#{personList.init()}"/>
+            <h:inputText id="name" value="#{personScreen.person.lastName}"/>
+            <rich:dataTable id="persons" value="#{personList.persons}" var="row" rowClasses="odd-row, even-row"
+                            styleClass="stable">
+                <rich:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{row.email}"/>
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
