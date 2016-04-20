@@ -13,7 +13,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
-import java.util.List;
 
 @Named("personScreen")
 @Scope("session")
