@@ -19,7 +19,6 @@ public class PersonList {
 
     private List<Person> persons;
 
-    private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
 
     @PostConstruct
     public void init(){

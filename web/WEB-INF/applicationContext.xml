@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <context:component-scan base-package="screen, list" />
+    <context:component-scan base-package="screen, list, utils" />
     <beans>
         <bean id="entityFactory" class="javax.persistence.Persistence" factory-method="createEntityManagerFactory">
             <constructor-arg value="MainPU"/>
@@ -14,7 +14,7 @@
         <bean id="entityManager" factory-bean="entityFactory" factory-method="createEntityManager"/>
 
         <bean id="messages" class="java.util.ResourceBundle" factory-method="getBundle">
-            <constructor-arg value="strings"/>
+            <constructor-arg value="utils.StringsBundle"/>
         </bean>
     </beans>
 </beans>

@@ -4,6 +4,7 @@
 
 .odd-row {
     background-color: #ECF3FE;
+    font-size: 20px;
 }
 
 .even-row:hover,
@@ -12,15 +13,20 @@
     cursor: pointer;
 }
 
-.actionBtn {
-    font-size:14px;
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+    font-size: 14px !important;
+    margin: 3px !important;
 }
 
-button, input[type="button"], input[type="submit"] {
-    color:#050;
-    font: bold 84% 'trebuchet ms',helvetica,sans-serif;
-    background-color:#fed;
-    border:1px solid;
-    border-color: #696 #363 #363 #696;
-    font-size:14px;
+textarea, input[type="text"], input[type="password"], select {
+    font-size: 14px !important;
+    margin: 3px !important;
+}
+
+.rf-dt-shdr-c {
+    font-size: 16px !important;
+}
+
+.rf-dt-c {
+    font-size: 14px !important;
 }

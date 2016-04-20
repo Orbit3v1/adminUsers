@@ -37,7 +37,7 @@ public class PersonScreen {
         //testHierarchy();
 
         //testAddPrivilegeAction();
-        testResourceBundle();
+        //testResourceBundle();
 
 
     }
