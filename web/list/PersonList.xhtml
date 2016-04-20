@@ -22,7 +22,7 @@
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" rowClasses="odd-row, even-row"
                             styleClass="stable">
                 <rich:column>
-                    <f:facet name="header">Last name</f:facet>
+                    <f:facet name="header">#{messages.getString('test')}</f:facet>
                     <h:outputText value="#{row.lastName}"/>
                 </rich:column>
                 <rich:column>

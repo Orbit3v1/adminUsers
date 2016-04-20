@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 @Named("personScreen")
 @Scope("session")
@@ -22,6 +23,8 @@ public class PersonScreen {
     private EntityManager entityManager;
     @Inject
     private EntityManagerFactory entityManagerFactory;
+    @Inject
+    private ResourceBundle messages;
 
     @PostConstruct
     public void init(){
@@ -34,6 +37,15 @@ public class PersonScreen {
         //testHierarchy();
 
         //testAddPrivilegeAction();
+        testResourceBundle();
+
+
+    }
+
+    public void testResourceBundle(){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("strings");
+        System.out.println(resourceBundle.getString("test"));
+        System.out.println(messages.getString("test"));
     }
 
     public void setNewPerson(){

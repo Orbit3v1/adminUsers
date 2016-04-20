@@ -12,5 +12,9 @@
             <constructor-arg value="MainPU"/>
         </bean>
         <bean id="entityManager" factory-bean="entityFactory" factory-method="createEntityManager"/>
+
+        <bean id="messages" class="java.util.ResourceBundle" factory-method="getBundle">
+            <constructor-arg value="strings"/>
+        </bean>
     </beans>
 </beans>
