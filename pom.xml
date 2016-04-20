@@ -10,6 +10,7 @@
     <properties>
         <spring.version>3.1.2.RELEASE</spring.version>
         <richfaces.version>4.3.7.Final</richfaces.version>
+        <hibernate.version>4.1.9.Final</hibernate.version>
     </properties>
 
     <dependencies>
@@ -26,7 +27,7 @@
             <version>${spring.version}</version>
         </dependency>
 
-         <!-- JSR-330 -->
+        <!-- JSR-330 -->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
@@ -74,7 +75,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.2.2.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -95,7 +96,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.0.1.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -138,5 +139,5 @@
             <version>${richfaces.version}</version>
         </dependency>
     </dependencies>
-    
+
 </project>

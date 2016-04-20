@@ -1,28 +1,27 @@
-package screen;
+package Screen;
 
 import entity.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
 @Named("personScreen")
 @Scope("session")
 public class PersonScreen {
 
-        private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
+    private Person person = new Person("Duke", "Nukem", "duke@ukr.net", "Active");
     @Inject
     private TestInjection testInjection;
     @Inject
     private EntityManager entityManager;
+    @Inject
+    private EntityManagerFactory entityManagerFactory;
 
     @PostConstruct
     public void init(){
@@ -35,6 +34,30 @@ public class PersonScreen {
         //testHierarchy();
 
         //testAddPrivilegeAction();
+    }
+
+    public void setNewPerson(){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        person = em.find(Person.class, 1);
+    }
+
+    public void updatePerson(){
+        // person = entityManager.find(Person.class, 1);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+//        person = entityManager.find(Person.class, 1);
+        //, LockModeType.OPTIMISTIC
+        person = em.find(Person.class, 1);
+        person.setLastName(person.getLastName() + "T");
+        em.getTransaction().commit();
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//        Privilege privilege = em.find(Privilege.class, "TEST_P");
+//        System.out.println(privilege.getName());
+//        privilege.setDescription("Test");
+//        em.flush();
+//        em.getTransaction().commit();
     }
 
     private void testAddPrivilegeAction(){
