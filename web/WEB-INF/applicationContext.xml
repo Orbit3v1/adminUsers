@@ -13,8 +13,14 @@
         </bean>
         <bean id="entityManager" factory-bean="entityFactory" factory-method="createEntityManager"/>
 
+        <bean id="locale" class="java.util.Locale">
+            <constructor-arg index="0" value="ru"/>
+            <constructor-arg index="1" value="RU"/>
+        </bean>
+
         <bean id="messages" class="java.util.ResourceBundle" factory-method="getBundle">
-            <constructor-arg value="utils.StringsBundle"/>
+            <constructor-arg index="0" value="utils.StringsBundle"/>
+            <constructor-arg index="1" ref="locale"/>
         </bean>
     </beans>
 </beans>

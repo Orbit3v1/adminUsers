@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Named("personScreen")
@@ -43,6 +44,7 @@ public class PersonScreen {
     }
 
     public void testResourceBundle(){
+        Locale locale = new Locale("ru", "RU");
         ResourceBundle resourceBundle = ResourceBundle.getBundle("strings");
         System.out.println(resourceBundle.getString("test"));
         System.out.println(messages.getString("test"));
