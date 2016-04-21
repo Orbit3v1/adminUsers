@@ -24,7 +24,7 @@ public class Person extends AbstractVersionedEntity{
 
     @Column(name = "active")
     @Type(type = "yes_no")
-    private boolean active;
+    private boolean active = true;
 
     @ManyToMany
     @JoinTable(name = "person_role",
