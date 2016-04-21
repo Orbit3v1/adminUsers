@@ -11,4 +11,23 @@
         </el-resolver>
         <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
     </application>
+
+    <navigation-rule>
+        <from-view-id>/list/PersonList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editPerson</from-outcome>
+            <to-view-id>/screen/PersonScreen.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/screen/PersonScreen.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>personList</from-outcome>
+            <to-view-id>/list/PersonList.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

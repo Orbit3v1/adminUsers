@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -15,18 +16,16 @@ import java.util.List;
 public class PersonList {
 
     @Inject
-    private EntityManager entityManager;
+    private EntityManagerFactory entityManagerFactory;
 
     private List<Person> persons;
 
 
     @PostConstruct
     public void init(){
-        System.out.println("begin");
-        Query query = entityManager.createQuery("select p from Person p");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Query query = em.createQuery("select p from Person p");
         persons = query.getResultList();
-        System.out.println("persons" + persons);
-
     }
 
     public List<Person> getPersons() {

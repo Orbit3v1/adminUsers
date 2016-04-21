@@ -3,6 +3,7 @@
 
     <persistence-unit name="MainPU">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/appOwner?useSSL=false"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

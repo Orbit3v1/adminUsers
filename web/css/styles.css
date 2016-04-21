@@ -30,3 +30,7 @@ textarea, input[type="text"], input[type="password"], select {
 .rf-dt-c {
     font-size: 14px !important;
 }
+
+.rf-dt {
+    margin: 3px !important;
+}

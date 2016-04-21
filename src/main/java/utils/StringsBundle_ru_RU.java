@@ -13,9 +13,19 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
     }
 
     private Object[][] contents = {
-            {"personList.table.lastName", "Фамилия"},
-            {"personList.table.firstName", "Имя"},
-            {"personList.table.email", "Email"},
-            {"personList.table.state", "Статус"},
+            {"personEntity.lastName", "Фамилия"},
+            {"personEntity.firstName", "Имя"},
+            {"personEntity.email", "Email"},
+            {"personEntity.state", "Статус"},
+
+            {"personList.title", "Список пользователей"},
+            {"personScreen.title", "Пользователь"},
+
+            {"button.add", "Добавить"},
+            {"button.cancel", "Отмена"},
+            {"button.save", "Сохранить"},
+            {"button.saveAndExit", "Сохранить и выйти"},
+
+            {"table.edit", "-"},
     };
 }
