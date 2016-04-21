@@ -16,7 +16,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personEntity.lastName", "Фамилия"},
             {"personEntity.firstName", "Имя"},
             {"personEntity.email", "Email"},
-            {"personEntity.state", "Статус"},
+            {"personEntity.active", "Статус"},
 
             {"personList.title", "Список пользователей"},
             {"personScreen.title", "Пользователь"},

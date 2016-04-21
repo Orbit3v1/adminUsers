@@ -1,5 +1,7 @@
 package entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,8 +22,9 @@ public class Person extends AbstractVersionedEntity{
     @Column(name = "email")
     private String email;
 
-    @Column(name = "state")
-    private String state;
+    @Column(name = "active")
+    @Type(type = "yes_no")
+    private boolean active;
 
     @ManyToMany
     @JoinTable(name = "person_role",
@@ -32,18 +35,18 @@ public class Person extends AbstractVersionedEntity{
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String email, String state) {
+    public Person(String firstName, String lastName, String email, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.state = state;
+        this.active = active;
     }
 
-    public Person(String firstName, String lastName, String email, String state, List<Role> roles) {
+    public Person(String firstName, String lastName, String email, boolean active, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.state = state;
+        this.active = active;
         this.roles = roles;
     }
 
@@ -79,12 +82,12 @@ public class Person extends AbstractVersionedEntity{
         this.email = email;
     }
 
-    public String getState() {
-        return state;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setActive(boolean state) {
+        this.active = state;
     }
 
     public List<Role> getRoles() {

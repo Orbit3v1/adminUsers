@@ -7,7 +7,7 @@ create table person(
   first_name varchar(500),
   last_name varchar(500),
   email varchar(50),
-  state varchar(50)
+  active varchar(1) default 'Y'
   );
 
 create unique index person_U1 on person(email);

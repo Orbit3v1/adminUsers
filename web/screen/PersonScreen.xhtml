@@ -25,8 +25,8 @@
             <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
             <h:inputText id="email" value="#{personScreen.person.email}"/>
 
-            <h:outputLabel value="#{messages.getString('personEntity.state')}" for="state"/>
-            <h:inputText id="state" value="#{personScreen.person.state}"/>
+            <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>
+            <h:selectBooleanCheckbox id = "active" value="#{personScreen.person.active}"/>
 
         </h:panelGrid>
 

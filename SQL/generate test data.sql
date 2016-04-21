@@ -1,5 +1,5 @@
-insert into person(id, first_name, last_name, email, state)
-values(1, 'test', 'user', 'test@test.com', 'active');
+insert into person(id, first_name, last_name, email, active)
+values(1, 'test', 'user', 'test@test.com', 'Y');
 
 insert into privilege(id, name, description) values('TEST_P', 'Test privilege', '');
 insert into role(id, name, description) values('TEST_R', 'Test role', '');

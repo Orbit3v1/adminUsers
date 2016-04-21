@@ -24,7 +24,7 @@ public class PersonList {
     @PostConstruct
     public void init(){
         EntityManager em = entityManagerFactory.createEntityManager();
-        Query query = em.createQuery("select p from Person p");
+        Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName");
         persons = query.getResultList();
     }
 
