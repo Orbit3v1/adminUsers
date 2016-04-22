@@ -31,6 +31,10 @@ textarea, input[type="text"], input[type="password"], select {
     font-size: 14px !important;
 }
 
+.rf-pick-opt{
+    font-size: 14px !important;
+}
+
 .rf-dt {
     margin: 3px !important;
 }

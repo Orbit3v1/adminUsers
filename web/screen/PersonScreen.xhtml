@@ -22,7 +22,8 @@
             <h:message for="lastName" styleClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"/>
-            <h:inputText id="firstName" value="#{personScreen.person.firstName}" validator="#{personScreen.validateName}"/>
+            <h:inputText id="firstName" value="#{personScreen.person.firstName}"
+                         validator="#{personScreen.validateName}"/>
             <h:message for="firstName" styleClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
@@ -30,20 +31,39 @@
             <h:message for="email" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>
-            <h:selectBooleanCheckbox id = "active" value="#{personScreen.person.active}"/>
+            <h:selectBooleanCheckbox id="active" value="#{personScreen.person.active}"/>
             <h:message for="active" errorClass="error"/>
 
         </h:panelGrid>
 
-        <rich:pickList id="roles"
-                    value="#{personScreen.person.roles}">
-            <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row.id}" itemLabel="#{row.name}"/>
-            <f:converter converterId="roleConvertor"/>
-        </rich:pickList>
 
-        <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}" render="mainForm"/>
-        <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}" render="mainForm"/>
-        <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
+        <p>
+            <h:outputLabel value="#{messages.getString('personEntity.roles')}" for="roles"/>
+        </p>
+        <p>
+            <rich:pickList id="roles"
+                           value="#{personScreen.person.roles}"
+                           converter="#{roleConverter}"
+                           listHeight="160px"
+                           listWidth="200px"
+                           sourceCaption="#{messages.getString('personScreen.roles.available')}"
+                           targetCaption="#{messages.getString('personScreen.roles.selected')}"
+                           copyAllControlLabel="#{messages.getString('pickList.copyAllControlLabel')}"
+                           copyControlLabel="#{messages.getString('pickList.copyControlLabel')}"
+                           removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
+                           removeControlLabel="#{messages.getString('pickList.removeControlLabel')}">
 
+                <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}" itemLabel="#{row.name}"/>
+            </rich:pickList>
+        </p>
+
+
+        <p>
+            <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}"
+                               render="mainForm"/>
+            <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}"
+                               render="mainForm"/>
+            <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
+        </p>
     </ui:define>
 </ui:composition>

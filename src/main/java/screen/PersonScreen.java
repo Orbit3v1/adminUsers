@@ -35,8 +35,8 @@ public class PersonScreen {
     @PostConstruct
     public void init() {
         EntityManager em = entityManagerFactory.createEntityManager();
-        Query query = em.createQuery("select r from Role r");
-        List<Role> roleSourceList = query.getResultList();
+        Query query = em.createQuery("select r from Role r order by r.name");
+        roleSourceList = query.getResultList();
     }
 
     public String editPerson(Person person) {

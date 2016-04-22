@@ -1,16 +1,21 @@
 package converter;
 
 import entity.Role;
+import org.springframework.context.annotation.Scope;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-@FacesConverter("roleConverter")
+@Named("roleConverter")
+@Scope("request")
 public class RoleConverter implements Converter {
 
     @Inject
@@ -24,6 +29,7 @@ public class RoleConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
-        return ((Role) o).getName();
+        return ((Role) o).getId();
     }
+
 }

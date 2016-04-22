@@ -17,9 +17,12 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personEntity.firstName", "Имя"},
             {"personEntity.email", "Email"},
             {"personEntity.active", "Активен"},
+            {"personEntity.roles", "Список ролей"},
 
             {"personList.title", "Список пользователей"},
             {"personScreen.title", "Пользователь"},
+            {"personScreen.roles.available", "Доступно"},
+            {"personScreen.roles.selected", "Выбрано"},
             {"personScreen.error.title", "Неверные данные"},
             {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
 
@@ -27,6 +30,11 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.cancel", "Отмена"},
             {"button.save", "Сохранить"},
             {"button.saveAndExit", "Сохранить и выйти"},
+
+            {"pickList.copyAllControlLabel", "Добавить все"},
+            {"pickList.copyControlLabel", "Добавить"},
+            {"pickList.removeAllControlLabel", "Удалить все"},
+            {"pickList.removeControlLabel", "Удалить"},
 
             {"table.edit", "-"},
     };

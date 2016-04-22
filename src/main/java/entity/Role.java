@@ -41,6 +41,20 @@ public class Role extends AbstractVersionedEntity {
         this.privilegeAction = privilegeAction;
     }
 
+    @Override
+    public int hashCode() {
+        return (id != null)
+                ? (getClass().hashCode() + id.hashCode())
+                : super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass() && id != null)
+                ? id.equals(((Role) obj).id)
+                : (obj == this);
+    }
+
     public String getId() {
         return id;
     }
