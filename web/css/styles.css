@@ -34,3 +34,7 @@ textarea, input[type="text"], input[type="password"], select {
 .rf-dt {
     margin: 3px !important;
 }
+
+.error {
+    color: #ff0000 !important;
+}

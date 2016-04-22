@@ -16,10 +16,12 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personEntity.lastName", "Фамилия"},
             {"personEntity.firstName", "Имя"},
             {"personEntity.email", "Email"},
-            {"personEntity.active", "Статус"},
+            {"personEntity.active", "Активен"},
 
             {"personList.title", "Список пользователей"},
             {"personScreen.title", "Пользователь"},
+            {"personScreen.error.title", "Неверные данные"},
+            {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
 
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},

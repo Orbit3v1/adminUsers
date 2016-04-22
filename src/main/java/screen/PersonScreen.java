@@ -4,6 +4,10 @@ import entity.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -19,20 +23,24 @@ import java.util.ResourceBundle;
 @Scope("session")
 public class PersonScreen {
 
-    private Person person;
     @Inject
     private EntityManagerFactory entityManagerFactory;
+    @Inject
+    ResourceBundle resourceBundle;
 
-    private boolean isEdit;
+    private Person person;
+    private boolean isValid = true;
+    private List<Role> roleSourceList;
 
     @PostConstruct
     public void init() {
-        System.out.println("personScreen");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Query query = em.createQuery("select r from Role r");
+        List<Role> roleSourceList = query.getResultList();
     }
 
     public String editPerson(Person person) {
         this.person = person;
-        isEdit = true;
         return "editPerson";
     }
 
@@ -45,41 +53,57 @@ public class PersonScreen {
         return "personList";
     }
 
-    public void save() {
-        if (validate()) {
+    public String saveOnly() {
+        save();
+        return "";
+    }
+
+    public String saveAndExit() {
+        return save() ? exit() : "";
+    }
+
+    public boolean save(){
+        if (isValid) {
+            replaceEmptyToNull();
             EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
             person = em.merge(person);
             em.getTransaction().commit();
             em.close();
         } else {
-            System.out.println("Error email");
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
+            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+            isValid = true;
+            return false;
         }
-
+        return true;
     }
 
-    public String saveAndExit() {
-        save();
-        return exit();
-    }
-
-    private boolean validate() {
-        boolean valid = true;
+    private void replaceEmptyToNull(){
         if(person.getEmail().equals("")){
             person.setEmail(null);
         }
+    }
+
+    public void validateEmail(FacesContext context, UIComponent toValidate, Object value) {
 
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Person p where p.email = :email and p.id != :id")
-                .setParameter("email", person.getEmail())
+                .setParameter("email", value)
                 .setParameter("id", person.getId());
         List<Person> persons = query.getResultList();
         if (persons.size() != 0) {
-            valid = false;
+            isValid = false;
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "emailDuplicate", resourceBundle.getString("personScreen.error.emailDuplicate"));
+            context.addMessage(toValidate.getClientId(context), facesMessage);
         }
+    }
 
-
-        return valid;
+    public void validateName(FacesContext context, UIComponent toValidate, Object value) {
+        if(value.equals("1")){
+            isValid = false;
+            context.addMessage(toValidate.getClientId(context), new FacesMessage("Wrong name"));
+        }
     }
 
     public Person getPerson() {
@@ -88,5 +112,13 @@ public class PersonScreen {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public List<Role> getRoleSourceList() {
+        return roleSourceList;
+    }
+
+    public void setRoleSourceList(List<Role> roleSourceList) {
+        this.roleSourceList = roleSourceList;
     }
 }

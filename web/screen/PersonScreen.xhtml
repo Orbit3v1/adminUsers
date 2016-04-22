@@ -14,24 +14,35 @@
     </ui:define>
 
     <ui:define name="body">
-        <h:panelGrid columns="2">
+        <h:message for="panel" styleClass="error"/>
+        <h:panelGrid id="panel" columns="3">
 
             <h:outputLabel value="#{messages.getString('personEntity.lastName')}" for="lastName"/>
             <h:inputText id="lastName" value="#{personScreen.person.lastName}"/>
+            <h:message for="lastName" styleClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"/>
-            <h:inputText id="firstName" value="#{personScreen.person.firstName}"/>
+            <h:inputText id="firstName" value="#{personScreen.person.firstName}" validator="#{personScreen.validateName}"/>
+            <h:message for="firstName" styleClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
-            <h:inputText id="email" value="#{personScreen.person.email}"/>
+            <h:inputText id="email" value="#{personScreen.person.email}" validator="#{personScreen.validateEmail}"/>
+            <h:message for="email" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>
             <h:selectBooleanCheckbox id = "active" value="#{personScreen.person.active}"/>
+            <h:message for="active" errorClass="error"/>
 
         </h:panelGrid>
 
-        <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}"/>
-        <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.save}"/>
+        <rich:pickList id="roles"
+                    value="#{personScreen.person.roles}">
+            <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row.id}" itemLabel="#{row.name}"/>
+            <f:converter converterId="roleConvertor"/>
+        </rich:pickList>
+
+        <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}" render="mainForm"/>
+        <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}" render="mainForm"/>
         <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
 
     </ui:define>
