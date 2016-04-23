@@ -26,14 +26,22 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
-            {"personScreen.editText", "Редактирование"},
-            {"personScreen.addText", "Добавление"},
+            {"personScreen.editText", "Редактирование пользователя"},
+            {"personScreen.addText", "Добавление пользователя"},
             {"personScreen.roles.available", "Доступно"},
             {"personScreen.roles.selected", "Выбрано"},
             {"personScreen.error.title", "Неверные данные"},
             {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
+            {"personScreen.success.save", "Пользователь успешно создан"},
+            {"personScreen.success.edit", "Пользователь успешно изменен"},
 
             {"roleList.title", "Список ролей"},
+
+            {"roleScreen.title", "Роль"},
+            {"roleScreen.editText", "Редактирование роли"},
+            {"roleScreen.addText", "Добавление роли"},
+            {"roleScreen.error.title", "Неверные данные"},
+//            {"roleScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
 
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},

@@ -2,6 +2,7 @@ package screen;
 
 import entity.*;
 import org.springframework.context.annotation.Scope;
+import utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -49,13 +50,8 @@ public class PersonScreen {
         return "editPerson";
     }
 
-    public void cleanSession(){
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        session.removeAttribute("personScreen");
-    }
-
     public String exit() {
-        cleanSession();
+        SessionUtil.cleanSession("personScreen");
         return "personList";
     }
 
@@ -76,6 +72,14 @@ public class PersonScreen {
             person = em.merge(person);
             em.getTransaction().commit();
             em.close();
+
+            String message = edit ? resourceBundle.getString("personScreen.success.edit") : resourceBundle.getString("personScreen.success.save");
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
+            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+            if(!edit){
+                edit = true;
+            }
+
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);

@@ -21,17 +21,17 @@
 
         <HR/>
 
-        <h:message for="panel" styleClass="error"/>
+        <h:message for="panel" infoClass="info" errorClass="error"/>
         <h:panelGrid id="panel" columns="3">
 
             <h:outputLabel value="#{messages.getString('personEntity.lastName')}" for="lastName"/>
             <h:inputText id="lastName" value="#{personScreen.person.lastName}"/>
-            <h:message for="lastName" styleClass="error"/>
+            <h:message for="lastName" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"/>
             <h:inputText id="firstName" value="#{personScreen.person.firstName}"
                          validator="#{personScreen.validateName}"/>
-            <h:message for="firstName" styleClass="error"/>
+            <h:message for="firstName" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
             <h:inputText id="email" value="#{personScreen.person.email}" validator="#{personScreen.validateEmail}"/>

@@ -43,6 +43,10 @@ textarea, input[type="text"], input[type="password"], select {
     color: #ff0000 !important;
 }
 
+.info{
+    color: blue; !important;
+}
+
 hr {
     width: 100%;
 }
