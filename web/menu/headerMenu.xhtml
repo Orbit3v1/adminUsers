@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ul id="menu" class="headerMenu">
+        <li><h:link id="home" value="#{messages.getString('menu.header.home')}" outcome="/index"/></li>
+        <li><h:link id="graphic" value="#{messages.getString('menu.header.graphic')}" outcome="/screen/GraphicScreen"/></li>
+        <li><h:link id="admin" value="#{messages.getString('menu.header.admin')}" outcome="/screen/AdminScreen"/></li>
+        <li><a href="#3">Пункт 4</a></li>
+        <li><a href="#4">Пункт 5</a></li>
+    </ul>
+
+</ui:composition>

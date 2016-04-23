@@ -12,8 +12,15 @@
     <ui:define name="title">
         <h:outputText value="#{messages.getString('personScreen.title')}"/>
     </ui:define>
+    <ui:define name="headerMenu"/>
+
 
     <ui:define name="body">
+        <h:outputText style="font-size: 16px; font-weight: bold"
+                value="#{personScreen.edit ? messages.getString('personScreen.editText') : messages.getString('personScreen.addText')}"/>
+
+        <HR/>
+
         <h:message for="panel" styleClass="error"/>
         <h:panelGrid id="panel" columns="3">
 
@@ -36,10 +43,12 @@
 
         </h:panelGrid>
 
+        <HR/>
 
         <p>
             <h:outputLabel value="#{messages.getString('personEntity.roles')}" for="roles"/>
         </p>
+
         <p>
             <rich:pickList id="roles"
                            value="#{personScreen.person.roles}"
@@ -53,10 +62,12 @@
                            removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
                            removeControlLabel="#{messages.getString('pickList.removeControlLabel')}">
 
-                <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}" itemLabel="#{row.name}"/>
+                <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}"
+                               itemLabel="#{row.name}"/>
             </rich:pickList>
         </p>
 
+        <HR/>
 
         <p>
             <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}"

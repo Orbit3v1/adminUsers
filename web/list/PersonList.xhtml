@@ -15,8 +15,6 @@
 
     <ui:define name="body">
 
-            <a4j:commandButton value="Init" action="#{personList.init()}"/>
-
             <a4j:commandButton value="#{messages.getString('button.add')}" action="#{personScreen.newPerson}"/>
 
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}" rowClasses="odd-row, even-row">

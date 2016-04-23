@@ -1,0 +1,64 @@
+.headerMenu, .headerMenu li {
+    margin: 5px;
+    padding: 0;
+}
+.headerMenu {
+    background: rgb(46,95,122) !important; /* цвет фона */
+}
+.headerMenu li {
+    display: inline-block;
+    text-align: center; /* текст горизонтально по центру */
+}
+.headerMenu a {
+    display: block; /* ссылка растягивается на весь пункт li */
+    padding: 3px 15px !important;
+    color: #fff !important; /* цвет текста */
+    text-decoration: none; /* убрать нижнее подчёркивание у ссылок */
+    font: 100%/1.4em "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+.headerMenu a:hover {
+    background: rgb(96,145,172) !important; /* фон пунктов при наведении */
+}
+
+/*.leftMenu {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*list-style-type: none;*/
+    /*width: 100px;*/
+/*}*/
+/*.leftMenu li {*/
+    /*border-left: 10px solid #666;*/
+    /*border-bottom: 1px solid #666;*/
+/*}*/
+/*.leftMenu a {*/
+    /*background-color: #949494;*/
+    /*color: #fff;*/
+    /*padding: 5px;*/
+    /*text-decoration: none;*/
+    /*font-weight: bold;*/
+    /*border-left: 5px solid #33ADFF;*/
+    /*display: block;*/
+/*}*/
+
+
+
+.leftMenu, .headerMenu li {
+    margin: 5px;
+    padding: 0;
+}
+.leftMenu {
+    background: rgb(46,95,122) !important; /* цвет фона */
+}
+.leftMenu li {
+    text-align: center; /* текст горизонтально по центру */
+}
+.leftMenu a {
+    display: block; /* ссылка растягивается на весь пункт li */
+    padding: 3px 15px !important;
+    color: #fff !important; /* цвет текста */
+    text-decoration: none; /* убрать нижнее подчёркивание у ссылок */
+    font: 100%/1.4em "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+.leftMenu a:hover {
+    background: rgb(96,145,172) !important; /* фон пунктов при наведении */
+}

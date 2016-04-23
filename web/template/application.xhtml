@@ -9,8 +9,14 @@
     <title><ui:insert name="title"></ui:insert></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/menu.css"/>
 </h:head>
 <h:body>
+
+    <ui:insert name="headerMenu" >
+        <ui:include src="/menu/headerMenu.xhtml" />
+    </ui:insert>
+
     <h:form id = "mainForm">
         <ui:insert name="body"></ui:insert>
     </h:form>

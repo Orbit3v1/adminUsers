@@ -31,7 +31,7 @@ textarea, input[type="text"], input[type="password"], select {
     font-size: 14px !important;
 }
 
-.rf-pick-opt{
+.rf-pick-opt {
     font-size: 14px !important;
 }
 
@@ -41,4 +41,8 @@ textarea, input[type="text"], input[type="password"], select {
 
 .error {
     color: #ff0000 !important;
+}
+
+hr {
+    width: 100%;
 }

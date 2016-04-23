@@ -21,6 +21,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"personList.title", "Список пользователей"},
             {"personScreen.title", "Пользователь"},
+            {"personScreen.editText", "Редактирование"},
+            {"personScreen.addText", "Добавление"},
             {"personScreen.roles.available", "Доступно"},
             {"personScreen.roles.selected", "Выбрано"},
             {"personScreen.error.title", "Неверные данные"},
@@ -37,5 +39,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"pickList.removeControlLabel", "Удалить"},
 
             {"table.edit", "-"},
+
+            {"menu.header.admin", "Администрирование"},
+            {"menu.header.graphic", "Графики"},
+            {"menu.header.home", "Вход"},
     };
 }
