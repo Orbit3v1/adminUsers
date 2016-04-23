@@ -19,7 +19,12 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personEntity.active", "Активен"},
             {"personEntity.roles", "Список ролей"},
 
+            {"roleEntity.id", "Id"},
+            {"roleEntity.name", "Имя"},
+            {"roleEntity.description", "Описание"},
+
             {"personList.title", "Список пользователей"},
+
             {"personScreen.title", "Пользователь"},
             {"personScreen.editText", "Редактирование"},
             {"personScreen.addText", "Добавление"},
@@ -27,6 +32,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personScreen.roles.selected", "Выбрано"},
             {"personScreen.error.title", "Неверные данные"},
             {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
+
+            {"roleList.title", "Список ролей"},
 
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},
@@ -43,5 +50,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},
             {"menu.header.home", "Вход"},
+
+            {"menu.admin.user", "Пользователи"},
+            {"menu.admin.role", "Роли"},
     };
 }

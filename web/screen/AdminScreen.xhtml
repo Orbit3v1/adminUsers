@@ -11,11 +11,8 @@
 
     <ui:define name="body">
         <ul id="menu" class="leftMenu">
-            <li><h:link id="home" value="#{messages.getString('menu.header.home')}" outcome="/index"/></li>
-            <li><h:link id="graphic" value="#{messages.getString('menu.header.graphic')}" outcome="/screen/GraphicScreen"/></li>
-            <li><h:link id="admin" value="#{messages.getString('menu.header.admin')}" outcome="/screen/AdminScreen"/></li>
-            <li><a href="#3">Пункт 4</a></li>
-            <li><a href="#4">Пункт 5</a></li>
+            <li><h:link id="user" value="#{messages.getString('menu.admin.user')}" outcome="/list/PersonList"/></li>
+            <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"/></li>
         </ul>
     </ui:define>
 

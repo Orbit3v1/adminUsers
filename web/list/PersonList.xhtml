@@ -15,6 +15,8 @@
 
     <ui:define name="body">
 
+            <h:outputText value="#{messages.getString('menu.admin.user')}" styleClass="listTitle"/>
+            <br/>
             <a4j:commandButton value="#{messages.getString('button.add')}" action="#{personScreen.newPerson}"/>
 
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}" rowClasses="odd-row, even-row">

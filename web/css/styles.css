@@ -46,3 +46,9 @@ textarea, input[type="text"], input[type="password"], select {
 hr {
     width: 100%;
 }
+
+.listTitle {
+    font-size: 20px; !important;
+    font-weight: bold; !important;
+    margin: 3px !important;
+}
