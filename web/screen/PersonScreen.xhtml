@@ -41,7 +41,7 @@
             <h:message for="login" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.password')}" for="password"/>
-            <h:inputText id="password" value="#{personScreen.person.password}"/>
+            <h:inputSecret id="password" value="#{personScreen.person.password}"/>
             <h:message for="password" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>

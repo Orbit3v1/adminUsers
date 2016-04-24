@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 @Named("roleScreen")
 @Scope("session")
@@ -55,10 +56,11 @@ public class RoleScreen {
     }
 
     public String saveAndExit() {
-        return save() ? exit() : "";
+        save();
+        return valid ? exit() : "";
     }
 
-    public boolean save(){
+    public void save(){
         validate();
         if (valid) {
             EntityManager em = entityManagerFactory.createEntityManager();
@@ -73,14 +75,10 @@ public class RoleScreen {
             if(!edit){
                 edit = true;
             }
-
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("roleScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-//            valid = true;
-            return false;
         }
-        return true;
     }
 
     private void validate(){
@@ -89,19 +87,26 @@ public class RoleScreen {
 
     private boolean isValidId(){
         boolean valid = true;
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9_-]+");
+        String errorMessage = "";
         if(role.getId().equals("")){
             valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:id", facesMessage);
+            errorMessage = resourceBundle.getString("error.notNull");
+        } else if(pattern.matcher(role.getId()).find()){
+            valid = false;
+            errorMessage = resourceBundle.getString("roleScreen.error.idPattern");
         } else if(!edit) {
             EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Role r where r.id = :id")
                     .setParameter("id", role.getId());
             if (query.getResultList().size() != 0) {
                 valid = false;
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "idDuplicate", resourceBundle.getString("roleScreen.error.idDuplicate"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:id", facesMessage);
+                errorMessage = resourceBundle.getString("roleScreen.error.idDuplicate");
             }
+        }
+        if(!valid){
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
+            FacesContext.getCurrentInstance().addMessage("mainForm:id", facesMessage);
         }
         return valid;
     }

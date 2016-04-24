@@ -46,6 +46,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"roleScreen.error.title", "Неверные данные"},
             {"roleScreen.error.idDuplicate", "Такой же id есть у другой роли"},
             {"roleScreen.error.nameDuplicate", "Такое же имя есть у другой роли"},
+            {"roleScreen.error.idPattern", "Допустимы только буквы латинского алфавита, цифры или символы _-"},
             {"roleScreen.success.save", "Роль успешно создана"},
             {"roleScreen.success.edit", "Роль успешно изменена"},
 

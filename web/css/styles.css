@@ -18,9 +18,17 @@ button, input[type="reset"], input[type="submit"], input[type="button"] {
     margin: 3px !important;
 }
 
-textarea, input[type="text"], input[type="password"], select {
+input[type="text"], input[type="password"], select {
     font-size: 14px !important;
     margin: 3px !important;
+    width: 180px !important;
+}
+
+textarea{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 176px !important;
 }
 
 .rf-dt-shdr-c {

@@ -1,6 +1,7 @@
 package screen;
 
 import entity.*;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
 import utils.SessionUtil;
 
@@ -30,6 +31,7 @@ public class PersonScreen {
     private boolean valid = true;
     private boolean edit;
     private List<Role> roleSourceList;
+    private String oldPassword;
 
     @PostConstruct
     public void init() {
@@ -42,6 +44,7 @@ public class PersonScreen {
     public String editPerson(Person person) {
         edit = true;
         this.person = person;
+        oldPassword = person.getPassword();
         return "editPerson";
     }
 
@@ -67,6 +70,7 @@ public class PersonScreen {
     public boolean save(){
         validate();
         if (valid) {
+            passwordCode();
             EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
             person = em.merge(person);
@@ -86,6 +90,13 @@ public class PersonScreen {
             return false;
         }
         return true;
+    }
+
+    private void passwordCode(){
+        if(!person.getPassword().equals("")) {
+            oldPassword = DigestUtils.md5Hex(person.getPassword());
+        }
+        person.setPassword(oldPassword);
     }
 
     private void validate(){
@@ -128,7 +139,7 @@ public class PersonScreen {
 
     private boolean isValidPassword(){
         boolean valid = true;
-        if(person.getPassword().equals("")){
+        if(person.getPassword().equals("") && !edit){
             valid = false;
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
             FacesContext.getCurrentInstance().addMessage("mainForm:password", facesMessage);
