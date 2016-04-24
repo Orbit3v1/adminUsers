@@ -29,13 +29,20 @@
             <h:message for="lastName" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"/>
-            <h:inputText id="firstName" value="#{personScreen.person.firstName}"
-                         validator="#{personScreen.validateName}"/>
+            <h:inputText id="firstName" value="#{personScreen.person.firstName}"/>
             <h:message for="firstName" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
-            <h:inputText id="email" value="#{personScreen.person.email}" validator="#{personScreen.validateEmail}"/>
+            <h:inputText id="email" value="#{personScreen.person.email}"/>
             <h:message for="email" errorClass="error"/>
+
+            <h:outputLabel value="#{messages.getString('personEntity.login')}" for="login"/>
+            <h:inputText id="login" value="#{personScreen.person.login}"/>
+            <h:message for="login" errorClass="error"/>
+
+            <h:outputLabel value="#{messages.getString('personEntity.password')}" for="password"/>
+            <h:inputText id="password" value="#{personScreen.person.password}"/>
+            <h:message for="password" errorClass="error"/>
 
             <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>
             <h:selectBooleanCheckbox id="active" value="#{personScreen.person.active}"/>

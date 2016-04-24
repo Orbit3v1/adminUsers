@@ -26,6 +26,12 @@ public class Person extends AbstractVersionedEntity{
     @Type(type = "yes_no")
     private boolean active = true;
 
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "password")
+    private String password;
+
     @ManyToMany
     @JoinTable(name = "person_role",
         joinColumns = @JoinColumn(name = "person"),
@@ -96,5 +102,21 @@ public class Person extends AbstractVersionedEntity{
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

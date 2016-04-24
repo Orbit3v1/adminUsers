@@ -18,6 +18,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personEntity.email", "Email"},
             {"personEntity.active", "Активен"},
             {"personEntity.roles", "Список ролей"},
+            {"personEntity.login", "Логин"},
+            {"personEntity.password", "Пароль"},
 
             {"roleEntity.id", "Id"},
             {"roleEntity.name", "Имя"},
@@ -32,6 +34,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personScreen.roles.selected", "Выбрано"},
             {"personScreen.error.title", "Неверные данные"},
             {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
+            {"personScreen.error.loginDuplicate", "Такой же логин есть у другого пользователя"},
             {"personScreen.success.save", "Пользователь успешно создан"},
             {"personScreen.success.edit", "Пользователь успешно изменен"},
 
@@ -41,7 +44,10 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"roleScreen.editText", "Редактирование роли"},
             {"roleScreen.addText", "Добавление роли"},
             {"roleScreen.error.title", "Неверные данные"},
-//            {"roleScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
+            {"roleScreen.error.idDuplicate", "Такой же id есть у другой роли"},
+            {"roleScreen.error.nameDuplicate", "Такое же имя есть у другой роли"},
+            {"roleScreen.success.save", "Роль успешно создана"},
+            {"roleScreen.success.edit", "Роль успешно изменена"},
 
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},
@@ -54,6 +60,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"pickList.removeControlLabel", "Удалить"},
 
             {"table.edit", "-"},
+
+            {"error.notNull", "Поле не может быть пустым"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},

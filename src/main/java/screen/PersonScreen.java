@@ -65,8 +65,8 @@ public class PersonScreen {
     }
 
     public boolean save(){
+        validate();
         if (valid) {
-            replaceEmptyToNull();
             EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
             person = em.merge(person);
@@ -79,7 +79,6 @@ public class PersonScreen {
             if(!edit){
                 edit = true;
             }
-
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
@@ -89,31 +88,52 @@ public class PersonScreen {
         return true;
     }
 
-    private void replaceEmptyToNull(){
-        if(person.getEmail().equals("")){
-            person.setEmail(null);
-        }
+    private void validate(){
+        valid = isValidEmail() & isValidLogin() & isValidPassword();
     }
 
-    public void validateEmail(FacesContext context, UIComponent toValidate, Object value) {
-
+    private boolean isValidEmail(){
+        boolean valid = true;
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Person p where p.email = :email and p.id != :id")
-                .setParameter("email", value)
+                .setParameter("email", person.getEmail())
                 .setParameter("id", person.getId());
-        List<Person> persons = query.getResultList();
-        if (persons.size() != 0) {
+        if (query.getResultList().size() != 0) {
             valid = false;
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "emailDuplicate", resourceBundle.getString("personScreen.error.emailDuplicate"));
-            context.addMessage(toValidate.getClientId(context), facesMessage);
+            FacesContext.getCurrentInstance().addMessage("mainForm:email", facesMessage);
         }
+        return valid;
     }
 
-    public void validateName(FacesContext context, UIComponent toValidate, Object value) {
-        if(value.equals("1")){
+    private boolean isValidLogin(){
+        boolean valid = true;
+        if(person.getLogin().equals("")){
             valid = false;
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Wrong name"));
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
+            FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
+        } else {
+            EntityManager em = entityManagerFactory.createEntityManager();
+            Query query = em.createQuery("select p from Person p where p.email = :login and p.id != :id")
+                    .setParameter("login", person.getLogin())
+                    .setParameter("id", person.getId());
+            if (query.getResultList().size() != 0) {
+                valid = false;
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "loginDuplicate", resourceBundle.getString("personScreen.error.loginDuplicate"));
+                FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
+            }
         }
+        return valid;
+    }
+
+    private boolean isValidPassword(){
+        boolean valid = true;
+        if(person.getPassword().equals("")){
+            valid = false;
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
+            FacesContext.getCurrentInstance().addMessage("mainForm:password", facesMessage);
+        }
+        return valid;
     }
 
     public Person getPerson() {

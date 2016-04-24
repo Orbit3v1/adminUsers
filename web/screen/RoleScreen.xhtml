@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-</html>
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('roleScreen.title')}"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+
+
+    <ui:define name="body">
+        <h:outputText style="font-size: 16px; font-weight: bold"
+                      value="#{roleScreen.edit ? messages.getString('roleScreen.editText') : messages.getString('roleScreen.addText')}"/>
+
+        <HR/>
+
+        <h:message for="panel" infoClass="info" errorClass="error"/>
+        <h:panelGrid id="panel" columns="3">
+
+            <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id"/>
+            <h:inputText id="id" value="#{roleScreen.role.id}" disabled="#{roleScreen.edit}"/>
+            <h:message for="id" errorClass="error"/>
+
+            <h:outputLabel value="#{messages.getString('roleEntity.name')}" for="name"/>
+            <h:inputText id="name" value="#{roleScreen.role.name}"/>
+            <h:message for="name" errorClass="error"/>
+
+            <h:outputLabel value="#{messages.getString('roleEntity.description')}" for="description"/>
+            <h:inputText id="description" value="#{roleScreen.role.description}"/>
+            <h:message for="description" errorClass="error"/>
+
+        </h:panelGrid>
+
+        <HR/>
+
+        <!--<p>-->
+            <!--<h:outputLabel value="#{messages.getString('personEntity.roles')}" for="roles"/>-->
+        <!--</p>-->
+
+        <!--<HR/>-->
+
+        <p>
+            <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{roleScreen.saveAndExit}"
+                               render="mainForm"/>
+            <a4j:commandButton value="#{messages.getString('button.save')}" action="#{roleScreen.saveOnly}"
+                               render="mainForm"/>
+            <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{roleScreen.exit}"/>
+        </p>
+    </ui:define>
+</ui:composition>
