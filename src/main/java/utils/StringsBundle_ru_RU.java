@@ -59,6 +59,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.save", "Сохранить"},
             {"button.saveAndExit", "Сохранить и выйти"},
             {"button.delete", "Удалить"},
+            {"button.delete.message", "Вы действительно хотите удалить запись?"},
 
             {"pickList.copyAllControlLabel", "Добавить все"},
             {"pickList.copyControlLabel", "Добавить"},
