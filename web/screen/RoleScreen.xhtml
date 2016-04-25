@@ -40,20 +40,24 @@
 
         <HR/>
 
-        <rich:dataTable id="persons" value="#{roleScreen.privilegeRows}" var="row"  rowClasses="odd-row, even-row">
-            <rich:column>
-                <f:facet name="header">#{messages.getString('roleScreen.privilege.name')}</f:facet>
-                <h:outputText value="#{row.privilege.name}"/>
-            </rich:column>
-            <rich:column style="text-align: center">
-                <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
-                <h:selectBooleanCheckbox value="#{row.readSelected}" disabled="#{!row.readAvailable}"/>
-            </rich:column>
-            <rich:column style="text-align: center">
-                <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
-                <h:selectBooleanCheckbox value="#{row.writeSelected}" disabled="#{!row.writeAvailable}"/>
-            </rich:column>
-        </rich:dataTable>
+        <rich:collapsiblePanel header="#{messages.getString('roleScreen.table.privilege')}" switchType="ajax" expanded="false">
+            <rich:dataTable id="persons" value="#{roleScreen.privilegeRows}" var="row"  rowClasses="odd-row, even-row">
+                <rich:column>
+                    <f:facet name="header">#{messages.getString('roleScreen.privilege.name')}</f:facet>
+                    <h:outputText value="#{row.privilege.name}"/>
+                </rich:column>
+                <rich:column style="text-align: center">
+                    <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
+                    <h:selectBooleanCheckbox value="#{row.readSelected}" disabled="#{!row.readAvailable}"/>
+                </rich:column>
+                <rich:column style="text-align: center">
+                    <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
+                    <h:selectBooleanCheckbox value="#{row.writeSelected}" disabled="#{!row.writeAvailable}"/>
+                </rich:column>
+            </rich:dataTable>
+        </rich:collapsiblePanel>
+
+        <HR/>
 
         <p>
             <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{roleScreen.saveAndExit}"

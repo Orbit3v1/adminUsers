@@ -47,6 +47,10 @@ textarea{
     margin: 3px !important;
 }
 
+.rf-cp-lbl-exp{
+    font-size: 14px !important;
+}
+
 .error {
     color: #ff0000 !important;
 }
