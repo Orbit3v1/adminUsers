@@ -70,6 +70,15 @@ public class RoleScreen {
         return valid ? exit() : "";
     }
 
+    public String delete(){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.remove(em.merge(role));
+        em.getTransaction().commit();
+        em.close();
+        return exit();
+    }
+
     public void save() {
         validate();
         if (valid) {
@@ -162,7 +171,7 @@ public class RoleScreen {
         Query query = em.createQuery("select r from Privilege r order by r.name");
         List<Privilege> privileges = query.getResultList();
 
-        privilegeRows = new ArrayList<PrivilegeRow>();
+        privilegeRows = new ArrayList<>();
         for (Privilege privilege : privileges) {
             privilegeRows.add(new PrivilegeRow(privilege, hasAction(privilege, READ), hasAction(privilege, WRITE)
                     , isAvailable(privilege, READ), isAvailable(privilege, WRITE)));

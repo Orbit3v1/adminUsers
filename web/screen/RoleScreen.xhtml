@@ -65,6 +65,7 @@
             <a4j:commandButton value="#{messages.getString('button.save')}" action="#{roleScreen.saveOnly}"
                                render="mainForm"/>
             <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{roleScreen.exit}"/>
+            <a4j:commandButton value="#{messages.getString('button.delete')}" action="#{roleScreen.delete}" disabled="#{!roleScreen.edit}"/>
         </p>
     </ui:define>
 </ui:composition>

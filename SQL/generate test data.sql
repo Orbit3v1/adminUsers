@@ -10,3 +10,13 @@ insert into privilege_action(privilege, action) values('TEST_P', 'WRITE');
 insert into privilege_action(privilege, action) values('TEST_P', 'READ');
 
 insert into role_privilege_action(role, privilege, action) values('TEST_R', 'TEST_P', 'WRITE');
+
+insert into privilege(id, name, description) values('TEST_P2', 'Test privilege2', '');
+insert into privilege(id, name, description) values('TEST_P3', 'Test privilege3', '');
+insert into privilege(id, name, description) values('TEST_P4', 'Test privilege4', '');
+
+
+insert into privilege_action(privilege, action) values('TEST_P2', 'WRITE');
+insert into privilege_action(privilege, action) values('TEST_P2', 'READ');
+insert into privilege_action(privilege, action) values('TEST_P3', 'WRITE');
+insert into privilege_action(privilege, action) values('TEST_P4', 'READ');
