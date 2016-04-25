@@ -24,6 +24,13 @@ public class Privilege {
         this.description = description;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass() && id != null)
+                ? id.equals(((Privilege) obj).id)
+                : (obj == this);
+    }
+
     public String getId() {
         return id;
     }

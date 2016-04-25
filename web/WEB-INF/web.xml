@@ -26,14 +26,14 @@
     </servlet-mapping>
 
     <!--TODO not work, have to recognise empty strings as null from jsf-->
-    <context-param>
-        <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
-        <param-value>true</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>-->
+        <!--<param-value>true</param-value>-->
+    <!--</context-param>-->
 
-    <context-param>
-        <param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
-        <param-value>true</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>-->
+        <!--<param-value>true</param-value>-->
+    <!--</context-param>-->
 
 </web-app>

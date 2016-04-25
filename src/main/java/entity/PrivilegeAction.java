@@ -24,6 +24,13 @@ public class PrivilegeAction {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass() && id != null)
+                ? id.equals(((PrivilegeAction) obj).id)
+                : (obj == this);
+    }
+
     public PrivilegeActionId getId() {
         return id;
     }
