@@ -2,13 +2,17 @@ package utils;
 
 import entity.Person;
 import entity.PrivilegeAction;
+import entity.PrivilegeActionId;
 import entity.Role;
 import org.hibernate.mapping.Collection;
+import org.springframework.context.annotation.Scope;
 
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 
 public class Security {
 
@@ -28,6 +32,7 @@ public class Security {
         }
         return false;
     }
+
 }
 
 
