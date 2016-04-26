@@ -13,16 +13,16 @@ import java.util.*;
 
 public class Security {
 
-    public static Person getCurrentUser(){
+    public static Person getCurrentUser() {
         return (Person) SessionUtil.getSessionVariable("user");
     }
 
-    public static boolean hasAnyPrivilegeAction(PrivilegeAction ... privs){
+    public static boolean hasAnyPrivilegeAction(PrivilegeAction... privs) {
         Person user = getCurrentUser();
         List<PrivilegeAction> privilegeActions = Arrays.asList(privs);
-        if(user != null){
-            for(Role role : user.getRoles()){
-                if(!Collections.disjoint(role.getPrivilegeAction(), privilegeActions)){
+        if (user != null) {
+            for (Role role : user.getRoles()) {
+                if (!Collections.disjoint(role.getPrivilegeAction(), privilegeActions)) {
                     return true;
                 }
             }
@@ -30,14 +30,20 @@ public class Security {
         return false;
     }
 
-    public static Map<String, Boolean> getUserPrivilegeAction(String screenName){
+    public static Map<String, Boolean> getUserPrivilegeAction(String screenName) {
         Map<String, Boolean> userPA = new HashMap<>();
-        switch (screenName){
-            case("headerMenu"):
+        switch (screenName) {
+            case ("headerMenu"):
                 addUserPA(userPA, "graphMenu", "READ");
                 addUserPA(userPA, "adminMenu", "READ");
                 break;
-            case("personScreen"):
+            case ("personScreen"):
+                userPA.put("activeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personActive", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
+
+
                 addUserPA(userPA, "personActive", "READ");
                 addUserPA(userPA, "personDelete", "READ");
                 addUserPA(userPA, "personDelete", "WRITE");
@@ -50,7 +56,7 @@ public class Security {
                 addUserPA(userPA, "personPassword", "READ");
                 addUserPA(userPA, "personRoles", "READ");
                 break;
-            case("personList"):
+            case ("personList"):
                 addUserPA(userPA, "personActive", "READ");
                 addUserPA(userPA, "personEdit", "READ");
                 addUserPA(userPA, "personEdit", "WRITE");
@@ -65,7 +71,7 @@ public class Security {
         return userPA;
     }
 
-    private static void addUserPA(Map<String, Boolean> map, String privilegeId, String actionId){
+    private static void addUserPA(Map<String, Boolean> map, String privilegeId, String actionId) {
         String key = privilegeId + "_" + actionId;
         PrivilegeAction pa = new PrivilegeAction(new PrivilegeActionId(privilegeId, actionId));
         map.put(key, hasAnyPrivilegeAction(pa));
