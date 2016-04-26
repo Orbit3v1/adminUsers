@@ -54,12 +54,19 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"roleScreen.success.save", "Роль успешно создана"},
             {"roleScreen.success.edit", "Роль успешно изменена"},
 
+            {"loginScreen.login", "Логин"},
+            {"loginScreen.password", "Пароль"},
+            {"loginScreen.error", "Неверный логин или пароль"},
+            {"loginScreen.inactive", "Ваш пользователь заблокирован"},
+
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},
             {"button.save", "Сохранить"},
             {"button.saveAndExit", "Сохранить и выйти"},
             {"button.delete", "Удалить"},
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
+            {"button.login", "Войти"},
+            {"button.logout", "Выйти"},
 
             {"pickList.copyAllControlLabel", "Добавить все"},
             {"pickList.copyControlLabel", "Добавить"},

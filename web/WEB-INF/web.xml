@@ -25,6 +25,10 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+        <welcome-file>screen/LoginScreen.xhtml</welcome-file>
+    </welcome-file-list>
+
     <!--TODO not work, have to recognise empty strings as null from jsf-->
     <!--<context-param>-->
         <!--<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>-->

@@ -86,7 +86,6 @@ public class PersonScreen {
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-            valid = true;
             return false;
         }
         return true;
