@@ -15,6 +15,9 @@ public class Privilege {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "pos")
+    private int pos;
+
     public Privilege() {
     }
 
@@ -53,5 +56,13 @@ public class Privilege {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 }

@@ -13,11 +13,11 @@
 </h:head>
 <h:body>
 
-    <ui:insert name="headerMenu" >
-        <ui:include src="/menu/headerMenu.xhtml" />
-    </ui:insert>
-
     <h:form id = "mainForm">
+        <ui:insert name="headerMenu" >
+            <ui:include src="/menu/headerMenu.xhtml" />
+        </ui:insert>
+
         <ui:insert name="body"></ui:insert>
     </h:form>
 </h:body>

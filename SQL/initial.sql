@@ -28,7 +28,8 @@ create unique index role_U1 on role(name);
 create table privilege(
   id varchar(50) not null primary key,
   name varchar(50) not null,
-  description varchar(500)
+  description varchar(500),
+  pos int
 );
 
 create unique index privilege_U1 on privilege(name);
@@ -72,9 +73,3 @@ create table role_privilege_action(
 );
 
 create index role_privilege_action_i1 on role_privilege_action(privilege, action);
-
-insert into action(id, name, description)
-values('WRITE', 'Запись', '');
-
-insert into action(id, name, description)
-values('READ', 'Чтение', '');

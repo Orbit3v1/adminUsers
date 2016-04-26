@@ -23,7 +23,7 @@
             </h:panelGrid>
 
             <a4j:commandButton value="#{messages.getString('button.login')}" action="#{loginScreen.login}"
-                               render="mainForm"/>
+                               render="mainForm, menu"/>
         </h:panelGroup>
 
         <h:panelGroup rendered="#{sessionScope.user != null}">
@@ -32,7 +32,7 @@
             <br/>
             <br/>
             <a4j:commandButton value="#{messages.getString('button.logout')}" action="#{loginScreen.logout}"
-                               render="mainForm"/>
+                               render="mainForm, menu"/>
         </h:panelGroup>
 
     </ui:define>

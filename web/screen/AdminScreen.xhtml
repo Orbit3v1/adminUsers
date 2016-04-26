@@ -11,8 +11,10 @@
 
     <ui:define name="body">
         <ul id="menu" class="leftMenu">
-            <li><h:link id="user" value="#{messages.getString('menu.admin.user')}" outcome="/list/PersonList"/></li>
-            <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"/></li>
+            <li><h:link id="user" value="#{messages.getString('menu.admin.user')}" outcome="/list/PersonList"
+                        rendered="#{adminMenu.personRead}"/></li>
+            <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"
+                        rendered="#{adminMenu.roleRead}"/></li>
         </ul>
     </ui:define>
 

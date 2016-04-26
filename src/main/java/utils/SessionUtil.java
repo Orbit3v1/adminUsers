@@ -18,4 +18,8 @@ public class SessionUtil {
     public static void removeSessionVariable(String key){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, null);
     }
+
+    public static Object getSessionVariable(String key){
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+    }
 }

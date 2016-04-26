@@ -168,7 +168,7 @@ public class RoleScreen {
 
     private void initPrivilegeRows() {
         EntityManager em = entityManagerFactory.createEntityManager();
-        Query query = em.createQuery("select r from Privilege r order by r.name");
+        Query query = em.createQuery("select r from Privilege r order by r.pos");
         List<Privilege> privileges = query.getResultList();
 
         privilegeRows = new ArrayList<>();
