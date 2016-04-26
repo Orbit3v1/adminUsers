@@ -17,70 +17,87 @@
 
     <ui:define name="body">
         <h:outputText style="font-size: 18px; font-weight: bold"
-                value="#{personScreen.edit ? messages.getString('personScreen.editText') : messages.getString('personScreen.addText')}"/>
+                      value="#{personScreen.edit ? messages.getString('personScreen.editText') : messages.getString('personScreen.addText')}"/>
 
         <HR/>
 
         <h:message for="panel" infoClass="info" errorClass="error"/>
-        <h:panelGrid id="panel" columns="3">
+        <h:panelGrid id="panel" columns="1">
+            <h:panelGroup rendered="#{personScreen.userPA.personLastName_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.lastName')}" for="lastName" styleClass="personLabel"/>
+                <h:inputText id="lastName" value="#{personScreen.person.lastName}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="lastName" errorClass="error"/>
+            </h:panelGroup>
 
-            <h:outputLabel value="#{messages.getString('personEntity.lastName')}" for="lastName"/>
-            <h:inputText id="lastName" value="#{personScreen.person.lastName}"/>
-            <h:message for="lastName" errorClass="error"/>
+            <h:panelGroup rendered="#{personScreen.userPA.personFirstName_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName" styleClass="personLabel"/>
+                <h:inputText id="firstName" value="#{personScreen.person.firstName}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="firstName" errorClass="error"/>
+            </h:panelGroup>
 
-            <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"/>
-            <h:inputText id="firstName" value="#{personScreen.person.firstName}"/>
-            <h:message for="firstName" errorClass="error"/>
+            <h:panelGroup rendered="#{personScreen.userPA.personEmail_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email" styleClass="personLabel"/>
+                <h:inputText id="email" value="#{personScreen.person.email}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="email" errorClass="error"/>
+            </h:panelGroup>
 
-            <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"/>
-            <h:inputText id="email" value="#{personScreen.person.email}"/>
-            <h:message for="email" errorClass="error"/>
+            <h:panelGroup rendered="#{personScreen.userPA.personLogin_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.login')}" for="login" styleClass="personLabel"/>
+                <h:inputText id="login" value="#{personScreen.person.login}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="login" errorClass="error"/>
+            </h:panelGroup>
 
-            <h:outputLabel value="#{messages.getString('personEntity.login')}" for="login"/>
-            <h:inputText id="login" value="#{personScreen.person.login}"/>
-            <h:message for="login" errorClass="error"/>
+            <h:panelGroup rendered="#{personScreen.userPA.personPassword_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.password')}" for="password" styleClass="personLabel"/>
+                <h:inputSecret id="password" value="#{personScreen.person.password}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="password" errorClass="error"/>
+            </h:panelGroup>
 
-            <h:outputLabel value="#{messages.getString('personEntity.password')}" for="password"/>
-            <h:inputSecret id="password" value="#{personScreen.person.password}"/>
-            <h:message for="password" errorClass="error"/>
-
-            <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"/>
-            <h:selectBooleanCheckbox id="active" value="#{personScreen.person.active}"/>
-            <h:message for="active" errorClass="error"/>
+            <h:panelGroup rendered="#{personScreen.userPA.personActive_READ}">
+                <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active" styleClass="personLabel"/>
+                <h:selectBooleanCheckbox id="active" value="#{personScreen.person.active}" disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
+                <h:message for="active" errorClass="error"/>
+            </h:panelGroup>
 
         </h:panelGrid>
 
         <HR/>
 
-        <p>
-            <h:outputLabel value="#{messages.getString('personEntity.roles')}" for="roles"/>
-        </p>
+        <h:panelGroup rendered="#{personScreen.userPA.personRoles_READ}">
+            <p>
+                <h:outputLabel value="#{messages.getString('personEntity.roles')}" for="roles"/>
+            </p>
 
-        <p>
-            <rich:pickList id="roles"
-                           value="#{personScreen.person.roles}"
-                           converter="#{roleConverter}"
-                           listHeight="160px"
-                           listWidth="200px"
-                           sourceCaption="#{messages.getString('personScreen.roles.available')}"
-                           targetCaption="#{messages.getString('personScreen.roles.selected')}"
-                           copyAllControlLabel="#{messages.getString('pickList.copyAllControlLabel')}"
-                           copyControlLabel="#{messages.getString('pickList.copyControlLabel')}"
-                           removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
-                           removeControlLabel="#{messages.getString('pickList.removeControlLabel')}">
+            <p>
+                <rich:pickList id="roles"
+                               value="#{personScreen.person.roles}"
+                               converter="#{roleConverter}"
+                               listHeight="160px"
+                               listWidth="200px"
+                               sourceCaption="#{messages.getString('personScreen.roles.available')}"
+                               targetCaption="#{messages.getString('personScreen.roles.selected')}"
+                               copyAllControlLabel="#{messages.getString('pickList.copyAllControlLabel')}"
+                               copyControlLabel="#{messages.getString('pickList.copyControlLabel')}"
+                               removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
+                               removeControlLabel="#{messages.getString('pickList.removeControlLabel')}">
 
-                <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}"
-                               itemLabel="#{row.name}"/>
-            </rich:pickList>
-        </p>
+                    <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}"
+                                   itemLabel="#{row.name}"/>
+                </rich:pickList>
+            </p>
+        </h:panelGroup>
 
         <HR/>
 
         <p>
             <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{personScreen.saveAndExit}"
-                               render="mainForm"/>
+                               render="mainForm"
+                               rendered="#{personScreen.userPA.personEdit_READ}"
+                               disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
             <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}"
-                               render="mainForm"/>
+                               render="mainForm"
+                               rendered="#{personScreen.userPA.personEdit_READ}"
+                               disabled="#{!personScreen.userPA.personEdit_WRITE}"/>
             <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
         </p>
     </ui:define>

@@ -68,3 +68,8 @@ hr {
     font-weight: bold; !important;
     margin: 3px !important;
 }
+
+.personLabel{
+    display:inline-block; !important;
+    width: 100px; !important;
+}

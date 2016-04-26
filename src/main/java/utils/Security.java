@@ -8,10 +8,7 @@ import org.hibernate.mapping.Collection;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class Security {
@@ -31,6 +28,47 @@ public class Security {
             }
         }
         return false;
+    }
+
+    public static Map<String, Boolean> getUserPrivilegeAction(String screenName){
+        Map<String, Boolean> userPA = new HashMap<>();
+        switch (screenName){
+            case("headerMenu"):
+                addUserPA(userPA, "graphMenu", "READ");
+                addUserPA(userPA, "adminMenu", "READ");
+                break;
+            case("personScreen"):
+                addUserPA(userPA, "personActive", "READ");
+                addUserPA(userPA, "personDelete", "READ");
+                addUserPA(userPA, "personDelete", "WRITE");
+                addUserPA(userPA, "personEdit", "READ");
+                addUserPA(userPA, "personEdit", "WRITE");
+                addUserPA(userPA, "personEmail", "READ");
+                addUserPA(userPA, "personFirstName", "READ");
+                addUserPA(userPA, "personLastName", "READ");
+                addUserPA(userPA, "personLogin", "READ");
+                addUserPA(userPA, "personPassword", "READ");
+                addUserPA(userPA, "personRoles", "READ");
+                break;
+            case("personList"):
+                addUserPA(userPA, "personActive", "READ");
+                addUserPA(userPA, "personEdit", "READ");
+                addUserPA(userPA, "personEdit", "WRITE");
+                addUserPA(userPA, "personEmail", "READ");
+                addUserPA(userPA, "personFirstName", "READ");
+                addUserPA(userPA, "personLastName", "READ");
+                addUserPA(userPA, "personLogin", "READ");
+                addUserPA(userPA, "personPassword", "READ");
+                addUserPA(userPA, "personRoles", "READ");
+                break;
+        }
+        return userPA;
+    }
+
+    private static void addUserPA(Map<String, Boolean> map, String privilegeId, String actionId){
+        String key = privilegeId + "_" + actionId;
+        PrivilegeAction pa = new PrivilegeAction(new PrivilegeActionId(privilegeId, actionId));
+        map.put(key, hasAnyPrivilegeAction(pa));
     }
 
 }

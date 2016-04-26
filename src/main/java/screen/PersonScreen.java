@@ -3,6 +3,7 @@ package screen;
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
+import utils.Security;
 import utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 @Named("personScreen")
@@ -32,6 +34,7 @@ public class PersonScreen {
     private boolean edit;
     private List<Role> roleSourceList;
     private String oldPassword;
+    private Map<String, Boolean> userPA;
 
     @PostConstruct
     public void init() {
@@ -39,6 +42,7 @@ public class PersonScreen {
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Role r order by r.name");
         roleSourceList = query.getResultList();
+        userPA = Security.getUserPrivilegeAction("personScreen");
     }
 
     public String editPerson(Person person) {
@@ -168,5 +172,13 @@ public class PersonScreen {
 
     public void setEdit(boolean edit) {
         this.edit = edit;
+    }
+
+    public Map<String, Boolean> getUserPA() {
+        return userPA;
+    }
+
+    public void setUserPA(Map<String, Boolean> userPA) {
+        this.userPA = userPA;
     }
 }

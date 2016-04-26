@@ -28,12 +28,12 @@ values('adminMenuRole', 'Админ меню - роли', '', 101);
 insert into privilege_action(privilege, action)
 values('adminMenuRole', 'READ');
 
-insert into privilege(id, name, description, pos)
-values('personAdd', 'Пользователь - добавить', '', 1000);
-insert into privilege_action(privilege, action)
-values('personAdd', 'READ');
-insert into privilege_action(privilege, action)
-values('personAdd', 'WRITE');
+-- insert into privilege(id, name, description, pos)
+-- values('personAdd', 'Пользователь - добавить', '', 1000);
+-- insert into privilege_action(privilege, action)
+-- values('personAdd', 'READ');
+-- insert into privilege_action(privilege, action)
+-- values('personAdd', 'WRITE');
 
 insert into privilege(id, name, description, pos)
 values('personDelete', 'Пользователь - удалить', '', 1001);
