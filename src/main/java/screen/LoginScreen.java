@@ -45,6 +45,7 @@ public class LoginScreen {
         if (persons.size() != 0) {
             Person user = persons.get(0);
             if(user.isActive()){
+                SessionUtil.invalidateSession();
                 SessionUtil.addSessionVariable("user", user);
             } else {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("loginScreen.inactive"));
@@ -60,6 +61,7 @@ public class LoginScreen {
 
     public String logout(){
         SessionUtil.removeSessionVariable("user");
+        SessionUtil.invalidateSession();
         return "";
     }
 

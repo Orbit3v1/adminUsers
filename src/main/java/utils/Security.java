@@ -31,50 +31,189 @@ public class Security {
     }
 
     public static Map<String, Boolean> getUserPrivilegeAction(String screenName) {
+        long startTime = System.currentTimeMillis();
+
         Map<String, Boolean> userPA = new HashMap<>();
         switch (screenName) {
-            case ("headerMenu"):
-                addUserPA(userPA, "graphMenu", "READ");
-                addUserPA(userPA, "adminMenu", "READ");
-                break;
             case ("personScreen"):
-                userPA.put("activeR", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("personActive", "READ")),
+
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personEdit", "READ")))
+                );
+                userPA.put("editW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personEdit", "WRITE")))
+                );
+
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
                 );
 
+                userPA.put("activeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personActive", "READ")))
+                );
+                userPA.put("activeW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personActive", "WRITE")))
+                );
 
-                addUserPA(userPA, "personActive", "READ");
-                addUserPA(userPA, "personDelete", "READ");
-                addUserPA(userPA, "personDelete", "WRITE");
-                addUserPA(userPA, "personEdit", "READ");
-                addUserPA(userPA, "personEdit", "WRITE");
-                addUserPA(userPA, "personEmail", "READ");
-                addUserPA(userPA, "personFirstName", "READ");
-                addUserPA(userPA, "personLastName", "READ");
-                addUserPA(userPA, "personLogin", "READ");
-                addUserPA(userPA, "personPassword", "READ");
-                addUserPA(userPA, "personRoles", "READ");
+                userPA.put("emailR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personEmail", "READ")))
+                );
+                userPA.put("emailW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personEmail", "WRITE")))
+                );
+
+                userPA.put("firstNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personFirstName", "READ")))
+                );
+                userPA.put("firstNameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personFirstName", "WRITE")))
+                );
+
+                userPA.put("lastNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "READ")))
+                );
+                userPA.put("lastNameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "WRITE")))
+                );
+
+                userPA.put("loginR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
+                userPA.put("loginW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "WRITE")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
+
+                userPA.put("passwordR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personPassword", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+
+                );
+                userPA.put("passwordW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personPassword", "WRITE")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
+
+                userPA.put("rolesR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personRoles", "READ")))
+                );
+                userPA.put("rolesW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personRoles", "WRITE")))
+                );
                 break;
+
             case ("personList"):
-                addUserPA(userPA, "personActive", "READ");
-                addUserPA(userPA, "personEdit", "READ");
-                addUserPA(userPA, "personEdit", "WRITE");
-                addUserPA(userPA, "personEmail", "READ");
-                addUserPA(userPA, "personFirstName", "READ");
-                addUserPA(userPA, "personLastName", "READ");
-                addUserPA(userPA, "personLogin", "READ");
-                addUserPA(userPA, "personPassword", "READ");
-                addUserPA(userPA, "personRoles", "READ");
-                break;
-        }
-        return userPA;
-    }
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
 
-    private static void addUserPA(Map<String, Boolean> map, String privilegeId, String actionId) {
-        String key = privilegeId + "_" + actionId;
-        PrivilegeAction pa = new PrivilegeAction(new PrivilegeActionId(privilegeId, actionId));
-        map.put(key, hasAnyPrivilegeAction(pa));
+                userPA.put("activeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personActive", "READ")))
+                );
+
+                userPA.put("emailR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personEmail", "READ")))
+                );
+
+                userPA.put("firstNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personFirstName", "READ")))
+                );
+
+                userPA.put("lastNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "READ")))
+                );
+
+                userPA.put("loginR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personLastName", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("personAdd", "WRITE")))
+                );
+                break;
+            case ("roleList"):
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+
+                userPA.put("idR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleId", "READ")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleName", "READ")))
+                );
+
+                userPA.put("descriptionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleDescription", "READ")))
+                );
+                break;
+            case ("roleScreen"):
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+
+                userPA.put("deleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleDelete", "READ")))
+                );
+                userPA.put("deleteW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleDelete", "WRITE")))
+                );
+
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleEdit", "READ")))
+                );
+                userPA.put("editW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleEdit", "WRITE")))
+                );
+
+                userPA.put("idR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleId", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+                userPA.put("idW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleId", "WRITE")),
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleName", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+                userPA.put("nameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleName", "WRITE")),
+                                new PrivilegeAction(new PrivilegeActionId("roleAdd", "WRITE")))
+                );
+
+                userPA.put("descriptionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleDescription", "READ")))
+                );
+                userPA.put("descriptionW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("roleDescription", "WRITE")))
+                );
+
+                userPA.put("privilegesR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("rolePrivileges", "READ")))
+                );
+                userPA.put("privilegesW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("rolePrivileges", "WRITE")))
+                );
+        }
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("Security Time: " + elapsedTime);
+        return userPA;
     }
 
 }

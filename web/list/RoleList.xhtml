@@ -17,22 +17,24 @@
 
         <h:outputText value="#{messages.getString('menu.admin.role')}" styleClass="listTitle"/>
         <br/>
-        <a4j:commandButton value="#{messages.getString('button.add')}" action="#{roleScreen.newRole}"/>
+        <a4j:commandButton value="#{messages.getString('button.add')}" action="#{roleScreen.newRole}"
+                           rendered="#{roleList.userPA.addR}"
+                           disabled="#{!roleList.userPA.addW}"/>
 
         <rich:dataTable id="persons" value="#{roleList.roles}" var="row" binding="#{table}" rowClasses="odd-row, even-row">
             <rich:column style="text-align: center">
                 <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
                 <a4j:commandButton value="#{table.rowIndex + 1}" action="#{roleScreen.editRole(row)}"/>
             </rich:column>
-            <rich:column>
+            <rich:column rendered="#{roleList.userPA.idR}">
                 <f:facet name="header">#{messages.getString('roleEntity.id')}</f:facet>
                 <h:outputText value="#{row.id}"/>
             </rich:column>
-            <rich:column>
+            <rich:column rendered="#{roleList.userPA.nameR}">
                 <f:facet name="header">#{messages.getString('roleEntity.name')}</f:facet>
                 <h:outputText value="#{row.name}"/>
             </rich:column>
-            <rich:column>
+            <rich:column rendered="#{roleList.userPA.descriptionR}">
                 <f:facet name="header">#{messages.getString('roleEntity.description')}</f:facet>
                 <h:outputText value="#{row.description}"/>
             </rich:column>>

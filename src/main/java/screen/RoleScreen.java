@@ -5,6 +5,7 @@ import entity.PrivilegeAction;
 import entity.PrivilegeActionId;
 import entity.Role;
 import org.springframework.context.annotation.Scope;
+import utils.Security;
 import utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +27,8 @@ public class RoleScreen {
     @Inject
     ResourceBundle resourceBundle;
 
+    private Map<String, Boolean> userPA;
+
     private Role role;
     private boolean valid = true;
     private boolean edit;
@@ -43,6 +46,7 @@ public class RoleScreen {
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
+        userPA = Security.getUserPrivilegeAction("roleScreen");
     }
 
     public String editRole(Role role) {
@@ -220,6 +224,14 @@ public class RoleScreen {
         this.edit = edit;
     }
 
+    public Map<String, Boolean> getUserPA() {
+        return userPA;
+    }
+
+    public void setUserPA(Map<String, Boolean> userPA) {
+        this.userPA = userPA;
+    }
+
     public class PrivilegeRow {
 
         private Privilege privilege;
@@ -272,6 +284,7 @@ public class RoleScreen {
         public void setWriteAvailable(boolean writeAvailable) {
             this.writeAvailable = writeAvailable;
         }
+
     }
 
 }

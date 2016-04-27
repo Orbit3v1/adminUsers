@@ -84,9 +84,7 @@ public class PersonScreen {
             String message = edit ? resourceBundle.getString("personScreen.success.edit") : resourceBundle.getString("personScreen.success.save");
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-            if(!edit){
-                edit = true;
-            }
+            edit = true;
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
