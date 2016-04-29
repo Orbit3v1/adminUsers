@@ -76,6 +76,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"table.edit", "-"},
 
             {"error.notNull", "Поле не может быть пустым"},
+            {"error.pageNotFound", "Страница не найдена"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},

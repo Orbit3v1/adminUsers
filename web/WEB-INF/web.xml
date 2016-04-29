@@ -43,6 +43,16 @@
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/NotFound.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/NotFound.xhtml</location>
+    </error-page>
+
     <!--TODO not work, have to recognise empty strings as null from jsf-->
     <!--<context-param>-->
         <!--<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>-->
