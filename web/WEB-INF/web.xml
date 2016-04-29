@@ -29,6 +29,20 @@
         <welcome-file>screen/LoginScreen.xhtml</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>web.LoginFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/screen/*</url-pattern>
+        <url-pattern>/list/*</url-pattern>
+
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
     <!--TODO not work, have to recognise empty strings as null from jsf-->
     <!--<context-param>-->
         <!--<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>-->

@@ -1,3 +1,4 @@
+--2
 insert into action(id, name, description)
 values('WRITE', 'Запись', '');
 

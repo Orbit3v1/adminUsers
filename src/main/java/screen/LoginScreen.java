@@ -80,4 +80,5 @@ public class LoginScreen {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

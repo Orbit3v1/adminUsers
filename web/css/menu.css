@@ -3,7 +3,7 @@
     padding: 0;
 }
 .headerMenu {
-    background: rgb(46,95,122) !important;
+    background: #000080 !important;
 }
 .headerMenu li {
     display: inline-block;
@@ -17,7 +17,7 @@
     font: 20px "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 .headerMenu a:hover {
-    background: rgb(96,145,172) !important;
+    background: #6495ED !important;
 }
 
 .leftMenu, .leftMenu li {
