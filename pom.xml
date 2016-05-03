@@ -8,10 +8,24 @@
     <artifactId>adminUsers</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <spring.version>3.1.2.RELEASE</spring.version>
+        <spring.version>4.2.5.RELEASE</spring.version>
         <richfaces.version>4.3.7.Final</richfaces.version>
         <hibernate.version>4.1.9.Final</hibernate.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!-- Spring framework -->
@@ -24,6 +38,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -139,10 +159,18 @@
             <version>${richfaces.version}</version>
         </dependency>
 
+        <!--MD5 coder-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
+        </dependency>
+
+        <!--mail service-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
         </dependency>
     </dependencies>
 
