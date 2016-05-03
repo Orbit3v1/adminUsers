@@ -9,14 +9,19 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
 
-    <ui:define name="body">
-        <ul id="menu" class="leftMenu">
-            <li><h:link id="user" value="#{messages.getString('menu.admin.user')}" outcome="/list/PersonList"
-                        rendered="#{adminMenu.personRead}"/></li>
-            <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"
-                        rendered="#{adminMenu.roleRead}"/></li>
-            <li><h:link id="test" value="Тест" outcome="/screen/TestScreen"/></li>
-        </ul>
+    <ui:define name="title">
+        <h:outputText value="Тест"/>
     </ui:define>
+    <ui:define name="headerMenu"/>
 
+
+    <ui:define name="body">
+        <h:outputText style="font-size: 18px; font-weight: bold"
+                      value="Тестовый экран"/>
+
+        <HR/>
+
+        <h:commandButton id="sendEmail" value="Send emial" action="#{testScreen.sendEmail()}"/>
+
+    </ui:define>
 </ui:composition>

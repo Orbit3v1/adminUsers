@@ -23,21 +23,20 @@
         <constructor-arg index="1" ref="locale"/>
     </bean>
 
-    <!--<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">-->
-        <!--<property name="host" value="smtp.gmail.com" />-->
-        <!--<property name="port" value="587" />-->
-        <!--<property name="username" value="&lt;!&ndash; Provide your Gmail ID &ndash;&gt;" />-->
-		<!--<property name="password" value="&lt;!&ndash; Provide your Gmail Password &ndash;&gt;" />-->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="orbit3v1@gmail.com" />
+		<property name="password" value="password" />
 
-		<!--&lt;!&ndash; The name of the property, following JavaBean naming conventions &ndash;&gt;-->
-		<!--<property name="javaMailProperties">-->
-        <!--<props>-->
-            <!--<prop key="mail.transport.protocol">smtp</prop>-->
-            <!--<prop key="mail.smtp.auth">true</prop>-->
-            <!--<prop key="mail.smtp.starttls.enable">true</prop>-->
-            <!--<prop key="mail.debug">true</prop>-->
-        <!--</props>-->
-    <!--</property>-->
-    <!--</bean>-->
+		<property name="javaMailProperties">
+        <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+        </props>
+    </property>
+    </bean>
 
 </beans>
