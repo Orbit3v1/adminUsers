@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -68,29 +69,38 @@ public class PersonScreen {
     }
 
     public String saveAndExit() {
-        return save() ? exit() : "";
+        save();
+        return valid ? exit() : "";
     }
 
-    public boolean save(){
+    public void save(){
         validate();
         if (valid) {
             passwordCode();
-            EntityManager em = entityManagerFactory.createEntityManager();
-            em.getTransaction().begin();
-            person = em.merge(person);
-            em.getTransaction().commit();
-            em.close();
+            try {
+                EntityManager em = entityManagerFactory.createEntityManager();
+                em.getTransaction().begin();
+                person = em.merge(person);
+                em.getTransaction().commit();
+                em.close();
 
-            String message = edit ? resourceBundle.getString("personScreen.success.edit") : resourceBundle.getString("personScreen.success.save");
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
-            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-            edit = true;
+                String message = edit ? resourceBundle.getString("personScreen.success.edit") : resourceBundle.getString("personScreen.success.save");
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                edit = true;
+            } catch (OptimisticLockException e){
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.entityWasChanged"));
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                valid = false;
+            } catch (Exception e){
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.exception"));
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                valid = false;
+            }
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-            return false;
         }
-        return true;
     }
 
     private void passwordCode(){

@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.Query;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -86,17 +87,27 @@ public class RoleScreen {
     public void save() {
         validate();
         if (valid) {
-            savePrivileges();
-            EntityManager em = entityManagerFactory.createEntityManager();
-            em.getTransaction().begin();
-            role = em.merge(role);
-            em.getTransaction().commit();
-            em.close();
+            try {
+                savePrivileges();
+                EntityManager em = entityManagerFactory.createEntityManager();
+                em.getTransaction().begin();
+                role = em.merge(role);
+                em.getTransaction().commit();
+                em.close();
 
-            String message = edit ? resourceBundle.getString("roleScreen.success.edit") : resourceBundle.getString("roleScreen.success.save");
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
-            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-            edit = true;
+                String message = edit ? resourceBundle.getString("roleScreen.success.edit") : resourceBundle.getString("roleScreen.success.save");
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                edit = true;
+            } catch (OptimisticLockException e){
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.entityWasChanged"));
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                valid = false;
+            } catch (Exception e){
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.exception"));
+                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                valid = false;
+            }
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("roleScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);

@@ -77,6 +77,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"error.notNull", "Поле не может быть пустым"},
             {"error.pageNotFound", "Страница не найдена"},
+            {"error.entityWasChanged", "Запись была удалена или изменена другим пользователем"},
+            {"error.exception", "Ошибка приложения"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},
