@@ -12,12 +12,10 @@
     <ui:define name="title">
         <h:outputText value="Тест"/>
     </ui:define>
-    <ui:define name="headerMenu"/>
 
 
     <ui:define name="body">
-        <h:outputText style="font-size: 18px; font-weight: bold"
-                      value="Тестовый экран"/>
+        <h:outputText style="font-size: 18px; font-weight: bold" value="Тестовый экран"/>
 
         <HR/>
 
@@ -27,17 +25,12 @@
         <HR/>
 
         <h:outputText value="Загрузка файла"/>
-        <h:commandButton value="Add File">
-            <rich:componentControl target="uploadPanel" operation="show" />
-        </h:commandButton>
 
-        <rich:popupPanel id="uploadPanel" modal="true" width="500" height="400" movable="false" onmaskclick="#{rich:component('uploadPanel')}.hide()">
 
-            <rich:fileUpload fileUploadListener="#{testScreen.listener}" id="upload" >
-                <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
-            </rich:fileUpload>
-            <h:commandButton value="Close" onclick="#{rich:component('uploadPanel')}.hide()"/>
-        </rich:popupPanel>
+        <rich:fileUpload fileUploadListener="#{testScreen.listener}" id="upload" >
+            <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
+        </rich:fileUpload>
+
 
 
         <rich:dataTable id="attachments" value="#{testScreen.attachments}" var="row" binding="#{table}"
@@ -48,7 +41,8 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">Name</f:facet>
-                <h:outputText value="#{row.name}"/>
+                <h:commandLink value="#{row.name}" action="#{testScreen.download(row)}"/>
+                <!--<h:outputText value="#{row.name}"/>-->
             </rich:column>
             <rich:column>
                 <f:facet name="header">Size</f:facet>
