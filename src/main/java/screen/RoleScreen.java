@@ -7,6 +7,7 @@ import entity.Role;
 import org.springframework.context.annotation.Scope;
 import utils.Security;
 import utils.SessionUtil;
+import validator.RoleValidator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,6 +28,8 @@ public class RoleScreen {
     private EntityManagerFactory entityManagerFactory;
     @Inject
     ResourceBundle resourceBundle;
+    @Inject
+    RoleValidator validator;
 
     private Map<String, Boolean> userPA;
 
@@ -72,8 +75,7 @@ public class RoleScreen {
     }
 
     public String saveAndExit() {
-        save();
-        return valid ? exit() : "";
+        return save() ? exit() : "";
     }
 
     public String delete(){
@@ -85,9 +87,8 @@ public class RoleScreen {
         return exit();
     }
 
-    public void save() {
-        validate();
-        if (valid) {
+    public boolean save() {
+        if (validate()) {
             try {
                 savePrivileges();
                 EntityManager em = entityManagerFactory.createEntityManager();
@@ -96,23 +97,19 @@ public class RoleScreen {
                 em.getTransaction().commit();
                 em.close();
 
-                String message = edit ? resourceBundle.getString("roleScreen.success.edit") : resourceBundle.getString("roleScreen.success.save");
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                String bundleKey = edit ? "roleScreen.success.edit" : "roleScreen.success.save";
+                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
+                return true;
             } catch (OptimisticLockException e){
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.entityWasChanged"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-                valid = false;
+                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.exception"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-                valid = false;
+                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("roleScreen.error.title"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+            SessionUtil.setMessage("mainForm:panel", "roleScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
+        return false;
     }
 
     private void savePrivileges(){
@@ -132,54 +129,10 @@ public class RoleScreen {
         }
     }
 
-    private void validate() {
-        valid = isValidId() & isValidName();
-    }
-
-    private boolean isValidId() {
-        boolean valid = true;
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9_-]+");
-        String errorMessage = "";
-        if (role.getId().equals("")) {
-            valid = false;
-            errorMessage = resourceBundle.getString("error.notNull");
-        } else if (pattern.matcher(role.getId()).find()) {
-            valid = false;
-            errorMessage = resourceBundle.getString("roleScreen.error.idPattern");
-        } else if (!edit) {
-            EntityManager em = entityManagerFactory.createEntityManager();
-            Query query = em.createQuery("select r from Role r where r.id = :id")
-                    .setParameter("id", role.getId());
-            if (query.getResultList().size() != 0) {
-                valid = false;
-                errorMessage = resourceBundle.getString("roleScreen.error.idDuplicate");
-            }
-        }
-        if (!valid) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", errorMessage);
-            FacesContext.getCurrentInstance().addMessage("mainForm:id", facesMessage);
-        }
-        return valid;
-    }
-
-    private boolean isValidName() {
-        boolean valid = true;
-        if (role.getName().equals("")) {
-            valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:name", facesMessage);
-        } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
-            Query query = em.createQuery("select r from Role r where r.name = :name and (r.id != :id or :id is null)")
-                    .setParameter("name", role.getName())
-                    .setParameter("id", isEdit() ? role.getId() : null);
-            if (query.getResultList().size() != 0) {
-                valid = false;
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "idDuplicate", resourceBundle.getString("roleScreen.error.nameDuplicate"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:name", facesMessage);
-            }
-        }
-        return valid;
+    private boolean validate() {
+        validator.setEdit(edit);
+        validator.setRole(role);
+        return validator.validate();
     }
 
     private void initPrivilegeRows() {
