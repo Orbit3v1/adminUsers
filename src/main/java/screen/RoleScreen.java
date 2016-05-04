@@ -41,6 +41,7 @@ public class RoleScreen {
 
     @PostConstruct
     public void init() {
+
         role = new Role();
         role.setPrivilegeAction(new ArrayList<>());
 

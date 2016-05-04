@@ -5,6 +5,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
 import utils.Security;
 import utils.SessionUtil;
+import validator.PersonValidator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -29,9 +30,10 @@ public class PersonScreen {
     private EntityManagerFactory entityManagerFactory;
     @Inject
     ResourceBundle resourceBundle;
+    @Inject
+    PersonValidator validator;
 
     private Person person;
-    private boolean valid = true;
     private boolean edit;
     private List<Role> roleSourceList;
     private String oldPassword;
@@ -69,13 +71,11 @@ public class PersonScreen {
     }
 
     public String saveAndExit() {
-        save();
-        return valid ? exit() : "";
+         return  save() ? exit() : "";
     }
 
-    public void save(){
-        validate();
-        if (valid) {
+    public boolean save(){
+        if (validate()) {
             passwordCode();
             try {
                 EntityManager em = entityManagerFactory.createEntityManager();
@@ -88,19 +88,19 @@ public class PersonScreen {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
                 FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
                 edit = true;
+                return true;
             } catch (OptimisticLockException e){
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.entityWasChanged"));
                 FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-                valid = false;
             } catch (Exception e){
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.exception"));
                 FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
-                valid = false;
             }
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
         }
+        return false;
     }
 
     private void passwordCode(){
@@ -110,52 +110,10 @@ public class PersonScreen {
         person.setPassword(oldPassword);
     }
 
-    private void validate(){
-        valid = isValidEmail() & isValidLogin() & isValidPassword();
-    }
-
-    private boolean isValidEmail(){
-        boolean valid = true;
-        EntityManager em = entityManagerFactory.createEntityManager();
-        Query query = em.createQuery("select p from Person p where p.email = :email and p.id != :id")
-                .setParameter("email", person.getEmail())
-                .setParameter("id", person.getId());
-        if (query.getResultList().size() != 0) {
-            valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "emailDuplicate", resourceBundle.getString("personScreen.error.emailDuplicate"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:email", facesMessage);
-        }
-        return valid;
-    }
-
-    private boolean isValidLogin(){
-        boolean valid = true;
-        if(person.getLogin().equals("")){
-            valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
-        } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
-            Query query = em.createQuery("select p from Person p where p.email = :login and p.id != :id")
-                    .setParameter("login", person.getLogin())
-                    .setParameter("id", person.getId());
-            if (query.getResultList().size() != 0) {
-                valid = false;
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "loginDuplicate", resourceBundle.getString("personScreen.error.loginDuplicate"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
-            }
-        }
-        return valid;
-    }
-
-    private boolean isValidPassword(){
-        boolean valid = true;
-        if(person.getPassword().equals("") && !edit){
-            valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:password", facesMessage);
-        }
-        return valid;
+    private boolean validate(){
+        validator.setEdit(edit);
+        validator.setPerson(person);
+        return validator.validate();
     }
 
     public Person getPerson() {

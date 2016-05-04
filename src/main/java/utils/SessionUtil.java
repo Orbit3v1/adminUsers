@@ -22,14 +22,13 @@ public class SessionUtil {
     }
 
     public static Object getSessionVariable(String key){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        Map<String, Object> map = ec.getSessionMap();
-        Object p = map.get(key);
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
 
     public static void invalidateSession(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
+
+
+
 }
