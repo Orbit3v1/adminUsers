@@ -84,21 +84,17 @@ public class PersonScreen {
                 em.getTransaction().commit();
                 em.close();
 
-                String message = edit ? resourceBundle.getString("personScreen.success.edit") : resourceBundle.getString("personScreen.success.save");
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "infoTitle", message);
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                String bundleKey = edit ? "personScreen.success.edit" : "personScreen.success.save";
+                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
             } catch (OptimisticLockException e){
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.entityWasChanged"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("error.exception"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("personScreen.error.title"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:panel", facesMessage);
+            SessionUtil.setMessage("mainForm:panel", "personScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }

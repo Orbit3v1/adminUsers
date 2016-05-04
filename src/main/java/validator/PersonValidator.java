@@ -2,6 +2,7 @@ package validator;
 
 import entity.Person;
 import org.springframework.context.annotation.Scope;
+import utils.SessionUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -40,8 +41,7 @@ public class PersonValidator implements Validator{
                 .setParameter("id", person.getId());
         if (query.getResultList().size() != 0) {
             valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "emailDuplicate", resourceBundle.getString("personScreen.error.emailDuplicate"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:email", facesMessage);
+            SessionUtil.setMessage("mainForm:email", "personScreen.error.emailDuplicate", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }
@@ -50,8 +50,7 @@ public class PersonValidator implements Validator{
         boolean valid = true;
         if(person.getLogin().equals("")){
             valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
+            SessionUtil.setMessage("mainForm:login", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
             EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select p from Person p where p.email = :login and p.id != :id")
@@ -59,8 +58,7 @@ public class PersonValidator implements Validator{
                     .setParameter("id", person.getId());
             if (query.getResultList().size() != 0) {
                 valid = false;
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "loginDuplicate", resourceBundle.getString("personScreen.error.loginDuplicate"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:login", facesMessage);
+                SessionUtil.setMessage("mainForm:login", "personScreen.error.loginDuplicate", FacesMessage.SEVERITY_ERROR);
             }
         }
         return valid;
@@ -70,8 +68,7 @@ public class PersonValidator implements Validator{
         boolean valid = true;
         if(person.getPassword().equals("") && !edit){
             valid = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "notNull", resourceBundle.getString("error.notNull"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:password", facesMessage);
+            SessionUtil.setMessage("mainForm:password", "error.notNull", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }

@@ -1,10 +1,15 @@
 package utils;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class SessionUtil {
 
@@ -27,6 +32,15 @@ public class SessionUtil {
 
     public static void invalidateSession(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+
+    public static void setMessage(String componentId, String bundleKey, FacesMessage.Severity type){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ResourceBundle resourceBundle = context.getBean("messages", ResourceBundle.class);
+
+        FacesMessage facesMessage = new FacesMessage(type, "", resourceBundle.getString(bundleKey));
+        FacesContext.getCurrentInstance().addMessage(componentId, facesMessage);
+
     }
 
 
