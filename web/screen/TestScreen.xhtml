@@ -27,7 +27,44 @@
         <HR/>
 
         <h:outputText value="Загрузка файла"/>
-        <!--<h:inputFile value="#{demoBean.file1}" />-->
+        <h:commandButton value="Add File">
+            <rich:componentControl target="uploadPanel" operation="show" />
+        </h:commandButton>
+
+        <rich:popupPanel id="uploadPanel" modal="true" width="500" height="400" movable="false" onmaskclick="#{rich:component('uploadPanel')}.hide()">
+
+            <rich:fileUpload fileUploadListener="#{testScreen.listener}" id="upload" >
+                <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
+            </rich:fileUpload>
+            <h:commandButton value="Close" onclick="#{rich:component('uploadPanel')}.hide()"/>
+        </rich:popupPanel>
+
+
+        <rich:dataTable id="attachments" value="#{testScreen.attachments}" var="row" binding="#{table}"
+                        rowClasses="odd-row, even-row">
+            <rich:column style="text-align: center">
+                <f:facet name="header">#</f:facet>
+                <h:outputText value="#{table.rowIndex + 1}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{row.name}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Size</f:facet>
+                <h:outputText value="#{row.size}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Download</f:facet>
+                <h:commandButton value="Download" action="#{testScreen.download(row)}"/>
+            </rich:column>>
+            <rich:column>
+                <f:facet name="header">Delete</f:facet>
+                <a4j:commandButton value="Delete" action="#{testScreen.delete(row)}"
+                                   render="attachments"
+                                   onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+            </rich:column>>
+        </rich:dataTable>
 
     </ui:define>
 </ui:composition>
