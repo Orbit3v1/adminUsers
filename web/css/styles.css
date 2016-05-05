@@ -18,9 +18,16 @@ button, input[type="reset"], input[type="submit"], input[type="button"] {
     margin: 3px !important;
 }
 
-input[type="text"], input[type="password"], select {
+a{
+    font-size: 14px !important;
+}
+
+input[type="text"], input[type="file"], input[type="password"], select {
     font-size: 14px !important;
     margin: 3px !important;
+}
+
+input[type="text"], input[type="password"], select {
     width: 180px !important;
 }
 

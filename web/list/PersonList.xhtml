@@ -14,14 +14,15 @@
     </ui:define>
 
     <ui:define name="body">
-
+        <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.user')}" styleClass="listTitle"/>
             <br/>
             <a4j:commandButton value="#{messages.getString('button.add')}" action="#{personScreen.newPerson}"
                                rendered="#{personList.userPA.addR}"
                                disabled="#{!personList.userPA.addW}"/>
 
-            <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}" rowClasses="odd-row, even-row">
+            <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}"
+                            rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
                     <a4j:commandButton value="#{table.rowIndex + 1}" action="#{personScreen.editPerson(row)}"/>
@@ -47,6 +48,6 @@
                     <h:selectBooleanCheckbox value="#{row.active}" disabled="true"/>
                 </rich:column>
             </rich:dataTable>
-
+        </h:form>
     </ui:define>
 </ui:composition>

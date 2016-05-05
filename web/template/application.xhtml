@@ -12,14 +12,13 @@
     <link rel="stylesheet" type="text/css" href="../css/menu.css"/>
 </h:head>
 <h:body>
-
-    <h:form id = "mainForm">
+    <h:panelGroup layout="block" id="content">
         <ui:insert name="headerMenu" >
             <ui:include src="/menu/headerMenu.xhtml" />
         </ui:insert>
 
         <ui:insert name="body"></ui:insert>
-    </h:form>
+    </h:panelGroup>
 </h:body>
 
 </html>

@@ -16,71 +16,80 @@
 
 
     <ui:define name="body">
-        <h:outputText style="font-size: 18px; font-weight: bold"
-                      value="#{roleScreen.edit ? messages.getString('roleScreen.editText') : messages.getString('roleScreen.addText')}"/>
+        <h:form id="mainForm">
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{roleScreen.edit ? messages.getString('roleScreen.editText') : messages.getString('roleScreen.addText')}"/>
 
-        <HR/>
+            <HR/>
 
-        <h:message for="panel" infoClass="info" errorClass="error"/>
-        <h:panelGrid id="panel" columns="1">
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <h:panelGrid id="panel" columns="1">
 
-            <h:panelGroup rendered="#{roleScreen.userPA.idR}">
-                <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id" styleClass="personLabel"/>
-                <h:inputText id="id" value="#{roleScreen.role.id}" disabled="#{roleScreen.edit or !roleScreen.userPA.idW}"/>
-                <h:message for="id" errorClass="error"/>
-            </h:panelGroup>
+                <h:panelGroup rendered="#{roleScreen.userPA.idR}">
+                    <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id" styleClass="personLabel"/>
+                    <h:inputText id="id" value="#{roleScreen.role.id}"
+                                 disabled="#{roleScreen.edit or !roleScreen.userPA.idW}"/>
+                    <h:message for="id" errorClass="error"/>
+                </h:panelGroup>
 
-            <h:panelGroup rendered="#{roleScreen.userPA.nameR}">
-                <h:outputLabel value="#{messages.getString('roleEntity.name')}" for="name" styleClass="personLabel"/>
-                <h:inputText id="name" value="#{roleScreen.role.name}" disabled="#{!roleScreen.userPA.nameW}"/>
-                <h:message for="name" errorClass="error"/>
-            </h:panelGroup>
+                <h:panelGroup rendered="#{roleScreen.userPA.nameR}">
+                    <h:outputLabel value="#{messages.getString('roleEntity.name')}" for="name"
+                                   styleClass="personLabel"/>
+                    <h:inputText id="name" value="#{roleScreen.role.name}" disabled="#{!roleScreen.userPA.nameW}"/>
+                    <h:message for="name" errorClass="error"/>
+                </h:panelGroup>
 
-            <h:panelGroup rendered="#{roleScreen.userPA.descriptionR}">
-                <h:outputLabel value="#{messages.getString('roleEntity.description')}" for="description"
-                               styleClass="personLabel"/>
-                <h:inputTextarea id="description" value="#{roleScreen.role.description}" disabled="#{!roleScreen.userPA.descriptionW}"/>
-                <h:message for="description" errorClass="error"/>
-            </h:panelGroup>
+                <h:panelGroup rendered="#{roleScreen.userPA.descriptionR}">
+                    <h:outputLabel value="#{messages.getString('roleEntity.description')}" for="description"
+                                   styleClass="personLabel"/>
+                    <h:inputTextarea id="description" value="#{roleScreen.role.description}"
+                                     disabled="#{!roleScreen.userPA.descriptionW}"/>
+                    <h:message for="description" errorClass="error"/>
+                </h:panelGroup>
 
-        </h:panelGrid>
+            </h:panelGrid>
 
-        <HR/>
+            <HR/>
 
-        <rich:collapsiblePanel header="#{messages.getString('roleScreen.table.privilege')}" switchType="ajax"
-                               expanded="false" rendered="#{roleScreen.userPA.privilegesR}">
-            <rich:dataTable id="persons" value="#{roleScreen.privilegeRows}" var="row" rowClasses="odd-row, even-row">
-                <rich:column>
-                    <f:facet name="header">#{messages.getString('roleScreen.privilege.name')}</f:facet>
-                    <h:outputText value="#{row.privilege.name}"/>
-                </rich:column>
-                <rich:column style="text-align: center">
-                    <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
-                    <h:selectBooleanCheckbox value="#{row.readSelected}" disabled="#{!row.readAvailable or !roleScreen.userPA.privilegesW}"/>
-                </rich:column>
-                <rich:column style="text-align: center">
-                    <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
-                    <h:selectBooleanCheckbox value="#{row.writeSelected}" disabled="#{!row.writeAvailable or !roleScreen.userPA.privilegesW}"/>
-                </rich:column>
-            </rich:dataTable>
-        </rich:collapsiblePanel>
+            <rich:collapsiblePanel header="#{messages.getString('roleScreen.table.privilege')}" switchType="ajax"
+                                   expanded="false" rendered="#{roleScreen.userPA.privilegesR}">
+                <rich:dataTable id="persons" value="#{roleScreen.privilegeRows}" var="row"
+                                rowClasses="odd-row, even-row">
+                    <rich:column>
+                        <f:facet name="header">#{messages.getString('roleScreen.privilege.name')}</f:facet>
+                        <h:outputText value="#{row.privilege.name}"/>
+                    </rich:column>
+                    <rich:column style="text-align: center">
+                        <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
+                        <h:selectBooleanCheckbox value="#{row.readSelected}"
+                                                 disabled="#{!row.readAvailable or !roleScreen.userPA.privilegesW}"/>
+                    </rich:column>
+                    <rich:column style="text-align: center">
+                        <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
+                        <h:selectBooleanCheckbox value="#{row.writeSelected}"
+                                                 disabled="#{!row.writeAvailable or !roleScreen.userPA.privilegesW}"/>
+                    </rich:column>
+                </rich:dataTable>
+            </rich:collapsiblePanel>
 
-        <HR/>
+            <HR/>
 
-        <p>
-            <a4j:commandButton value="#{messages.getString('button.saveAndExit')}" action="#{roleScreen.saveAndExit}"
-                               render="mainForm"
-                               rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                               disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
-            <a4j:commandButton value="#{messages.getString('button.save')}" action="#{roleScreen.saveOnly}"
-                               render="mainForm"
-                               rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                               disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
-            <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{roleScreen.exit}"/>
-            <a4j:commandButton value="#{messages.getString('button.delete')}" action="#{roleScreen.delete}"
-                               rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
-                               disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteW}"
-                               onclick="return confirm('Вы действительно хотите удалить запись?')"/>
-        </p>
+            <p>
+                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                                   action="#{roleScreen.saveAndExit}"
+                                   render="mainForm"
+                                   rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
+                                   disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
+                <a4j:commandButton value="#{messages.getString('button.save')}" action="#{roleScreen.saveOnly}"
+                                   render="mainForm"
+                                   rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
+                                   disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
+                <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{roleScreen.exit}"/>
+                <a4j:commandButton value="#{messages.getString('button.delete')}" action="#{roleScreen.delete}"
+                                   rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
+                                   disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteW}"
+                                   onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+            </p>
+        </h:form>
     </ui:define>
 </ui:composition>

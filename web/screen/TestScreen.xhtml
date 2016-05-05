@@ -4,7 +4,7 @@
 <ui:composition template="../template/application.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
@@ -15,6 +15,7 @@
 
 
     <ui:define name="body">
+        <h:form>
         <h:outputText style="font-size: 18px; font-weight: bold" value="Тестовый экран"/>
 
         <HR/>
@@ -31,8 +32,15 @@
             <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
         </rich:fileUpload>
 
+        <br/>
+        </h:form>
 
+        <h:form enctype="multipart/form-data">
+            <h:inputFile id="file" value="#{testScreen.file}"/>
+            <h:commandButton value="Upload" action="#{testScreen.upload}"/>
+        </h:form>
 
+        <h:form>
         <rich:dataTable id="attachments" value="#{testScreen.attachments}" var="row" binding="#{table}"
                         rowClasses="odd-row, even-row">
             <rich:column style="text-align: center">
@@ -59,6 +67,7 @@
                                    onclick="return confirm('Вы действительно хотите удалить запись?')"/>
             </rich:column>>
         </rich:dataTable>
+        </h:form>
 
     </ui:define>
 </ui:composition>

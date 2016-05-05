@@ -26,6 +26,18 @@ public class Attachment extends AbstractVersionedEntity {
     public Attachment() {
     }
 
+    @Override
+    public int hashCode() {
+        return (getClass().hashCode() + Integer.valueOf(id).hashCode());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass())
+                ? (id == ((Attachment) obj).id)
+                : (obj == this);
+    }
+
     public int getId() {
         return id;
     }

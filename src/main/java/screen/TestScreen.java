@@ -18,6 +18,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,6 +37,7 @@ public class TestScreen {
     private EntityManagerFactory entityManagerFactory;
 
     private List<Attachment> attachments;
+    private Part file;
 
     public TestScreen() {
     }
@@ -71,8 +76,44 @@ public class TestScreen {
         em.getTransaction().commit();
         em.close();
 
-
     }
+
+    public void upload() {
+        Attachment attachment = new Attachment();
+        try {
+            InputStream input = file.getInputStream();
+            byte[] content = new byte[(int) file.getSize()];
+            input.read(content);
+
+            attachment.setName(getFilename(file));
+            attachment.setSize(file.getSize());
+            attachment.setContent(content);
+            attachment.setType(file.getContentType());
+            attachments.add(attachment);
+
+            EntityManager em = entityManagerFactory.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(attachment);
+            em.getTransaction().commit();
+            em.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getFilename(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1);
+            }
+        }
+        return null;
+    }
+
+
+
 
     public void download(Attachment attachment){
 
@@ -94,7 +135,7 @@ public class TestScreen {
 
     }
 
-    public void delete(Attachment attachment){
+    public void delete(Attachment attachment ){
         attachments.remove(attachment);
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
@@ -109,5 +150,13 @@ public class TestScreen {
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
     }
 }

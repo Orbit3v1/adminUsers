@@ -10,31 +10,32 @@
                 xmlns:a4j="http://richfaces.org/a4j">
 
     <ui:define name="body">
-        <h:panelGroup rendered="#{sessionScope.user == null}">
-            <h:message for="panelLogin" infoClass="info" errorClass="error"/>
-            <h:panelGrid id="panelLogin" columns="2">
+        <h:form id="mainForm">
+            <h:panelGroup rendered="#{sessionScope.user == null}">
+                <h:message for="panelLogin" infoClass="info" errorClass="error"/>
+                <h:panelGrid id="panelLogin" columns="2">
 
-                <h:outputLabel value="#{messages.getString('loginScreen.login')}" for="login"/>
-                <h:inputText id="login" value="#{loginScreen.login}"/>
+                    <h:outputLabel value="#{messages.getString('loginScreen.login')}" for="login"/>
+                    <h:inputText id="login" value="#{loginScreen.login}"/>
 
-                <h:outputLabel value="#{messages.getString('loginScreen.password')}" for="password"/>
-                <h:inputSecret id="password" value="#{loginScreen.password}"/>
+                    <h:outputLabel value="#{messages.getString('loginScreen.password')}" for="password"/>
+                    <h:inputSecret id="password" value="#{loginScreen.password}"/>
 
-            </h:panelGrid>
+                </h:panelGrid>
 
-            <a4j:commandButton value="#{messages.getString('button.login')}" action="#{loginScreen.login}"
-                               render="mainForm, menu"/>
-        </h:panelGroup>
+                <a4j:commandButton value="#{messages.getString('button.login')}" action="#{loginScreen.login}"
+                                   render="content"/>
+            </h:panelGroup>
 
-        <h:panelGroup rendered="#{sessionScope.user != null}">
-            <h:outputText value="Добро пожаловать #{sessionScope.user.lastName} #{sessionScope.user.firstName}"
-                          style="font-size: 18px; font-weight: bold"/>
-            <br/>
-            <br/>
-            <a4j:commandButton value="#{messages.getString('button.logout')}" action="#{loginScreen.logout}"
-                               render="mainForm, menu"/>
-        </h:panelGroup>
-
+            <h:panelGroup rendered="#{sessionScope.user != null}">
+                <h:outputText value="Добро пожаловать #{sessionScope.user.lastName} #{sessionScope.user.firstName}"
+                              style="font-size: 18px; font-weight: bold"/>
+                <br/>
+                <br/>
+                <a4j:commandButton value="#{messages.getString('button.logout')}" action="#{loginScreen.logout}"
+                                   render="content"/>
+            </h:panelGroup>
+        </h:form>
     </ui:define>
 
 </ui:composition>
