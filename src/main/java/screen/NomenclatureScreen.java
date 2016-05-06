@@ -19,54 +19,26 @@ import java.util.ResourceBundle;
 
 @Named("nomenclatureScreen")
 @Scope("session")
-public class NomenclatureScreen {
-
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
-    @Inject
-    ResourceBundle resourceBundle;
-
-    private Nomenclature nomenclature;
-    private boolean edit;
-    private Map<String, Boolean> userPA;
+public class NomenclatureScreen extends EntityScreen<Nomenclature>{
 
     @PostConstruct
     public void init() {
-        nomenclature = new Nomenclature();
-        userPA = Security.getUserPrivilegeAction("nomenclatureScreen");
+        initSecurity();
+        entity = new Nomenclature();
     }
 
-
-    public String editEntity(Nomenclature nomenclature) {
-        edit = true;
-        this.nomenclature = nomenclature;
-        return "editEntity";
+    @Override
+    protected String getScreenName() {
+        return "nomenclatureScreen";
     }
 
-    public String newEntity() {
-        return "editEntity";
-    }
-
-    public String exit() {
-        SessionUtil.cleanSession("nomenclatureScreen");
-        return "toList";
-    }
-
-    public String saveOnly() {
-        save();
-        return "";
-    }
-
-    public String saveAndExit() {
-        return  save() ? exit() : "";
-    }
 
     public boolean save(){
         if (validate()) {
             try {
                 EntityManager em = entityManagerFactory.createEntityManager();
                 em.getTransaction().begin();
-                nomenclature = em.merge(nomenclature);
+                entity = em.merge(entity);
                 em.getTransaction().commit();
                 em.close();
 
@@ -90,27 +62,4 @@ public class NomenclatureScreen {
         return true;
     }
 
-    public Map<String, Boolean> getUserPA() {
-        return userPA;
-    }
-
-    public void setUserPA(Map<String, Boolean> userPA) {
-        this.userPA = userPA;
-    }
-
-    public Nomenclature getNomenclature() {
-        return nomenclature;
-    }
-
-    public void setNomenclature(Nomenclature nomenclature) {
-        this.nomenclature = nomenclature;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
 }

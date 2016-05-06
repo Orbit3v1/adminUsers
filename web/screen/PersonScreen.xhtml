@@ -27,7 +27,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.lastNameR}">
                     <h:outputLabel value="#{messages.getString('personEntity.lastName')}" for="lastName"
                                    styleClass="personLabel"/>
-                    <h:inputText id="lastName" value="#{personScreen.person.lastName}"
+                    <h:inputText id="lastName" value="#{personScreen.entity.lastName}"
                                  disabled="#{!personScreen.userPA.lastNameW}"/>
                     <h:message for="lastName" errorClass="error"/>
                 </h:panelGroup>
@@ -35,7 +35,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.firstNameR}">
                     <h:outputLabel value="#{messages.getString('personEntity.firstName')}" for="firstName"
                                    styleClass="personLabel"/>
-                    <h:inputText id="firstName" value="#{personScreen.person.firstName}"
+                    <h:inputText id="firstName" value="#{personScreen.entity.firstName}"
                                  disabled="#{!personScreen.userPA.firstNameW}"/>
                     <h:message for="firstName" errorClass="error"/>
                 </h:panelGroup>
@@ -43,7 +43,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.emailR}">
                     <h:outputLabel value="#{messages.getString('personEntity.email')}" for="email"
                                    styleClass="personLabel"/>
-                    <h:inputText id="email" value="#{personScreen.person.email}"
+                    <h:inputText id="email" value="#{personScreen.entity.email}"
                                  disabled="#{!personScreen.userPA.emailW}"/>
                     <h:message for="email" errorClass="error"/>
                 </h:panelGroup>
@@ -51,7 +51,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.loginR}">
                     <h:outputLabel value="#{messages.getString('personEntity.login')}" for="login"
                                    styleClass="personLabel"/>
-                    <h:inputText id="login" value="#{personScreen.person.login}"
+                    <h:inputText id="login" value="#{personScreen.entity.login}"
                                  disabled="#{!personScreen.userPA.loginW}"/>
                     <h:message for="login" errorClass="error"/>
                 </h:panelGroup>
@@ -59,7 +59,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.passwordR}">
                     <h:outputLabel value="#{messages.getString('personEntity.password')}" for="password"
                                    styleClass="personLabel"/>
-                    <h:inputSecret id="password" value="#{personScreen.person.password}"
+                    <h:inputSecret id="password" value="#{personScreen.entity.password}"
                                    disabled="#{!personScreen.userPA.passwordW}"/>
                     <h:message for="password" errorClass="error"/>
                 </h:panelGroup>
@@ -67,7 +67,7 @@
                 <h:panelGroup rendered="#{personScreen.userPA.activeR}">
                     <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"
                                    styleClass="personLabel"/>
-                    <h:selectBooleanCheckbox id="active" value="#{personScreen.person.active}"
+                    <h:selectBooleanCheckbox id="active" value="#{personScreen.entity.active}"
                                              disabled="#{!personScreen.userPA.activeW}"/>
                     <h:message for="active" errorClass="error"/>
                 </h:panelGroup>
@@ -83,7 +83,7 @@
 
                 <p>
                     <rich:pickList id="roles"
-                                   value="#{personScreen.person.roles}"
+                                   value="#{personScreen.entity.roles}"
                                    converter="#{roleConverter}"
                                    listHeight="160px"
                                    listWidth="200px"

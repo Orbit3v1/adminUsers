@@ -27,7 +27,7 @@
                 <h:panelGroup>
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
                                    styleClass="personLabel"/>
-                    <h:inputText id="name" value="#{nomenclatureScreen.nomenclature.name}"
+                    <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
                                  disabled="#{!nomenclatureScreen.userPA.addW}"/>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
@@ -35,7 +35,7 @@
                 <h:panelGroup>
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                    styleClass="personLabel"/>
-                    <h:inputText id="description" value="#{nomenclatureScreen.nomenclature.description}"
+                    <h:inputText id="description" value="#{nomenclatureScreen.entity.description}"
                                  disabled="#{!personScreen.userPA.addW}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>

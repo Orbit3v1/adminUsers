@@ -17,7 +17,7 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.role')}" styleClass="listTitle"/>
             <br/>
-            <a4j:commandButton value="#{messages.getString('button.add')}" action="#{roleScreen.newRole}"
+            <a4j:commandButton value="#{messages.getString('button.add')}" action="#{roleScreen.newEntity}"
                                rendered="#{roleList.userPA.addR}"
                                disabled="#{!roleList.userPA.addW}"/>
 
@@ -25,7 +25,7 @@
                             rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
-                    <a4j:commandButton value="#{table.rowIndex + 1}" action="#{roleScreen.editRole(row)}"/>
+                    <a4j:commandButton value="#{table.rowIndex + 1}" action="#{roleScreen.editEntity(row)}"/>
                 </rich:column>
                 <rich:column rendered="#{roleList.userPA.idR}">
                     <f:facet name="header">#{messages.getString('roleEntity.id')}</f:facet>

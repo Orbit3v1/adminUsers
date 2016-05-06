@@ -25,54 +25,32 @@ import java.util.ResourceBundle;
 
 @Named("personScreen")
 @Scope("session")
-public class PersonScreen {
+public class PersonScreen extends EntityScreen<Person>{
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
-    @Inject
-    ResourceBundle resourceBundle;
     @Inject
     Validator<Person> validator;
 
-    private Person person;
-    private boolean edit;
     private List<Role> roleSourceList;
     private String oldPassword;
-    private Map<String, Boolean> userPA;
 
     @PostConstruct
     public void init() {
-        person = new Person();
+        initSecurity();
+        entity = new Person();
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Role r order by r.name");
         roleSourceList = query.getResultList();
-        userPA = Security.getUserPrivilegeAction("personScreen");
     }
 
-    public String editPerson(Person person) {
-        edit = true;
-        this.person = person;
+    @Override
+    public String editEntity(Person person) {
         oldPassword = person.getPassword();
-        return "editPerson";
+        return super.editEntity(person);
     }
 
-    public String newPerson() {
-
-        return "editPerson";
-    }
-
-    public String exit() {
-        SessionUtil.cleanSession("personScreen");
-        return "personList";
-    }
-
-    public String saveOnly() {
-        save();
-        return "";
-    }
-
-    public String saveAndExit() {
-         return  save() ? exit() : "";
+    @Override
+    protected String getScreenName() {
+        return "personScreen";
     }
 
     public boolean save(){
@@ -81,7 +59,7 @@ public class PersonScreen {
             try {
                 EntityManager em = entityManagerFactory.createEntityManager();
                 em.getTransaction().begin();
-                person = em.merge(person);
+                entity = em.merge(entity);
                 em.getTransaction().commit();
                 em.close();
 
@@ -101,22 +79,14 @@ public class PersonScreen {
     }
 
     private void passwordCode(){
-        if(!person.getPassword().equals("")) {
-            oldPassword = DigestUtils.md5Hex(person.getPassword());
+        if(!entity.getPassword().equals("")) {
+            oldPassword = DigestUtils.md5Hex(entity.getPassword());
         }
-        person.setPassword(oldPassword);
+        entity.setPassword(oldPassword);
     }
 
     private boolean validate(){
-        return validator.validate(person, edit);
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+        return validator.validate(entity, edit);
     }
 
     public List<Role> getRoleSourceList() {
@@ -125,21 +95,5 @@ public class PersonScreen {
 
     public void setRoleSourceList(List<Role> roleSourceList) {
         this.roleSourceList = roleSourceList;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    public Map<String, Boolean> getUserPA() {
-        return userPA;
-    }
-
-    public void setUserPA(Map<String, Boolean> userPA) {
-        this.userPA = userPA;
     }
 }

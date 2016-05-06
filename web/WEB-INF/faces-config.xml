@@ -15,7 +15,7 @@
     <navigation-rule>
         <from-view-id>/list/PersonList.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>editPerson</from-outcome>
+            <from-outcome>editEntity</from-outcome>
             <to-view-id>/screen/PersonScreen.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -24,7 +24,7 @@
     <navigation-rule>
         <from-view-id>/screen/PersonScreen.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>personList</from-outcome>
+            <from-outcome>toList</from-outcome>
             <to-view-id>/list/PersonList.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -33,7 +33,7 @@
     <navigation-rule>
         <from-view-id>/list/RoleList.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>editRole</from-outcome>
+            <from-outcome>editEntity</from-outcome>
             <to-view-id>/screen/RoleScreen.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -42,7 +42,7 @@
     <navigation-rule>
         <from-view-id>/screen/RoleScreen.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>roleList</from-outcome>
+            <from-outcome>toList</from-outcome>
             <to-view-id>/list/RoleList.xhtml</to-view-id>
             <redirect />
         </navigation-case>

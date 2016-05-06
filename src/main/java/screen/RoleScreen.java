@@ -21,19 +21,11 @@ import java.util.regex.Pattern;
 
 @Named("roleScreen")
 @Scope("session")
-public class RoleScreen {
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
-    @Inject
-    ResourceBundle resourceBundle;
+public class RoleScreen extends EntityScreen<Role>{
+
     @Inject
     Validator<Role> validator;
 
-    private Map<String, Boolean> userPA;
-
-    private Role role;
-    private boolean valid = true;
-    private boolean edit;
     private List<PrivilegeRow> privilegeRows;
     private Set<PrivilegeActionId> privilegeActions;
 
@@ -42,47 +34,27 @@ public class RoleScreen {
 
     @PostConstruct
     public void init() {
-
-        role = new Role();
-        role.setPrivilegeAction(new ArrayList<>());
+        initSecurity();
+        entity = new Role();
+        entity.setPrivilegeAction(new ArrayList<>());
 
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
-        userPA = Security.getUserPrivilegeAction("roleScreen");
-    }
-
-    public String editRole(Role role) {
-        edit = true;
-        this.role = role;
-        return "editRole";
-    }
-
-    public String newRole() {
-        return "editRole";
-    }
-
-    public String exit() {
-        SessionUtil.cleanSession("roleScreen");
-        return "roleList";
-    }
-
-    public String saveOnly() {
-        save();
-        return "";
-    }
-
-    public String saveAndExit() {
-        return save() ? exit() : "";
     }
 
     public String delete(){
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        em.remove(em.merge(role));
+        em.remove(em.merge(entity));
         em.getTransaction().commit();
         em.close();
         return exit();
+    }
+
+    @Override
+    protected String getScreenName() {
+        return "roleScreen";
     }
 
     public boolean save() {
@@ -91,7 +63,7 @@ public class RoleScreen {
                 savePrivileges();
                 EntityManager em = entityManagerFactory.createEntityManager();
                 em.getTransaction().begin();
-                role = em.merge(role);
+                entity = em.merge(entity);
                 em.getTransaction().commit();
                 em.close();
 
@@ -111,24 +83,26 @@ public class RoleScreen {
     }
 
     private void savePrivileges(){
-        for(PrivilegeRow row : privilegeRows){
-            setPrivilege(row.getPrivilege(), READ, row.isReadSelected());
-            setPrivilege(row.getPrivilege(), WRITE, row.isWriteSelected());
+        if(privilegeRows != null) {
+            for (PrivilegeRow row : privilegeRows) {
+                setPrivilege(row.getPrivilege(), READ, row.isReadSelected());
+                setPrivilege(row.getPrivilege(), WRITE, row.isWriteSelected());
+            }
         }
     }
 
     private void setPrivilege(Privilege privilege, String actionId, boolean state){
         PrivilegeActionId privilegeActionId = new PrivilegeActionId(privilege.getId(), actionId);
         PrivilegeAction privilegeAction = new PrivilegeAction(privilegeActionId);
-        if(!state && role.getPrivilegeAction().contains(privilegeAction)) {
-            role.getPrivilegeAction().remove(privilegeAction);
-        } else if(state && !role.getPrivilegeAction().contains(privilegeAction)){
-            role.getPrivilegeAction().add(privilegeAction);
+        if(!state && entity.getPrivilegeAction().contains(privilegeAction)) {
+            entity.getPrivilegeAction().remove(privilegeAction);
+        } else if(state && !entity.getPrivilegeAction().contains(privilegeAction)){
+            entity.getPrivilegeAction().add(privilegeAction);
         }
     }
 
     private boolean validate() {
-        return validator.validate(role, edit);
+        return validator.validate(entity, edit);
     }
 
     private void initPrivilegeRows() {
@@ -145,7 +119,7 @@ public class RoleScreen {
     }
 
     private boolean hasAction(Privilege privilege, String actionId) {
-        for (PrivilegeAction privilegeAction : role.getPrivilegeAction()) {
+        for (PrivilegeAction privilegeAction : entity.getPrivilegeAction()) {
             if (privilegeAction.getPrivilege().equals(privilege) && privilegeAction.getAction().getId().equals(actionId)) {
                 return true;
             }
@@ -167,30 +141,6 @@ public class RoleScreen {
 
     public void setPrivilegeRows(List<PrivilegeRow> privilegeRows) {
         this.privilegeRows = privilegeRows;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    public Map<String, Boolean> getUserPA() {
-        return userPA;
-    }
-
-    public void setUserPA(Map<String, Boolean> userPA) {
-        this.userPA = userPA;
     }
 
     public class PrivilegeRow {
