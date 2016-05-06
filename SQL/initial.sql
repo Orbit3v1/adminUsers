@@ -74,3 +74,13 @@ create table role_privilege_action(
 );
 
 create index role_privilege_action_i1 on role_privilege_action(privilege, action);
+
+
+create table attachment(
+  id int not null primary key AUTO_INCREMENT,
+  version int default 0,
+  name varchar(500) not null,
+  content LONGBLOB not null,
+  size int,
+  type varchar(100)
+);

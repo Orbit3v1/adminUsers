@@ -13,6 +13,7 @@ public class AdminMenu {
 
     private boolean personRead;
     private boolean roleRead;
+    private boolean nomenclatureRead;
 
     public AdminMenu() {
     }
@@ -31,5 +32,13 @@ public class AdminMenu {
 
     public void setRoleRead(boolean roleRead) {
         this.roleRead = roleRead;
+    }
+
+    public boolean isNomenclatureRead() {
+        return Security.hasAnyPrivilegeAction(new PrivilegeAction(new PrivilegeActionId("nomenclatureMenuRole", "READ")));
+    }
+
+    public void setNomenclatureRead(boolean nomenclatureRead) {
+        this.nomenclatureRead = nomenclatureRead;
     }
 }

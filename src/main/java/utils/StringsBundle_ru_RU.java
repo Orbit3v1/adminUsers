@@ -25,6 +25,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"roleEntity.name", "Имя"},
             {"roleEntity.description", "Описание"},
 
+            {"nomenclatureEntity.name", "Наименование"},
+            {"nomenclatureEntity.description", "Описание"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -53,6 +56,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"roleScreen.error.idPattern", "Допустимы только буквы латинского алфавита, цифры или символы _-"},
             {"roleScreen.success.save", "Роль успешно создана"},
             {"roleScreen.success.edit", "Роль успешно изменена"},
+
+            {"nomenclatureList.title", "Список номенклатуры"},
+
+            {"nomenclatureScreen.title", "Номенклатура"},
+            {"nomenclatureScreen.editText", "Редактирование номенклатуры"},
+            {"nomenclatureScreen.addText", "Добавление номенклатуры"},
+            {"nomenclatureScreen.error.title", "Неверные данные"},
+            {"nomenclatureScreen.success.save", "Номенклатура успешно создана"},
+            {"nomenclatureScreen.success.edit", "Номенклатура успешно изменена"},
 
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
@@ -86,5 +98,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"menu.admin.user", "Пользователи"},
             {"menu.admin.role", "Роли"},
+            {"menu.admin.nomenclature", "Номенклатуры"},
     };
 }

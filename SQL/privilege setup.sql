@@ -5,6 +5,8 @@ values('WRITE', 'Запись', '');
 insert into action(id, name, description)
 values('READ', 'Чтение', '');
 
+
+
 --Menu
 insert into privilege(id, name, description, pos)
 values('graphMenu', 'Главное меню - графики', '', 1);
@@ -25,6 +27,11 @@ insert into privilege(id, name, description, pos)
 values('adminMenuRole', 'Админ меню - роли', '', 101);
 insert into privilege_action(privilege, action)
 values('adminMenuRole', 'READ');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureMenuRole', 'Админ меню - номенклатуры', '', 102);
+insert into privilege_action(privilege, action)
+values('nomenclatureMenuRole', 'READ');
 
 --Person
 insert into privilege(id, name, description, pos)
@@ -139,3 +146,12 @@ insert into privilege_action(privilege, action)
 values('rolePrivileges', 'READ');
 insert into privilege_action(privilege, action)
 values('rolePrivileges', 'WRITE');
+
+
+--nomenclature
+insert into privilege(id, name, description, pos)
+values('nomenclatureAdd', 'Номенклатура - добавить', '', 3000);
+insert into privilege_action(privilege, action)
+values('nomenclatureAdd', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureAdd', 'WRITE');

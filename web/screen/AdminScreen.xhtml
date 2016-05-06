@@ -15,6 +15,8 @@
                         rendered="#{adminMenu.personRead}"/></li>
             <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"
                         rendered="#{adminMenu.roleRead}"/></li>
+            <li><h:link id="nomenclature" value="#{messages.getString('menu.admin.nomenclature')}" outcome="/list/NomenclatureList"
+                        rendered="#{adminMenu.nomenclatureRead}"/></li>
             <li><h:link id="test" value="Тест" outcome="/screen/TestScreen"/></li>
         </ul>
     </ui:define>

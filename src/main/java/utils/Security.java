@@ -208,6 +208,23 @@ public class Security {
                 userPA.put("privilegesW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("rolePrivileges", "WRITE")))
                 );
+                break;
+            case ("nomenclatureList"):
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "WRITE")))
+                );
+                break;
+            case ("nomenclatureScreen"):
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "WRITE")))
+                );
+                break;
         }
 
 //        long stopTime = System.currentTimeMillis();
