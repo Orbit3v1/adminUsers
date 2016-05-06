@@ -1,13 +1,11 @@
 package screen;
 
-import entity.Privilege;
-import entity.PrivilegeAction;
-import entity.PrivilegeActionId;
-import entity.Role;
+import entity.*;
 import org.springframework.context.annotation.Scope;
 import utils.Security;
 import utils.SessionUtil;
 import validator.RoleValidator;
+import validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -29,7 +27,7 @@ public class RoleScreen {
     @Inject
     ResourceBundle resourceBundle;
     @Inject
-    RoleValidator validator;
+    Validator<Role> validator;
 
     private Map<String, Boolean> userPA;
 
@@ -130,9 +128,7 @@ public class RoleScreen {
     }
 
     private boolean validate() {
-        validator.setEdit(edit);
-        validator.setRole(role);
-        return validator.validate();
+        return validator.validate(role, edit);
     }
 
     private void initPrivilegeRows() {

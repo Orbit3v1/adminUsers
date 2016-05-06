@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 @Named("roleValidator")
 @Scope("request")
-public class RoleValidator implements Validator{
+public class RoleValidator implements Validator<Role>{
     @Inject
     private EntityManagerFactory entityManagerFactory;
     @Inject
@@ -29,7 +29,9 @@ public class RoleValidator implements Validator{
     }
 
     @Override
-    public boolean validate() {
+    public boolean validate(Role role, Object ... args) {
+        this.role = role;
+        edit = args.length > 0 ? (Boolean) args[0] : false;
         return isValidId() & isValidName();
     }
 
@@ -67,7 +69,7 @@ public class RoleValidator implements Validator{
             EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Role r where r.name = :name and (r.id != :id or :id is null)")
                     .setParameter("name", role.getName())
-                    .setParameter("id", isEdit() ? role.getId() : null);
+                    .setParameter("id", edit ? role.getId() : null);
             if (query.getResultList().size() != 0) {
                 valid = false;
                 SessionUtil.setMessage("mainForm:name", "roleScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
@@ -76,19 +78,4 @@ public class RoleValidator implements Validator{
         return valid;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import utils.Security;
 import utils.SessionUtil;
 import validator.PersonValidator;
+import validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -31,7 +32,7 @@ public class PersonScreen {
     @Inject
     ResourceBundle resourceBundle;
     @Inject
-    PersonValidator validator;
+    Validator<Person> validator;
 
     private Person person;
     private boolean edit;
@@ -107,9 +108,7 @@ public class PersonScreen {
     }
 
     private boolean validate(){
-        validator.setEdit(edit);
-        validator.setPerson(person);
-        return validator.validate();
+        return validator.validate(person, edit);
     }
 
     public Person getPerson() {

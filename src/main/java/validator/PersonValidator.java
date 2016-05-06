@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 @Named("personValidator")
 @Scope("request")
-public class PersonValidator implements Validator{
+public class PersonValidator implements Validator<Person>{
 
     @Inject
     private EntityManagerFactory entityManagerFactory;
@@ -29,7 +29,10 @@ public class PersonValidator implements Validator{
     }
 
     @Override
-    public boolean validate() {
+    public boolean validate(Person person, Object ... args) {
+        this.person = person;
+        edit = args.length > 0 ? (Boolean) args[0] : false;
+
         return isValidEmail() & isValidLogin() & isValidPassword();
     }
 
@@ -73,19 +76,4 @@ public class PersonValidator implements Validator{
         return valid;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
 }
