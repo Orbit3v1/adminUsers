@@ -31,7 +31,7 @@ public class Security {
     }
 
     public static Map<String, Boolean> getUserPrivilegeAction(String screenName) {
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
 
         Map<String, Boolean> userPA = new HashMap<>();
         switch (screenName) {
@@ -210,9 +210,9 @@ public class Security {
                 );
         }
 
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println("Security Time: " + elapsedTime);
+//        long stopTime = System.currentTimeMillis();
+//        long elapsedTime = stopTime - startTime;
+//        System.out.println("Security Time: " + elapsedTime);
         return userPA;
     }
 

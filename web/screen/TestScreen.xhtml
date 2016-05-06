@@ -67,6 +67,11 @@
                                    onclick="return confirm('Вы действительно хотите удалить запись?')"/>
             </rich:column>>
         </rich:dataTable>
+
+        <HR/>
+
+        <h:commandButton value="Generate Excel" action="#{testScreen.renderExcel}"/>
+
         </h:form>
 
     </ui:define>

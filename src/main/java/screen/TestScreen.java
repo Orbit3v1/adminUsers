@@ -2,6 +2,8 @@ package screen;
 
 import entity.Attachment;
 import entity.Role;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.springframework.context.annotation.Scope;
@@ -142,6 +144,39 @@ public class TestScreen {
         em.remove(em.merge(attachment));
         em.getTransaction().commit();
         em.close();
+    }
+
+    public void renderExcel(){
+        Workbook wb = new HSSFWorkbook();
+
+        Sheet sheet = wb.createSheet("Timesheet");
+        PrintSetup printSetup = sheet.getPrintSetup();
+        printSetup.setLandscape(true);
+        sheet.setFitToPage(true);
+        sheet.setHorizontallyCenter(true);
+
+        Row titleRow = sheet.createRow(0);
+        titleRow.setHeightInPoints(45);
+        Cell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("Weekly Timesheet");
+
+        String file = "timesheet.xls";
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        ec.responseReset();
+        ec.setResponseContentType("text/xsl");
+       // ec.setResponseContentLength((int) out.getSize());
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
+
+        try {
+            OutputStream output = ec.getResponseOutputStream();
+            wb.write(output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fc.responseComplete();
     }
 
     public List<Attachment> getAttachments() {
