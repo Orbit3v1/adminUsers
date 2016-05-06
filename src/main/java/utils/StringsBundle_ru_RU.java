@@ -63,6 +63,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureScreen.editText", "Редактирование номенклатуры"},
             {"nomenclatureScreen.addText", "Добавление номенклатуры"},
             {"nomenclatureScreen.error.title", "Неверные данные"},
+            {"nomenclatureScreen.error.nameDuplicate", "Такое же наименование есть у другой номенклатуры"},
             {"nomenclatureScreen.success.save", "Номенклатура успешно создана"},
             {"nomenclatureScreen.success.edit", "Номенклатура успешно изменена"},
 

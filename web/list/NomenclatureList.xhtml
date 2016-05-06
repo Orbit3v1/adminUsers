@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 
     <ui:define name="title">
         <h:outputText value="#{messages.getString('nomenclatureList.title')}"/>
@@ -21,11 +22,17 @@
                                rendered="#{nomenclatureList.userPA.addR}"
                                disabled="#{!nomenclatureList.userPA.addW}"/>
 
-            <rich:dataTable id="persons" value="#{nomenclatureList.nomenclatures}" var="row"
+            <a4j:commandButton value="Поиск" render="nomenclatures"/>
+
+            <rich:dataTable id="nomenclatures" value="#{nomenclatureList.nomenclatures}" var="row"
                             rowClasses="odd-row, even-row">
-                <rich:column>
-                    <f:facet name="header">#{messages.getString('nomenclatureEntity.name')}</f:facet>
-                    <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}"/>
+                <rich:column filterValue="#{nomenclatureList.nameFilter}"
+                             filterExpression="#{fn:containsIgnoreCase(row.name, nomenclatureList.nameFilter)}"
+                             filterType="custom">
+                    <f:facet name="header">#{messages.getString('nomenclatureEntity.name')}
+                        <h:inputText value="#{nomenclatureList.nameFilter}" style="width: 100px"/>
+                    </f:facet>
+                    <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}" style="display: block;"/>
                 </rich:column>
             </rich:dataTable>
         </h:form>

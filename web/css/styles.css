@@ -28,7 +28,7 @@ input[type="text"], input[type="file"], input[type="password"], select {
 }
 
 input[type="text"], input[type="password"], select {
-    width: 180px !important;
+    width: 280px ;
 }
 
 textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled]{
@@ -40,7 +40,11 @@ textarea{
     font-size: 14px !important;
     margin: 3px !important;
     height: 80px !important;
-    width: 176px !important;
+    width: 276px !important;
+}
+
+label{
+    vertical-align: top !important;
 }
 
 .rf-dt-shdr-c {
@@ -49,6 +53,7 @@ textarea{
 
 .rf-dt-c {
     font-size: 14px !important;
+    cursor: text !important;
 }
 
 .rf-pick-opt {
@@ -84,4 +89,8 @@ hr {
 .personLabel{
     display:inline-block; !important;
     width: 100px; !important;
+}
+
+.loginInput{
+    width: 180px !important;
 }

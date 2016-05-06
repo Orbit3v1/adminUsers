@@ -23,6 +23,7 @@ public class NomenclatureList {
 
     private List<Nomenclature> nomenclatures;
     private Map<String, Boolean> userPA;
+    private String nameFilter;
 
     @PostConstruct
     public void init(){
@@ -46,5 +47,13 @@ public class NomenclatureList {
 
     public void setUserPA(Map<String, Boolean> userPA) {
         this.userPA = userPA;
+    }
+
+    public String getNameFilter() {
+        return nameFilter;
+    }
+
+    public void setNameFilter(String nameFilter) {
+        this.nameFilter = nameFilter;
     }
 }

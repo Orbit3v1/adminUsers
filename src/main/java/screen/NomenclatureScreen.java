@@ -1,25 +1,23 @@
 package screen;
 
 import entity.Nomenclature;
-import entity.Person;
 import org.springframework.context.annotation.Scope;
-import utils.Security;
 import utils.SessionUtil;
+import validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
-import javax.persistence.Query;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 @Named("nomenclatureScreen")
 @Scope("session")
-public class NomenclatureScreen extends EntityScreen<Nomenclature>{
+public class NomenclatureScreen extends EntityScreen<Nomenclature> {
+
+    @Inject
+    Validator<Nomenclature> validator;
 
     @PostConstruct
     public void init() {
@@ -33,7 +31,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature>{
     }
 
 
-    public boolean save(){
+    public boolean save() {
         if (validate()) {
             try {
                 EntityManager em = entityManagerFactory.createEntityManager();
@@ -46,9 +44,9 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature>{
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
-            } catch (OptimisticLockException e){
+            } catch (OptimisticLockException e) {
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
+            } catch (Exception e) {
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
@@ -57,9 +55,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature>{
         return false;
     }
 
-    private boolean validate(){
-//        return validator.validate(person, edit);
-        return true;
+    private boolean validate() {
+        return validator.validate(entity, edit);
     }
 
 }

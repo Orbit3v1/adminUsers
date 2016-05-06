@@ -35,7 +35,7 @@
                 <h:panelGroup>
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                    styleClass="personLabel"/>
-                    <h:inputText id="description" value="#{nomenclatureScreen.entity.description}"
+                    <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
                                  disabled="#{!personScreen.userPA.addW}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>

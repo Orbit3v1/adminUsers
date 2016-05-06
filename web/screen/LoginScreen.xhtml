@@ -16,10 +16,10 @@
                 <h:panelGrid id="panelLogin" columns="2">
 
                     <h:outputLabel value="#{messages.getString('loginScreen.login')}" for="login"/>
-                    <h:inputText id="login" value="#{loginScreen.login}"/>
+                    <h:inputText id="login" value="#{loginScreen.login}" styleClass="loginInput"/>
 
                     <h:outputLabel value="#{messages.getString('loginScreen.password')}" for="password"/>
-                    <h:inputSecret id="password" value="#{loginScreen.password}"/>
+                    <h:inputSecret id="password" value="#{loginScreen.password}" styleClass="loginInput"/>
 
                 </h:panelGrid>
 
