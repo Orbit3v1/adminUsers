@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "nomenclature_attachment")
-public class NomenclatureAttachment extends AbstractVersionedEntity  {
+public class NomenclatureAttachment{
 
     @Id
     @GeneratedValue
@@ -15,7 +15,7 @@ public class NomenclatureAttachment extends AbstractVersionedEntity  {
     @JoinColumn(name="nomenclature")
     private Nomenclature nomenclature;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="attachment")
     private Attachment attachment;
 

@@ -53,8 +53,7 @@
                            <h:commandLink value="#{row.attachment.name}" action="#{nomenclatureScreen.download(row)}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Delete</f:facet>
-                            <h:commandButton value="Delete" action="#{nomenclatureScreen.delete(row)}"
+                            <h:commandButton value="#{messages.getString('button.delete')}" action="#{nomenclatureScreen.delete(row)}"
                                                render="sketches"
                                                onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                         </h:column>

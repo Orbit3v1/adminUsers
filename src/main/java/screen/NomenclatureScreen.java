@@ -20,6 +20,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public void init() {
         initSecurity();
         entity = new Nomenclature();
+        entity.setNomenclatureAttachments(new ArrayList<>());
     }
 
     @Override
@@ -50,9 +52,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             try {
                 EntityManager em = entityManagerFactory.createEntityManager();
                 em.getTransaction().begin();
-                for(NomenclatureAttachment na : entity.getNomenclatureAttachments()){
-                    em.merge(na.getAttachment());
-                }
                 entity = em.merge(entity);
                 em.getTransaction().commit();
                 em.close();
@@ -79,31 +78,12 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     public void uploadSketch(){
-//        EntityManager em = entityManagerFactory.createEntityManager();
-//        em.getTransaction().begin();
-//
-//        Attachment attachment = AppUtil.getAttachment(sketchFile);
-//        em.persist(attachment);
-//
-//        NomenclatureAttachment na = new NomenclatureAttachment();
-//        na.setAttachment(attachment);
-//        na.setNomenclature(entity);
-//        na.setType("SKETCH");
-//
-//        entity.getNomenclatureAttachments().add(na);
-//
-//        em.merge(entity);
-//
-//        em.getTransaction().commit();
-//        em.close();
         Attachment attachment = AppUtil.getAttachment(sketchFile);
         NomenclatureAttachment na = new NomenclatureAttachment();
         na.setAttachment(attachment);
         na.setNomenclature(entity);
         na.setType("SKETCH");
         entity.getNomenclatureAttachments().add(na);
-//
-
     }
 
     public void delete(NomenclatureAttachment nomenclatureAttachment ){
