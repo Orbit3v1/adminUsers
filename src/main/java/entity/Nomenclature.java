@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "nomenclature")
@@ -15,6 +16,9 @@ public class Nomenclature extends AbstractVersionedEntity {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    private List<NomenclatureAttachment> nomenclatureAttachments;
 
     public Nomenclature() {
     }
@@ -41,5 +45,13 @@ public class Nomenclature extends AbstractVersionedEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<NomenclatureAttachment> getNomenclatureAttachments() {
+        return nomenclatureAttachments;
+    }
+
+    public void setNomenclatureAttachments(List<NomenclatureAttachment> nomenclatureAttachments) {
+        this.nomenclatureAttachments = nomenclatureAttachments;
     }
 }

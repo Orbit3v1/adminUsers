@@ -11,11 +11,11 @@ public class PrivilegeAction {
 
     @ManyToOne
     @JoinColumn(name="privilege", insertable=false, updatable=false)
-    Privilege privilege;
+    private Privilege privilege;
 
     @ManyToOne
     @JoinColumn(name="action", insertable=false, updatable=false)
-    Action action;
+    private Action action;
 
     public PrivilegeAction() {
     }

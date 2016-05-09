@@ -4,7 +4,7 @@
 <ui:composition template="../template/application.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
@@ -16,45 +16,71 @@
 
 
     <ui:define name="body">
-        <h:form id="mainForm">
+        <h:form id="mainForm" enctype="multipart/form-data">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{nomenclatureScreen.edit ? messages.getString('nomenclatureScreen.editText') : messages.getString('nomenclatureScreen.addText')}"/>
 
             <HR/>
 
             <h:message for="panel" infoClass="info" errorClass="error"/>
-            <h:panelGrid id="panel" columns="1">
-                <h:panelGroup>
-                    <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
-                                   styleClass="personLabel"/>
-                    <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
-                                 disabled="#{!nomenclatureScreen.userPA.addW}"/>
-                    <h:message for="name" errorClass="error"/>
-                </h:panelGroup>
+            <br/>
+            <h:panelGroup id="panel">
+                <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
+                               styleClass="personLabel"/>
+                <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
+                             disabled="#{!nomenclatureScreen.userPA.addW}"/>
+                <h:message for="name" errorClass="error"/>
+            </h:panelGroup>
+
+            <HR/>
+
+            <h:panelGrid columns="1">
+                <h:outputText style="font-size: 16px; font-weight: bold"
+                              value="#{messages.getString('nomenclatureScreen.task')}"/>
 
                 <h:panelGroup>
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                    styleClass="personLabel"/>
                     <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
-                                 disabled="#{!personScreen.userPA.addW}"/>
+                                     disabled="#{!personScreen.userPA.addW}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>
 
-            </h:panelGrid>
+                <h:panelGroup>
+                    <h:outputLabel for="sketches" value="#{messages.getString('nomenclatureScreen.sketches')}"/>
+                    <rich:dataTable id="sketches" value="#{nomenclatureScreen.sketches}" var="row">
+                        <h:column>
+                           <h:commandLink value="#{row.attachment.name}" action="#{nomenclatureScreen.download(row)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Delete</f:facet>
+                            <h:commandButton value="Delete" action="#{nomenclatureScreen.delete(row)}"
+                                               render="sketches"
+                                               onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                        </h:column>
+                    </rich:dataTable>
+                </h:panelGroup>
 
+                <h:panelGroup rendered="#{personScreen.userPA.addW}">
+                    <h:inputFile id="sketch" value="#{nomenclatureScreen.sketchFile}"/>
+                    <h:commandButton value="#{messages.getString('button.upload')}"
+                                     action="#{nomenclatureScreen.uploadSketch}"/>
+                </h:panelGroup>
+
+            </h:panelGrid>
             <HR/>
 
             <p>
-                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                                    action="#{nomenclatureScreen.saveAndExit}"
                                    render="mainForm"
                                    rendered="#{nomenclatureScreen.userPA.addR}"
                                    disabled="#{!nomenclatureScreen.userPA.addW}"/>
-                <a4j:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveOnly}"
+                <h:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveOnly}"
                                    render="mainForm"
                                    rendered="#{nomenclatureScreen.userPA.addR}"
                                    disabled="#{!nomenclatureScreen.userPA.addW}"/>
-                <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{nomenclatureScreen.exit}"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}" action="#{nomenclatureScreen.exit}"/>
             </p>
         </h:form>
     </ui:define>

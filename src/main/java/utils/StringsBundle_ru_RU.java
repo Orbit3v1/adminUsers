@@ -60,6 +60,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureList.title", "Список номенклатуры"},
 
             {"nomenclatureScreen.title", "Номенклатура"},
+            {"nomenclatureScreen.task", "Тех задание"},
+            {"nomenclatureScreen.sketchUpload", "Добавить эскиз"},
+            {"nomenclatureScreen.sketches", "Эскизы"},
             {"nomenclatureScreen.editText", "Редактирование номенклатуры"},
             {"nomenclatureScreen.addText", "Добавление номенклатуры"},
             {"nomenclatureScreen.error.title", "Неверные данные"},
@@ -80,6 +83,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
             {"button.login", "Войти"},
             {"button.logout", "Выйти"},
+            {"button.upload", "Загрузить"},
 
             {"pickList.copyAllControlLabel", "Добавить все"},
             {"pickList.copyControlLabel", "Добавить"},
