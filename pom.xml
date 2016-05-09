@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <spring.version>4.2.5.RELEASE</spring.version>
-        <richfaces.version>4.5.15.Final</richfaces.version>
+        <richfaces.version>4.5.16.Final</richfaces.version>
         <hibernate.version>4.1.9.Final</hibernate.version>
         <jsf.version>2.2.12</jsf.version>
     </properties>
@@ -156,6 +156,12 @@
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
+            <version>${richfaces.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-a4j</artifactId>
             <version>${richfaces.version}</version>
         </dependency>
 

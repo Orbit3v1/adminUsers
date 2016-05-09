@@ -35,7 +35,7 @@ public class AdminMenu {
     }
 
     public boolean isNomenclatureRead() {
-        return Security.hasAnyPrivilegeAction(new PrivilegeAction(new PrivilegeActionId("nomenclatureMenuRole", "READ")));
+        return Security.hasAnyPrivilegeAction(new PrivilegeAction(new PrivilegeActionId("adminMenuNomenclature", "READ")));
     }
 
     public void setNomenclatureRead(boolean nomenclatureRead) {

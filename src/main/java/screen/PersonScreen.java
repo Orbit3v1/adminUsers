@@ -68,8 +68,10 @@ public class PersonScreen extends EntityScreen<Person>{
                 edit = true;
                 return true;
             } catch (OptimisticLockException e){
+                e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
+                e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {

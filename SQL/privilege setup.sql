@@ -29,9 +29,9 @@ insert into privilege_action(privilege, action)
 values('adminMenuRole', 'READ');
 
 insert into privilege(id, name, description, pos)
-values('nomenclatureMenuRole', 'Админ меню - номенклатуры', '', 102);
+values('adminMenuNomenclature', 'Админ меню - номенклатуры', '', 102);
 insert into privilege_action(privilege, action)
-values('nomenclatureMenuRole', 'READ');
+values('adminMenuNomenclature', 'READ');
 
 --Person
 insert into privilege(id, name, description, pos)

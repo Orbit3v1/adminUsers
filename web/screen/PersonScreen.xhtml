@@ -104,16 +104,16 @@
             <HR/>
 
             <p>
-                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                                    action="#{personScreen.saveAndExit}"
                                    render="mainForm"
                                    rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
                                    disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
-                <a4j:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}"
+                <h:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}"
                                    render="mainForm"
                                    rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
                                    disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
-                <a4j:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
             </p>
         </h:form>
     </ui:define>
