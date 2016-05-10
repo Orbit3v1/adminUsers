@@ -22,35 +22,78 @@
 
             <HR/>
 
-            <h:message for="panel" infoClass="info" errorClass="error"/>
-            <br/>
-            <h:panelGroup id="panel">
-                <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
-                               styleClass="personLabel"/>
-                <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
-                             disabled="#{!nomenclatureScreen.userPA.addW}"/>
-                <h:message for="name" errorClass="error"/>
-            </h:panelGroup>
-
-            <HR/>
-
             <h:panelGrid columns="1">
-                <h:outputText style="font-size: 16px; font-weight: bold"
-                              value="#{messages.getString('nomenclatureScreen.task')}"/>
+                <h:message for="panel" infoClass="info" errorClass="error"/>
 
-                <h:panelGroup>
-                    <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
-                                   styleClass="personLabel"/>
-                    <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
-                                     disabled="#{!personScreen.userPA.addW}"/>
-                    <h:message for="description" errorClass="error"/>
+                <h:panelGroup id="panel">
+                    <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
+                                   styleClass="label"/>
+                    <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
+                                 style="margin-left: 20px !important"
+                                 disabled="#{!nomenclatureScreen.userPA.addW}"/>
+                    <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
+            </h:panelGrid>
 
-                <h:panelGroup>
-                    <h:outputLabel for="sketches" value="#{messages.getString('nomenclatureScreen.sketches')}"/>
-                    <rich:dataTable id="sketches" value="#{nomenclatureScreen.sketches}" var="row">
+            <rich:collapsiblePanel header="#{messages.getString('nomenclatureScreen.task')}" switchType="client"
+                                   expanded="true">
+
+                <h:panelGrid columns="1">
+
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
+                                       styleClass="label"/>
+                        <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
+                                         disabled="#{!personScreen.userPA.addW}"
+                                         style="margin-left: 9px !important"/>
+                        <h:message for="description" errorClass="error"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="sketches" value="#{messages.getString('nomenclatureScreen.sketches')}"
+                                           styleClass="label"/>
+                            <rich:dataTable id="sketches" value="#{nomenclatureScreen.sketches}" var="row">
+                                <h:column>
+                                    <h:commandLink value="#{row.attachment.name}"
+                                                   action="#{nomenclatureScreen.download(row)}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="#{messages.getString('button.delete')}"
+                                                     action="#{nomenclatureScreen.delete(row)}"
+                                                     render="sketches"
+                                                     styleClass="btn"
+                                                     onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                                </h:column>
+                            </rich:dataTable>
+
+                            <div/>
+
+                            <h:panelGroup rendered="#{nomenclatureScreen.userPA.addW}">
+                                <h:outputLabel for="sketch" value="#{messages.getString('button.upload')}"
+                                               styleClass="btn">
+                                    <h:inputFile id="sketch" value="#{nomenclatureScreen.file}"
+                                                 style="display: none">
+                                        <f:ajax listener="#{nomenclatureScreen.uploadSketch}" render="mainForm"/>
+                                    </h:inputFile>
+                                </h:outputLabel>
+                            </h:panelGroup>
+
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:collapsiblePanel>
+
+            <rich:collapsiblePanel header="#{messages.getString('nomenclatureScreen.drawing')}" switchType="client"
+                                   expanded="true">
+                <h:panelGrid columns="1">
+                    <rich:dataTable id="drawings" value="#{nomenclatureScreen.drawings}" var="row">
                         <h:column>
-                            <h:commandLink value="#{row.attachment.name}" action="#{nomenclatureScreen.download(row)}"/>
+                            <h:outputText value="#{row.type.description}"/>
+                        </h:column>
+                        <h:column>
+                            <h:commandLink value="#{row.attachment.name}"
+                                           action="#{nomenclatureScreen.download(row)}"/>
                         </h:column>
                         <h:column>
                             <h:commandButton value="#{messages.getString('button.delete')}"
@@ -60,18 +103,27 @@
                                              onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                         </h:column>
                     </rich:dataTable>
-                </h:panelGroup>
 
-                <h:panelGroup rendered="#{nomenclatureScreen.userPA.addW}">
-                    <h:outputLabel for="sketch" value="#{messages.getString('button.upload')}" styleClass="btn">
-                        <h:inputFile id="sketch" value="#{nomenclatureScreen.sketchFile}" style="display: none">
-                            <f:ajax listener="#{nomenclatureScreen.uploadSketch}" render="mainForm"/>
-                        </h:inputFile>
-                    </h:outputLabel>
-                </h:panelGroup>
+                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.addW}">
 
-            </h:panelGrid>
-            <HR/>
+                        <h:selectOneMenu value="#{nomenclatureScreen.fileType}">
+                            <f:selectItems value="#{nomenclatureScreen.NATypes}"
+                                           var="type"
+                                           itemValue="#{type}"
+                                           itemLabel="#{type.description}"/>
+                            <f:ajax process="@this" partialSubmit="true" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="drawing" value="#{messages.getString('button.upload')}"
+                                       styleClass="btn">
+                            <h:inputFile id="drawing" value="#{nomenclatureScreen.file}"
+                                         style="display: none">
+                                <f:ajax listener="#{nomenclatureScreen.uploadDrawing}" render="mainForm"/>
+                            </h:inputFile>
+                        </h:outputLabel>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:collapsiblePanel>
 
             <p>
                 <h:commandButton value="#{messages.getString('button.saveAndExit')}"

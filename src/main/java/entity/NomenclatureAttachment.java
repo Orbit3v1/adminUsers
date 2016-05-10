@@ -1,5 +1,7 @@
 package entity;
 
+import dictionary.NAType;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,8 @@ public class NomenclatureAttachment{
     private Attachment attachment;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private NAType type;
 
     public NomenclatureAttachment() {
     }
@@ -49,11 +52,11 @@ public class NomenclatureAttachment{
         this.attachment = attachment;
     }
 
-    public String getType() {
+    public NAType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(NAType type) {
         this.type = type;
     }
 }

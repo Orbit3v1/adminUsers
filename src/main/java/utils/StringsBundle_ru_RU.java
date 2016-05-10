@@ -61,6 +61,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"nomenclatureScreen.title", "Номенклатура"},
             {"nomenclatureScreen.task", "Тех задание"},
+            {"nomenclatureScreen.drawing", "Чертежи"},
             {"nomenclatureScreen.sketchUpload", "Добавить эскиз"},
             {"nomenclatureScreen.sketches", "Эскизы"},
             {"nomenclatureScreen.editText", "Редактирование номенклатуры"},
