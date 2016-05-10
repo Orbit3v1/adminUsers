@@ -105,15 +105,20 @@
 
             <p>
                 <h:commandButton value="#{messages.getString('button.saveAndExit')}"
-                                   action="#{personScreen.saveAndExit}"
-                                   render="mainForm"
-                                   rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
-                                   disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
-                <h:commandButton value="#{messages.getString('button.save')}" action="#{personScreen.saveOnly}"
-                                   render="mainForm"
-                                   rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
-                                   disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
-                <h:commandButton value="#{messages.getString('button.cancel')}" action="#{personScreen.exit}"/>
+                                 action="#{personScreen.saveAndExit}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
+                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.save')}"
+                                 action="#{personScreen.saveOnly}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
+                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{personScreen.exit}"
+                                 styleClass="btn"/>
             </p>
         </h:form>
     </ui:define>

@@ -18,11 +18,15 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.nomenclature')}" styleClass="listTitle"/>
             <br/>
-            <a4j:commandButton value="#{messages.getString('button.add')}" action="#{nomenclatureScreen.newEntity}"
-                               rendered="#{nomenclatureList.userPA.addR}"
-                               disabled="#{!nomenclatureList.userPA.addW}"/>
+            <h:commandButton value="#{messages.getString('button.add')}"
+                             action="#{nomenclatureScreen.newEntity}"
+                             styleClass="btn"
+                             rendered="#{nomenclatureList.userPA.addR}"
+                             disabled="#{!nomenclatureList.userPA.addW}"/>
 
-            <a4j:commandButton value="Поиск" render="nomenclatures"/>
+            <h:commandButton value="Поиск"
+                             render="nomenclatures"
+                             styleClass="btn"/>
 
             <rich:dataTable id="nomenclatures" value="#{nomenclatureList.nomenclatures}" var="row"
                             rowClasses="odd-row, even-row">
@@ -32,7 +36,8 @@
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.name')}
                         <h:inputText value="#{nomenclatureList.nameFilter}" style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}" style="display: block;"/>
+                    <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}"
+                                   style="display: block;"/>
                 </rich:column>
             </rich:dataTable>
         </h:form>

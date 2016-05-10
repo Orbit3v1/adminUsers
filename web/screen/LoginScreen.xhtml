@@ -23,8 +23,10 @@
 
                 </h:panelGrid>
 
-                <h:commandButton value="#{messages.getString('button.login')}" action="#{loginScreen.login}"
-                                   render="content"/>
+                <h:commandButton value="#{messages.getString('button.login')}"
+                                 action="#{loginScreen.login}"
+                                 styleClass="btn"
+                                 render="content"/>
             </h:panelGroup>
 
             <h:panelGroup rendered="#{sessionScope.user != null}">
@@ -32,8 +34,10 @@
                               style="font-size: 18px; font-weight: bold"/>
                 <br/>
                 <br/>
-                <h:commandButton value="#{messages.getString('button.logout')}" action="#{loginScreen.logout}"
-                                   render="content"/>
+                <h:commandButton value="#{messages.getString('button.logout')}"
+                                 action="#{loginScreen.logout}"
+                                 styleClass="btn"
+                                 render="content"/>
             </h:panelGroup>
         </h:form>
     </ui:define>

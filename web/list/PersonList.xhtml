@@ -17,15 +17,18 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.user')}" styleClass="listTitle"/>
             <br/>
-            <a4j:commandButton value="#{messages.getString('button.add')}" action="#{personScreen.newEntity}"
-                               rendered="#{personList.userPA.addR}"
-                               disabled="#{!personList.userPA.addW}"/>
+            <h:commandButton value="#{messages.getString('button.add')}"
+                             action="#{personScreen.newEntity}"
+                             styleClass="btn"
+                             rendered="#{personList.userPA.addR}"
+                             disabled="#{!personList.userPA.addW}"/>
 
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}"
                             rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
-                    <a4j:commandButton value="#{table.rowIndex + 1}" action="#{personScreen.editEntity(row)}"/>
+                    <h:commandButton value="#{table.rowIndex + 1}" action="#{personScreen.editEntity(row)}"
+                                     styleClass="btn"/>
                 </rich:column>
                 <rich:column rendered="#{personList.userPA.lastNameR}">
                     <f:facet name="header">#{messages.getString('personEntity.lastName')}</f:facet>

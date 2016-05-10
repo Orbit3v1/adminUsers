@@ -17,9 +17,11 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.role')}" styleClass="listTitle"/>
             <br/>
-            <a4j:commandButton value="#{messages.getString('button.add')}" action="#{roleScreen.newEntity}"
-                               rendered="#{roleList.userPA.addR}"
-                               disabled="#{!roleList.userPA.addW}"/>
+            <h:commandButton value="#{messages.getString('button.add')}"
+                             action="#{roleScreen.newEntity}"
+                             styleClass="btn"
+                             rendered="#{roleList.userPA.addR}"
+                             disabled="#{!roleList.userPA.addW}"/>
 
             <rich:dataTable id="persons" value="#{roleList.roles}" var="row" binding="#{table}"
                             rowClasses="odd-row, even-row">

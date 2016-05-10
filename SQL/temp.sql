@@ -8,4 +8,4 @@ create table nomenclature_attachment(
   CONSTRAINT nomenclature_attachment_FK2 FOREIGN KEY (attachment) REFERENCES attachment(id) ON DELETE CASCADE
 );
 
-create index nomenclature_attachment on nomenclature_attachment(nomenclature);
+create unique index nomenclature_attachment_u1 on nomenclature_attachment(nomenclature, attachment);
