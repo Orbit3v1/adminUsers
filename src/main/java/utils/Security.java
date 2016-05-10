@@ -224,6 +224,43 @@ public class Security {
                 userPA.put("addW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "WRITE")))
                 );
+
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureEdit", "READ")))
+                );
+                userPA.put("editW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureEdit", "WRITE")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureName", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "WRITE")))
+                );
+                userPA.put("nameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureName", "WRITE")),
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureAdd", "WRITE")))
+                );
+
+                userPA.put("descriptionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDescription", "READ")))
+                );
+                userPA.put("descriptionW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDescription", "WRITE")))
+                );
+
+                userPA.put("sketchesR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureSketches", "READ")))
+                );
+                userPA.put("sketchesW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureSketches", "WRITE")))
+                );
+
+                userPA.put("drawingsR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDrawings", "READ")))
+                );
+                userPA.put("drawingsW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDrawings", "WRITE")))
+                );
                 break;
         }
 

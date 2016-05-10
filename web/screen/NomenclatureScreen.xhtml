@@ -25,12 +25,12 @@
             <h:panelGrid columns="1">
                 <h:message for="panel" infoClass="info" errorClass="error"/>
 
-                <h:panelGroup id="panel">
+                <h:panelGroup id="panel" rendered="#{nomenclatureScreen.userPA.nameR}">
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
                                  style="margin-left: 20px !important"
-                                 disabled="#{!nomenclatureScreen.userPA.addW}">
+                                 disabled="#{!nomenclatureScreen.userPA.nameW}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="name" errorClass="error"/>
@@ -38,22 +38,23 @@
             </h:panelGrid>
 
             <rich:collapsiblePanel header="#{messages.getString('nomenclatureScreen.task')}" switchType="client"
-                                   expanded="true">
+                                   expanded="true"
+                    rendered="#{nomenclatureScreen.userPA.descriptionR or nomenclatureScreen.userPA.sketchesR}">
 
                 <h:panelGrid columns="1">
 
-                    <h:panelGroup>
+                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.descriptionR}">
                         <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                        styleClass="label"/>
                         <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
-                                         disabled="#{!personScreen.userPA.addW}"
+                                         disabled="#{!nomenclatureScreen.userPA.descriptionW}"
                                          style="margin-left: 9px !important">
                             <f:ajax process="@this" partialSubmit="true"/>
                         </h:inputTextarea>
                         <h:message for="description" errorClass="error"/>
                     </h:panelGroup>
 
-                    <h:panelGroup id="sketchesPG">
+                    <h:panelGroup id="sketchesPG" rendered="#{nomenclatureScreen.userPA.sketchesR}">
                         <h:panelGrid columns="2">
                             <h:outputLabel for="sketches" value="#{messages.getString('nomenclatureScreen.sketches')}"
                                            styleClass="label"/>
@@ -62,7 +63,7 @@
                                     <h:commandLink value="#{row.attachment.name}"
                                                    action="#{nomenclatureScreen.download(row)}"/>
                                 </h:column>
-                                <h:column>
+                                <h:column rendered="#{nomenclatureScreen.userPA.sketchesW}">
                                     <h:commandButton value="#{messages.getString('button.delete')}"
                                                      action="#{nomenclatureScreen.delete(row)}"
                                                      render="sketches"
@@ -73,7 +74,7 @@
 
                             <div/>
 
-                            <h:panelGroup rendered="#{nomenclatureScreen.userPA.addW}">
+                            <h:panelGroup rendered="#{nomenclatureScreen.userPA.sketchesW}">
                                 <h:outputLabel for="sketch" value="#{messages.getString('button.upload')}"
                                                styleClass="btn">
                                     <h:inputFile id="sketch" value="#{nomenclatureScreen.file}"
@@ -89,7 +90,8 @@
             </rich:collapsiblePanel>
 
             <rich:collapsiblePanel header="#{messages.getString('nomenclatureScreen.drawing')}" switchType="client"
-                                   expanded="true">
+                                   expanded="true"
+                                   rendered="#{nomenclatureScreen.userPA.drawingsR}">
                 <h:panelGrid columns="1">
                     <rich:dataTable id="drawings" value="#{nomenclatureScreen.drawings}" var="row">
                         <h:column>
@@ -99,7 +101,7 @@
                             <h:commandLink value="#{row.attachment.name}"
                                            action="#{nomenclatureScreen.download(row)}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{nomenclatureScreen.userPA.drawingsW}">
                             <h:commandButton value="#{messages.getString('button.delete')}"
                                              action="#{nomenclatureScreen.delete(row)}"
                                              render="sketches"
@@ -108,7 +110,7 @@
                         </h:column>
                     </rich:dataTable>
 
-                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.addW}">
+                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.drawingsW}">
 
                         <h:selectOneMenu value="#{nomenclatureScreen.fileType}">
                             <f:selectItems value="#{nomenclatureScreen.NATypes}"
@@ -134,13 +136,13 @@
                                  action="#{nomenclatureScreen.saveAndExit}"
                                  render="mainForm"
                                  styleClass="btn"
-                                 rendered="#{nomenclatureScreen.userPA.addR}"
-                                 disabled="#{!nomenclatureScreen.userPA.addW}"/>
+                                 rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
+                                 disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
                 <h:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
-                                 rendered="#{nomenclatureScreen.userPA.addR}"
-                                 disabled="#{!nomenclatureScreen.userPA.addW}"/>
+                                 rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
+                                 disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{nomenclatureScreen.exit}"
                                  styleClass="btn"/>

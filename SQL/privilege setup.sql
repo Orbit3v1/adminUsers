@@ -155,3 +155,38 @@ insert into privilege_action(privilege, action)
 values('nomenclatureAdd', 'READ');
 insert into privilege_action(privilege, action)
 values('nomenclatureAdd', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureEdit', 'Номенклатура - редактировать', '', 3001);
+insert into privilege_action(privilege, action)
+values('nomenclatureEdit', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureEdit', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureName', 'Номенклатура - Поле - Наименование', '', 3002);
+insert into privilege_action(privilege, action)
+values('nomenclatureName', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureName', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureDescription', 'Номенклатура - Поле - Описание', '', 3003);
+insert into privilege_action(privilege, action)
+values('nomenclatureDescription', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureDescription', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureSketches', 'Номенклатура - Поле - Эскизы', '', 3004);
+insert into privilege_action(privilege, action)
+values('nomenclatureSketches', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureSketches', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureDrawings', 'Номенклатура - Поле - Чертежи', '', 3005);
+insert into privilege_action(privilege, action)
+values('nomenclatureDrawings', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureDrawings', 'WRITE');
