@@ -30,7 +30,9 @@
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
                                  style="margin-left: 20px !important"
-                                 disabled="#{!nomenclatureScreen.userPA.addW}"/>
+                                 disabled="#{!nomenclatureScreen.userPA.addW}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
             </h:panelGrid>
@@ -45,11 +47,13 @@
                                        styleClass="label"/>
                         <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
                                          disabled="#{!personScreen.userPA.addW}"
-                                         style="margin-left: 9px !important"/>
+                                         style="margin-left: 9px !important">
+                            <f:ajax process="@this" partialSubmit="true"/>
+                        </h:inputTextarea>
                         <h:message for="description" errorClass="error"/>
                     </h:panelGroup>
 
-                    <h:panelGroup>
+                    <h:panelGroup id="sketchesPG">
                         <h:panelGrid columns="2">
                             <h:outputLabel for="sketches" value="#{messages.getString('nomenclatureScreen.sketches')}"
                                            styleClass="label"/>
@@ -111,7 +115,7 @@
                                            var="type"
                                            itemValue="#{type}"
                                            itemLabel="#{type.description}"/>
-                            <f:ajax process="@this" partialSubmit="true" />
+                            <f:ajax process="@this" partialSubmit="true"/>
                         </h:selectOneMenu>
 
                         <h:outputLabel for="drawing" value="#{messages.getString('button.upload')}"
