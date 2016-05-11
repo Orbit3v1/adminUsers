@@ -9,8 +9,13 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
 
+
     <ui:define name="body">
-        Hello graphic screen
+        <ul id="menu" class="leftMenu">
+            <li><h:link id="user" value="#{messages.getString('menu.graphic.production')}" outcome="/list/OrderList"
+                        /></li>
+
+        </ul>
     </ui:define>
 
 </ui:composition>

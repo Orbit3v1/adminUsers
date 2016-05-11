@@ -190,3 +190,115 @@ insert into privilege_action(privilege, action)
 values('nomenclatureDrawings', 'READ');
 insert into privilege_action(privilege, action)
 values('nomenclatureDrawings', 'WRITE');
+
+-- order
+
+insert into privilege(id, name, description, pos)
+values('graphicMenuProdaction', 'Графики меню - производство', '', 200);
+insert into privilege_action(privilege, action)
+values('graphicMenuProdaction', 'READ');
+
+insert into privilege(id, name, description, pos)
+values('orderAdd', 'Заказ - добавить', '', 4000);
+insert into privilege_action(privilege, action)
+values('orderAdd', 'READ');
+insert into privilege_action(privilege, action)
+values('orderAdd', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderEdit', 'Заказ - редактировать', '', 4001);
+insert into privilege_action(privilege, action)
+values('orderEdit', 'READ');
+insert into privilege_action(privilege, action)
+values('orderEdit', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderDelete', 'Заказ - удалить', '', 4002);
+insert into privilege_action(privilege, action)
+values('orderDelete', 'READ');
+insert into privilege_action(privilege, action)
+values('orderDelete', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderName', 'Заказ - Поле - Номер', '', 4003);
+insert into privilege_action(privilege, action)
+values('orderName', 'READ');
+insert into privilege_action(privilege, action)
+values('orderName', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderCustomer', 'Заказ - Поле - Заказчик', '', 4004);
+insert into privilege_action(privilege, action)
+values('orderCustomer', 'READ');
+insert into privilege_action(privilege, action)
+values('orderCustomer', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderNomenclature', 'Заказ - Поле - Номенклатура', '', 4005);
+insert into privilege_action(privilege, action)
+values('orderNomenclature', 'READ');
+insert into privilege_action(privilege, action)
+values('orderNomenclature', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderCount', 'Заказ - Поле - Кол-во', '', 4006);
+insert into privilege_action(privilege, action)
+values('orderCount', 'READ');
+insert into privilege_action(privilege, action)
+values('orderCount', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderMaterial', 'Заказ - Поле - Материал', '', 4007);
+insert into privilege_action(privilege, action)
+values('orderMaterial', 'READ');
+insert into privilege_action(privilege, action)
+values('orderMaterial', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderGib', 'Заказ - Поле - Гиб', '', 4008);
+insert into privilege_action(privilege, action)
+values('orderGib', 'READ');
+insert into privilege_action(privilege, action)
+values('orderGib', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderResponsible', 'Заказ - Поле - Ответственный', '', 4009);
+insert into privilege_action(privilege, action)
+values('orderResponsible', 'READ');
+insert into privilege_action(privilege, action)
+values('orderResponsible', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderStart', 'Заказ - Поле - Запуск', '', 4010);
+insert into privilege_action(privilege, action)
+values('orderStart', 'READ');
+insert into privilege_action(privilege, action)
+values('orderStart', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderDocDate', 'Заказ - Поле - Документация', '', 4011);
+insert into privilege_action(privilege, action)
+values('orderDocDate', 'READ');
+insert into privilege_action(privilege, action)
+values('orderDocDate', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderDeveloper', 'Заказ - Поле - Разработка', '', 4012);
+insert into privilege_action(privilege, action)
+values('orderDeveloper', 'READ');
+insert into privilege_action(privilege, action)
+values('orderDeveloper', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderEndPlan', 'Заказ - Поле - План сдачи', '', 4013);
+insert into privilege_action(privilege, action)
+values('orderEndPlan', 'READ');
+insert into privilege_action(privilege, action)
+values('orderEndPlan', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderEndActual', 'Заказ - Поле - Продукция сдана', '', 4014);
+insert into privilege_action(privilege, action)
+values('orderEndActual', 'READ');
+insert into privilege_action(privilege, action)
+values('orderEndActual', 'WRITE');

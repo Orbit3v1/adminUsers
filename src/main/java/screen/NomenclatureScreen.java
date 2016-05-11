@@ -39,7 +39,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @PostConstruct
     public void init() {
-        initSecurity();
         fileType = NAType.BENDING;
         entity = new Nomenclature();
         entity.setNomenclatureAttachments(new ArrayList<>());

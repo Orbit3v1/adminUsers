@@ -34,7 +34,6 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @PostConstruct
     public void init() {
-        initSecurity();
         entity = new Role();
         entity.setPrivilegeAction(new ArrayList<>());
 

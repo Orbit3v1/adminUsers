@@ -67,4 +67,22 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/list/OrderList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editEntity</from-outcome>
+            <to-view-id>/screen/OrderScreen.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/screen/OrderScreen.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toList</from-outcome>
+            <to-view-id>/list/OrderList.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

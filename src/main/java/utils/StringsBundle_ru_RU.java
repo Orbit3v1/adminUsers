@@ -28,6 +28,19 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureEntity.name", "Наименование"},
             {"nomenclatureEntity.description", "Описание"},
 
+            {"orderEntity.name", "#"},
+            {"orderEntity.customer", "Заказчик"},
+            {"orderEntity.nomenclature", "Номенклатура"},
+            {"orderEntity.count", "Кол-во"},
+            {"orderEntity.material", "Матер."},
+            {"orderEntity.gib", "Гиб"},
+            {"orderEntity.responsible", "Ответственный"},
+            {"orderEntity.start", "Запуск"},
+            {"orderEntity.docDate", "Документация"},
+            {"orderEntity.developer", "Разработка"},
+            {"orderEntity.endPlan", "План сдачи"},
+            {"orderEntity.endActual", "Продукция сдана"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -71,6 +84,13 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureScreen.success.save", "Номенклатура успешно создана"},
             {"nomenclatureScreen.success.edit", "Номенклатура успешно изменена"},
 
+            {"orderList.title", "Производство"},
+            {"orderList.header", "График производства"},
+
+            {"orderScreen.title", "Заказ"},
+            {"orderScreen.editText", "Редактирование заказа"},
+            {"orderScreen.addText", "Добавление заказа"},
+
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
             {"loginScreen.error", "Неверный логин или пароль"},
@@ -85,6 +105,10 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.login", "Войти"},
             {"button.logout", "Выйти"},
             {"button.upload", "Загрузить"},
+            {"button.find", "Поиск"},
+
+            {"datePattern", "yyyy-MM-dd"},
+            {"dateTimePattern", "yyyy-MM-dd HH:mm"},
 
             {"pickList.copyAllControlLabel", "Добавить все"},
             {"pickList.copyControlLabel", "Добавить"},
@@ -105,5 +129,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.admin.user", "Пользователи"},
             {"menu.admin.role", "Роли"},
             {"menu.admin.nomenclature", "Номенклатуры"},
+
+            {"menu.graphic.production", "Производство"}
     };
 }

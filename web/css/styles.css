@@ -16,21 +16,37 @@ a{
     font-size: 14px !important;
 }
 
-input[type="text"], input[type="file"], input[type="password"], select {
+.inputSmall{
     font-size: 14px !important;
     margin: 3px !important;
+    width: 100px !important;
 }
 
-input[type="text"], input[type="password"], select {
-    width: 280px ;
+.inputMedium{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 180px !important;
 }
 
-textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled]{
+.inputLarge{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 280px !important;
+}
+
+.inputMedium:disabled, .inputLarge:disabled{
     color: black !important;
     background: #e9e9e9 !important;
 }
 
-textarea{
+.textareaMedium{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 176px !important;
+}
+
+.textareaLarge{
     font-size: 14px !important;
     margin: 3px !important;
     height: 80px !important;
@@ -88,10 +104,6 @@ hr {
     margin: 3px !important;
     font-size: 14px; !important;
     font-family: Arial, Verdana, sans-serif !important;
-}
-
-.loginInput{
-    width: 180px !important;
 }
 
 .btn {

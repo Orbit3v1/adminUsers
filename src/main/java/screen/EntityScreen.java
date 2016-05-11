@@ -28,7 +28,7 @@ public abstract class EntityScreen<T> {
     protected boolean edit;
     private Map<String, Boolean> userPA;
 
-
+    @PostConstruct
     protected void initSecurity() {
         userPA = Security.getUserPrivilegeAction(getScreenName());
     }

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('orderScreen.title')}"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+
+
+    <ui:define name="body">
+        <style type="text/css">
+            .rf-cal-inp{
+                font-size: 14px !important;
+                margin: 3px 3px 3px 0px !important;
+                width: 280px !important;
+            }
+        </style>
+        <h:form id="mainForm">
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>
+
+            <HR/>
+
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <h:panelGrid id="panel" columns="1">
+                <h:panelGroup rendered="#{orderScreen.userPA.nameR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.name')}" for="name"
+                                   styleClass="label"/>
+                    <h:inputText id="name" value="#{orderScreen.entity.name}"
+                                 styleClass="inputLarge"
+                                 disabled="#{!orderScreen.userPA.nameW}"/>
+                    <h:message for="name" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.customerR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.customer')}" for="customer"
+                                   styleClass="label"/>
+                    <h:inputText id="customer" value="#{orderScreen.entity.customer}"
+                                 styleClass="inputLarge"
+                                 disabled="#{!orderScreen.userPA.customerW}"/>
+                    <h:message for="customer" errorClass="error"/>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup rendered="#{orderScreen.userPA.countR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.count')}" for="count"
+                                   styleClass="label"/>
+                    <h:inputText id="count" value="#{orderScreen.entity.count}"
+                                 styleClass="inputLarge"
+                                 disabled="#{!orderScreen.userPA.countW}"/>
+                    <h:message for="count" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.materialR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.material')}" for="material"
+                                   styleClass="label"/>
+                    <h:inputText id="material" value="#{orderScreen.entity.material}"
+                                 styleClass="inputLarge"
+                                   disabled="#{!orderScreen.userPA.materialW}"/>
+                    <h:message for="material" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.gibR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.gib')}" for="gib"
+                                   styleClass="label"/>
+                    <h:inputText id="gib" value="#{orderScreen.entity.gib}"
+                                 styleClass="inputLarge"
+                                 disabled="#{!orderScreen.userPA.gibW}"/>
+                    <h:message for="gib" errorClass="error"/>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup rendered="#{orderScreen.userPA.startR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
+                                   styleClass="label"/>
+                    <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{orderScreen.locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderScreen.userPA.startW}"/>
+                    <h:message for="start" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.docDateR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.docDate')}" for="docDate"
+                                   styleClass="label"/>
+                    <rich:calendar id="docDate" value="#{orderScreen.entity.docDate}" locale="#{orderScreen.locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderScreen.userPA.docDateW}"/>
+                    <h:message for="docDate" errorClass="error"/>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"
+                                   styleClass="label"/>
+                    <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{orderScreen.locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderScreen.userPA.endPlanW}"/>
+                    <h:message for="endPlan" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.endActualR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.endActual')}" for="endActual"
+                                   styleClass="label"/>
+                    <rich:calendar id="endActual" value="#{orderScreen.entity.endActual}" locale="#{orderScreen.locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderScreen.userPA.endActualW}"/>
+                    <h:message for="endActual" errorClass="error"/>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+            <HR/>
+
+            <p>
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
+                                 action="#{orderScreen.saveAndExit}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editW : orderScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.save')}"
+                                 action="#{orderScreen.saveOnly}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editW : orderScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{orderScreen.exit}"
+                                 styleClass="btn"/>
+            </p>
+        </h:form>
+    </ui:define>
+</ui:composition>

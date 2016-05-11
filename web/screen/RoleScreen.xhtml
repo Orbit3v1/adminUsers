@@ -28,6 +28,7 @@
                 <h:panelGroup rendered="#{roleScreen.userPA.idR}">
                     <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id" styleClass="label"/>
                     <h:inputText id="id" value="#{roleScreen.entity.id}"
+                                 styleClass="inputMedium"
                                  disabled="#{roleScreen.edit or !roleScreen.userPA.idW}"/>
                     <h:message for="id" errorClass="error"/>
                 </h:panelGroup>
@@ -35,7 +36,9 @@
                 <h:panelGroup rendered="#{roleScreen.userPA.nameR}">
                     <h:outputLabel value="#{messages.getString('roleEntity.name')}" for="name"
                                    styleClass="label"/>
-                    <h:inputText id="name" value="#{roleScreen.entity.name}" disabled="#{!roleScreen.userPA.nameW}"/>
+                    <h:inputText id="name" value="#{roleScreen.entity.name}"
+                                 styleClass="inputMedium"
+                                 disabled="#{!roleScreen.userPA.nameW}"/>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
 
@@ -43,6 +46,7 @@
                     <h:outputLabel value="#{messages.getString('roleEntity.description')}" for="description"
                                    styleClass="label"/>
                     <h:inputTextarea id="description" value="#{roleScreen.entity.description}"
+                                     styleClass="textareaMedium"
                                      disabled="#{!roleScreen.userPA.descriptionW}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>

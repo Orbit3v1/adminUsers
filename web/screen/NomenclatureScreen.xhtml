@@ -29,6 +29,7 @@
                     <h:outputLabel value="#{messages.getString('nomenclatureEntity.name')}" for="name"
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
+                                 styleClass="inputLarge"
                                  style="margin-left: 20px !important"
                                  disabled="#{!nomenclatureScreen.userPA.nameW}">
                         <f:ajax process="@this" partialSubmit="true"/>
@@ -48,6 +49,7 @@
                                        styleClass="label"/>
                         <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
                                          disabled="#{!nomenclatureScreen.userPA.descriptionW}"
+                                         styleClass="textareaLarge"
                                          style="margin-left: 9px !important">
                             <f:ajax process="@this" partialSubmit="true"/>
                         </h:inputTextarea>
@@ -112,7 +114,8 @@
 
                     <h:panelGroup rendered="#{nomenclatureScreen.userPA.drawingsW}">
 
-                        <h:selectOneMenu value="#{nomenclatureScreen.fileType}">
+                        <h:selectOneMenu value="#{nomenclatureScreen.fileType}"
+                                         styleClass="inputMedium">
                             <f:selectItems value="#{nomenclatureScreen.NATypes}"
                                            var="type"
                                            itemValue="#{type}"
@@ -143,7 +146,7 @@
                                  styleClass="btn"
                                  rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
                                  disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
-                <h:commandButton value="#{messages.getString('button.cancel')}"
+                <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
                                  action="#{nomenclatureScreen.exit}"
                                  styleClass="btn"/>
             </p>

@@ -35,7 +35,6 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @PostConstruct
     public void init() {
-        initSecurity();
         entity = new Person();
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Role r order by r.name");
