@@ -33,7 +33,7 @@ public class LoginFilter implements Filter {
 
         if (!path.startsWith("/screen/LoginScreen.xhtml")) {
             String loginUrl = request.getContextPath() + "/screen/LoginScreen.xhtml";
-            HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession();
             Person user = (session != null) ? (Person) session.getAttribute("user") : null;
             if (user == null) {
                 response.sendRedirect(loginUrl);
