@@ -56,6 +56,23 @@ public class Person extends AbstractVersionedEntity{
         this.roles = roles;
     }
 
+    @Override
+    public int hashCode() {
+        return (getClass().hashCode() + Integer.valueOf(id).hashCode());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass())
+                ? (id == ((Person) obj).id)
+                : (obj == this);
+    }
+
+    @Override
+    public String toString() {
+        return lastName + " " + firstName;
+    }
+
     public int getId() {
         return id;
     }

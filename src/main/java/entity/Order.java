@@ -39,7 +39,7 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "endActual")
     private Date endActual;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "nomenclature")
     private Nomenclature nomenclature;
 

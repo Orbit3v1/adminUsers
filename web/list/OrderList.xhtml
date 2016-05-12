@@ -37,9 +37,84 @@
                         <br/>
                         <h:inputText value="#{orderList.idFilter}" style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.id}" action="#{nomenclatureScreen.editEntity(row)}"
+                    <h:commandLink value="#{row.name}" action="#{orderScreen.editEntity(row)}"
                                    style="display: block;"/>
                 </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.customerR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.customer')}
+                    </f:facet>
+                    <h:outputText value="#{row.customer}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.nomenclatureR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.nomenclature')}
+                    </f:facet>
+                    <h:outputText value="#{row.nomenclature}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.countR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.count')}
+                    </f:facet>
+                    <h:outputText value="#{row.count}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.materialR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.material')}
+                    </f:facet>
+                    <h:outputText value="#{row.material}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.gibR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.gib')}
+                    </f:facet>
+                    <h:outputText value="#{row.gib}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.responsibleR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.responsible')}
+                    </f:facet>
+                    <h:outputText value="#{row.responsible}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.startR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.start')}
+                    </f:facet>
+                    <h:outputText value="#{row.start}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.docDateR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.docDate')}
+                    </f:facet>
+                    <h:outputText value="#{row.docDate}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.developerR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.developer')}
+                    </f:facet>
+                    <h:outputText value="#{row.developer}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.endPlanR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.endPlan')}
+                    </f:facet>
+                    <h:outputText value="#{row.endPlan}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.endActualR}">
+                    <f:facet name="header">#{messages.getString('orderEntity.endActual')}
+                    </f:facet>
+                    <h:outputText value="#{row.endActual}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                </rich:column>
+
             </rich:dataTable>
         </h:form>
     </ui:define>

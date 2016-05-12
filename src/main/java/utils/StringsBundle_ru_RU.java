@@ -90,6 +90,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderScreen.title", "Заказ"},
             {"orderScreen.editText", "Редактирование заказа"},
             {"orderScreen.addText", "Добавление заказа"},
+            {"orderScreen.error.title", "Неверные данные"},
+            {"orderScreen.success.save", "Заказ успешно создан"},
+            {"orderScreen.success.edit", "Заказ успешно изменен"},
 
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},

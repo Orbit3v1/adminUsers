@@ -17,9 +17,38 @@
 
     <ui:define name="body">
         <style type="text/css">
-            .rf-cal-inp{
+            /*rich:calendar*/
+            .rf-cal-inp {
                 font-size: 14px !important;
-                margin: 3px 3px 3px 0px !important;
+                margin: 3px 3px 3px 3px !important;
+                width: 259px !important;
+            }
+
+            /*rich:select*/
+            .rf-sel-inp {
+                font-size: 14px !important;
+                padding: 1px 0 !important;
+                width: 280px !important;
+            }
+            .rf-sel-sel {
+                font-size: 14px !important;
+            }
+            .rf-sel-btn-arrow {
+                height: 18px !important;
+            }
+            .rf-sel-cntr {
+                width: 280px !important;
+                margin: 3px 3px 3px 3px !important;
+            }
+
+            /*rich:autocomplete*/
+            .rf-au-inp{
+                width: 280px !important;
+                font-size: 14px !important;
+                padding: 1px 0 !important;
+            }
+            .rf-au{
+                margin: 3px !important;
                 width: 280px !important;
             }
         </style>
@@ -49,14 +78,26 @@
                     <h:message for="customer" errorClass="error"/>
                 </h:panelGroup>
 
-
+                <h:panelGroup rendered="#{orderScreen.userPA.nomenclatureR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.nomenclature')}" for="nomenclature"
+                                   styleClass="label"/>
+                    <rich:autocomplete id="nomenclature"
+                                       value="#{orderScreen.entity.nomenclature}"
+                                       mode="cachedAjax" minChars="3" autofill="false" selectFirst="false"
+                                       autocompleteMethod="#{orderScreen.autocomplete}"
+                                       converter="#{nomenclatureConverter}"
+                                       disabled="#{!orderScreen.userPA.nomenclatureW}"/>
+                    <h:message for="nomenclature" errorClass="error"/>
+                </h:panelGroup>
 
                 <h:panelGroup rendered="#{orderScreen.userPA.countR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.count')}" for="count"
                                    styleClass="label"/>
-                    <h:inputText id="count" value="#{orderScreen.entity.count}"
+                    <h:inputText id="count" value="#{orderScreen.count}"
                                  styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.countW}"/>
+                                 disabled="#{!orderScreen.userPA.countW}">
+                        <f:validateBean disabled="true"/>
+                    </h:inputText>
                     <h:message for="count" errorClass="error"/>
                 </h:panelGroup>
 
@@ -65,7 +106,7 @@
                                    styleClass="label"/>
                     <h:inputText id="material" value="#{orderScreen.entity.material}"
                                  styleClass="inputLarge"
-                                   disabled="#{!orderScreen.userPA.materialW}"/>
+                                 disabled="#{!orderScreen.userPA.materialW}"/>
                     <h:message for="material" errorClass="error"/>
                 </h:panelGroup>
 
@@ -78,7 +119,24 @@
                     <h:message for="gib" errorClass="error"/>
                 </h:panelGroup>
 
-
+                <h:panelGroup rendered="#{orderScreen.userPA.responsibleR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.responsible')}" for="responsible"
+                                   styleClass="label"/>
+                    <rich:select id="responsible"
+                                 value="#{orderScreen.entity.responsible}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 disabled="#{!orderScreen.userPA.responsibleW}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{orderScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="responsible" errorClass="error"/>
+                </h:panelGroup>
 
                 <h:panelGroup rendered="#{orderScreen.userPA.startR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
@@ -100,7 +158,24 @@
                     <h:message for="docDate" errorClass="error"/>
                 </h:panelGroup>
 
-
+                <h:panelGroup rendered="#{orderScreen.userPA.developerR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.developer')}" for="developer"
+                                   styleClass="label"/>
+                    <rich:select id="developer"
+                                 value="#{orderScreen.entity.developer}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 disabled="#{!orderScreen.userPA.developerW}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{orderScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="developer" errorClass="error"/>
+                </h:panelGroup>
 
                 <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"

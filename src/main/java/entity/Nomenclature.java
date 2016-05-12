@@ -23,6 +23,15 @@ public class Nomenclature extends AbstractVersionedEntity {
     public Nomenclature() {
     }
 
+    public Nomenclature(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public int getId() {
         return id;
     }
