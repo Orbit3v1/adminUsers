@@ -37,9 +37,13 @@ public abstract class EntityScreen<T> {
     public abstract boolean save();
 
     public String editEntity(T entity) {
-        edit = true;
-        this.entity = entity;
-        return "editEntity";
+        if(entity != null) {
+            edit = true;
+            this.entity = entity;
+            return "editEntity";
+        } else {
+            return newEntity();
+        }
     }
 
     public String newEntity() {

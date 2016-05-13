@@ -4,7 +4,10 @@ import dictionary.NAType;
 import entity.Attachment;
 import entity.Nomenclature;
 import entity.NomenclatureAttachment;
+import entity.Order;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import utils.AppUtil;
 import utils.SessionUtil;
 import validator.Validator;
@@ -21,10 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.servlet.http.Part;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Named("nomenclatureScreen")
@@ -49,6 +49,14 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
+    public boolean saveRefreshOnly(){
+        if(save()){
+            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+            OrderScreen orderScreen = context.getBean("orderScreen", OrderScreen.class);
+            orderScreen.getEntity().setNomenclature(entity);
+        }
+        return false;
+    }
 
     public boolean save() {
         if (validate()) {

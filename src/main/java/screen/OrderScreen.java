@@ -28,6 +28,7 @@ public class OrderScreen extends EntityScreen<Order> {
     private String count;
     private List<Person> developers;
     private List<Nomenclature> nomenclatures;
+    private boolean nomenclatureExists = false;
 
     @PostConstruct
     public void init() {
@@ -61,6 +62,29 @@ public class OrderScreen extends EntityScreen<Order> {
                     .collect(Collectors.toList());
         }
         return result;
+    }
+
+    public void checkNomenclature(){
+        String bundleKey;
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
+                .setParameter("name", entity.getNomenclature().getName());
+        if (query.getResultList().size() != 0) {
+            bundleKey = "orderScreen.nomenclature.old";
+            nomenclatureExists = true;
+        } else {
+            bundleKey = "orderScreen.nomenclature.new";
+        }
+
+        SessionUtil.setMessage("mainForm:nomenclature", bundleKey, FacesMessage.SEVERITY_INFO);
+    }
+
+    public void reloadNomenclature(){
+        int id = entity.getNomenclature().getId();
+        if(id != 0 ){
+            EntityManager em = entityManagerFactory.createEntityManager();
+            entity.setNomenclature(em.find(Nomenclature.class, id));
+        }
     }
 
     @Override
@@ -118,5 +142,13 @@ public class OrderScreen extends EntityScreen<Order> {
 
     public void setDevelopers(List<Person> developers) {
         this.developers = developers;
+    }
+
+    public boolean isNomenclatureExists() {
+        return nomenclatureExists;
+    }
+
+    public void setNomenclatureExists(boolean nomenclatureExists) {
+        this.nomenclatureExists = nomenclatureExists;
     }
 }

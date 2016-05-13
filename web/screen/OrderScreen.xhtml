@@ -86,8 +86,16 @@
                                        mode="cachedAjax" minChars="3" autofill="false" selectFirst="false"
                                        autocompleteMethod="#{orderScreen.autocomplete}"
                                        converter="#{nomenclatureConverter}"
-                                       disabled="#{!orderScreen.userPA.nomenclatureW}"/>
-                    <h:message for="nomenclature" errorClass="error"/>
+                                       disabled="#{!orderScreen.userPA.nomenclatureW}">
+                        <a4j:ajax event="change" listener="#{orderScreen.checkNomenclature}" render="nomenclatureInfo"/>
+                    </rich:autocomplete>
+                    <h:panelGroup id="nomenclatureInfo">
+                        <a4j:commandButton value="Find"
+                                           action="#{nomenclatureScreen.editEntity(orderScreen.entity.nomenclature)}"
+                                           oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
+                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
+                    </h:panelGroup>
+
                 </h:panelGroup>
 
                 <h:panelGroup rendered="#{orderScreen.userPA.countR}">
@@ -218,6 +226,7 @@
                                  action="#{orderScreen.exit}"
                                  styleClass="btn"/>
             </p>
+
         </h:form>
     </ui:define>
 </ui:composition>

@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ public class Nomenclature extends AbstractVersionedEntity {
     private String description;
 
     @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
-    private List<NomenclatureAttachment> nomenclatureAttachments;
+    private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<>();
 
     public Nomenclature() {
     }
