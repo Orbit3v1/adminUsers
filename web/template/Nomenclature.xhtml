@@ -8,6 +8,8 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
 
+    <!--Invisible button to catch enter press-->
+    <h:commandButton value="invisible" style="display: none" onclick="return false;"/>
 
     <h:outputText style="font-size: 18px; font-weight: bold"
                   value="#{nomenclatureScreen.edit ? messages.getString('nomenclatureScreen.editText') : messages.getString('nomenclatureScreen.addText')}"/>

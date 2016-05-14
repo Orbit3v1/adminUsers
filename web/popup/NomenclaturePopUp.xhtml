@@ -21,10 +21,14 @@
                 var opener = window.opener;
                 if (!opener)
                     return;
-                var target = opener.document.getElementById("mainForm:nomenclatureInput");
-                var source = window.document.getElementById("mainForm:name");
-                target.value = source.value;
-
+                var refreshButton = opener.document.getElementById("mainForm:refresh");
+                if(refreshButton != null){
+                    refreshButton.click();
+                } else {
+                    var target = opener.document.getElementById("mainForm:nomenclatureInput");
+                    var source = window.document.getElementById("mainForm:name");
+                    target.value = source.value;
+                }
             }
 
             function closePopup() {
@@ -50,7 +54,7 @@
             </script>
         </ui:fragment>
 
-        <h:form id="mainForm" enctype="multipart/form-data" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm" enctype="multipart/form-data">
             <ui:include src="/template/Nomenclature.xhtml"/>
             <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                              action="#{nomenclatureScreen.saveRefreshClose}"
