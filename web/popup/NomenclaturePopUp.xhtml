@@ -50,7 +50,7 @@
             </script>
         </ui:fragment>
 
-        <h:form id="mainForm" enctype="multipart/form-data">
+        <h:form id="mainForm" enctype="multipart/form-data" onkeypress="if(event.keyCode == 13) return false;">
             <ui:include src="/template/Nomenclature.xhtml"/>
             <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                              action="#{nomenclatureScreen.saveRefreshClose}"

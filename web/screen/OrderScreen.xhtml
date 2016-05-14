@@ -56,7 +56,7 @@
                 width: 261px !important;
             }
         </style>
-        <h:form id="mainForm">
+        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>
 
