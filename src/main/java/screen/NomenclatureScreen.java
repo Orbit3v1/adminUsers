@@ -51,16 +51,25 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
+    public String saveRefresh(){
+        saved = false;
+        if(save()) {
+            saved = true;
+        }
+        return "";
+    }
+
     public String close(){
-        exit();
+        saved = false;
         closed = true;
         return "";
     }
 
-    public String saveAndRefresh(){
+    public String saveRefreshClose(){
         saved = false;
         if(save()) {
             saved = true;
+            closed = true;
         }
         return "";
     }
