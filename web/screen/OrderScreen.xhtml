@@ -156,7 +156,7 @@
                 <h:panelGroup rendered="#{orderScreen.userPA.startR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
                                    styleClass="label"/>
-                    <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{orderScreen.locale}"
+                    <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
                                    disabled="#{!orderScreen.userPA.startW}"/>
@@ -166,7 +166,7 @@
                 <h:panelGroup rendered="#{orderScreen.userPA.docDateR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.docDate')}" for="docDate"
                                    styleClass="label"/>
-                    <rich:calendar id="docDate" value="#{orderScreen.entity.docDate}" locale="#{orderScreen.locale}"
+                    <rich:calendar id="docDate" value="#{orderScreen.entity.docDate}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
                                    disabled="#{!orderScreen.userPA.docDateW}"/>
@@ -195,7 +195,7 @@
                 <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"
                                    styleClass="label"/>
-                    <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{orderScreen.locale}"
+                    <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
                                    disabled="#{!orderScreen.userPA.endPlanW}"/>
@@ -205,7 +205,7 @@
                 <h:panelGroup rendered="#{orderScreen.userPA.endActualR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.endActual')}" for="endActual"
                                    styleClass="label"/>
-                    <rich:calendar id="endActual" value="#{orderScreen.entity.endActual}" locale="#{orderScreen.locale}"
+                    <rich:calendar id="endActual" value="#{orderScreen.entity.endActual}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
                                    disabled="#{!orderScreen.userPA.endActualW}"/>

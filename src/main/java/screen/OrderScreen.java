@@ -5,6 +5,7 @@ import entity.Order;
 import entity.Person;
 import org.springframework.context.annotation.Scope;
 import utils.SessionUtil;
+import validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public class OrderScreen extends EntityScreen<Order> {
 
     @Inject
-    Locale locale;
+    Validator<Order> validator;
 
     private String count;
     private List<Person> developers;
@@ -116,16 +117,7 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     private boolean validate() {
-        //return validator.validate(entity, edit);
-        return true;
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
+        return validator.validate(entity, edit);
     }
 
     public String getCount() {
