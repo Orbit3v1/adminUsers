@@ -30,7 +30,7 @@
             </h:panelGroup>
 
             <h:panelGroup rendered="#{sessionScope.user != null}">
-                <h:outputText value="Добро пожаловать #{sessionScope.user.lastName} #{sessionScope.user.firstName}"
+                <h:outputText value="Добро пожаловать, #{sessionScope.user.lastName} #{sessionScope.user.firstName}"
                               style="font-size: 18px; font-weight: bold"/>
                 <br/>
                 <br/>
