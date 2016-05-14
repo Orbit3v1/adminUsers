@@ -117,7 +117,7 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     private boolean validate() {
-        return validator.validate(entity, edit);
+        return validator.validate(entity, edit, count);
     }
 
     public String getCount() {

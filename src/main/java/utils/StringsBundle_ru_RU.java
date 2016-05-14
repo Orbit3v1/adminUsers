@@ -95,6 +95,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderScreen.success.edit", "Заказ успешно изменен"},
             {"orderScreen.nomenclature.new", "Новая номенклатура"},
             {"orderScreen.nomenclature.old", "Существующая номенклатура"},
+            {"orderScreen.error.nameDuplicate", "Такое же имя есть у другого заказа"},
 
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
@@ -126,6 +127,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.pageNotFound", "Страница не найдена"},
             {"error.entityWasChanged", "Запись была удалена или изменена другим пользователем"},
             {"error.exception", "Ошибка приложения"},
+            {"error.notNumber", "Поле должно быть числом"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},

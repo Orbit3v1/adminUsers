@@ -37,4 +37,12 @@ public class AppUtil {
         return null;
     }
 
+    public static boolean isNumeric(String string){
+        try {
+            Long.parseLong(string);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
