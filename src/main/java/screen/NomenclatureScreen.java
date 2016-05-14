@@ -36,6 +36,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     private Part file;
     private NAType fileType;
+    private boolean closed;
+    private boolean saved;
 
     @PostConstruct
     public void init() {
@@ -49,13 +51,18 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
-    public boolean saveRefreshOnly(){
-        if(save()){
-            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-            OrderScreen orderScreen = context.getBean("orderScreen", OrderScreen.class);
-            orderScreen.getEntity().setNomenclature(entity);
+    public String close(){
+        exit();
+        closed = true;
+        return "";
+    }
+
+    public String saveAndRefresh(){
+        saved = false;
+        if(save()) {
+            saved = true;
         }
-        return false;
+        return "";
     }
 
     public boolean save() {
@@ -90,7 +97,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public void uploadSketch(){
         uploadFile(NAType.SKETCH);
-
     }
 
     public void uploadDrawing(){
@@ -166,4 +172,19 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         this.fileType = fileType;
     }
 
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
 }

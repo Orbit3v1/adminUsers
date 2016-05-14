@@ -12,27 +12,35 @@
 
     <ui:define name="buttons">
         <script type="text/javascript">
-            function refreshOpener()
-            {
+            function refreshOpener() {
                 var opener = window.opener;
-                if(!opener)
+                if (!opener)
                     return;
                 var target = opener.document.getElementById("mainForm:nomenclatureInput");
                 var source = this.document.getElementById("mainForm:name");
                 target.value = source.value;
             }
-
         </script>
+        <ui:fragment rendered="#{nomenclatureScreen.saved}">
+            <script type="text/javascript">
+                refreshOpener();
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{nomenclatureScreen.closed}">
+            <script type="text/javascript">
+                window.close();
+            </script>
+        </ui:fragment>
 
-        <h:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveOnly}"
+
+
+        <h:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveAndRefresh}"
                          render="mainForm"
                          styleClass="btn"
-                         onclick="refreshOpener();"
                          rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
                          disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
         <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
-                         action="#{nomenclatureScreen.exit}"
-                         onclick="window.close();"
+                         action="#{nomenclatureScreen.close}"
                          styleClass="btn"/>
     </ui:define>
 </ui:composition>
