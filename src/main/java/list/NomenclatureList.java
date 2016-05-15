@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,8 @@ import java.util.Map;
 @Scope("request")
 public class NomenclatureList {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
 
     private List<Nomenclature> nomenclatures;
     private Map<String, Boolean> userPA;
@@ -27,7 +28,6 @@ public class NomenclatureList {
 
     @PostConstruct
     public void init(){
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Nomenclature p order by p.name");
         nomenclatures = query.getResultList();
         userPA = Security.getUserPrivilegeAction("nomenclatureList");

@@ -5,9 +5,11 @@ import entity.Attachment;
 import entity.Nomenclature;
 import entity.NomenclatureAttachment;
 import entity.Order;
+import org.hibernate.Hibernate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 import utils.AppUtil;
 import utils.SessionUtil;
 import validator.Validator;
@@ -51,6 +53,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
+    @Transactional
     public String saveRefresh(){
         saved = false;
         if(save()) {
@@ -65,6 +68,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "";
     }
 
+    @Transactional
     public String saveRefreshClose(){
         saved = false;
         if(save()) {
@@ -77,11 +81,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public boolean save() {
         if (validate()) {
             try {
-                EntityManager em = entityManagerFactory.createEntityManager();
-                em.getTransaction().begin();
                 entity = em.merge(entity);
-                em.getTransaction().commit();
-                em.close();
 
                 String bundleKey = edit ? "nomenclatureScreen.success.edit" : "nomenclatureScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);

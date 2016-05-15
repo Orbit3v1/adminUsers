@@ -11,17 +11,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
 @Named("personConverter")
 @Scope("request")
 public class PersonConverter implements Converter {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        EntityManager em = entityManagerFactory.createEntityManager();
         return s.equals("") ? null : em.find(Person.class, Integer.valueOf(s));
     }
 

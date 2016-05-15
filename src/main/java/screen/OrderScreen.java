@@ -34,7 +34,6 @@ public class OrderScreen extends EntityScreen<Order> {
     @PostConstruct
     public void init() {
         entity = new Order();
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
         developers = query.getResultList();
 
@@ -67,7 +66,6 @@ public class OrderScreen extends EntityScreen<Order> {
 
     public void checkNomenclature(){
         String bundleKey;
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
                 .setParameter("name", entity.getNomenclature().getName());
         if (query.getResultList().size() != 0) {
@@ -80,24 +78,12 @@ public class OrderScreen extends EntityScreen<Order> {
         SessionUtil.setMessage("mainForm:nomenclature", bundleKey, FacesMessage.SEVERITY_INFO);
     }
 
-    public void reloadNomenclature(){
-        int id = entity.getNomenclature().getId();
-        if(id != 0 ){
-            EntityManager em = entityManagerFactory.createEntityManager();
-            entity.setNomenclature(em.find(Nomenclature.class, id));
-        }
-    }
-
     @Override
     public boolean save() {
         if (validate()) {
             entity.setCount(Integer.valueOf(count));
             try {
-                EntityManager em = entityManagerFactory.createEntityManager();
-                em.getTransaction().begin();
                 entity = em.merge(entity);
-                em.getTransaction().commit();
-                em.close();
 
                 String bundleKey = edit ? "orderScreen.success.edit" : "orderScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);

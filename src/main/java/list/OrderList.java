@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,8 @@ import java.util.Map;
 @Named("orderList")
 @Scope("request")
 public class OrderList {
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
 
     private List<Order> orders;
     private Map<String, Boolean> userPA;
@@ -27,7 +28,6 @@ public class OrderList {
 
     @PostConstruct
     public void init(){
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Order r order by r.id");
         orders = query.getResultList();
         userPA = Security.getUserPrivilegeAction("orderList");

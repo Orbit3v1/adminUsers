@@ -37,17 +37,12 @@ public class RoleScreen extends EntityScreen<Role>{
         entity = new Role();
         entity.setPrivilegeAction(new ArrayList<>());
 
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
     }
 
     public String delete(){
-        EntityManager em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
         em.remove(em.merge(entity));
-        em.getTransaction().commit();
-        em.close();
         return exit();
     }
 
@@ -60,11 +55,7 @@ public class RoleScreen extends EntityScreen<Role>{
         if (validate()) {
             try {
                 savePrivileges();
-                EntityManager em = entityManagerFactory.createEntityManager();
-                em.getTransaction().begin();
                 entity = em.merge(entity);
-                em.getTransaction().commit();
-                em.close();
 
                 String bundleKey = edit ? "roleScreen.success.edit" : "roleScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
@@ -107,7 +98,6 @@ public class RoleScreen extends EntityScreen<Role>{
     }
 
     private void initPrivilegeRows() {
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Privilege r order by r.pos");
         List<Privilege> privileges = query.getResultList();
 

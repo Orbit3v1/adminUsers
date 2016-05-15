@@ -3,6 +3,7 @@ package screen;
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
 import utils.SessionUtil;
 import validator.PersonValidator;
@@ -14,10 +15,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.OptimisticLockException;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +34,6 @@ public class PersonScreen extends EntityScreen<Person>{
     @PostConstruct
     public void init() {
         entity = new Person();
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Role r order by r.name");
         roleSourceList = query.getResultList();
     }
@@ -56,11 +53,7 @@ public class PersonScreen extends EntityScreen<Person>{
         if (validate()) {
             passwordCode();
             try {
-                EntityManager em = entityManagerFactory.createEntityManager();
-                em.getTransaction().begin();
                 entity = em.merge(entity);
-                em.getTransaction().commit();
-                em.close();
 
                 String bundleKey = edit ? "personScreen.success.edit" : "personScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);

@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 @Scope("request")
 public class LoginScreen {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
 
@@ -37,7 +37,6 @@ public class LoginScreen {
     }
 
     public String login(){
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Person p where p.login = :login and p.password = :password")
                 .setParameter("login", login)
                 .setParameter("password", DigestUtils.md5Hex(password));

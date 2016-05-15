@@ -12,25 +12,26 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 @Named("nomenclatureConverter")
 @Scope("request")
 public class NomenclatureConverter implements Converter {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         Object res = null;
         if(!s.equals("")) {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
                     .setParameter("name", s);
-            if (query.getResultList().size() != 0) {
-                res = query.getResultList().get(0);
+            List<Nomenclature> resList = query.getResultList();
+            if (resList.size() != 0) {
+                res = resList.get(0);
             } else {
                 res = new Nomenclature(s);
             }

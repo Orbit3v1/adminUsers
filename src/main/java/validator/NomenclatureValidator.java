@@ -10,14 +10,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ResourceBundle;
 
 @Named("nomenclatureValidator")
 @Scope("request")
 public class NomenclatureValidator implements Validator<Nomenclature> {
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
 
@@ -37,7 +38,6 @@ public class NomenclatureValidator implements Validator<Nomenclature> {
             valid = false;
             SessionUtil.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select p from Nomenclature p where p.name = :name and p.id != :id")
                     .setParameter("name", nomenclature.getName())
                     .setParameter("id", nomenclature.getId());

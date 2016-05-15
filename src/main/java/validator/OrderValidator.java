@@ -11,14 +11,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ResourceBundle;
 
 @Named("orderValidator")
 @Scope("request")
 public class OrderValidator implements Validator<Order> {
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
 
@@ -40,7 +41,6 @@ public class OrderValidator implements Validator<Order> {
             valid = false;
             SessionUtil.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Order r where r.name = :name and (r.id != :id or :id is null)")
                     .setParameter("name", order.getName())
                     .setParameter("id", edit ? order.getId() : null);

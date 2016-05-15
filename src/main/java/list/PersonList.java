@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,8 @@ import java.util.Map;
 @Scope("request")
 public class PersonList {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     private List<Person> persons;
     private Map<String, Boolean> userPA;
@@ -26,7 +27,6 @@ public class PersonList {
 
     @PostConstruct
     public void init(){
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName");
         persons = query.getResultList();
         userPA = Security.getUserPrivilegeAction("personList");
@@ -47,4 +47,5 @@ public class PersonList {
     public void setUserPA(Map<String, Boolean> userPA) {
         this.userPA = userPA;
     }
+
 }

@@ -18,7 +18,7 @@ public class Nomenclature extends AbstractVersionedEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<>();
 
     public Nomenclature() {

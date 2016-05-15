@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -17,8 +18,8 @@ import java.util.regex.Pattern;
 @Named("roleValidator")
 @Scope("request")
 public class RoleValidator implements Validator<Role>{
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
 
@@ -46,7 +47,6 @@ public class RoleValidator implements Validator<Role>{
             valid = false;
             errorMessage = "roleScreen.error.idPattern";
         } else if (!edit) {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Role r where r.id = :id")
                     .setParameter("id", role.getId());
             if (query.getResultList().size() != 0) {
@@ -66,7 +66,6 @@ public class RoleValidator implements Validator<Role>{
             valid = false;
             SessionUtil.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select r from Role r where r.name = :name and (r.id != :id or :id is null)")
                     .setParameter("name", role.getName())
                     .setParameter("id", edit ? role.getId() : null);

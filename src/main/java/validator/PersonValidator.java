@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ResourceBundle;
 
@@ -17,8 +18,8 @@ import java.util.ResourceBundle;
 @Scope("request")
 public class PersonValidator implements Validator<Person>{
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
 
@@ -38,7 +39,6 @@ public class PersonValidator implements Validator<Person>{
 
     private boolean isValidEmail(){
         boolean valid = true;
-        EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select p from Person p where p.email = :email and p.id != :id")
                 .setParameter("email", person.getEmail())
                 .setParameter("id", person.getId());
@@ -55,7 +55,6 @@ public class PersonValidator implements Validator<Person>{
             valid = false;
             SessionUtil.setMessage("mainForm:login", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
-            EntityManager em = entityManagerFactory.createEntityManager();
             Query query = em.createQuery("select p from Person p where p.email = :login and p.id != :id")
                     .setParameter("login", person.getLogin())
                     .setParameter("id", person.getId());

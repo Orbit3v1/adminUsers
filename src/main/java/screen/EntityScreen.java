@@ -2,6 +2,7 @@ package screen;
 
 import entity.Nomenclature;
 import entity.Person;
+import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
 import utils.SessionUtil;
 import validator.Validator;
@@ -9,7 +10,7 @@ import validator.Validator;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -20,9 +21,10 @@ import java.util.ResourceBundle;
 public abstract class EntityScreen<T> {
 
     @Inject
-    protected EntityManagerFactory entityManagerFactory;
-    @Inject
     protected ResourceBundle resourceBundle;
+
+    @PersistenceContext
+    protected EntityManager em;
 
     protected T entity;
     protected boolean edit;
@@ -34,7 +36,7 @@ public abstract class EntityScreen<T> {
     }
 
     protected abstract String getScreenName();
-    public abstract boolean save();
+    protected abstract boolean save();
 
     public String editEntity(T entity) {
         if(entity != null) {
@@ -55,11 +57,13 @@ public abstract class EntityScreen<T> {
         return "toList";
     }
 
+    @Transactional
     public String saveOnly() {
         save();
         return "";
     }
 
+    @Transactional
     public String saveAndExit() {
         return  save() ? exit() : "";
     }

@@ -16,7 +16,7 @@ public class Role extends AbstractVersionedEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_privilege_action",
             joinColumns = @JoinColumn(name = "role"),
             inverseJoinColumns = {
