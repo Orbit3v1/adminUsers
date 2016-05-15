@@ -10,7 +10,7 @@
     <properties>
         <spring.version>4.2.5.RELEASE</spring.version>
         <richfaces.version>4.5.16.Final</richfaces.version>
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>5.0.1.Final</hibernate.version>
         <jsf.version>2.2.12</jsf.version>
     </properties>
 
@@ -51,6 +51,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -99,18 +105,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.common</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>4.0.2.Final</version>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -131,7 +126,7 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.1.0.CR2</version>
+            <version>3.3.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
