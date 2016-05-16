@@ -430,6 +430,32 @@ public class Security {
                 );
 
                 break;
+            case("menu"): {
+                userPA.put("graphMenuR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("graphMenu", "READ")))
+                );
+
+                userPA.put("adminMenuR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("adminMenu", "READ")))
+                );
+
+                userPA.put("adminMenuPersonR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("adminMenuPerson", "READ")))
+                );
+
+                userPA.put("adminMenuRoleR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("adminMenuRole", "READ")))
+                );
+
+                userPA.put("adminMenuNomenclatureR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("adminMenuNomenclature", "READ")))
+                );
+
+                userPA.put("graphicMenuProductionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("graphicMenuProduction", "READ")))
+                );
+                break;
+            }
 
         }
 

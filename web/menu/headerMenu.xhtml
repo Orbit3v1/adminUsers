@@ -11,11 +11,9 @@
     <ul id="menu" class="headerMenu">
         <li><h:link id="home" value="#{messages.getString('menu.header.home')}" outcome="/screen/LoginScreen"/></li>
         <li><h:link id="graphic" value="#{messages.getString('menu.header.graphic')}" outcome="/screen/GraphicScreen"
-                    rendered="#{headerMenu.canGraphRead}"/></li>
+                    rendered="#{menu.userPA.graphMenuR}"/></li>
         <li><h:link id="admin" value="#{messages.getString('menu.header.admin')}" outcome="/screen/AdminScreen"
-                    rendered="#{headerMenu.canAdminRead}"/></li>
-        <li><a href="#3">Пункт 4</a></li>
-        <li><a href="#4">Пункт 5</a></li>
+                    rendered="#{menu.userPA.adminMenuR}"/></li>
     </ul>
     <br/>
 

@@ -12,11 +12,11 @@
     <ui:define name="body">
         <ul id="menu" class="leftMenu">
             <li><h:link id="user" value="#{messages.getString('menu.admin.user')}" outcome="/list/PersonList"
-                        rendered="#{adminMenu.personRead}"/></li>
+                        rendered="#{menu.userPA.adminMenuPersonR}"/></li>
             <li><h:link id="role" value="#{messages.getString('menu.admin.role')}" outcome="/list/RoleList"
-                        rendered="#{adminMenu.roleRead}"/></li>
+                        rendered="#{menu.userPA.adminMenuRoleR}"/></li>
             <li><h:link id="nomenclature" value="#{messages.getString('menu.admin.nomenclature')}" outcome="/list/NomenclatureList"
-                        rendered="#{adminMenu.nomenclatureRead}"/></li>
+                        rendered="#{menu.userPA.adminMenuNomenclatureR}"/></li>
             <li><h:link id="test" value="Тест" outcome="/screen/TestScreen"/></li>
         </ul>
     </ui:define>

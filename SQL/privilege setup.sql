@@ -194,9 +194,9 @@ values('nomenclatureDrawings', 'WRITE');
 -- order
 
 insert into privilege(id, name, description, pos)
-values('graphicMenuProdaction', 'Графики меню - производство', '', 200);
+values('graphicMenuProduction', 'Графики меню - производство', '', 200);
 insert into privilege_action(privilege, action)
-values('graphicMenuProdaction', 'READ');
+values('graphicMenuProduction', 'READ');
 
 insert into privilege(id, name, description, pos)
 values('orderAdd', 'Заказ - добавить', '', 4000);

@@ -13,7 +13,7 @@
     <ui:define name="body">
         <ul id="menu" class="leftMenu">
             <li><h:link id="user" value="#{messages.getString('menu.graphic.production')}" outcome="/list/OrderList"
-                        /></li>
+                        rendered="#{menu.userPA.graphicMenuProductionR}"/></li>
 
         </ul>
     </ui:define>
