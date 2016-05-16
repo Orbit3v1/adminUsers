@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<aspectj>
+
+    <weaver options="-showWeaveInfo">
+        <include within="screen..*"/>
+    </weaver>
+
+
+</aspectj>
