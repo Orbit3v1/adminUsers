@@ -27,7 +27,8 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+    <context:load-time-weaver />
 
 
     <bean id="locale" class="java.util.Locale">

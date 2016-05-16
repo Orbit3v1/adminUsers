@@ -2,6 +2,7 @@ package screen;
 
 import entity.*;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
 import utils.SessionUtil;
 import validator.RoleValidator;
@@ -55,7 +56,7 @@ public class RoleScreen extends EntityScreen<Role>{
         if (validate()) {
             try {
                 savePrivileges();
-                entity = em.merge(entity);
+                saveData();
 
                 String bundleKey = edit ? "roleScreen.success.edit" : "roleScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
@@ -73,6 +74,12 @@ public class RoleScreen extends EntityScreen<Role>{
         }
         return false;
     }
+
+    @Transactional
+    private void saveData(){
+        entity = em.merge(entity);
+    }
+
 
     private void savePrivileges(){
         if(privilegeRows != null) {

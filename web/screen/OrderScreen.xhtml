@@ -202,13 +202,23 @@
                     <h:message for="endPlan" errorClass="error"/>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.endActualR}">
+                <h:panelGroup id="endActualPG" rendered="#{orderScreen.userPA.endActualR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.endActual')}" for="endActual"
                                    styleClass="label"/>
-                    <rich:calendar id="endActual" value="#{orderScreen.entity.endActual}" locale="#{locale}"
-                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
-                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderScreen.userPA.endActualW}"/>
+                    <h:outputText id="endActual"
+                                  value="#{orderScreen.entity.endActual}"
+                                  rendered="#{orderScreen.entity.endActual != null}"
+                                  style="display: inline-block !important; margin: 3px !important;">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                    </h:outputText>
+
+                    <h:commandButton id="endActualB"
+                                     value="#{messages.getString('order.setEnd')}"
+                                     action="#{orderScreen.setEndActual}"
+                                     disabled="#{!orderScreen.userPA.endActualW}"
+                                     styleClass="btn"
+                                     rendered="#{orderScreen.entity.endActual == null}"
+                                     render="endActualPG"/>
                     <h:message for="endActual" errorClass="error"/>
                 </h:panelGroup>
 

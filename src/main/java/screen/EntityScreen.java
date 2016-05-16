@@ -2,6 +2,7 @@ package screen;
 
 import entity.Nomenclature;
 import entity.Person;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
 import utils.SessionUtil;
@@ -57,13 +58,11 @@ public abstract class EntityScreen<T> {
         return "toList";
     }
 
-    @Transactional
     public String saveOnly() {
         save();
         return "";
     }
 
-    @Transactional
     public String saveAndExit() {
         return  save() ? exit() : "";
     }

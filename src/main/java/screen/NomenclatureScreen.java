@@ -81,7 +81,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public boolean save() {
         if (validate()) {
             try {
-                entity = em.merge(entity);
+                saveData();
 
                 String bundleKey = edit ? "nomenclatureScreen.success.edit" : "nomenclatureScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
@@ -98,6 +98,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             SessionUtil.setMessage("mainForm:panel", "nomenclatureScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
+    }
+
+    @Transactional
+    private void saveData(){
+        entity = em.merge(entity);
     }
 
     private boolean validate() {

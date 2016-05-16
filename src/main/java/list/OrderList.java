@@ -3,15 +3,16 @@ package list;
 import entity.Order;
 import entity.Role;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
+import utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,28 @@ public class OrderList {
         Query query = em.createQuery("select r from Order r order by r.id");
         orders = query.getResultList();
         userPA = Security.getUserPrivilegeAction("orderList");
+    }
+
+    public void setEndActual(Order order){
+        Date date = new Date();
+        order.setEndActual(date);
+        try {
+            order = saveData(order);
+
+        } catch (OptimisticLockException e) {
+            e.printStackTrace();
+            order.setEndActual(null);
+            SessionUtil.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            order.setEndActual(null);
+            SessionUtil.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    @Transactional
+    private Order saveData(Order order){
+        return em.merge(order);
     }
 
     public List<Order> getOrders() {

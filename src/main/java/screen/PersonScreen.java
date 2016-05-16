@@ -2,7 +2,9 @@ package screen;
 
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import utils.Security;
 import utils.SessionUtil;
@@ -53,14 +55,13 @@ public class PersonScreen extends EntityScreen<Person>{
         if (validate()) {
             passwordCode();
             try {
-                entity = em.merge(entity);
+                saveData();
 
                 String bundleKey = edit ? "personScreen.success.edit" : "personScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
-            } catch (OptimisticLockException e){
-                e.printStackTrace();
+            } catch (OptimisticLockException | StaleObjectStateException e){
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
                 e.printStackTrace();
@@ -70,6 +71,11 @@ public class PersonScreen extends EntityScreen<Person>{
             SessionUtil.setMessage("mainForm:panel", "personScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
+    }
+
+    @Transactional
+    private void saveData(){
+        entity = em.merge(entity);
     }
 
     private void passwordCode(){

@@ -4,6 +4,7 @@ import entity.Nomenclature;
 import entity.Order;
 import entity.Person;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 import utils.SessionUtil;
 import validator.Validator;
 
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -83,7 +85,7 @@ public class OrderScreen extends EntityScreen<Order> {
         if (validate()) {
             entity.setCount(Integer.valueOf(count));
             try {
-                entity = em.merge(entity);
+                saveData();
 
                 String bundleKey = edit ? "orderScreen.success.edit" : "orderScreen.success.save";
                 SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
@@ -100,6 +102,16 @@ public class OrderScreen extends EntityScreen<Order> {
             SessionUtil.setMessage("mainForm:panel", "orderScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
+    }
+
+    @Transactional
+    private void saveData(){
+        entity = em.merge(entity);
+    }
+
+    public void setEndActual(){
+        Date date = new Date();
+        entity.setEndActual(date);
     }
 
     private boolean validate() {

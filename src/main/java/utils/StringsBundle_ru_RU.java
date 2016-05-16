@@ -97,6 +97,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderScreen.nomenclature.old", "Существующая номенклатура"},
             {"orderScreen.error.nameDuplicate", "Такое же имя есть у другого заказа"},
 
+            {"order.setEnd", "Сдать"},
+
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
             {"loginScreen.error", "Неверный логин или пароль"},

@@ -28,6 +28,7 @@
                              render="orders"
                              styleClass="btn"/>
 
+            <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.orders}" var="row"
                             rowClasses="odd-row, even-row">
                 <rich:column filterValue="#{orderList.idFilter}"
@@ -113,9 +114,16 @@
                 <rich:column rendered="#{orderList.userPA.endActualR}">
                     <f:facet name="header">#{messages.getString('orderEntity.endActual')}
                     </f:facet>
-                    <h:outputText value="#{row.endActual}">
+                    <h:outputText value="#{row.endActual}" rendered="#{row.endActual != null}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
+                    <h:commandButton id="endActualB"
+                                     value="#{messages.getString('order.setEnd')}"
+                                     action="#{orderList.setEndActual(row)}"
+                                     disabled="#{!orderList.userPA.endActualW}"
+                                     styleClass="btn"
+                                     rendered="#{row.endActual == null}"
+                                     render="orders"/>
                 </rich:column>
 
             </rich:dataTable>

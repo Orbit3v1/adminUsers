@@ -428,6 +428,9 @@ public class Security {
                 userPA.put("endActualR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderEndActual", "READ")))
                 );
+                userPA.put("endActualW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderEndActual", "WRITE")))
+                );
 
                 break;
             case("menu"): {
