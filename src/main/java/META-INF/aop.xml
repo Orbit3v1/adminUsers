@@ -2,7 +2,7 @@
 <aspectj>
 
     <weaver options="-showWeaveInfo">
-        <include within="screen..*"/>
+        <include within="com.app..*"/>
     </weaver>
 
 

@@ -31,7 +31,7 @@
 
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>web.LoginFilter</filter-class>
+        <filter-class>com.app.web.LoginFilter</filter-class>
     </filter>
 
     <filter-mapping>
