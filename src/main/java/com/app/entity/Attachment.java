@@ -18,6 +18,7 @@ public class Attachment extends AbstractVersionedEntity {
 
     @Column(name = "content")
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] content;
 
     @Column(name = "type")

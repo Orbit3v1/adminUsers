@@ -46,6 +46,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
+
     @Transactional
     public String saveRefresh(){
         saved = false;
@@ -69,6 +70,19 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             closed = true;
         }
         return "";
+    }
+
+
+    @Transactional
+    public String editEntity(Nomenclature entity) {
+        if(entity != null) {
+            edit = true;
+            this.entity = em.find(Nomenclature.class, entity.getId());
+            this.entity.getNomenclatureAttachments().size();
+            return "editEntity";
+        } else {
+            return newEntity();
+        }
     }
 
     public boolean save() {
@@ -116,16 +130,16 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         na.setAttachment(attachment);
         na.setNomenclature(entity);
         na.setType(fileType);
-        entity.getNomenclatureAttachments().add(na);
     }
 
     public void delete(NomenclatureAttachment nomenclatureAttachment ){
         entity.getNomenclatureAttachments().remove(nomenclatureAttachment);
     }
 
+    @Transactional
     public void download(NomenclatureAttachment nomenclatureAttachment){
 
-        Attachment attachment = nomenclatureAttachment.getAttachment();
+        Attachment attachment = em.find(Attachment.class, nomenclatureAttachment.getAttachment().getId());
 
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
