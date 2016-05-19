@@ -18,11 +18,8 @@ public class Nomenclature extends AbstractVersionedEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<NomenclatureAttachment>();
-
-    @OneToMany(mappedBy = "nomenclature")
-    private List<Order> orders = new ArrayList<Order>();
 
     public Nomenclature() {
     }
@@ -68,11 +65,4 @@ public class Nomenclature extends AbstractVersionedEntity {
         this.nomenclatureAttachments = nomenclatureAttachments;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 }

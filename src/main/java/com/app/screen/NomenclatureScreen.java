@@ -48,24 +48,24 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
 
     @Transactional
-    public String saveRefresh(){
+    public String saveRefresh() {
         saved = false;
-        if(save()) {
+        if (save()) {
             saved = true;
         }
         return "";
     }
 
-    public String close(){
+    public String close() {
         saved = false;
         closed = true;
         return "";
     }
 
     @Transactional
-    public String saveRefreshClose(){
+    public String saveRefreshClose() {
         saved = false;
-        if(save()) {
+        if (save()) {
             saved = true;
             closed = true;
         }
@@ -73,15 +73,17 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
 
-    @Transactional
-    public void initEntity(Nomenclature entity) {
-        if(entity.getId() == 0){
-            super.initEntity(entity);
-        } else {
-            this.entity = em.find(Nomenclature.class, entity.getId());
-            this.entity.getNomenclatureAttachments().size();
-        }
-    }
+//    @Transactional
+//    public String editEntity(Nomenclature entity) {
+//        if (entity != null) {
+//            edit = true;
+//            this.entity = em.find(Nomenclature.class, entity.getId());
+//            this.entity.getNomenclatureAttachments().size();
+//            return "editEntity";
+//        } else {
+//            return newEntity();
+//        }
+//    }
 
     public boolean save() {
         if (validate()) {
@@ -106,7 +108,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     @Transactional
-    private void saveData(){
+    private void saveData() {
         entity = em.merge(entity);
     }
 
@@ -114,30 +116,31 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return validator.validate(entity, edit);
     }
 
-    public void uploadSketch(){
+    public void uploadSketch() {
         uploadFile(NAType.SKETCH);
     }
 
-    public void uploadDrawing(){
+    public void uploadDrawing() {
         uploadFile(fileType);
     }
 
-    public void uploadFile(NAType fileType){
+    public void uploadFile(NAType fileType) {
         Attachment attachment = AppUtil.getAttachment(file);
         NomenclatureAttachment na = new NomenclatureAttachment();
         na.setAttachment(attachment);
         na.setNomenclature(entity);
         na.setType(fileType);
+        entity.getNomenclatureAttachments().add(na);
     }
 
-    public void delete(NomenclatureAttachment nomenclatureAttachment ){
+    public void delete(NomenclatureAttachment nomenclatureAttachment) {
         entity.getNomenclatureAttachments().remove(nomenclatureAttachment);
     }
 
     @Transactional
-    public void download(NomenclatureAttachment nomenclatureAttachment){
+    public void download(NomenclatureAttachment nomenclatureAttachment) {
 
-        Attachment attachment = em.find(Attachment.class, nomenclatureAttachment.getAttachment().getId());
+        Attachment attachment = nomenclatureAttachment.getAttachment();
 
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
@@ -165,18 +168,18 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         this.file = file;
     }
 
-    public List<NomenclatureAttachment> getSketches(){
+    public List<NomenclatureAttachment> getSketches() {
         return entity.getNomenclatureAttachments().stream().filter(s -> s.getType() == NAType.SKETCH).collect(Collectors.toList());
     }
 
-    public List<NomenclatureAttachment> getDrawings(){
+    public List<NomenclatureAttachment> getDrawings() {
         return entity.getNomenclatureAttachments().stream()
                 .filter(s -> s.getType() != NAType.SKETCH)
                 .sorted((NomenclatureAttachment o1, NomenclatureAttachment o2) -> o1.getType().getDescription().compareTo(o2.getType().getDescription()))
                 .collect(Collectors.toList());
     }
 
-    public List<NAType> getNATypes(){
+    public List<NAType> getNATypes() {
         return Arrays.asList(NAType.values()).stream()
                 .filter(s -> s != NAType.SKETCH)
                 .sorted((NAType o1, NAType o2) -> o1.getDescription().compareTo(o2.getDescription()))
