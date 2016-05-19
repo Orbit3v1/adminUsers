@@ -38,7 +38,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public void init() {
         fileType = NAType.BENDING;
         entity = new Nomenclature();
-        entity.setNomenclatureAttachments(new ArrayList<>());
+        entity.setNomenclatureAttachments(new ArrayList<NomenclatureAttachment>());
     }
 
     @Override
@@ -75,8 +75,12 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public void initEntity(Nomenclature entity) {
-        this.entity = em.find(Nomenclature.class, entity.getId());
-        this.entity.getNomenclatureAttachments().size();
+        if(entity.getId() == 0){
+            super.initEntity(entity);
+        } else {
+            this.entity = em.find(Nomenclature.class, entity.getId());
+            this.entity.getNomenclatureAttachments().size();
+        }
     }
 
     public boolean save() {

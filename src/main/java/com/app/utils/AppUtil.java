@@ -6,6 +6,8 @@ import com.app.entity.Attachment;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AppUtil {
 
@@ -44,5 +46,40 @@ public class AppUtil {
             return false;
         }
         return true;
+    }
+
+    public static Date trimTime(Date date) {
+        if(date == null){
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+
+        return calendar.getTime();
+    }
+
+
+    public static boolean isInRange(Date date, Date begin, Date end){
+        boolean match = true;
+        Date val = trimTime(date);
+
+        if(begin == null && end == null){
+            match = true;
+        } else if(val == null){
+            match = false;
+        } else {
+            if (begin != null){
+                match =  begin.compareTo(val) <= 0;
+            }
+            if (end != null){
+                match &=  end.compareTo(val) >= 0;
+            }
+
+        }
+        return match;
     }
 }

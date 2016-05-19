@@ -114,6 +114,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.logout", "Выйти"},
             {"button.upload", "Загрузить"},
             {"button.find", "Поиск"},
+            {"button.clearFilter", "Сброс"},
+
 
             {"datePattern", "yyyy-MM-dd"},
             {"dateTimePattern", "yyyy-MM-dd HH:mm"},
