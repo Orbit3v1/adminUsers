@@ -12,9 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/**
- * Created by ayaroslavtsev on 06.05.2016.
- */
+
 public abstract class EntityScreen<T> {
 
     @Inject
@@ -38,7 +36,7 @@ public abstract class EntityScreen<T> {
     public String editEntity(T entity) {
         if(entity != null) {
             edit = true;
-            this.entity = entity;
+            initEntity(entity);
             return "editEntity";
         } else {
             return newEntity();
@@ -47,6 +45,10 @@ public abstract class EntityScreen<T> {
 
     public String newEntity() {
         return "editEntity";
+    }
+
+    public void initEntity(T entity){
+        this.entity = entity;
     }
 
     public String exit() {
