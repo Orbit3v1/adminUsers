@@ -74,17 +74,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
 
-//    @Transactional
-//    public String editEntity(Nomenclature entity) {
-//        if (entity != null) {
-//            edit = true;
-//            this.entity = em.find(Nomenclature.class, entity.getId());
-//            this.entity.getNomenclatureAttachments().size();
-//            return "editEntity";
-//        } else {
-//            return newEntity();
-//        }
-//    }
+    @Transactional
+    public void initEntity(Nomenclature entity) {
+        this.entity = em.find(Nomenclature.class, entity.getId());
+        this.entity.getNomenclatureAttachments().size();
+    }
 
     public boolean save() {
         if (validate()) {

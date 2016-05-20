@@ -36,7 +36,7 @@ public abstract class EntityScreen<T> {
     public String editEntity(T entity) {
         if(entity != null) {
             edit = true;
-            this.entity = entity;
+            initEntity(entity);
             return "editEntity";
         } else {
             return newEntity();
@@ -47,9 +47,9 @@ public abstract class EntityScreen<T> {
         return "editEntity";
     }
 
-//    public void initEntity(T entity){
-//        this.entity = entity;
-//    }
+    public void initEntity(T entity){
+        this.entity = entity;
+    }
 
     public String exit() {
         SessionUtil.cleanSession(getScreenName());
