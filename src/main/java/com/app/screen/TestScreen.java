@@ -1,6 +1,7 @@
 package com.app.screen;
 
 import com.app.entity.Attachment;
+import com.app.entity.AttachmentContent;
 import com.app.entity.Role;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -9,6 +10,7 @@ import org.richfaces.model.UploadedFile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
@@ -17,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -32,6 +35,8 @@ public class TestScreen {
     private MailSender mailSender;
     @Inject
     private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     private List<Attachment> attachments;
     private Part file;
@@ -63,7 +68,7 @@ public class TestScreen {
         Attachment attachment = new Attachment();
         attachment.setName(item.getName());
         attachment.setSize(item.getSize());
-        attachment.setContent(item.getData());
+        //attachment.setContent(item.getData());
         attachment.setType(item.getContentType());
         attachments.add(attachment);
 
@@ -75,6 +80,7 @@ public class TestScreen {
 
     }
 
+    @Transactional
     public void upload() {
         Attachment attachment = new Attachment();
         try {
@@ -82,17 +88,18 @@ public class TestScreen {
             byte[] content = new byte[(int) file.getSize()];
             input.read(content);
 
+            AttachmentContent c = new AttachmentContent();
+            c.setContent(content);
+            AttachmentContent cm = em.merge(c);
+
             attachment.setName(getFilename(file));
             attachment.setSize(file.getSize());
-            attachment.setContent(content);
+            attachment.setContent(cm);
             attachment.setType(file.getContentType());
+            attachment.setId(cm.getId());
             attachments.add(attachment);
 
-            EntityManager em = entityManagerFactory.createEntityManager();
-            em.getTransaction().begin();
-            em.persist(attachment);
-            em.getTransaction().commit();
-            em.close();
+            em.merge(attachment);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,8 +129,9 @@ public class TestScreen {
         ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
 
         try {
+            AttachmentContent content = em.find(AttachmentContent.class, attachment.getId());
             OutputStream output = ec.getResponseOutputStream();
-            output.write(attachment.getContent());
+            output.write(content.getContent());
         } catch (Exception e) {
             e.printStackTrace();
         }

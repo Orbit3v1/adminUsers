@@ -16,10 +16,8 @@ public class Attachment extends AbstractVersionedEntity {
     @Column(name = "size")
     private long size;
 
-    @Column(name = "content")
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] content;
+    @OneToOne(optional = false, fetch=FetchType.LAZY, mappedBy="attachment", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private AttachmentContent content;
 
     @Column(name = "type")
     private String type;
@@ -63,11 +61,11 @@ public class Attachment extends AbstractVersionedEntity {
         this.size = size;
     }
 
-    public byte[] getContent() {
+    public AttachmentContent getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(AttachmentContent content) {
         this.content = content;
     }
 

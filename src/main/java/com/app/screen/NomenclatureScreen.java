@@ -2,6 +2,7 @@ package com.app.screen;
 
 import com.app.dictionary.NAType;
 import com.app.entity.Attachment;
+import com.app.entity.AttachmentContent;
 import com.app.entity.Nomenclature;
 import com.app.entity.NomenclatureAttachment;
 import org.springframework.context.annotation.Scope;
@@ -109,6 +110,16 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     private void saveData() {
+        for(NomenclatureAttachment na : entity.getNomenclatureAttachments()){
+            Attachment attachment = na.getAttachment();
+            if(attachment.getId() == 0) {
+                AttachmentContent attachmentContent = attachment.getContent();
+                attachmentContent = em.merge(attachmentContent);
+
+                attachment.setId(attachmentContent.getId());
+                attachment.setContent(attachmentContent);
+            }
+        }
         entity = em.merge(entity);
     }
 
@@ -150,8 +161,9 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
 
         try {
+            AttachmentContent content = em.find(AttachmentContent.class, attachment.getId());
             OutputStream output = ec.getResponseOutputStream();
-            output.write(attachment.getContent());
+            output.write(content.getContent());
         } catch (Exception e) {
             e.printStackTrace();
         }

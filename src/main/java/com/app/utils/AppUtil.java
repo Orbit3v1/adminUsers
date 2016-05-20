@@ -2,6 +2,7 @@ package com.app.utils;
 
 
 import com.app.entity.Attachment;
+import com.app.entity.AttachmentContent;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -18,9 +19,12 @@ public class AppUtil {
             byte[] content = new byte[(int) file.getSize()];
             input.read(content);
 
+            AttachmentContent attachmentContent = new AttachmentContent();
+            attachmentContent.setContent(content);
+
             attachment.setName(getFilename(file));
             attachment.setSize(file.getSize());
-            attachment.setContent(content);
+            attachment.setContent(attachmentContent);
             attachment.setType(file.getContentType());
         } catch (IOException e) {
             e.printStackTrace();
