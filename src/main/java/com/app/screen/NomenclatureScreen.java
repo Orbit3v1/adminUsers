@@ -76,8 +76,12 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public void initEntity(Nomenclature entity) {
-        this.entity = em.find(Nomenclature.class, entity.getId());
-        this.entity.getNomenclatureAttachments().size();
+        if(entity.getId() != 0){
+            this.entity = em.find(Nomenclature.class, entity.getId());
+            this.entity.getNomenclatureAttachments().size();
+        } else {
+            super.initEntity(entity);
+        }
     }
 
     public boolean save() {
@@ -151,7 +155,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         ExternalContext ec = fc.getExternalContext();
         ec.responseReset();
         ec.setResponseContentType(attachment.getType());
-        ec.setResponseContentLength((int) attachment.getSize());
+        ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
         ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
 
         try {

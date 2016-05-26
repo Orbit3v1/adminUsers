@@ -125,7 +125,7 @@ public class TestScreen {
         ExternalContext ec = fc.getExternalContext();
         ec.responseReset();
         ec.setResponseContentType(attachment.getType());
-        ec.setResponseContentLength((int) attachment.getSize());
+        ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
         ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
 
         try {

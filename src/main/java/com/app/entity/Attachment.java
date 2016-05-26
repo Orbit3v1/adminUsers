@@ -14,7 +14,7 @@ public class Attachment extends AbstractVersionedEntity {
     private String name;
 
     @Column(name = "size")
-    private long size;
+    private Long size;
 
     @OneToOne(optional = false, fetch=FetchType.LAZY, mappedBy="attachment", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private AttachmentContent content;
@@ -53,11 +53,11 @@ public class Attachment extends AbstractVersionedEntity {
         this.name = name;
     }
 
-    public long getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 

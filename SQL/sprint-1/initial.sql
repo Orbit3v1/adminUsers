@@ -1,6 +1,5 @@
-drop database appOwner;
-create database appOwner;
-use appOwner;
+--liquibase formatted sql
+--changeset author:yaroand endDelimiter:;
 
 create table person(
   id int not null primary key AUTO_INCREMENT,
@@ -78,8 +77,8 @@ create index role_privilege_action_i1 on role_privilege_action(privilege, action
 create table attachment(
   id int not null primary key AUTO_INCREMENT,
   version int default 0,
-  name varchar(500) not null,
-  content LONGBLOB not null,
+  name varchar(500),
+  content LONGBLOB,
   size int,
   type varchar(100)
 );

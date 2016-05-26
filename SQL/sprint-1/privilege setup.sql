@@ -1,4 +1,6 @@
---2
+--liquibase formatted sql
+--changeset author:yaroand endDelimiter:;
+
 insert into action(id, name, description)
 values('WRITE', 'Запись', '');
 
