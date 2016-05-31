@@ -1,0 +1,5 @@
+path to mysql config file:
+C:\ProgramData\MySQL\MySQL Server 5.7\
+
+parameter to increase allowed load size:
+max_allowed_packet=32M
