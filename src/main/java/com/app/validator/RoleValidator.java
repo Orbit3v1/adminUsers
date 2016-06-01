@@ -15,13 +15,8 @@ import java.util.regex.Pattern;
 
 @Named("roleValidator")
 @Scope("request")
-public class RoleValidator implements Validator<Role>{
-    @PersistenceContext
-    protected EntityManager em;
-    @Inject
-    ResourceBundle resourceBundle;
+public class RoleValidator extends AbstractValidator<Role>{
 
-    private Role role;
     private boolean edit;
 
     public RoleValidator() {
@@ -29,7 +24,7 @@ public class RoleValidator implements Validator<Role>{
 
     @Override
     public boolean validate(Role role, Object ... args) {
-        this.role = role;
+        this.entity = role;
         edit = args.length > 0 ? (Boolean) args[0] : false;
         return isValidId() & isValidName();
     }
@@ -38,38 +33,38 @@ public class RoleValidator implements Validator<Role>{
         boolean valid = true;
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9_-]+");
         String errorMessage = "";
-        if (role.getId().equals("")) {
+        if (entity.getId().equals("")) {
             valid = false;
             errorMessage = "error.notNull";
-        } else if (pattern.matcher(role.getId()).find()) {
+        } else if (pattern.matcher(entity.getId()).find()) {
             valid = false;
             errorMessage = "roleScreen.error.idPattern";
         } else if (!edit) {
             Query query = em.createQuery("select r from Role r where r.id = :id")
-                    .setParameter("id", role.getId());
+                    .setParameter("id", entity.getId());
             if (query.getResultList().size() != 0) {
                 valid = false;
                 errorMessage = "roleScreen.error.idDuplicate";
             }
         }
         if (!valid) {
-            SessionUtil.setMessage("mainForm:id", errorMessage, FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:id", errorMessage, FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }
 
     private boolean isValidName() {
         boolean valid = true;
-        if (role.getName().equals("")) {
+        if (entity.getName().equals("")) {
             valid = false;
-            SessionUtil.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else {
-            Query query = em.createQuery("select r from Role r where r.name = :name and (r.id != :id or :id is null)")
-                    .setParameter("name", role.getName())
-                    .setParameter("id", edit ? role.getId() : null);
+            Query query = em.createQuery("select r from Role r where r.name = :name and r.id != :id")
+                    .setParameter("name", entity.getName())
+                    .setParameter("id", edit ? entity.getId() : "");
             if (query.getResultList().size() != 0) {
                 valid = false;
-                SessionUtil.setMessage("mainForm:name", "roleScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:name", "roleScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
             }
         }
         return valid;

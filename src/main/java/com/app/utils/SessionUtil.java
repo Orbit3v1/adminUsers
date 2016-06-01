@@ -31,6 +31,7 @@ public class SessionUtil {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
+    @Deprecated
     public static void setMessage(String componentId, String bundleKey, FacesMessage.Severity type){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         ResourceBundle resourceBundle = context.getBean("messages", ResourceBundle.class);
@@ -39,7 +40,5 @@ public class SessionUtil {
         FacesContext.getCurrentInstance().addMessage(componentId, facesMessage);
 
     }
-
-
 
 }
