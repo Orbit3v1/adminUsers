@@ -44,7 +44,7 @@ public class PersonValidator extends AbstractValidator<Person> {
 
     protected boolean isValidLogin() {
         boolean valid = true;
-        if (entity.getLogin().equals("")) {
+        if (entity.getLogin() == null || entity.getLogin().equals("")) {
             valid = false;
             addMessage.setMessage("mainForm:login", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else if (getPersonsWithSameLogin().size() != 0) {
@@ -64,7 +64,7 @@ public class PersonValidator extends AbstractValidator<Person> {
 
     protected boolean isValidPassword() {
         boolean valid = true;
-        if (entity.getPassword().equals("") && !edit) {
+        if ((entity.getPassword() == null || entity.getPassword().equals("")) && !edit) {
             valid = false;
             addMessage.setMessage("mainForm:password", "error.notNull", FacesMessage.SEVERITY_ERROR);
         }

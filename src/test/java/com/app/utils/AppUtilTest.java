@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class AppUtilTest {
 
+
     @Test
     public void isNumericWithNumber(){
         String input = "12345";

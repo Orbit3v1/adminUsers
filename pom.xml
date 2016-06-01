@@ -12,6 +12,7 @@
         <richfaces.version>4.5.16.Final</richfaces.version>
         <hibernate.version>5.0.1.Final</hibernate.version>
         <jsf.version>2.2.12</jsf.version>
+        <mockito.version>1.10.19</mockito.version>
     </properties>
 
     <build>
@@ -232,6 +233,12 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
         </dependency>
     </dependencies>
 
