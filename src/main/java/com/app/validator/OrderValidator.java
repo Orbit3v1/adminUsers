@@ -12,14 +12,15 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Named("orderValidator")
 @Scope("request")
 public class OrderValidator extends AbstractValidator<Order> {
 
-    private boolean edit;
-    private String count;
+    protected boolean edit;
+    protected String count;
 
     @Override
     public boolean validate(Order order, Object... args) {
@@ -29,24 +30,27 @@ public class OrderValidator extends AbstractValidator<Order> {
         return isValidName() & isValidNomenclature() & isValidCount();
     }
 
-    private boolean isValidName() {
+    protected boolean isValidName() {
         boolean valid = true;
-        if (entity.getName().equals("")) {
+        if (entity.getName() == null || entity.getName().equals("")) {
             valid = false;
             addMessage.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
-        } else {
-            Query query = em.createQuery("select r from Order r where r.name = :name and (r.id != :id or :id is null)")
-                    .setParameter("name", entity.getName())
-                    .setParameter("id", edit ? entity.getId() : null);
-            if (query.getResultList().size() != 0) {
-                valid = false;
-                addMessage.setMessage("mainForm:name", "orderScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
-            }
+        } else if (getOrderWithSameName().size() != 0) {
+            valid = false;
+            addMessage.setMessage("mainForm:name", "orderScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
+
         }
         return valid;
     }
 
-    private boolean isValidNomenclature() {
+    protected List<Order> getOrderWithSameName() {
+        Query query = em.createQuery("select r from Order r where r.name = :name and r.id != :id")
+                .setParameter("name", entity.getName())
+                .setParameter("id", edit ? entity.getId() : -1);
+        return query.getResultList();
+    }
+
+    protected boolean isValidNomenclature() {
         boolean valid = true;
         if (entity.getNomenclature() == null) {
             valid = false;
@@ -55,9 +59,9 @@ public class OrderValidator extends AbstractValidator<Order> {
         return valid;
     }
 
-    private boolean isValidCount() {
+    protected boolean isValidCount() {
         boolean valid = true;
-        if (count.equals("")) {
+        if (count == null || count.equals("")) {
             valid = false;
             addMessage.setMessage("mainForm:count", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else if (!AppUtil.isNumeric(count)) {
