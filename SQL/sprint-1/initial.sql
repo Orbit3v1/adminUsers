@@ -2,7 +2,7 @@
 --changeset author:yaroand endDelimiter:;
 
 create table person(
-  id int not null primary key AUTO_INCREMENT,
+  id int IDENTITY(1,1) not null primary key,
   version int default 0,
   first_name varchar(500),
   last_name varchar(500),
@@ -75,16 +75,16 @@ create index role_privilege_action_i1 on role_privilege_action(privilege, action
 
 
 create table attachment(
-  id int not null primary key AUTO_INCREMENT,
+  id int IDENTITY(1,1) not null primary key,
   version int default 0,
   name varchar(500),
-  content LONGBLOB,
+  content image,
   size int,
   type varchar(100)
 );
 
 create table nomenclature(
-  id int not null primary key AUTO_INCREMENT,
+  id int IDENTITY(1,1) not null primary key,
   version int default 0,
   name varchar(500) not null,
   description varchar(4000)
@@ -94,7 +94,7 @@ create unique index nomenclature_U1 on nomenclature(name);
 
 
 create table nomenclature_attachment(
-  id int not null primary key AUTO_INCREMENT,
+  id int IDENTITY(1,1) not null primary key,
   nomenclature int not null,
   attachment int not null,
   type varchar(100),
@@ -105,7 +105,7 @@ create table nomenclature_attachment(
 create unique index nomenclature_attachment_u1 on nomenclature_attachment(nomenclature, attachment);
 
 create table orders(
-  id int not null primary key AUTO_INCREMENT,
+  id int IDENTITY(1,1) not null primary key,
   name varchar(100) not null,
   version int default 0,
   customer varchar(500),

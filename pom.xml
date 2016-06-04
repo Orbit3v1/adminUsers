@@ -16,6 +16,7 @@
     </properties>
 
     <build>
+        <!--<finalName>ROOT</finalName>-->
         <plugins>
             <!--<plugin>-->
                 <!--<groupId>org.hibernate.orm.tooling</groupId>-->
@@ -186,6 +187,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.2</version>
         </dependency>
 
         <!--RichFaces-->

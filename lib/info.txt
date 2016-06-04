@@ -1,0 +1,5 @@
+jar files which can't be load by maven
+
+1) sqljdbc42.jar - driver for MS SQL
+run to add file to local maven repository
+mvn install:install-file -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.2 -Dpackaging=jar -DgeneratePom=true -Dfile=sqljdbc42.jar

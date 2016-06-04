@@ -13,8 +13,8 @@
     <context:component-scan base-package="com.app"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/appOwner?useSSL=false"/>
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=appOwner;"/>
         <property name="username" value="owner"/>
         <property name="password" value="Orbit3v!"/>
     </bean>
