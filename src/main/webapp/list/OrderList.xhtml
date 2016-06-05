@@ -46,7 +46,7 @@
                              styleClass="btn"/>
 
             <h:message for="orders" infoClass="info" errorClass="error"/>
-            <rich:dataTable id="orders" value="#{orderList.orders}" var="row"
+            <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
                             rowClasses="odd-row, even-row">
                 <rich:column rendered="#{orderList.userPA.nameR}"
                              filterValue="#{orderList.flName}"
@@ -56,26 +56,26 @@
                         <br/>
                         <h:inputText value="#{orderList.flName}" style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.name}" action="#{orderScreen.editEntity(row)}"
+                    <h:commandLink value="#{row.order.name}_#{row.name}" action="#{orderScreen.editEntity(row)}"
                                    style="display: block;"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.customerR}"
                              filterValue="#{orderList.flCustomer}"
-                             filterExpression="#{fn:containsIgnoreCase(row.customer, orderList.flCustomer)}"
+                             filterExpression="#{fn:containsIgnoreCase(row.order.customer, orderList.flCustomer)}"
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.customer')}
                         <br/>
                         <h:inputText value="#{orderList.flCustomer}" style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.customer}"/>
+                    <h:outputText value="#{row.order.customer}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.nomenclatureR}"
                              filterValue="#{orderList.flNomenclature}"
                              filterExpression="#{fn:containsIgnoreCase(row.nomenclature, orderList.flNomenclature)}"
                              filterType="custom">
-                    <f:facet name="header">#{messages.getString('orderEntity.nomenclature')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.nomenclature')}
                         <br/>
                         <h:inputText value="#{orderList.flNomenclature}" style="width: 100px"/>
                     </f:facet>
@@ -86,26 +86,26 @@
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.countR}">
-                    <f:facet name="header">#{messages.getString('orderEntity.count')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.count')}
                     </f:facet>
                     <h:outputText value="#{row.count}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.materialR}">
-                    <f:facet name="header">#{messages.getString('orderEntity.material')}
+                    <f:facet name="header">#{messages.getString('nomenclatureEntity.material')}
                     </f:facet>
-                    <h:outputText value="#{row.material}"/>
+                    <h:outputText value="#{row.nomenclature.material}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.gibR}">
-                    <f:facet name="header">#{messages.getString('orderEntity.gib')}
+                    <f:facet name="header">#{messages.getString('nomenclatureEntity.gib')}
                     </f:facet>
-                    <h:outputText value="#{row.gib}"/>
+                    <h:outputText value="#{row.nomenclature.gib}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.responsibleR}"
                              filterValue="#{orderList.flResponsible}"
-                             filterExpression="#{fn:containsIgnoreCase(row.responsible, orderList.flResponsible)}"
+                             filterExpression="#{fn:containsIgnoreCase(row.order.responsible, orderList.flResponsible)}"
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.responsible')}
                         <br/>
@@ -136,7 +136,7 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.start}">
+                    <h:outputText value="#{row.order.start}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
@@ -144,7 +144,7 @@
                 <rich:column rendered="#{orderList.userPA.docDateR}"
                              filter="#{orderList.docDateFilterImpl}"
                              filterType="custom">
-                    <f:facet name="header">#{messages.getString('orderEntity.docDate')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="docDateL"
@@ -172,7 +172,7 @@
                              filterValue="#{orderList.flDeveloper}"
                              filterExpression="#{fn:containsIgnoreCase(row.developer, orderList.flDeveloper)}"
                              filterType="custom">
-                    <f:facet name="header">#{messages.getString('orderEntity.developer')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.developer')}
                         <br/>
                         <h:inputText value="#{orderList.flDeveloper}" style="width: 100px"/>
                     </f:facet>
@@ -182,7 +182,7 @@
                 <rich:column rendered="#{orderList.userPA.endPlanR}"
                              filter="#{orderList.endPlanFilterImpl}"
                              filterType="custom">
-                    <f:facet name="header">#{messages.getString('orderEntity.endPlan')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.endPlan')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endPlanL"
@@ -209,7 +209,7 @@
                 <rich:column rendered="#{orderList.userPA.endActualR}"
                              filter="#{orderList.endActualFilterImpl}"
                              filterType="custom">
-                    <f:facet name="header">#{messages.getString('orderEntity.endActual')}
+                    <f:facet name="header">#{messages.getString('orderItemEntity.endActual')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endActualL"

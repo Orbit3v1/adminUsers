@@ -1,6 +1,7 @@
 package com.app.list;
 
 import com.app.entity.Order;
+import com.app.entity.OrderItem;
 import com.app.utils.AppUtil;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
@@ -22,7 +23,7 @@ public class OrderList {
     @PersistenceContext
     protected EntityManager em;
 
-    private List<Order> orders;
+    private List<OrderItem> orderItems;
     private Map<String, Boolean> userPA;
 
     private String flName;
@@ -41,60 +42,60 @@ public class OrderList {
 
     @PostConstruct
     public void init() {
-        Query query = em.createQuery("select r from Order r order by r.id");
-        orders = query.getResultList();
+        Query query = em.createQuery("select r from OrderItem r order by r.order.name, r.name");
+        orderItems = query.getResultList();
         userPA = Security.getUserPrivilegeAction("orderList");
     }
 
-    public void setEndActual(Order order) {
+    public void setEndActual(OrderItem orderItem) {
         Date date = new Date();
-        order.setEndActual(date);
+        orderItem.setEndActual(date);
         try {
-            order = saveData(order);
+            orderItem = saveData(orderItem);
 
         } catch (OptimisticLockException e) {
             e.printStackTrace();
-            order.setEndActual(null);
+            orderItem.setEndActual(null);
             SessionUtil.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            order.setEndActual(null);
+            orderItem.setEndActual(null);
             SessionUtil.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
     }
 
     @Transactional
-    private Order saveData(Order order) {
-        return em.merge(order);
+    private OrderItem saveData(OrderItem orderItem) {
+        return em.merge(orderItem);
     }
 
     public Filter<?> getStartFilterImpl() {
-        return new Filter<Order>() {
-            public boolean accept(Order item) {
-                return AppUtil.isInRange(item.getStart(), flStartL, flStartH);
+        return new Filter<OrderItem>() {
+            public boolean accept(OrderItem item) {
+                return AppUtil.isInRange(item.getOrder().getStart(), flStartL, flStartH);
             }
         };
     }
 
     public Filter<?> getDocDateFilterImpl() {
-        return new Filter<Order>() {
-            public boolean accept(Order item) {
+        return new Filter<OrderItem>() {
+            public boolean accept(OrderItem item) {
                 return AppUtil.isInRange(item.getDocDate(), flDocDateL, flDocDateH);
             }
         };
     }
 
     public Filter<?> getEndPlanFilterImpl() {
-        return new Filter<Order>() {
-            public boolean accept(Order item) {
+        return new Filter<OrderItem>() {
+            public boolean accept(OrderItem item) {
                 return AppUtil.isInRange(item.getEndPlan(), flEndPlanL, flEndPlanH);
             }
         };
     }
 
     public Filter<?> getEndActualFilterImpl() {
-        return new Filter<Order>() {
-            public boolean accept(Order item) {
+        return new Filter<OrderItem>() {
+            public boolean accept(OrderItem item) {
                 return AppUtil.isInRange(item.getEndActual(), flEndActualL, flEndActualH);
             }
         };
@@ -117,12 +118,12 @@ public class OrderList {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public Map<String, Boolean> getUserPA() {

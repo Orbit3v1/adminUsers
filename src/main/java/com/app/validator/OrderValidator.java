@@ -52,10 +52,10 @@ public class OrderValidator extends AbstractValidator<Order> {
 
     protected boolean isValidNomenclature() {
         boolean valid = true;
-        if (entity.getNomenclature() == null) {
-            valid = false;
-            addMessage.setMessage("mainForm:nomenclature", "error.notNull", FacesMessage.SEVERITY_ERROR);
-        }
+//        if (entity.getNomenclature() == null) {
+//            valid = false;
+//            addMessage.setMessage("mainForm:nomenclature", "error.notNull", FacesMessage.SEVERITY_ERROR);
+//        }
         return valid;
     }
 

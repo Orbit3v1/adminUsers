@@ -33,16 +33,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"orderEntity.name", "#"},
             {"orderEntity.customer", "Заказчик"},
-            {"orderEntity.nomenclature", "Номенклатура"},
-            {"orderEntity.count", "Кол-во"},
-            {"orderEntity.material", "Матер."},
-            {"orderEntity.gib", "Гиб"},
             {"orderEntity.responsible", "Ответственный"},
             {"orderEntity.start", "Запуск"},
-            {"orderEntity.docDate", "Документация"},
-            {"orderEntity.developer", "Разработка"},
-            {"orderEntity.endPlan", "План сдачи"},
-            {"orderEntity.endActual", "Продукция сдана"},
+
+            {"orderItemEntity.nomenclature", "Номенклатура"},
+            {"orderItemEntity.count", "Кол-во"},
+            {"orderItemEntity.docDate", "Документация"},
+            {"orderItemEntity.developer", "Разработка"},
+            {"orderItemEntity.endPlan", "План сдачи"},
+            {"orderItemEntity.endActual", "Продукция сдана"},
 
             {"personList.title", "Список пользователей"},
 

@@ -112,25 +112,37 @@ create table orders(
   name varchar(100) not null,
   version int default 0,
   customer varchar(500),
-  nomenclature int not null,
-  cnt int,
   responsible int,
   start datetime,
+
+  CONSTRAINT orders_FK1 FOREIGN KEY (responsible) REFERENCES person(id)
+);
+
+create index orders_I1 on orders(responsible);
+create unique index orders_U1 on orders(name);
+
+
+create table orderItem(
+  id int IDENTITY(1,1) not null primary key,
+  name varchar(100) not null,
+  version int default 0,
+  orders int not null,
+  nomenclature int not null,
+  cnt int,
   docDate datetime,
   developer int,
   endPlan datetime,
   endActual datetime,
   state varchar(50),
 
-  CONSTRAINT orders_FK1 FOREIGN KEY (nomenclature) REFERENCES nomenclature(id),
-  CONSTRAINT orders_FK2 FOREIGN KEY (responsible) REFERENCES person(id),
-  CONSTRAINT orders_FK3 FOREIGN KEY (developer) REFERENCES person(id)
+  CONSTRAINT orderItem_FK1 FOREIGN KEY (nomenclature) REFERENCES nomenclature(id),
+  CONSTRAINT orderItem_FK2 FOREIGN KEY (developer) REFERENCES person(id),
+  CONSTRAINT orderItem_FK3 FOREIGN KEY (orders) REFERENCES orders(id)
 );
 
-create index orders_I1 on orders(nomenclature);
-create index orders_I2 on orders(responsible);
-create index orders_I3 on orders(developer);
-create unique index orders_U1 on orders(name);
+create index orderItem_I1 on orderItem(nomenclature);
+create index orderItem_I2 on orderItem(developer);
+create unique index orderItem_U1 on orderItem(name);
 
 
 

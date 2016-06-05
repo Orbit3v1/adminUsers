@@ -428,6 +428,14 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("orderEndActual", "WRITE")))
                 );
 
+                userPA.put("materialR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureMaterial", "READ")))
+                );
+
+                userPA.put("gibR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureGib", "READ")))
+                );
+
                 break;
             case("menu"): {
                 userPA.put("graphMenuR", hasAnyPrivilegeAction(

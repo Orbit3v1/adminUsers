@@ -47,7 +47,7 @@ public class OrderScreen extends EntityScreen<Order> {
 
     @Override
     public String editEntity(Order entity) {
-        count = String.valueOf(entity.getCount());
+       // count = String.valueOf(entity.getOrderItems().getCount());
         return super.editEntity(entity);
     }
 
@@ -63,24 +63,24 @@ public class OrderScreen extends EntityScreen<Order> {
         return result;
     }
 
-    public void checkNomenclature(){
-        String bundleKey;
-        Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
-                .setParameter("name", entity.getNomenclature().getName());
-        if (query.getResultList().size() != 0) {
-            bundleKey = "orderScreen.nomenclature.old";
-            nomenclatureExists = true;
-        } else {
-            bundleKey = "orderScreen.nomenclature.new";
-        }
-
-        SessionUtil.setMessage("mainForm:nomenclature", bundleKey, FacesMessage.SEVERITY_INFO);
-    }
+//    public void checkNomenclature(){
+//        String bundleKey;
+//        Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
+//                .setParameter("name", entity.getNomenclature().getName());
+//        if (query.getResultList().size() != 0) {
+//            bundleKey = "orderScreen.nomenclature.old";
+//            nomenclatureExists = true;
+//        } else {
+//            bundleKey = "orderScreen.nomenclature.new";
+//        }
+//
+//        SessionUtil.setMessage("mainForm:nomenclature", bundleKey, FacesMessage.SEVERITY_INFO);
+//    }
 
     @Override
     public boolean save() {
         if (validate()) {
-            entity.setCount(Integer.valueOf(count));
+          //  entity.setCount(Integer.valueOf(count));
             try {
                 saveData();
 
@@ -108,7 +108,7 @@ public class OrderScreen extends EntityScreen<Order> {
 
     public void setEndActual(){
         Date date = new Date();
-        entity.setEndActual(date);
+     //   entity.setEndActual(date);
     }
 
     private boolean validate() {

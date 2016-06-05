@@ -1,7 +1,9 @@
 package com.app.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -18,32 +20,15 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "customer")
     private String customer;
 
-    @Column(name = "cnt")
-    private int count;
-
     @Column(name = "start")
     private Date start;
-
-    @Column(name = "docDate")
-    private Date docDate;
-
-    @Column(name = "endPlan")
-    private Date endPlan;
-
-    @Column(name = "endActual")
-    private Date endActual;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "nomenclature")
-    private Nomenclature nomenclature;
 
     @ManyToOne
     @JoinColumn(name = "responsible")
     private Person responsible;
 
-    @ManyToOne
-    @JoinColumn(name = "developer")
-    private Person developer;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
     public Order() {
     }
@@ -72,12 +57,12 @@ public class Order extends AbstractVersionedEntity {
         this.customer = customer;
     }
 
-    public int getCount() {
-        return count;
+    public Person getResponsible() {
+        return responsible;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setResponsible(Person responsible) {
+        this.responsible = responsible;
     }
 
     public Date getStart() {
@@ -88,51 +73,11 @@ public class Order extends AbstractVersionedEntity {
         this.start = start;
     }
 
-    public Date getDocDate() {
-        return docDate;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
-    }
-
-    public Date getEndPlan() {
-        return endPlan;
-    }
-
-    public void setEndPlan(Date endPlan) {
-        this.endPlan = endPlan;
-    }
-
-    public Date getEndActual() {
-        return endActual;
-    }
-
-    public void setEndActual(Date endActual) {
-        this.endActual = endActual;
-    }
-
-    public Nomenclature getNomenclature() {
-        return nomenclature;
-    }
-
-    public void setNomenclature(Nomenclature nomenclature) {
-        this.nomenclature = nomenclature;
-    }
-
-    public Person getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(Person responsible) {
-        this.responsible = responsible;
-    }
-
-    public Person getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(Person developer) {
-        this.developer = developer;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

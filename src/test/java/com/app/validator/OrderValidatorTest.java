@@ -93,7 +93,7 @@ public class OrderValidatorTest {
     public void isValidNomenclatureOk() {
 
         Order order = new Order();
-        order.setNomenclature(new Nomenclature());
+    //    order.setNomenclature(new Nomenclature());
         validator.entity = order;
 
         boolean result = validator.isValidNomenclature();
