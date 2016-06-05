@@ -116,24 +116,6 @@
                     <h:message for="count" errorClass="error"/>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.materialR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.material')}" for="material"
-                                   styleClass="label"/>
-                    <h:inputText id="material" value="#{orderScreen.entity.material}"
-                                 styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.materialW}"/>
-                    <h:message for="material" errorClass="error"/>
-                </h:panelGroup>
-
-                <h:panelGroup rendered="#{orderScreen.userPA.gibR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.gib')}" for="gib"
-                                   styleClass="label"/>
-                    <h:inputText id="gib" value="#{orderScreen.entity.gib}"
-                                 styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.gibW}"/>
-                    <h:message for="gib" errorClass="error"/>
-                </h:panelGroup>
-
                 <h:panelGroup rendered="#{orderScreen.userPA.responsibleR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.responsible')}" for="responsible"
                                    styleClass="label"/>

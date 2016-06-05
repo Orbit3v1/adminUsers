@@ -16,7 +16,7 @@
     </properties>
 
     <build>
-        <!--<finalName>ROOT</finalName>-->
+        <finalName>ROOT</finalName>
         <plugins>
             <!--<plugin>-->
                 <!--<groupId>org.hibernate.orm.tooling</groupId>-->

@@ -52,6 +52,18 @@ public class AppUtil {
         return true;
     }
 
+    public static Integer toInteger(String string){
+        Integer res = null;
+        if(string != null && !string.equals("")) {
+            res = Integer.valueOf(string);
+        }
+        return res;
+    }
+
+    public static String toString(Integer val){
+        return val == null ? null : String.valueOf(val);
+    }
+
     public static Date trimTime(Date date) {
         if(date == null){
             return null;

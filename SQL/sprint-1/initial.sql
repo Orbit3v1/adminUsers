@@ -87,7 +87,10 @@ create table nomenclature(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
   name varchar(500) not null,
-  description varchar(4000)
+  description varchar(4000),
+  material varchar(500),
+  gib int,
+  ready varchar(1) DEFAULT 'N'
 );
 
 create unique index nomenclature_U1 on nomenclature(name);
@@ -111,8 +114,6 @@ create table orders(
   customer varchar(500),
   nomenclature int not null,
   cnt int,
-  material varchar(500),
-  gib varchar(500),
   responsible int,
   start datetime,
   docDate datetime,

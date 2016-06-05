@@ -27,6 +27,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"nomenclatureEntity.name", "Наименование"},
             {"nomenclatureEntity.description", "Описание"},
+            {"nomenclatureEntity.material", "Матер."},
+            {"nomenclatureEntity.gib", "Гиб"},
+            {"nomenclatureEntity.ready", "Готово"},
 
             {"orderEntity.name", "#"},
             {"orderEntity.customer", "Заказчик"},

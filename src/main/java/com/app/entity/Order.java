@@ -21,12 +21,6 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "cnt")
     private int count;
 
-    @Column(name = "material")
-    private String material;
-
-    @Column(name = "gib")
-    private String gib;
-
     @Column(name = "start")
     private Date start;
 
@@ -84,22 +78,6 @@ public class Order extends AbstractVersionedEntity {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getGib() {
-        return gib;
-    }
-
-    public void setGib(String gib) {
-        this.gib = gib;
     }
 
     public Date getStart() {

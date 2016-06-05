@@ -38,6 +38,16 @@
 
         <h:panelGrid columns="1">
 
+            <h:panelGroup rendered="#{nomenclatureScreen.userPA.materialR}">
+                <h:outputLabel value="#{messages.getString('nomenclatureEntity.material')}" for="material"
+                               styleClass="label"/>
+                <h:inputText id="material" value="#{nomenclatureScreen.entity.material}"
+                             styleClass="inputLarge"
+                             style="margin-left: 9px !important"
+                             disabled="#{!nomenclatureScreen.userPA.materialW}"/>
+                <h:message for="material" errorClass="error"/>
+            </h:panelGroup>
+
             <h:panelGroup rendered="#{nomenclatureScreen.userPA.descriptionR}">
                 <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                styleClass="label"/>
@@ -89,6 +99,7 @@
                            expanded="true"
                            rendered="#{nomenclatureScreen.userPA.drawingsR}">
         <h:panelGrid columns="1">
+
             <rich:dataTable id="drawings" value="#{nomenclatureScreen.drawings}" var="row">
                 <h:column>
                     <h:outputText value="#{row.type.description}"/>
@@ -125,6 +136,30 @@
                     </h:inputFile>
                 </h:outputLabel>
             </h:panelGroup>
+        </h:panelGrid>
+            <HR/>
+        <h:panelGrid columns="1">
+            <h:panelGroup rendered="#{nomenclatureScreen.userPA.gibR}">
+                <h:outputLabel value="#{messages.getString('nomenclatureEntity.gib')}" for="gib"
+                               styleClass="label"/>
+                <h:inputText id="gib" value="#{nomenclatureScreen.gib}"
+                             styleClass="inputLarge"
+                             style="margin-left: 9px !important"
+                             disabled="#{!nomenclatureScreen.userPA.gibW}">
+                    <f:validateBean disabled="true"/>
+                </h:inputText>
+                <h:message for="gib" errorClass="error"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{nomenclatureScreen.userPA.readyR}">
+                <h:outputLabel value="#{messages.getString('nomenclatureEntity.ready')}" for="ready"
+                               styleClass="label"/>
+                <h:selectBooleanCheckbox id="ready" value="#{nomenclatureScreen.entity.ready}"
+                                         style="margin-left: 9px !important"
+                                         disabled="#{!nomenclatureScreen.userPA.readyW}"/>
+                <h:message for="ready" errorClass="error"/>
+            </h:panelGroup>
+
         </h:panelGrid>
     </rich:collapsiblePanel>
 

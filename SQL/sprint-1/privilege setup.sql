@@ -193,6 +193,27 @@ values('nomenclatureDrawings', 'READ');
 insert into privilege_action(privilege, action)
 values('nomenclatureDrawings', 'WRITE');
 
+insert into privilege(id, name, description, pos)
+values('nomenclatureMaterial', 'Номенклатура - Поле - Материал', '', 3006);
+insert into privilege_action(privilege, action)
+values('nomenclatureMaterial', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureMaterial', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureGib', 'Номенклатура - Поле - Гиб', '', 3007);
+insert into privilege_action(privilege, action)
+values('nomenclatureGib', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureGib', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureReady', 'Номенклатура - Поле - Готово', '', 3008);
+insert into privilege_action(privilege, action)
+values('nomenclatureReady', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureReady', 'WRITE');
+
 -- order
 
 insert into privilege(id, name, description, pos)
@@ -248,20 +269,6 @@ insert into privilege_action(privilege, action)
 values('orderCount', 'READ');
 insert into privilege_action(privilege, action)
 values('orderCount', 'WRITE');
-
-insert into privilege(id, name, description, pos)
-values('orderMaterial', 'Заказ - Поле - Материал', '', 4007);
-insert into privilege_action(privilege, action)
-values('orderMaterial', 'READ');
-insert into privilege_action(privilege, action)
-values('orderMaterial', 'WRITE');
-
-insert into privilege(id, name, description, pos)
-values('orderGib', 'Заказ - Поле - Гиб', '', 4008);
-insert into privilege_action(privilege, action)
-values('orderGib', 'READ');
-insert into privilege_action(privilege, action)
-values('orderGib', 'WRITE');
 
 insert into privilege(id, name, description, pos)
 values('orderResponsible', 'Заказ - Поле - Ответственный', '', 4009);

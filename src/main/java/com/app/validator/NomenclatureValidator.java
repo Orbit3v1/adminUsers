@@ -2,6 +2,7 @@ package com.app.validator;
 
 import com.app.entity.Nomenclature;
 import com.app.entity.Person;
+import com.app.utils.AppUtil;
 import org.springframework.context.annotation.Scope;
 import com.app.utils.SessionUtil;
 
@@ -18,10 +19,13 @@ import java.util.ResourceBundle;
 @Scope("request")
 public class NomenclatureValidator extends AbstractValidator<Nomenclature> {
 
+    protected String gib;
+
     @Override
     public boolean validate(Nomenclature nomenclature, Object... args) {
         this.entity = nomenclature;
-        return isValidName();
+        gib = args.length > 1 ? (String) args[1] : "";
+        return isValidName() & isValidGib();
     }
 
     protected boolean isValidName() {
@@ -41,5 +45,14 @@ public class NomenclatureValidator extends AbstractValidator<Nomenclature> {
                 .setParameter("name", entity.getName())
                 .setParameter("id", entity.getId());
         return query.getResultList();
+    }
+
+    protected boolean isValidGib() {
+        boolean valid = true;
+        if (gib != null && !gib.equals("") && !AppUtil.isNumeric(gib)) {
+            valid = false;
+            addMessage.setMessage("mainForm:gib", "error.notNumber", FacesMessage.SEVERITY_ERROR);
+        }
+        return valid;
     }
 }

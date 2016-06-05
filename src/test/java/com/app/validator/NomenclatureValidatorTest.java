@@ -86,4 +86,22 @@ public class NomenclatureValidatorTest {
         boolean result = spy.isValidName();
         assertFalse(result);
     }
+
+    @Test
+    public void isValidGibOk() {
+
+        validator.gib = "12345";
+
+        boolean result = validator.isValidGib();
+        assertTrue(result);
+    }
+
+    @Test
+    public void isValidGibNotNumber() {
+
+        validator.gib = "a12";
+
+        boolean result = validator.isValidGib();
+        assertFalse(result);
+    }
 }

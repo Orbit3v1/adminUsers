@@ -30,6 +30,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     @Inject
     Validator<Nomenclature> validator;
 
+    private String gib;
     private Part file;
     private NAType fileType;
     private boolean closed;
@@ -76,6 +77,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public void initEntity(Nomenclature entity) {
+        gib = AppUtil.toString(entity.getGib());
         if(entity.getId() != 0){
             this.entity = em.find(Nomenclature.class, entity.getId());
             this.entity.getNomenclatureAttachments().size();
@@ -86,6 +88,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public boolean save() {
         if (validate()) {
+            entity.setGib(AppUtil.toInteger(gib));
             try {
                 saveData();
 
@@ -122,7 +125,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     private boolean validate() {
-        return validator.validate(entity, edit);
+        return validator.validate(entity, edit, gib);
     }
 
     public void uploadSketch() {
@@ -218,5 +221,13 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public void setSaved(boolean saved) {
         this.saved = saved;
+    }
+
+    public String getGib() {
+        return gib;
+    }
+
+    public void setGib(String gib) {
+        this.gib = gib;
     }
 }

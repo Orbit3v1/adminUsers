@@ -1,5 +1,7 @@
 package com.app.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,16 @@ public class Nomenclature extends AbstractVersionedEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "material")
+    private String material;
+
+    @Column(name = "gib")
+    private Integer gib;
+
+    @Column(name = "ready")
+    @Type(type = "yes_no")
+    private boolean ready;
 
     @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<NomenclatureAttachment>();
@@ -47,6 +59,30 @@ public class Nomenclature extends AbstractVersionedEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public Integer getGib() {
+        return gib;
+    }
+
+    public void setGib(Integer gib) {
+        this.gib = gib;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 
     public String getDescription() {

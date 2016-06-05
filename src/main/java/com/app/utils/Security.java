@@ -258,6 +258,27 @@ public class Security {
                 userPA.put("drawingsW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureDrawings", "WRITE")))
                 );
+
+                userPA.put("materialR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureMaterial", "READ")))
+                );
+                userPA.put("materialW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureMaterial", "WRITE")))
+                );
+
+                userPA.put("gibR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureGib", "READ")))
+                );
+                userPA.put("gibW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureGib", "WRITE")))
+                );
+
+                userPA.put("readyR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureReady", "READ")))
+                );
+                userPA.put("readyW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureReady", "WRITE")))
+                );
                 break;
             case ("orderScreen"):
                 userPA.put("addR", hasAnyPrivilegeAction(
@@ -309,20 +330,6 @@ public class Security {
                 );
                 userPA.put("countW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderCount", "WRITE")))
-                );
-
-                userPA.put("materialR", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderMaterial", "READ")))
-                );
-                userPA.put("materialW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderMaterial", "WRITE")))
-                );
-
-                userPA.put("gibR", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderGib", "READ")))
-                );
-                userPA.put("gibW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderGib", "WRITE")))
                 );
 
                 userPA.put("responsibleR", hasAnyPrivilegeAction(
@@ -392,14 +399,6 @@ public class Security {
 
                 userPA.put("countR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderCount", "READ")))
-                );
-
-                userPA.put("materialR", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderMaterial", "READ")))
-                );
-
-                userPA.put("gibR", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderGib", "READ")))
                 );
 
                 userPA.put("responsibleR", hasAnyPrivilegeAction(
