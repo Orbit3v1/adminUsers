@@ -27,15 +27,20 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @PostConstruct
     public void init() {
-        entity = new Person();
+        initEntity();
         Query query = em.createQuery("select r from Role r order by r.name");
         roleSourceList = query.getResultList();
     }
 
     @Override
-    public String editEntity(Person person) {
-        oldPassword = person.getPassword();
-        return super.editEntity(person);
+    public void initEntity(Person entity) {
+        oldPassword = entity.getPassword();
+        super.initEntity(entity);
+    }
+
+    @Override
+    public void initEntity() {
+        entity = new Person();
     }
 
     @Override

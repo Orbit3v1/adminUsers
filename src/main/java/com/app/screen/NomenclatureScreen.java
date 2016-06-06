@@ -1,10 +1,7 @@
 package com.app.screen;
 
 import com.app.dictionary.NAType;
-import com.app.entity.Attachment;
-import com.app.entity.AttachmentContent;
-import com.app.entity.Nomenclature;
-import com.app.entity.NomenclatureAttachment;
+import com.app.entity.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.AppUtil;
@@ -39,8 +36,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     @PostConstruct
     public void init() {
         fileType = NAType.BENDING;
-        entity = new Nomenclature();
-        entity.setNomenclatureAttachments(new ArrayList<NomenclatureAttachment>());
+        initEntity();
     }
 
     @Override
@@ -84,6 +80,12 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         } else {
             super.initEntity(entity);
         }
+    }
+
+    @Override
+    public void initEntity() {
+        entity = new Nomenclature();
+        entity.setNomenclatureAttachments(new ArrayList<>());
     }
 
     public boolean save() {

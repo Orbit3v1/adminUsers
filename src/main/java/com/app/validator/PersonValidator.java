@@ -27,7 +27,7 @@ public class PersonValidator extends AbstractValidator<Person> {
 
     protected boolean isValidEmail() {
         boolean valid = true;
-        if (getPersonsWithSameEmail().size() != 0) {
+        if (entity.getEmail() != null && !entity.getEmail().equals("") && getPersonsWithSameEmail().size() != 0) {
             valid = false;
             addMessage.setMessage("mainForm:email", "personScreen.error.emailDuplicate", FacesMessage.SEVERITY_ERROR);
         }

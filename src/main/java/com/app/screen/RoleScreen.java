@@ -29,11 +29,15 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @PostConstruct
     public void init() {
-        entity = new Role();
-        entity.setPrivilegeAction(new ArrayList<>());
-
+        initEntity();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
+    }
+
+    @Override
+    public void initEntity() {
+        entity = new Role();
+        entity.setPrivilegeAction(new ArrayList<>());
     }
 
     public String delete(){

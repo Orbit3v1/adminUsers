@@ -44,11 +44,16 @@ public abstract class EntityScreen<T> {
     }
 
     public String newEntity() {
+        initEntity();
         return "editEntity";
     }
 
     public void initEntity(T entity){
         this.entity = entity;
+    }
+
+    public void initEntity(){
+
     }
 
     public String exit() {

@@ -12,7 +12,7 @@ create table person(
   password varchar(50) not null
 );
 
-create unique index person_U1 on person(email);
+create unique index person_U1 on person(email) where email is not null and email != '';
 create unique index person_U2 on person(login);
 
 create table role(
