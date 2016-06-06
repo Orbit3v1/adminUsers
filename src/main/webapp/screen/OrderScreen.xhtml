@@ -82,6 +82,52 @@
                     <h:message for="customer" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{orderScreen.userPA.responsibleR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.responsible')}" for="responsible"
+                                   styleClass="label"/>
+                    <rich:select id="responsible"
+                                 value="#{orderScreen.entity.responsible}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 disabled="#{!orderScreen.userPA.responsibleW}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{orderScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="responsible" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderScreen.userPA.startR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
+                                   styleClass="label"/>
+                    <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderScreen.userPA.startW}"/>
+                    <h:message for="start" errorClass="error"/>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+            <HR/>
+
+            <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
+                            rowClasses="odd-row, even-row">
+
+                <rich:column rendered="#{orderScreen.userPA.itemNameR}">
+                    <f:facet name="header">#{messages.getString('orderItemEntity.name')}
+                    </f:facet>
+                    <h:commandLink value="#{row.order.name}_#{row.name}" action="#{orderScreen.editEntity(row)}"
+                                   style="display: block;"/>
+                </rich:column>
+
+            </rich:dataTable>
+
+            <h:panelGrid id="orderItems" columns="1">
                 <h:panelGroup rendered="#{orderScreen.userPA.nomenclatureR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.nomenclature')}" for="nomenclature"
                                    styleClass="label"/>
@@ -116,34 +162,7 @@
                     <h:message for="count" errorClass="error"/>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.responsibleR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.responsible')}" for="responsible"
-                                   styleClass="label"/>
-                    <rich:select id="responsible"
-                                 value="#{orderScreen.entity.responsible}"
-                                 converter="#{personConverter}"
-                                 enableManualInput="true"
-                                 defaultLabel=""
-                                 listWidth="280"
-                                 disabled="#{!orderScreen.userPA.responsibleW}">
-                        <f:selectItem itemLabel="" itemValue="#{null}"/>
-                        <f:selectItems value="#{orderScreen.developers}"
-                                       var="row"
-                                       itemLabel="#{row}"
-                                       itemValue="#{row}"/>
-                    </rich:select>
-                    <h:message for="responsible" errorClass="error"/>
-                </h:panelGroup>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.startR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
-                                   styleClass="label"/>
-                    <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{locale}"
-                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
-                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderScreen.userPA.startW}"/>
-                    <h:message for="start" errorClass="error"/>
-                </h:panelGroup>
 
                 <h:panelGroup rendered="#{orderScreen.userPA.docDateR}">
                     <h:outputLabel value="#{messages.getString('orderEntity.docDate')}" for="docDate"
