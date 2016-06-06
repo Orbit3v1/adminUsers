@@ -25,19 +25,20 @@ public class OrderScreen extends EntityScreen<Order> {
     @Inject
     Validator<Order> validator;
 
-    private String count;
+
     private List<Person> developers;
     private List<Nomenclature> nomenclatures;
     private boolean nomenclatureExists = false;
 
     @PostConstruct
     public void init() {
-        entity = new Order();
+        initEntity();
+
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
         developers = query.getResultList();
 
-        query = em.createQuery("select r from Nomenclature r order by r.name");
-        nomenclatures = query.getResultList();
+//        query = em.createQuery("select r from Nomenclature r order by r.name");
+//        nomenclatures = query.getResultList();
     }
 
     @Override
@@ -46,10 +47,22 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     @Override
-    public String editEntity(Order entity) {
-       // count = String.valueOf(entity.getOrderItems().getCount());
-        return super.editEntity(entity);
+    public void initEntity() {
+        entity = new Order();
     }
+
+    @Override
+    @Transactional
+    public void initEntity(Order entity) {
+        this.entity = em.find(Order.class, entity.getId());
+        this.entity.getOrderItems().size();
+    }
+
+//    @Override
+//    public String editEntity(Order entity) {
+//       // count = String.valueOf(entity.getOrderItems().getCount());
+//        return super.editEntity(entity);
+//    }
 
     public List<Nomenclature> autocomplete(String prefix) {
         List<Nomenclature> result;
@@ -112,15 +125,7 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     private boolean validate() {
-        return validator.validate(entity, edit, count);
-    }
-
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
+        return validator.validate(entity, edit);
     }
 
     public List<Person> getDevelopers() {

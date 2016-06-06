@@ -27,7 +27,7 @@ public class OrderValidator extends AbstractValidator<Order> {
         this.entity = order;
         edit = args.length > 0 ? (Boolean) args[0] : false;
         count = args.length > 1 ? (String) args[1] : "";
-        return isValidName() & isValidNomenclature() & isValidCount();
+        return isValidName() & isValidNomenclature();
     }
 
     protected boolean isValidName() {
@@ -58,16 +58,16 @@ public class OrderValidator extends AbstractValidator<Order> {
 //        }
         return valid;
     }
-
-    protected boolean isValidCount() {
-        boolean valid = true;
-        if (count == null || count.equals("")) {
-            valid = false;
-            addMessage.setMessage("mainForm:count", "error.notNull", FacesMessage.SEVERITY_ERROR);
-        } else if (!AppUtil.isNumeric(count)) {
-            valid = false;
-            addMessage.setMessage("mainForm:count", "error.notNumber", FacesMessage.SEVERITY_ERROR);
-        }
-        return valid;
-    }
+//
+//    protected boolean isValidCount() {
+//        boolean valid = true;
+//        if (count == null || count.equals("")) {
+//            valid = false;
+//            addMessage.setMessage("mainForm:count", "error.notNull", FacesMessage.SEVERITY_ERROR);
+//        } else if (!AppUtil.isNumeric(count)) {
+//            valid = false;
+//            addMessage.setMessage("mainForm:count", "error.notNumber", FacesMessage.SEVERITY_ERROR);
+//        }
+//        return valid;
+//    }
 }

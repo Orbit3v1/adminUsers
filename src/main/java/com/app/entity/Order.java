@@ -27,7 +27,7 @@ public class Order extends AbstractVersionedEntity {
     @JoinColumn(name = "responsible")
     private Person responsible;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
     public Order() {

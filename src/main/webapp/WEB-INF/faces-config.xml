@@ -69,7 +69,7 @@
     <navigation-rule>
         <from-view-id>/list/OrderList.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{orderScreen.editEntity(row)}</from-action>
+            <from-action>#{orderScreen.editEntity(row.order)}</from-action>
             <to-view-id>/screen/OrderScreen.xhtml</to-view-id>
             <redirect />
         </navigation-case>

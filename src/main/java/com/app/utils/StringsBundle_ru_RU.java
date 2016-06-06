@@ -90,6 +90,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderList.header", "График производства"},
 
             {"orderScreen.title", "Заказ"},
+            {"orderScreen.table.orderItems", "Позиции"},
             {"orderScreen.editText", "Редактирование заказа"},
             {"orderScreen.addText", "Добавление заказа"},
             {"orderScreen.error.title", "Неверные данные"},

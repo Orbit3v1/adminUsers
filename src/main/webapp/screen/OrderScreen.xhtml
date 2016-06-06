@@ -113,117 +113,76 @@
 
             </h:panelGrid>
 
-            <HR/>
+            <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.orderItems')}"
+                                   switchType="client"
+                                   expanded="true">
 
-            <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
-                            rowClasses="odd-row, even-row">
+                <rich:dataTable id="orders"
+                                value="#{orderScreen.entity.orderItems}"
+                                var="orderI"
+                                rowClasses="odd-row, even-row">
 
-                <rich:column rendered="#{orderScreen.userPA.itemNameR}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.name')}
-                    </f:facet>
-                    <h:commandLink value="#{row.order.name}_#{row.name}" action="#{orderScreen.editEntity(row)}"
-                                   style="display: block;"/>
-                </rich:column>
+                    <rich:column rendered="#{orderScreen.userPA.itemNameR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.name')}
+                        </f:facet>
+                        <h:commandButton value="#{orderI.name}"
+                                         action="#{orderScreen.editEntity(orderI)}"/>
+                    </rich:column>
 
-            </rich:dataTable>
+                    <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.nomenclature')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.nomenclature}"/>
+                    </rich:column>
 
-            <h:panelGrid id="orderItems" columns="1">
-                <h:panelGroup rendered="#{orderScreen.userPA.nomenclatureR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.nomenclature')}" for="nomenclature"
-                                   styleClass="label"/>
-                    <rich:autocomplete id="nomenclature"
-                                       value="#{orderScreen.entity.nomenclature}"
-                                       mode="cachedAjax" minChars="3" autofill="false" selectFirst="false"
-                                       autocompleteMethod="#{orderScreen.autocomplete}"
-                                       converter="#{nomenclatureConverter}"
-                                       disabled="#{!orderScreen.userPA.nomenclatureW}">
-                        <a4j:ajax event="change" listener="#{orderScreen.checkNomenclature}" render="nomenclatureInfo"/>
-                    </rich:autocomplete>
-                    <h:panelGroup id="nomenclatureInfo">
-                        <a4j:commandButton action="#{nomenclatureScreen.editEntity(orderScreen.entity.nomenclature)}"
-                                           oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"
-                                           image="/javax.faces.resource/images/find.png.xhtml"
-                                           style="vertical-align: middle !important;
-                                                outline: none !important;
-                                                border: none !important;"/>
-                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
-                    </h:panelGroup>
+                    <rich:column rendered="#{orderScreen.userPA.countR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.count')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.count}"/>
+                    </rich:column>
 
-                </h:panelGroup>
+                    <rich:column rendered="#{orderScreen.userPA.docDateR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.docDate')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.docDate}"/>
+                    </rich:column>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.countR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.count')}" for="count"
-                                   styleClass="label"/>
-                    <h:inputText id="count" value="#{orderScreen.count}"
-                                 styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.countW}">
-                        <f:validateBean disabled="true"/>
-                    </h:inputText>
-                    <h:message for="count" errorClass="error"/>
-                </h:panelGroup>
+                    <rich:column rendered="#{orderScreen.userPA.developerR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.developer')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.developer}"/>
+                    </rich:column>
 
+                    <rich:column rendered="#{orderScreen.userPA.endPlanR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.endPlan')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.endPlan}"/>
+                    </rich:column>
 
+                    <rich:column rendered="#{orderScreen.userPA.endActualR}">
+                        <f:facet name="header">
+                            #{messages.getString('orderItemEntity.endActual')}
+                        </f:facet>
+                        <h:outputText value="#{orderI.endActual}"/>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.docDateR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.docDate')}" for="docDate"
-                                   styleClass="label"/>
-                    <rich:calendar id="docDate" value="#{orderScreen.entity.docDate}" locale="#{locale}"
-                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
-                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderScreen.userPA.docDateW}"/>
-                    <h:message for="docDate" errorClass="error"/>
-                </h:panelGroup>
+                        <h:commandButton value="#{messages.getString('order.setEnd')}"
+                                         action="#{orderScreen.setEndActual}"
+                                         disabled="#{!orderScreen.userPA.endActualW}"
+                                         styleClass="btn"
+                                         rendered="#{orderI.endActual == null}"
+                                         render="endActualPG"/>
+                    </rich:column>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.developerR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.developer')}" for="developer"
-                                   styleClass="label"/>
-                    <rich:select id="developer"
-                                 value="#{orderScreen.entity.developer}"
-                                 converter="#{personConverter}"
-                                 enableManualInput="true"
-                                 defaultLabel=""
-                                 listWidth="280"
-                                 disabled="#{!orderScreen.userPA.developerW}">
-                        <f:selectItem itemLabel="" itemValue="#{null}"/>
-                        <f:selectItems value="#{orderScreen.developers}"
-                                       var="row"
-                                       itemLabel="#{row}"
-                                       itemValue="#{row}"/>
-                    </rich:select>
-                    <h:message for="developer" errorClass="error"/>
-                </h:panelGroup>
+                </rich:dataTable>
 
-                <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"
-                                   styleClass="label"/>
-                    <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{locale}"
-                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
-                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderScreen.userPA.endPlanW}"/>
-                    <h:message for="endPlan" errorClass="error"/>
-                </h:panelGroup>
+            </rich:collapsiblePanel>
 
-                <h:panelGroup id="endActualPG" rendered="#{orderScreen.userPA.endActualR}">
-                    <h:outputLabel value="#{messages.getString('orderEntity.endActual')}" for="endActual"
-                                   styleClass="label"/>
-                    <h:outputText id="endActual"
-                                  value="#{orderScreen.entity.endActual}"
-                                  rendered="#{orderScreen.entity.endActual != null}"
-                                  style="display: inline-block !important; margin: 3px !important;">
-                        <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
-                    </h:outputText>
-
-                    <h:commandButton id="endActualB"
-                                     value="#{messages.getString('order.setEnd')}"
-                                     action="#{orderScreen.setEndActual}"
-                                     disabled="#{!orderScreen.userPA.endActualW}"
-                                     styleClass="btn"
-                                     rendered="#{orderScreen.entity.endActual == null}"
-                                     render="endActualPG"/>
-                    <h:message for="endActual" errorClass="error"/>
-                </h:panelGroup>
-
-            </h:panelGrid>
 
             <HR/>
 

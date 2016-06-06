@@ -110,39 +110,39 @@ public class OrderValidatorTest {
         assertFalse(result);
     }
 
-    @Test
-    public void isValidCountOk() {
-
-        validator.count = "12345";
-
-        boolean result = validator.isValidCount();
-        assertTrue(result);
-    }
-
-    @Test
-    public void isValidCountEmpty() {
-
-        validator.count = "";
-
-        boolean result = validator.isValidCount();
-        assertFalse(result);
-    }
-
-    @Test
-    public void isValidCountNull() {
-
-        validator.count = null;
-
-        boolean result = validator.isValidCount();
-        assertFalse(result);
-    }
-
-    @Test
-    public void isValidCountNotNumber() {
-
-        validator.count = "a12";
-
-        boolean result = validator.isValidCount();
-        assertFalse(result);
-    }
+//    @Test
+//    public void isValidCountOk() {
+//
+//        validator.count = "12345";
+//
+//        boolean result = validator.isValidCount();
+//        assertTrue(result);
+//    }
+//
+//    @Test
+//    public void isValidCountEmpty() {
+//
+//        validator.count = "";
+//
+//        boolean result = validator.isValidCount();
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    public void isValidCountNull() {
+//
+//        validator.count = null;
+//
+//        boolean result = validator.isValidCount();
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    public void isValidCountNotNumber() {
+//
+//        validator.count = "a12";
+//
+//        boolean result = validator.isValidCount();
+//        assertFalse(result);
+//    }
 }

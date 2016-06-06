@@ -50,14 +50,15 @@
                             rowClasses="odd-row, even-row">
                 <rich:column rendered="#{orderList.userPA.nameR}"
                              filterValue="#{orderList.flName}"
-                             filterExpression="#{fn:containsIgnoreCase(row.name, orderList.flName)}"
+                             filterExpression="#{fn:containsIgnoreCase(row.order.name.concat('_').concat(row.name), orderList.flName)}"
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.name')}
                         <br/>
                         <h:inputText value="#{orderList.flName}" style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.order.name}_#{row.name}" action="#{orderScreen.editEntity(row)}"
-                                   style="display: block;"/>
+                    <h:commandLink value="#{row.order.name}_#{row.name}"
+                                   action="#{orderScreen.editEntity(row.order)}"
+                                   style="display: block; text-decoration: none;"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.customerR}"
@@ -111,7 +112,7 @@
                         <br/>
                         <h:inputText value="#{orderList.flResponsible}" style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.responsible}"/>
+                    <h:outputText value="#{row.order.responsible}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.startR}"
