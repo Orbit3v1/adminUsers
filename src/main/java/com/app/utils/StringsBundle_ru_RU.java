@@ -36,6 +36,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderEntity.responsible", "Ответственный"},
             {"orderEntity.start", "Запуск"},
 
+            {"orderItemEntity.name", "#"},
             {"orderItemEntity.nomenclature", "Номенклатура"},
             {"orderItemEntity.count", "Кол-во"},
             {"orderItemEntity.docDate", "Документация"},
@@ -96,9 +97,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderScreen.error.title", "Неверные данные"},
             {"orderScreen.success.save", "Заказ успешно создан"},
             {"orderScreen.success.edit", "Заказ успешно изменен"},
-            {"orderScreen.nomenclature.new", "Новая номенклатура"},
-            {"orderScreen.nomenclature.old", "Существующая номенклатура"},
             {"orderScreen.error.nameDuplicate", "Такое же имя есть у другого заказа"},
+            {"orderScreen.error.emptyItems", "Добавте позиции"},
+
+            {"orderItemScreen.title", "Позиция заказа"},
+            {"orderItemScreen.editText", "Редактирование позиции"},
+            {"orderItemScreen.addText", "Добавление позиции"},
+            {"orderItemScreen.error.title", "Неверные данные"},
+            {"orderItemScreen.success.save", "Позиция успешно создана"},
+            {"orderItemScreen.success.edit", "Позиция успешно изменена"},
 
             {"order.setEnd", "Сдать"},
 

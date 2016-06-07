@@ -89,26 +89,26 @@ public class OrderValidatorTest {
         assertFalse(result);
     }
 
-    @Test
-    public void isValidNomenclatureOk() {
-
-        Order order = new Order();
-    //    order.setNomenclature(new Nomenclature());
-        validator.entity = order;
-
-        boolean result = validator.isValidNomenclature();
-        assertTrue(result);
-    }
-
-    @Test
-    public void isValidNomenclatureNull() {
-
-        Order order = new Order();
-        validator.entity = order;
-
-        boolean result = validator.isValidNomenclature();
-        assertFalse(result);
-    }
+//    @Test
+//    public void isValidNomenclatureOk() {
+//
+//        Order order = new Order();
+//    //    order.setNomenclature(new Nomenclature());
+//        validator.entity = order;
+//
+//        boolean result = validator.isValidNomenclature();
+//        assertTrue(result);
+//    }
+//
+//    @Test
+//    public void isValidNomenclatureNull() {
+//
+//        Order order = new Order();
+//        validator.entity = order;
+//
+//        boolean result = validator.isValidNomenclature();
+//        assertFalse(result);
+//    }
 
 //    @Test
 //    public void isValidCountOk() {

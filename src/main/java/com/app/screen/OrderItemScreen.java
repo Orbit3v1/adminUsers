@@ -2,15 +2,41 @@ package com.app.screen;
 
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
+import com.app.entity.Person;
+import com.app.utils.AppUtil;
+import com.app.utils.SessionUtil;
+import com.app.validator.Validator;
 import org.springframework.context.annotation.Scope;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Query;
+import java.util.List;
 
 @Named("orderItemScreen")
 @Scope("session")
 public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     private String count;
+    private List<Person> developers;
+    private boolean closed;
+    private boolean saved;
+    private OrderItem originalOrderItem;
+
+    @Inject
+    private OrderScreen orderScreen;
+    @Inject
+    Validator<OrderItem> validator;
+
+    @PostConstruct
+    public void init() {
+        initEntity();
+
+        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
+        developers = query.getResultList();
+    }
 
     @Override
     protected String getScreenName() {
@@ -18,8 +44,67 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     @Override
+    public void initEntity() {
+        closed = false;
+        saved = false;
+        count = null;
+        entity = new OrderItem();
+    }
+
+    @Override
+    public void initEntity(OrderItem entity) {
+        closed = false;
+        saved = false;
+        count = AppUtil.toString(entity.getCount());
+        this.entity.copyForm(entity);
+        originalOrderItem = entity;
+    }
+
+    @Override
     protected boolean save() {
+        if (validate()) {
+            entity.setCount(AppUtil.toInteger(count));
+            updateOrderItems();
+            return true;
+        } else {
+            SessionUtil.setMessage("mainForm:panel", "orderItemScreen.error.title", FacesMessage.SEVERITY_ERROR);
+        }
         return false;
+    }
+
+    public String saveOnly() {
+        if (save()) {
+            saved = true;
+            closed = false;
+        }
+        return "";
+    }
+
+    public String saveAndExit() {
+        if (save()) {
+            saved = true;
+            closed = true;
+        }
+        return "";
+    }
+
+    public String close() {
+        saved = false;
+        closed = true;
+        return "";
+    }
+
+    private void updateOrderItems() {
+        Order source = orderScreen.getEntity();
+        if (edit) {
+            originalOrderItem.copyForm(entity);
+        } else {
+            source.getOrderItems().add(entity);
+        }
+    }
+
+    private boolean validate() {
+        return validator.validate(entity, edit, count);
     }
 
     public String getCount() {
@@ -28,5 +113,37 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     public void setCount(String count) {
         this.count = count;
+    }
+
+    public List<Person> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(List<Person> developers) {
+        this.developers = developers;
+    }
+
+    public OrderScreen getOrderScreen() {
+        return orderScreen;
+    }
+
+    public void setOrderScreen(OrderScreen orderScreen) {
+        this.orderScreen = orderScreen;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }

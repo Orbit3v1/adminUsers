@@ -45,6 +45,7 @@ public abstract class EntityScreen<T> {
 
     public String newEntity() {
         initEntity();
+        edit = false;
         return "editEntity";
     }
 

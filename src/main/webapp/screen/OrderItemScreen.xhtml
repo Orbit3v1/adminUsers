@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('orderItemScreen.title')}"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+
+
+    <ui:define name="body">
+        <style type="text/css">
+            /*rich:calendar*/
+            .rf-cal-inp {
+                font-size: 14px !important;
+                margin: 3px 3px 3px 3px !important;
+                width: 259px !important;
+            }
+
+            /*rich:select*/
+            .rf-sel-inp {
+                font-size: 14px !important;
+                padding: 1px 0 !important;
+                width: 280px !important;
+            }
+
+            .rf-sel-sel {
+                font-size: 14px !important;
+            }
+
+            .rf-sel-btn-arrow {
+                height: 18px !important;
+            }
+
+            .rf-sel-cntr {
+                width: 280px !important;
+                margin: 3px 3px 3px 3px !important;
+            }
+
+            /*rich:autocomplete*/
+            .rf-au-inp {
+                width: 261px !important;
+                font-size: 14px !important;
+                padding: 1px 0 !important;
+            }
+
+            .rf-au {
+                margin: 3px !important;
+                width: 261px !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            function refreshOpener() {
+                var opener = window.opener;
+                if (!opener)
+                    return;
+                var refreshButton = opener.document.getElementById("mainForm:refresh");
+                if (refreshButton != null) {
+                    refreshButton.click();
+                }
+            }
+
+            function closePopup() {
+                window.document.getElementById("mainForm:close").click();
+            }
+
+            var init = [];
+            window.onload = function () {
+                for (var i in init) {
+                    if (typeof( init[i] ) == 'function') init[i]();
+                }
+            }
+
+        </script>
+        <ui:fragment rendered="#{orderItemScreen.saved}">
+            <script type="text/javascript">
+                init.push(refreshOpener);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{orderItemScreen.closed}">
+            <script type="text/javascript">
+                init.push(closePopup);
+            </script>
+        </ui:fragment>
+
+        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{orderItemScreen.edit ? messages.getString('orderItemScreen.editText') : messages.getString('orderItemScreen.addText')}"/>
+
+            <HR/>
+
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <h:panelGrid id="panel" columns="1">
+                <h:panelGroup rendered="#{orderItemScreen.userPA.nomenclatureR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.nomenclature')}" for="nomenclature"
+                                   styleClass="label"/>
+                    <h:inputText id="nomenclature"
+                                 value="#{orderItemScreen.entity.nomenclature}"
+                                 styleClass="inputLarge"
+                                 disabled="true">
+                    </h:inputText>
+                    <h:panelGroup id="nomenclatureInfo">
+                        <a4j:commandButton
+                                action="#{nomenclatureScreen.editEntity(orderItemScreen.entity.nomenclature)}"
+                                oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"
+                                image="/javax.faces.resource/images/find.png.xhtml"
+                                style="vertical-align: middle !important;
+                                                outline: none !important;
+                                                border: none !important;"/>
+                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderItemScreen.userPA.countR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.count')}" for="count"
+                                   styleClass="label"/>
+                    <h:inputText id="count" value="#{orderItemScreen.count}"
+                                 styleClass="inputLarge"
+                                 disabled="#{!orderItemScreen.userPA.countW}">
+                        <f:validateBean disabled="true"/>
+                    </h:inputText>
+                    <h:message for="count" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{orderItemScreen.userPA.docDateR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.docDate')}" for="docDate"
+                                   styleClass="label"/>
+                    <rich:calendar id="docDate" value="#{orderItemScreen.entity.docDate}" locale="#{locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderItemScreen.userPA.docDateW}"/>
+                    <h:message for="docDate" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderItemScreen.userPA.developerR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.developer')}" for="developer"
+                                   styleClass="label"/>
+                    <rich:select id="developer"
+                                 value="#{orderItemScreen.entity.developer}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 disabled="#{!orderItemScreen.userPA.developerW}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{orderItemScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="developer" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{orderItemScreen.userPA.endPlanR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.endPlan')}" for="endPlan"
+                                   styleClass="label"/>
+                    <rich:calendar id="endPlan" value="#{orderItemScreen.entity.endPlan}" locale="#{locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{!orderItemScreen.userPA.endPlanW}"/>
+                    <h:message for="endPlan" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="endActualPG" rendered="#{orderItemScreen.userPA.endActualR}">
+                    <h:outputLabel value="#{messages.getString('orderItemEntity.endActual')}" for="endActual"
+                                   styleClass="label"/>
+                    <h:outputText id="endActual"
+                                  value="#{orderItemScreen.entity.endActual}"
+                                  rendered="#{orderItemScreen.entity.endActual != null}"
+                                  style="display: inline-block !important; margin: 3px !important;">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                    </h:outputText>
+
+                    <h:commandButton id="endActualB"
+                                     value="#{messages.getString('order.setEnd')}"
+                                     action="#{orderItemScreen.setEndActual}"
+                                     disabled="#{!orderItemScreen.userPA.endActualW}"
+                                     styleClass="btn"
+                                     rendered="#{orderItemScreen.entity.endActual == null}"
+                                     render="endActualPG"/>
+                    <h:message for="endActual" errorClass="error"/>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+
+            <HR/>
+
+            <p>
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
+                                 action="#{orderItemScreen.saveAndExit}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.save')}"
+                                 action="#{orderItemScreen.saveOnly}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{orderItemScreen.close}"
+                                 styleClass="btn"/>
+            </p>
+
+            <a4j:commandButton value="close" id="close"
+                               action="#{orderItemScreen.exit}"
+                               oncomplete="window.close();"
+                               style="display: none"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

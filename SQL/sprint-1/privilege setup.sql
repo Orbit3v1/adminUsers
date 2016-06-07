@@ -334,3 +334,10 @@ insert into privilege_action(privilege, action)
 values('orderItemEndActual', 'READ');
 insert into privilege_action(privilege, action)
 values('orderItemEndActual', 'WRITE');
+
+insert into privilege(id, name, description, pos)
+values('orderItemName', 'Позиция заказа - Поле - #', '', 5009);
+insert into privilege_action(privilege, action)
+values('orderItemName', 'READ');
+insert into privilege_action(privilege, action)
+values('orderItemName', 'WRITE');

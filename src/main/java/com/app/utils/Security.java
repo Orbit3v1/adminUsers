@@ -321,15 +321,9 @@ public class Security {
                 userPA.put("nomenclatureR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemNomenclature", "READ")))
                 );
-                userPA.put("nomenclatureW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderItemNomenclature", "WRITE")))
-                );
 
                 userPA.put("countR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemCount", "READ")))
-                );
-                userPA.put("countW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderItemCount", "WRITE")))
                 );
 
                 userPA.put("responsibleR", hasAnyPrivilegeAction(
@@ -349,22 +343,13 @@ public class Security {
                 userPA.put("docDateR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "READ")))
                 );
-                userPA.put("docDateW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "WRITE")))
-                );
 
                 userPA.put("developerR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "READ")))
                 );
-                userPA.put("developerW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "WRITE")))
-                );
 
                 userPA.put("endPlanR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "READ")))
-                );
-                userPA.put("endPlanW", hasAnyPrivilegeAction(
-                                new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "WRITE")))
                 );
 
                 userPA.put("endActualR", hasAnyPrivilegeAction(
@@ -372,6 +357,17 @@ public class Security {
                 );
                 userPA.put("endActualW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "WRITE")))
+                );
+
+                userPA.put("addItemR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "READ")))
+                );
+                userPA.put("addItemW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "WRITE")))
+                );
+
+                userPA.put("itemNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemName", "READ")))
                 );
 
                 break;
@@ -437,6 +433,91 @@ public class Security {
                 );
 
                 break;
+            case("orderItemScreen"): {
+
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "READ")))
+                );
+                userPA.put("addW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "WRITE")))
+                );
+
+                userPA.put("deleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "READ")))
+                );
+                userPA.put("deleteW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "WRITE")))
+                );
+
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEdit", "READ")))
+                );
+                userPA.put("editW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEdit", "WRITE")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemName", "READ")))
+                );
+                userPA.put("nameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemName", "WRITE")))
+                );
+
+                userPA.put("nomenclatureR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemNomenclature", "READ")))
+                );
+                userPA.put("nomenclatureW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemNomenclature", "WRITE")))
+                );
+
+                userPA.put("countR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemCount", "READ")))
+                );
+                userPA.put("countW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemCount", "WRITE")))
+                );
+
+                userPA.put("docDateR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "READ")))
+                );
+                userPA.put("docDateW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "WRITE")))
+                );
+
+                userPA.put("developerR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "READ")))
+                );
+                userPA.put("developerW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "WRITE")))
+                );
+
+                userPA.put("endPlanR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "READ")))
+                );
+                userPA.put("endPlanW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "WRITE")))
+                );
+
+                userPA.put("endActualR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "READ")))
+                );
+                userPA.put("endActualW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "WRITE")))
+                );
+
+                userPA.put("addItemR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "READ")))
+                );
+                userPA.put("addItemW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "WRITE")))
+                );
+
+                userPA.put("itemNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemName", "READ")))
+                );
+
+
+            }
             case("menu"): {
                 userPA.put("graphMenuR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("graphMenu", "READ")))

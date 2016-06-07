@@ -2,6 +2,7 @@ package com.app.screen;
 
 import com.app.entity.Nomenclature;
 import com.app.entity.Order;
+import com.app.entity.OrderItem;
 import com.app.entity.Person;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +37,6 @@ public class OrderScreen extends EntityScreen<Order> {
 
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
         developers = query.getResultList();
-
-//        query = em.createQuery("select r from Nomenclature r order by r.name");
-//        nomenclatures = query.getResultList();
     }
 
     @Override
@@ -58,12 +56,6 @@ public class OrderScreen extends EntityScreen<Order> {
         this.entity.getOrderItems().size();
     }
 
-//    @Override
-//    public String editEntity(Order entity) {
-//       // count = String.valueOf(entity.getOrderItems().getCount());
-//        return super.editEntity(entity);
-//    }
-
     public List<Nomenclature> autocomplete(String prefix) {
         List<Nomenclature> result;
         if ((prefix == null) || (prefix.length() == 0)) {
@@ -76,24 +68,9 @@ public class OrderScreen extends EntityScreen<Order> {
         return result;
     }
 
-//    public void checkNomenclature(){
-//        String bundleKey;
-//        Query query = em.createQuery("select r from Nomenclature r where r.name = :name")
-//                .setParameter("name", entity.getNomenclature().getName());
-//        if (query.getResultList().size() != 0) {
-//            bundleKey = "orderScreen.nomenclature.old";
-//            nomenclatureExists = true;
-//        } else {
-//            bundleKey = "orderScreen.nomenclature.new";
-//        }
-//
-//        SessionUtil.setMessage("mainForm:nomenclature", bundleKey, FacesMessage.SEVERITY_INFO);
-//    }
-
     @Override
     public boolean save() {
         if (validate()) {
-          //  entity.setCount(Integer.valueOf(count));
             try {
                 saveData();
 
@@ -119,9 +96,9 @@ public class OrderScreen extends EntityScreen<Order> {
         entity = em.merge(entity);
     }
 
-    public void setEndActual(){
+    public void setEndActual(OrderItem orderItem){
         Date date = new Date();
-     //   entity.setEndActual(date);
+        orderItem.setEndActual(date);
     }
 
     private boolean validate() {

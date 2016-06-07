@@ -117,7 +117,15 @@
                                    switchType="client"
                                    expanded="true">
 
-                <rich:dataTable id="orders"
+                <a4j:commandButton value="#{messages.getString('button.add')}"
+                                 action="#{orderItemScreen.newEntity}"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.userPA.addItemR}"
+                                 disabled="#{!orderScreen.userPA.addItemW}"
+                                 oncomplete="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
+
+                <h:message for="orderItems" infoClass="info" errorClass="error"/>
+                <rich:dataTable id="orderItems"
                                 value="#{orderScreen.entity.orderItems}"
                                 var="orderI"
                                 rowClasses="odd-row, even-row">
@@ -126,8 +134,9 @@
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.name')}
                         </f:facet>
-                        <h:commandButton value="#{orderI.name}"
-                                         action="#{orderScreen.editEntity(orderI)}"/>
+                        <a4j:commandButton value="#{orderI.name}"
+                                         action="#{orderItemScreen.editEntity(orderI)}"
+                                         oncomplete="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
@@ -172,7 +181,7 @@
                         <h:outputText value="#{orderI.endActual}"/>
 
                         <h:commandButton value="#{messages.getString('order.setEnd')}"
-                                         action="#{orderScreen.setEndActual}"
+                                         action="#{orderScreen.setEndActual(orderI)}"
                                          disabled="#{!orderScreen.userPA.endActualW}"
                                          styleClass="btn"
                                          rendered="#{orderI.endActual == null}"
@@ -203,6 +212,7 @@
                                  action="#{orderScreen.exit}"
                                  styleClass="btn"/>
             </p>
+            <a4j:commandButton id="refresh" render="orderItems" style="display:none;"  value="refresh"/>
 
         </h:form>
     </ui:define>

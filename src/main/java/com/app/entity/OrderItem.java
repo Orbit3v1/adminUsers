@@ -42,6 +42,17 @@ public class OrderItem extends AbstractVersionedEntity{
     public OrderItem() {
     }
 
+    public void copyForm(OrderItem orderItem){
+        this.name = orderItem.name;
+        this.count = orderItem.count;
+        this.docDate = orderItem.docDate;
+        this.endPlan = orderItem.endPlan;
+        this.endActual = orderItem.endActual;
+        this.nomenclature = orderItem.nomenclature;
+        this.developer = orderItem.developer;
+        this.order = orderItem.order;
+    }
+
     public int getId() {
         return id;
     }

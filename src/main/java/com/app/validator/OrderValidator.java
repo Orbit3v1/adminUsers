@@ -20,14 +20,12 @@ import java.util.ResourceBundle;
 public class OrderValidator extends AbstractValidator<Order> {
 
     protected boolean edit;
-    protected String count;
 
     @Override
     public boolean validate(Order order, Object... args) {
         this.entity = order;
         edit = args.length > 0 ? (Boolean) args[0] : false;
-        count = args.length > 1 ? (String) args[1] : "";
-        return isValidName() & isValidNomenclature();
+        return isValidName() & isValidOrderItems();
     }
 
     protected boolean isValidName() {
@@ -50,24 +48,13 @@ public class OrderValidator extends AbstractValidator<Order> {
         return query.getResultList();
     }
 
-    protected boolean isValidNomenclature() {
+    protected boolean isValidOrderItems() {
         boolean valid = true;
-//        if (entity.getNomenclature() == null) {
-//            valid = false;
-//            addMessage.setMessage("mainForm:nomenclature", "error.notNull", FacesMessage.SEVERITY_ERROR);
-//        }
+        if (entity.getOrderItems() == null || entity.getOrderItems().size() == 0) {
+            valid = false;
+            addMessage.setMessage("mainForm:orderItems", "orderScreen.error.emptyItems", FacesMessage.SEVERITY_ERROR);
+        }
         return valid;
     }
-//
-//    protected boolean isValidCount() {
-//        boolean valid = true;
-//        if (count == null || count.equals("")) {
-//            valid = false;
-//            addMessage.setMessage("mainForm:count", "error.notNull", FacesMessage.SEVERITY_ERROR);
-//        } else if (!AppUtil.isNumeric(count)) {
-//            valid = false;
-//            addMessage.setMessage("mainForm:count", "error.notNumber", FacesMessage.SEVERITY_ERROR);
-//        }
-//        return valid;
-//    }
+
 }
