@@ -2,10 +2,12 @@ package com.app.list;
 
 import com.app.entity.Nomenclature;
 import com.app.entity.Person;
+import com.app.screen.OrderItemScreen;
 import org.springframework.context.annotation.Scope;
 import com.app.utils.Security;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

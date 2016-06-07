@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
+import java.util.Collections;
 import java.util.List;
 
 @Named("orderItemScreen")
@@ -99,8 +100,17 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         if (edit) {
             originalOrderItem.copyForm(entity);
         } else {
+            entity.setName(getItemName(source));
+            entity.setOrder(source);
             source.getOrderItems().add(entity);
         }
+    }
+
+    private String getItemName(Order order){
+        OrderItem itemWithMaxName = Collections.max(order.getOrderItems(), (i1, i2) -> (i1.getName().compareTo(i2.getName())));
+        String maxName = itemWithMaxName.getName();
+        Integer max = AppUtil.toInteger(maxName);
+        return AppUtil.toString(max + 1);
     }
 
     private boolean validate() {

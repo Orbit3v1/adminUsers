@@ -16,47 +16,7 @@
 
 
     <ui:define name="body">
-        <style type="text/css">
-            /*rich:calendar*/
-            .rf-cal-inp {
-                font-size: 14px !important;
-                margin: 3px 3px 3px 3px !important;
-                width: 259px !important;
-            }
-
-            /*rich:select*/
-            .rf-sel-inp {
-                font-size: 14px !important;
-                padding: 1px 0 !important;
-                width: 280px !important;
-            }
-
-            .rf-sel-sel {
-                font-size: 14px !important;
-            }
-
-            .rf-sel-btn-arrow {
-                height: 18px !important;
-            }
-
-            .rf-sel-cntr {
-                width: 280px !important;
-                margin: 3px 3px 3px 3px !important;
-            }
-
-            /*rich:autocomplete*/
-            .rf-au-inp {
-                width: 261px !important;
-                font-size: 14px !important;
-                padding: 1px 0 !important;
-            }
-
-            .rf-au {
-                margin: 3px !important;
-                width: 261px !important;
-            }
-        </style>
-
+        <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
         <script type="text/javascript">
             function refreshOpener() {
                 var opener = window.opener;
@@ -99,7 +59,7 @@
 
             <h:message for="panel" infoClass="info" errorClass="error"/>
             <h:panelGrid id="panel" columns="1">
-                <h:panelGroup rendered="#{orderItemScreen.userPA.nomenclatureR}">
+                <h:panelGroup id="nomenclatureP" rendered="#{orderItemScreen.userPA.nomenclatureR}">
                     <h:outputLabel value="#{messages.getString('orderItemEntity.nomenclature')}" for="nomenclature"
                                    styleClass="label"/>
                     <h:inputText id="nomenclature"
@@ -107,10 +67,19 @@
                                  styleClass="inputLarge"
                                  disabled="true">
                     </h:inputText>
+                    <h:panelGroup id="findNomenclature">
+                        <a4j:commandButton
+                                oncomplete="window.open('/popup/NomenclatureListPopUp.xhtml', 'chooseNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
+                                value="find"
+                                style="vertical-align: middle !important;
+                                                outline: none !important;
+                                                border: none !important;"/>
+                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
+                    </h:panelGroup>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
                                 action="#{nomenclatureScreen.editEntity(orderItemScreen.entity.nomenclature)}"
-                                oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"
+                                oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'editNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
                                 image="/javax.faces.resource/images/find.png.xhtml"
                                 style="vertical-align: middle !important;
                                                 outline: none !important;
@@ -218,6 +187,8 @@
                                action="#{orderItemScreen.exit}"
                                oncomplete="window.close();"
                                style="display: none"/>
+
+            <a4j:commandButton id="refresh" render="nomenclatureP" style="display:none;"  value="refresh"/>
 
         </h:form>
     </ui:define>

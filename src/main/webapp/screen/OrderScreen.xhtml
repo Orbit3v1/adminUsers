@@ -16,46 +16,7 @@
 
 
     <ui:define name="body">
-        <style type="text/css">
-            /*rich:calendar*/
-            .rf-cal-inp {
-                font-size: 14px !important;
-                margin: 3px 3px 3px 3px !important;
-                width: 259px !important;
-            }
-
-            /*rich:select*/
-            .rf-sel-inp {
-                font-size: 14px !important;
-                padding: 1px 0 !important;
-                width: 280px !important;
-            }
-
-            .rf-sel-sel {
-                font-size: 14px !important;
-            }
-
-            .rf-sel-btn-arrow {
-                height: 18px !important;
-            }
-
-            .rf-sel-cntr {
-                width: 280px !important;
-                margin: 3px 3px 3px 3px !important;
-            }
-
-            /*rich:autocomplete*/
-            .rf-au-inp {
-                width: 261px !important;
-                font-size: 14px !important;
-                padding: 1px 0 !important;
-            }
-
-            .rf-au {
-                margin: 3px !important;
-                width: 261px !important;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>

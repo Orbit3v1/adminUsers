@@ -1,0 +1,26 @@
+/*rich:calendar*/
+.rf-cal-inp {
+    font-size: 14px !important;
+    margin: 3px 3px 3px 3px !important;
+    width: 259px !important;
+}
+
+/*rich:select*/
+.rf-sel-inp {
+    font-size: 14px !important;
+    padding: 1px 0 !important;
+    width: 280px !important;
+}
+
+.rf-sel-sel {
+    font-size: 14px !important;
+}
+
+.rf-sel-btn-arrow {
+    height: 18px !important;
+}
+
+.rf-sel-cntr {
+    width: 280px !important;
+    margin: 3px 3px 3px 3px !important;
+}
