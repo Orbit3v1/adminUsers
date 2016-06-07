@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -107,6 +108,9 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     private String getItemName(Order order){
+        if(order.getOrderItems().size() == 0){
+            return "1";
+        }
         OrderItem itemWithMaxName = Collections.max(order.getOrderItems(), (i1, i2) -> (i1.getName().compareTo(i2.getName())));
         String maxName = itemWithMaxName.getName();
         Integer max = AppUtil.toInteger(maxName);

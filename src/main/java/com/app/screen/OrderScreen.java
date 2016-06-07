@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +48,7 @@ public class OrderScreen extends EntityScreen<Order> {
     @Override
     public void initEntity() {
         entity = new Order();
+        entity.setOrderItems(new ArrayList<>());
     }
 
     @Override
