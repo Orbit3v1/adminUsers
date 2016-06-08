@@ -27,7 +27,7 @@ public class OrderItem extends AbstractVersionedEntity{
     @Column(name = "endActual")
     private Date endActual;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name = "nomenclature")
     private Nomenclature nomenclature;
 

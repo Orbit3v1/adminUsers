@@ -142,7 +142,7 @@ create table orderItem(
 
 create index orderItem_I1 on orderItem(nomenclature);
 create index orderItem_I2 on orderItem(developer);
-create unique index orderItem_U1 on orderItem(name);
+create unique index orderItem_U1 on orderItem(orders, name);
 
 
 

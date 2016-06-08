@@ -1,12 +1,15 @@
 package com.app.screen;
 
+import com.app.entity.Nomenclature;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.Person;
 import com.app.utils.AppUtil;
 import com.app.utils.SessionUtil;
 import com.app.validator.Validator;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -28,7 +31,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     private OrderItem originalOrderItem;
 
     @Inject
-    private OrderScreen orderScreen;
+    private ApplicationContext applicationContext;
     @Inject
     Validator<OrderItem> validator;
 
@@ -58,8 +61,9 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         closed = false;
         saved = false;
         count = AppUtil.toString(entity.getCount());
-        this.entity.copyForm(entity);
         originalOrderItem = entity;
+        this.entity = new OrderItem();
+        this.entity.copyForm(originalOrderItem);
     }
 
     @Override
@@ -91,12 +95,19 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     public String close() {
-        saved = false;
+        saved = true;
         closed = true;
         return "";
     }
 
+    @Transactional
+    public void refresh(){
+        Nomenclature nomenclature = em.find(Nomenclature.class, entity.getNomenclature().getId());
+        entity.setNomenclature(nomenclature);
+    }
+
     private void updateOrderItems() {
+        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
         Order source = orderScreen.getEntity();
         if (edit) {
             originalOrderItem.copyForm(entity);
@@ -104,11 +115,12 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
             entity.setName(getItemName(source));
             entity.setOrder(source);
             source.getOrderItems().add(entity);
+            editEntity(entity);
         }
     }
 
     private String getItemName(Order order){
-        if(order.getOrderItems().size() == 0){
+        if(order.getOrderItems() == null || order.getOrderItems().size() == 0){
             return "1";
         }
         OrderItem itemWithMaxName = Collections.max(order.getOrderItems(), (i1, i2) -> (i1.getName().compareTo(i2.getName())));
@@ -135,14 +147,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     public void setDevelopers(List<Person> developers) {
         this.developers = developers;
-    }
-
-    public OrderScreen getOrderScreen() {
-        return orderScreen;
-    }
-
-    public void setOrderScreen(OrderScreen orderScreen) {
-        this.orderScreen = orderScreen;
     }
 
     public boolean isClosed() {

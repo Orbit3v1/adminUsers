@@ -73,6 +73,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public void initEntity(Nomenclature entity) {
+        saved = false;
+        closed = false;
         gib = AppUtil.toString(entity.getGib());
         if(entity.getId() != 0){
             this.entity = em.find(Nomenclature.class, entity.getId());
@@ -84,6 +86,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Override
     public void initEntity() {
+        saved = false;
+        closed = false;
         entity = new Nomenclature();
         entity.setNomenclatureAttachments(new ArrayList<>());
     }

@@ -118,7 +118,9 @@
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.docDate')}
                         </f:facet>
-                        <h:outputText value="#{orderI.docDate}"/>
+                        <h:outputText value="#{orderI.docDate}">
+                            <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                        </h:outputText>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.developerR}">
@@ -132,14 +134,18 @@
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.endPlan')}
                         </f:facet>
-                        <h:outputText value="#{orderI.endPlan}"/>
+                        <h:outputText value="#{orderI.endPlan}">
+                            <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                        </h:outputText>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.endActualR}">
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.endActual')}
                         </f:facet>
-                        <h:outputText value="#{orderI.endActual}"/>
+                        <h:outputText value="#{orderI.endActual}">
+                            <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                        </h:outputText>
 
                         <h:commandButton value="#{messages.getString('order.setEnd')}"
                                          action="#{orderScreen.setEndActual(orderI)}"
@@ -173,7 +179,7 @@
                                  action="#{orderScreen.exit}"
                                  styleClass="btn"/>
             </p>
-            <a4j:commandButton id="refresh" render="orderItems" style="display:none;"  value="refresh"/>
+            <a4j:commandButton id="refresh" render="orderItems" action="#{orderScreen.refresh()}" style="display:none;"  value="refresh"/>
 
         </h:form>
     </ui:define>

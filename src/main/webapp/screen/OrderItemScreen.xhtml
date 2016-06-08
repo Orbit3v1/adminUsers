@@ -152,7 +152,7 @@
 
                     <h:commandButton id="endActualB"
                                      value="#{messages.getString('order.setEnd')}"
-                                     action="#{orderItemScreen.setEndActual}"
+                                     action="#{orderScreen.setEndActual(orderItemScreen.entity)}"
                                      disabled="#{!orderItemScreen.userPA.endActualW}"
                                      styleClass="btn"
                                      rendered="#{orderItemScreen.entity.endActual == null}"
@@ -188,7 +188,7 @@
                                oncomplete="window.close();"
                                style="display: none"/>
 
-            <a4j:commandButton id="refresh" render="nomenclatureP" style="display:none;"  value="refresh"/>
+            <a4j:commandButton id="refresh" render="nomenclatureP" action="#{orderItemScreen.refresh()}" style="display:none;"  value="refresh"/>
 
         </h:form>
     </ui:define>

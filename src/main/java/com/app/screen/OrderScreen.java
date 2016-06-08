@@ -29,7 +29,6 @@ public class OrderScreen extends EntityScreen<Order> {
 
 
     private List<Person> developers;
-    private List<Nomenclature> nomenclatures;
     private boolean nomenclatureExists = false;
 
     @PostConstruct
@@ -56,18 +55,6 @@ public class OrderScreen extends EntityScreen<Order> {
     public void initEntity(Order entity) {
         this.entity = em.find(Order.class, entity.getId());
         this.entity.getOrderItems().size();
-    }
-
-    public List<Nomenclature> autocomplete(String prefix) {
-        List<Nomenclature> result;
-        if ((prefix == null) || (prefix.length() == 0)) {
-            result = nomenclatures;
-        } else {
-            result = nomenclatures.stream()
-                    .filter(s -> s.getName().toLowerCase().startsWith(prefix.toLowerCase()))
-                    .collect(Collectors.toList());
-        }
-        return result;
     }
 
     @Override
@@ -103,6 +90,13 @@ public class OrderScreen extends EntityScreen<Order> {
         orderItem.setEndActual(date);
     }
 
+    @Transactional
+    public void refresh(){
+        for(OrderItem orderItem : entity.getOrderItems()){
+            orderItem.setNomenclature(em.find(Nomenclature.class, orderItem.getNomenclature().getId()));
+        }
+    }
+
     private boolean validate() {
         return validator.validate(entity, edit);
     }
@@ -115,11 +109,4 @@ public class OrderScreen extends EntityScreen<Order> {
         this.developers = developers;
     }
 
-    public boolean isNomenclatureExists() {
-        return nomenclatureExists;
-    }
-
-    public void setNomenclatureExists(boolean nomenclatureExists) {
-        this.nomenclatureExists = nomenclatureExists;
-    }
 }
