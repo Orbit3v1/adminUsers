@@ -65,20 +65,18 @@
                     <h:inputText id="nomenclature"
                                  value="#{orderItemScreen.entity.nomenclature}"
                                  styleClass="inputLarge"
+                                 style="width: 254px !important;"
                                  disabled="true">
                     </h:inputText>
-                    <h:panelGroup id="findNomenclature">
-                        <a4j:commandButton
-                                oncomplete="window.open('/popup/NomenclatureListPopUp.xhtml', 'chooseNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
-                                value="find"
-                                style="vertical-align: middle !important;
-                                                outline: none !important;
-                                                border: none !important;"/>
-                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
-                    </h:panelGroup>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
+                                oncomplete="window.open('/popup/NomenclatureListPopUp.xhtml', 'chooseNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
+                                value="..."
+                                styleClass="findBtn"/>
+
+                        <a4j:commandButton
                                 action="#{nomenclatureScreen.editEntity(orderItemScreen.entity.nomenclature)}"
+                                rendered="#{orderItemScreen.entity.nomenclature != null}"
                                 oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'editNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
                                 image="/javax.faces.resource/images/find.png.xhtml"
                                 style="vertical-align: middle !important;
@@ -166,13 +164,13 @@
             <HR/>
 
             <p>
-                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
+                <h:commandButton value="#{messages.getString('button.editAndExit')}"
                                  action="#{orderItemScreen.saveAndExit}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
                                  disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
-                <h:commandButton value="#{messages.getString('button.save')}"
+                <h:commandButton value="#{messages.getString('button.edit')}"
                                  action="#{orderItemScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"

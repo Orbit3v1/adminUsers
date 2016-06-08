@@ -118,6 +118,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.cancel", "Отмена"},
             {"button.save", "Сохранить"},
             {"button.saveAndExit", "Сохранить и выйти"},
+            {"button.edit", "Изменить"},
+            {"button.editAndExit", "Изменить и выйти"},
             {"button.delete", "Удалить"},
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
             {"button.login", "Войти"},

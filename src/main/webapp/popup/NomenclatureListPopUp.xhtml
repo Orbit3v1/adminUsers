@@ -53,8 +53,8 @@
                                    style="display: block;"/>
                 </rich:column>
                 <rich:column>
-                    <a4j:commandLink value="Выбрать" action="#{nomenclatureListPopUp.choose(row)}"
-                                     style="display: block;"
+                    <a4j:commandButton value=">"
+                                       action="#{nomenclatureListPopUp.choose(row)}"
                                      oncomplete="refreshClose()"/>
                 </rich:column>
             </rich:dataTable>

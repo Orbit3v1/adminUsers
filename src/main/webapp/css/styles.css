@@ -131,3 +131,10 @@ hr {
     background-color: #F8F8F8 !important;
     color: lightgray; !important;
 }
+
+.findBtn{
+    vertical-align: middle !important;
+    height: 20px !important;
+    margin-bottom: 2px !important;
+    margin-right: 2px !important;
+}
