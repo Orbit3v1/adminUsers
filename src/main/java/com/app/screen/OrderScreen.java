@@ -35,7 +35,7 @@ public class OrderScreen extends EntityScreen<Order> {
     public void init() {
         initEntity();
 
-        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
+         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
         developers = query.getResultList();
     }
 

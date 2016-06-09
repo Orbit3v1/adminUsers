@@ -135,6 +135,6 @@ hr {
 .findBtn{
     vertical-align: middle !important;
     height: 20px !important;
-    margin-bottom: 2px !important;
-    margin-right: 2px !important;
+    margin: 0 2px 2px 0 !important;
+    padding: 1px 3px !important;
 }

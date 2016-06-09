@@ -79,11 +79,17 @@
                                    expanded="true">
 
                 <a4j:commandButton value="#{messages.getString('button.add')}"
-                                 action="#{orderItemScreen.newEntity}"
-                                 styleClass="btn"
-                                 rendered="#{orderScreen.userPA.addItemR}"
-                                 disabled="#{!orderScreen.userPA.addItemW}"
-                                 oncomplete="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
+                                   action="#{orderItemScreen.newEntity}"
+                                   styleClass="btn"
+                                   rendered="#{orderScreen.userPA.addItemR}"
+                                   disabled="#{!orderScreen.userPA.addItemW}"
+                                   onclick="openPopUp('about:blank', 'PopUp')"
+                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'PopUp')"/>
+
+                <h:commandButton value="addHidden"
+                                 id="addHidden"
+                                 onclick="openPopUp('/screen/OrderItemScreen.xhtml', 'PopUp')"
+                                 style="display: none"/>
 
                 <h:message for="orderItems" infoClass="info" errorClass="error"/>
                 <rich:dataTable id="orderItems"
@@ -96,8 +102,8 @@
                             #{messages.getString('orderItemEntity.name')}
                         </f:facet>
                         <a4j:commandButton value="#{orderI.name}"
-                                         action="#{orderItemScreen.editEntity(orderI)}"
-                                         oncomplete="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
+                                           action="#{orderItemScreen.editEntity(orderI)}"
+                                           onclick="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
@@ -179,7 +185,8 @@
                                  action="#{orderScreen.exit}"
                                  styleClass="btn"/>
             </p>
-            <a4j:commandButton id="refresh" render="orderItems" action="#{orderScreen.refresh()}" style="display:none;"  value="refresh"/>
+            <a4j:commandButton id="refresh" render="orderItems" action="#{orderScreen.refresh()}" style="display:none;"
+                               value="refresh"/>
 
         </h:form>
     </ui:define>
