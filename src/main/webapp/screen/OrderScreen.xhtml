@@ -83,13 +83,8 @@
                                    styleClass="btn"
                                    rendered="#{orderScreen.userPA.addItemR}"
                                    disabled="#{!orderScreen.userPA.addItemW}"
-                                   onclick="openPopUp('about:blank', 'PopUp')"
-                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'PopUp')"/>
-
-                <h:commandButton value="addHidden"
-                                 id="addHidden"
-                                 onclick="openPopUp('/screen/OrderItemScreen.xhtml', 'PopUp')"
-                                 style="display: none"/>
+                                   onclick="openPopUp('about:blank', 'OrderItemPopUp')"
+                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'OrderItemPopUp')"/>
 
                 <h:message for="orderItems" infoClass="info" errorClass="error"/>
                 <rich:dataTable id="orderItems"
@@ -103,7 +98,8 @@
                         </f:facet>
                         <a4j:commandButton value="#{orderI.name}"
                                            action="#{orderItemScreen.editEntity(orderI)}"
-                                           onclick="window.open('/screen/OrderItemScreen.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"/>
+                                           onclick="openPopUp('about:blank', 'OrderItemPopUp')"
+                                           oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'OrderItemPopUp')"/>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">

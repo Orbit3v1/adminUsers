@@ -82,7 +82,8 @@
                     </f:facet>
                     <a4j:commandLink value="#{row.nomenclature}"
                                      action="#{nomenclatureScreen.editEntity(row.nomenclature)}"
-                                     oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'PopUp', 'width=640,height=550,resizable=yes,scrollbars=yes')"
+                                     onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
+                                     oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
                                      style="display: block;"/>
                 </rich:column>
 

@@ -70,14 +70,16 @@
                     </h:inputText>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
-                                oncomplete="window.open('/popup/NomenclatureListPopUp.xhtml', 'chooseNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
+                                onclick="openPopUp('about:blank', 'NomenclatureListPopUp')"
+                                oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
                                 styleClass="findBtn"/>
 
                         <a4j:commandButton
                                 action="#{nomenclatureScreen.editEntity(orderItemScreen.entity.nomenclature)}"
                                 rendered="#{orderItemScreen.entity.nomenclature != null}"
-                                oncomplete="window.open('/popup/NomenclaturePopUp.xhtml', 'editNomenclature', 'width=640,height=550,resizable=yes,scrollbars=yes').focus()"
+                                onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
+                                oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
                                 image="/javax.faces.resource/images/find.png.xhtml"
                                 style="vertical-align: middle !important;
                                                 outline: none !important;

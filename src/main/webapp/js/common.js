@@ -1,7 +1,6 @@
 function openPopUp(source, name){
     var popUp = window.open(source, name, 'width=640,height=550,resizable=yes,scrollbars=yes');
-    //popUp.blur();
-    //popUp.focus();
+    return popUp;
 }
 
 function click(elementId){
