@@ -3,7 +3,7 @@ function openPopUp(source, name){
     return popUp;
 }
 
-function click(elementId){
+function clickIn(elementId){
     var element = this.document.getElementById(elementId);
     element.click();
 }

@@ -37,7 +37,8 @@
                              rendered="#{nomenclatureListPopUp.userPA.addR}"
                              disabled="#{!nomenclatureListPopUp.userPA.addW}"/>
 
-            <h:commandButton value="#{messages.getString('button.find')}"
+            <h:commandButton id="findBtn"
+                             value="#{messages.getString('button.find')}"
                              render="nomenclatures"
                              styleClass="btn"/>
 
@@ -47,7 +48,9 @@
                              filterExpression="#{fn:containsIgnoreCase(row.name, nomenclatureListPopUp.nameFilter)}"
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.name')}
-                        <h:inputText value="#{nomenclatureListPopUp.nameFilter}" styleClass="inputSmall"/>
+                        <h:inputText value="#{nomenclatureListPopUp.nameFilter}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     styleClass="inputSmall"/>
                     </f:facet>
                     <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}"
                                    style="display: block;"/>

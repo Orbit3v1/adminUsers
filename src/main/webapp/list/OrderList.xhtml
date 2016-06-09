@@ -34,8 +34,8 @@
                              rendered="#{orderList.userPA.addR}"
                              disabled="#{!orderList.userPA.addW}"/>
 
-            <h:outputLabel for="find" value="|" style="display: inline-block"/>
-            <h:commandButton id="find"
+            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
+            <h:commandButton id="findBtn"
                              value="#{messages.getString('button.find')}"
                              render="orders"
                              styleClass="btn"/>
@@ -54,7 +54,9 @@
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.name')}
                         <br/>
-                        <h:inputText value="#{orderList.flName}" style="width: 100px"/>
+                        <h:inputText value="#{orderList.flName}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
                     </f:facet>
                     <h:commandLink value="#{row.order.name}_#{row.name}"
                                    action="#{orderScreen.editEntity(row.order)}"
@@ -67,7 +69,9 @@
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.customer')}
                         <br/>
-                        <h:inputText value="#{orderList.flCustomer}" style="width: 100px"/>
+                        <h:inputText value="#{orderList.flCustomer}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.order.customer}"/>
                 </rich:column>
@@ -78,7 +82,9 @@
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderItemEntity.nomenclature')}
                         <br/>
-                        <h:inputText value="#{orderList.flNomenclature}" style="width: 100px"/>
+                        <h:inputText value="#{orderList.flNomenclature}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
                     </f:facet>
                     <a4j:commandLink value="#{row.nomenclature}"
                                      action="#{nomenclatureScreen.editEntity(row.nomenclature)}"
@@ -111,7 +117,9 @@
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderEntity.responsible')}
                         <br/>
-                        <h:inputText value="#{orderList.flResponsible}" style="width: 100px"/>
+                        <h:inputText value="#{orderList.flResponsible}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.order.responsible}"/>
                 </rich:column>
@@ -176,7 +184,9 @@
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('orderItemEntity.developer')}
                         <br/>
-                        <h:inputText value="#{orderList.flDeveloper}" style="width: 100px"/>
+                        <h:inputText value="#{orderList.flDeveloper}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.developer}"/>
                 </rich:column>
