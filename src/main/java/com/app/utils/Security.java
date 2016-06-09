@@ -370,6 +370,13 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("orderItemName", "READ")))
                 );
 
+                userPA.put("deleteItemR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "READ")))
+                );
+                userPA.put("deleteItemW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "WRITE")))
+                );
+
                 break;
 
             case ("orderList"):

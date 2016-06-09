@@ -178,6 +178,12 @@
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
                                  disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.delete')}"
+                                 action="#{orderItemScreen.delete}"
+                                 styleClass="btn"
+                                 rendered="#{orderItemScreen.edit and orderItemScreen.userPA.deleteR}"
+                                 disabled="#{!orderItemScreen.edit or !orderItemScreen.userPA.deleteW}"
+                                 onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{orderItemScreen.close}"
                                  styleClass="btn"/>

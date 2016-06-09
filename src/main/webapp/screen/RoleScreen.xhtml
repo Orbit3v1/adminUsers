@@ -91,15 +91,16 @@
                                  styleClass="btn"
                                  rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
                                  disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
-                <h:commandButton value="#{messages.getString('button.cancel')}"
-                                 action="#{roleScreen.exit}"
-                                 styleClass="btn"/>
                 <h:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{roleScreen.delete}"
                                  styleClass="btn"
                                  rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
                                  disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteW}"
                                  onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{roleScreen.exit}"
+                                 styleClass="btn"/>
+
             </p>
         </h:form>
     </ui:define>

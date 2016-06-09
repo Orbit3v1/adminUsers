@@ -114,9 +114,16 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         } else {
             entity.setName(getItemName(source));
             entity.setOrder(source);
-            source.getOrderItems().add(entity);
+           source.getOrderItems().add(entity);
             editEntity(entity);
         }
+    }
+
+    public String delete(){
+        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
+        Order source = orderScreen.getEntity();
+        source.getOrderItems().remove(originalOrderItem);
+        return close();
     }
 
     private String getItemName(Order order){

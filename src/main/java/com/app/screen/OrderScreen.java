@@ -97,6 +97,16 @@ public class OrderScreen extends EntityScreen<Order> {
         }
     }
 
+    public void delete(OrderItem orderItem){
+        entity.getOrderItems().remove(orderItem);
+    }
+
+    @Transactional
+    public String delete(){
+        em.remove(em.merge(entity));
+        return exit();
+    }
+
     private boolean validate() {
         return validator.validate(entity, edit);
     }

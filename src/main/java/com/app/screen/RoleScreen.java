@@ -40,6 +40,7 @@ public class RoleScreen extends EntityScreen<Role>{
         entity.setPrivilegeAction(new ArrayList<>());
     }
 
+    @Transactional
     public String delete(){
         em.remove(em.merge(entity));
         return exit();

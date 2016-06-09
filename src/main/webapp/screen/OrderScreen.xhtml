@@ -157,6 +157,17 @@
                                          render="endActualPG"/>
                     </rich:column>
 
+                    <rich:column rendered="#{orderScreen.userPA.deleteItemR}">
+
+                        <h:commandButton value="x"
+                                         action="#{orderScreen.delete(orderI)}"
+                                         disabled="#{!orderScreen.userPA.deleteItemW}"
+                                         styleClass="btn"
+                                         style="background-color: red"
+                                         render="orderItems"
+                                         onclick="return confirm('Вы действительно хотите удалить позицию заказа?')"/>
+                    </rich:column>
+
                 </rich:dataTable>
 
             </rich:collapsiblePanel>
@@ -177,6 +188,12 @@
                                  styleClass="btn"
                                  rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
                                  disabled="#{!(orderScreen.edit ? orderScreen.userPA.editW : orderScreen.userPA.addW)}"/>
+                <h:commandButton value="#{messages.getString('button.delete')}"
+                                 action="#{orderScreen.delete}"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
+                                 disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteW}"
+                                 onclick="return confirm('Вы действительно хотите удалить заказ?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{orderScreen.exit}"
                                  styleClass="btn"/>
