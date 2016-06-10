@@ -31,6 +31,7 @@ public class OrderList {
     private Map<String, Boolean> userPA;
 
     private OrderListFilter filter;
+    private int gibTotal;
 
     @PostConstruct
     public void init() {
@@ -113,6 +114,7 @@ public class OrderList {
             query.setParameter(e.getKey(), e.getValue());
         }
         orderItems = query.getResultList();
+        gibTotal = orderItems.stream().filter(v -> v.getNomenclature().getGib() != null).mapToInt(v -> v.getNomenclature().getGib()).sum();
     }
 
     public void setEndActual(OrderItem orderItem) {
@@ -170,6 +172,10 @@ public class OrderList {
 
     public void setFilter(OrderListFilter filter) {
         this.filter = filter;
+    }
+
+    public int getGibTotal(){
+        return gibTotal;
     }
 }
 
