@@ -2,6 +2,7 @@ package com.app.list;
 
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
+import com.app.entity.OrderListFilter;
 import com.app.utils.AppUtil;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
@@ -14,8 +15,11 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static com.app.utils.AppUtil.notEmpty;
+import static com.app.utils.AppUtil.endDay;
 
 @Named("orderList")
 @Scope("request")
@@ -26,25 +30,89 @@ public class OrderList {
     private List<OrderItem> orderItems;
     private Map<String, Boolean> userPA;
 
-    private String flName;
-    private String flCustomer;
-    private String flNomenclature;
-    private String flResponsible;
-    private String flDeveloper;
-    private Date flStartL;
-    private Date flStartH;
-    private Date flDocDateL;
-    private Date flDocDateH;
-    private Date flEndPlanL;
-    private Date flEndPlanH;
-    private Date flEndActualL;
-    private Date flEndActualH;
+    private OrderListFilter filter;
 
     @PostConstruct
     public void init() {
-        Query query = em.createQuery("select r from OrderItem r order by r.order.name, r.name");
-        orderItems = query.getResultList();
+        if(filter == null){
+            filter = new OrderListFilter();
+        }
+        initList();
         userPA = Security.getUserPrivilegeAction("orderList");
+    }
+
+    private void initList(){
+        Map<String, Object> parameters = new HashMap<>();
+        String sqlFrom = "select r from OrderItem r ";
+        String sqlWhere = "";
+
+        if(notEmpty(filter.getName())){
+            sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
+            parameters.put("name", filter.getName() + "%");
+        }
+        if(notEmpty(filter.getCustomer())){
+            sqlWhere += " AND r.order.customer like :customer";
+            parameters.put("customer", filter.getCustomer() + "%");
+        }
+        if(notEmpty(filter.getNomenclature())){
+            sqlWhere += " AND r.nomenclature.name like :nomenclature";
+            parameters.put("nomenclature", "%" + filter.getNomenclature() + "%");
+        }
+        if(notEmpty(filter.getResponsible())){
+            sqlWhere += " AND concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible";
+            parameters.put("responsible", "%" + filter.getResponsible() + "%");
+        }
+        if(notEmpty(filter.getDeveloper())){
+            sqlWhere += " AND concat(r.developer.lastName, ' ', r.developer.firstName) like :developer";
+            parameters.put("developer", "%" + filter.getDeveloper() + "%");
+        }
+        if(filter.getStartL() != null){
+            sqlWhere += " AND r.order.start >= :startL";
+            parameters.put("startL", filter.getStartL());
+        }
+        if(filter.getStartH() != null){
+            sqlWhere += " AND r.order.start <= :startH";
+            parameters.put("startH", endDay(filter.getStartH()));
+        }
+        if(filter.getDocDateL() != null){
+            sqlWhere += " AND r.docDate >= :docDateL";
+            parameters.put("docDateL", filter.getDocDateL());
+        }
+        if(filter.getDocDateH() != null){
+            sqlWhere += " AND r.docDate >= :docDateH";
+            parameters.put("docDateH", endDay(filter.getDocDateH()));
+        }
+        if(filter.getEndPlanL() != null){
+            sqlWhere += " AND r.endPlan >= :endPlanL";
+            parameters.put("endPlanL", filter.getEndPlanL());
+        }
+        if(filter.getEndPlanH() != null){
+            sqlWhere += " AND r.endPlan >= :endPlanH";
+            parameters.put("endPlanH", endDay(filter.getEndPlanH()));
+        }
+        if(filter.getEndActualL() != null){
+            sqlWhere += " AND r.endActual >= :endActualL";
+            parameters.put("endActualL", filter.getEndActualL());
+        }
+        if(filter.getEndActualH() != null){
+            sqlWhere += " AND r.endActual >= :endActualH";
+            parameters.put("endActualH", endDay(filter.getEndActualH()));
+        }
+
+        if(!sqlWhere.equals("")){
+            sqlWhere = "WHERE" + sqlWhere.substring(4);
+        } else {
+            sqlWhere = "WHERE r.endActual is null";
+        }
+
+        String sqlOrder = " order by r.order.name, r.name";
+        String sqlFull = sqlFrom + sqlWhere + sqlOrder;
+
+        Query query = em.createQuery(sqlFull);
+        for(Map.Entry<String, Object> e : parameters.entrySet()){
+            query.setParameter(e.getKey(), e.getValue());
+        }
+        orderItems = query.getResultList();
     }
 
     public void setEndActual(OrderItem orderItem) {
@@ -64,57 +132,19 @@ public class OrderList {
         }
     }
 
+
     @Transactional
     private OrderItem saveData(OrderItem orderItem) {
         return em.merge(orderItem);
     }
 
-    public Filter<?> getStartFilterImpl() {
-        return new Filter<OrderItem>() {
-            public boolean accept(OrderItem item) {
-                return AppUtil.isInRange(item.getOrder().getStart(), flStartL, flStartH);
-            }
-        };
-    }
-
-    public Filter<?> getDocDateFilterImpl() {
-        return new Filter<OrderItem>() {
-            public boolean accept(OrderItem item) {
-                return AppUtil.isInRange(item.getDocDate(), flDocDateL, flDocDateH);
-            }
-        };
-    }
-
-    public Filter<?> getEndPlanFilterImpl() {
-        return new Filter<OrderItem>() {
-            public boolean accept(OrderItem item) {
-                return AppUtil.isInRange(item.getEndPlan(), flEndPlanL, flEndPlanH);
-            }
-        };
-    }
-
-    public Filter<?> getEndActualFilterImpl() {
-        return new Filter<OrderItem>() {
-            public boolean accept(OrderItem item) {
-                return AppUtil.isInRange(item.getEndActual(), flEndActualL, flEndActualH);
-            }
-        };
+    public void doFilter(){
+        initList();
     }
 
     public void clearFilter() {
-        flName = null;
-        flCustomer = null;
-        flNomenclature = null;
-        flResponsible = null;
-        flDeveloper = null;
-        flStartL = null;
-        flStartH = null;
-        flDocDateL = null;
-        flDocDateH = null;
-        flEndPlanL = null;
-        flEndPlanH = null;
-        flEndActualL = null;
-        flEndActualH = null;
+        filter = new OrderListFilter();
+        initList();
     }
 
 
@@ -134,108 +164,12 @@ public class OrderList {
         this.userPA = userPA;
     }
 
-    public String getFlName() {
-        return flName;
+    public OrderListFilter getFilter() {
+        return filter;
     }
 
-    public void setFlName(String flName) {
-        this.flName = flName;
-    }
-
-    public String getFlCustomer() {
-        return flCustomer;
-    }
-
-    public void setFlCustomer(String flCustomer) {
-        this.flCustomer = flCustomer;
-    }
-
-    public String getFlNomenclature() {
-        return flNomenclature;
-    }
-
-    public void setFlNomenclature(String flNomenclature) {
-        this.flNomenclature = flNomenclature;
-    }
-
-    public String getFlResponsible() {
-        return flResponsible;
-    }
-
-    public void setFlResponsible(String flResponsible) {
-        this.flResponsible = flResponsible;
-    }
-
-    public String getFlDeveloper() {
-        return flDeveloper;
-    }
-
-    public void setFlDeveloper(String flDeveloper) {
-        this.flDeveloper = flDeveloper;
-    }
-
-    public Date getFlStartL() {
-        return flStartL;
-    }
-
-    public void setFlStartL(Date flStartL) {
-        this.flStartL = flStartL;
-    }
-
-    public Date getFlStartH() {
-        return flStartH;
-    }
-
-    public void setFlStartH(Date flStartH) {
-        this.flStartH = flStartH;
-    }
-
-    public Date getFlDocDateL() {
-        return flDocDateL;
-    }
-
-    public void setFlDocDateL(Date flDocDateL) {
-        this.flDocDateL = flDocDateL;
-    }
-
-    public Date getFlDocDateH() {
-        return flDocDateH;
-    }
-
-    public void setFlDocDateH(Date flDocDateH) {
-        this.flDocDateH = flDocDateH;
-    }
-
-    public Date getFlEndPlanL() {
-        return flEndPlanL;
-    }
-
-    public void setFlEndPlanL(Date flEndPlanL) {
-        this.flEndPlanL = flEndPlanL;
-    }
-
-    public Date getFlEndPlanH() {
-        return flEndPlanH;
-    }
-
-    public void setFlEndPlanH(Date flEndPlanH) {
-        this.flEndPlanH = flEndPlanH;
-    }
-
-    public Date getFlEndActualL() {
-        return flEndActualL;
-    }
-
-    public void setFlEndActualL(Date flEndActualL) {
-        this.flEndActualL = flEndActualL;
-    }
-
-    public Date getFlEndActualH() {
-        return flEndActualH;
-    }
-
-    public void setFlEndActualH(Date flEndActualH) {
-        this.flEndActualH = flEndActualH;
+    public void setFilter(OrderListFilter filter) {
+        this.filter = filter;
     }
 }
 

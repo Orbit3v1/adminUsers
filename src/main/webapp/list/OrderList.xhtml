@@ -36,6 +36,7 @@
 
             <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
             <h:commandButton id="findBtn"
+                             action="#{orderList.doFilter}"
                              value="#{messages.getString('button.find')}"
                              render="orders"
                              styleClass="btn"/>
@@ -48,13 +49,10 @@
             <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
                             rowClasses="odd-row, even-row">
-                <rich:column rendered="#{orderList.userPA.nameR}"
-                             filterValue="#{orderList.flName}"
-                             filterExpression="#{fn:containsIgnoreCase(row.order.name.concat('_').concat(row.name), orderList.flName)}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.nameR}">
                     <f:facet name="header">#{messages.getString('orderEntity.name')}
                         <br/>
-                        <h:inputText value="#{orderList.flName}"
+                        <h:inputText value="#{orderList.filter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -63,26 +61,20 @@
                                    style="display: block; text-decoration: none;"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.customerR}"
-                             filterValue="#{orderList.flCustomer}"
-                             filterExpression="#{fn:containsIgnoreCase(row.order.customer, orderList.flCustomer)}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.customerR}">
                     <f:facet name="header">#{messages.getString('orderEntity.customer')}
                         <br/>
-                        <h:inputText value="#{orderList.flCustomer}"
+                        <h:inputText value="#{orderList.filter.customer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.order.customer}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.nomenclatureR}"
-                             filterValue="#{orderList.flNomenclature}"
-                             filterExpression="#{fn:containsIgnoreCase(row.nomenclature, orderList.flNomenclature)}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.nomenclatureR}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.nomenclature')}
                         <br/>
-                        <h:inputText value="#{orderList.flNomenclature}"
+                        <h:inputText value="#{orderList.filter.nomenclature}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -111,28 +103,23 @@
                     <h:outputText value="#{row.nomenclature.gib}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.responsibleR}"
-                             filterValue="#{orderList.flResponsible}"
-                             filterExpression="#{fn:containsIgnoreCase(row.order.responsible, orderList.flResponsible)}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.responsibleR}">
                     <f:facet name="header">#{messages.getString('orderEntity.responsible')}
                         <br/>
-                        <h:inputText value="#{orderList.flResponsible}"
+                        <h:inputText value="#{orderList.filter.responsible}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.order.responsible}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.startR}"
-                             filter="#{orderList.startFilterImpl}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.startR}">
                     <f:facet name="header">#{messages.getString('orderEntity.start')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="startL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="startL" value="#{orderList.flStartL}" locale="#{locale}"
+                            <rich:calendar id="startL" value="#{orderList.filter.startL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -140,7 +127,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="startH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="startH" value="#{orderList.flStartH}" locale="#{locale}"
+                            <rich:calendar id="startH" value="#{orderList.filter.startH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -151,15 +138,13 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.docDateR}"
-                             filter="#{orderList.docDateFilterImpl}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.docDateR}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="docDateL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateL" value="#{orderList.flDocDateL}" locale="#{locale}"
+                            <rich:calendar id="docDateL" value="#{orderList.filter.docDateL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -167,7 +152,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="docDateH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateH" value="#{orderList.flDocDateH}" locale="#{locale}"
+                            <rich:calendar id="docDateH" value="#{orderList.filter.docDateH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -178,28 +163,23 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.developerR}"
-                             filterValue="#{orderList.flDeveloper}"
-                             filterExpression="#{fn:containsIgnoreCase(row.developer, orderList.flDeveloper)}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.developerR}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.developer')}
                         <br/>
-                        <h:inputText value="#{orderList.flDeveloper}"
+                        <h:inputText value="#{orderList.filter.developer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
                     <h:outputText value="#{row.developer}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.endPlanR}"
-                             filter="#{orderList.endPlanFilterImpl}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.endPlanR}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.endPlan')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endPlanL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanL" value="#{orderList.flEndPlanL}" locale="#{locale}"
+                            <rich:calendar id="endPlanL" value="#{orderList.filter.endPlanL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -207,7 +187,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endPlanH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanH" value="#{orderList.flEndPlanH}" locale="#{locale}"
+                            <rich:calendar id="endPlanH" value="#{orderList.filter.endPlanH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -218,15 +198,13 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.endActualR}"
-                             filter="#{orderList.endActualFilterImpl}"
-                             filterType="custom">
+                <rich:column rendered="#{orderList.userPA.endActualR}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.endActual')}
                         <br/>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endActualL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualL" value="#{orderList.flEndActualL}" locale="#{locale}"
+                            <rich:calendar id="endActualL" value="#{orderList.filter.endActualL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -234,7 +212,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endActualH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualH" value="#{orderList.flEndActualH}" locale="#{locale}"
+                            <rich:calendar id="endActualH" value="#{orderList.filter.endActualH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>

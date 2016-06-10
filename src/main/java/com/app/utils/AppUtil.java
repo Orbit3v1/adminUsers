@@ -79,6 +79,20 @@ public class AppUtil {
         return calendar.getTime();
     }
 
+    public static Date endDay(Date date){
+        if(date == null){
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+
+        return calendar.getTime();
+    }
+
 
     public static boolean isInRange(Date date, Date begin, Date end){
         boolean match = true;
@@ -98,6 +112,10 @@ public class AppUtil {
 
         }
         return match;
+    }
+
+    public static boolean notEmpty(String str){
+        return str != null && !str.equals("");
     }
 
 }
