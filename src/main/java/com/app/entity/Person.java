@@ -32,7 +32,7 @@ public class Person extends AbstractVersionedEntity{
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "person_role",
         joinColumns = @JoinColumn(name = "person"),
         inverseJoinColumns = @JoinColumn(name = "role"))

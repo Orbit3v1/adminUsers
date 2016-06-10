@@ -33,9 +33,11 @@ public class PersonScreen extends EntityScreen<Person>{
     }
 
     @Override
+    @Transactional
     public void initEntity(Person entity) {
-        oldPassword = entity.getPassword();
-        super.initEntity(entity);
+        this.entity = em.find(Person.class, entity.getId());
+        this.entity.getRoles().size();
+        oldPassword = this.entity.getPassword();
     }
 
     @Override

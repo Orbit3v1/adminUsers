@@ -4,6 +4,7 @@ import com.app.entity.Person;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
 import com.app.utils.SessionUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -36,6 +37,7 @@ public class LoginScreen {
     public LoginScreen() {
     }
 
+    @Transactional
     public String login(){
         Query query = em.createQuery("select p from Person p where p.login = :login and p.password = :password")
                 .setParameter("login", login)
@@ -44,6 +46,7 @@ public class LoginScreen {
         if (persons.size() != 0) {
             Person user = persons.get(0);
             if(user.isActive()){
+                user.getRoles().size();
                 SessionUtil.invalidateSession();
                 SessionUtil.addSessionVariable("user", user);
             } else {
