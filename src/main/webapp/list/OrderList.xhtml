@@ -151,7 +151,7 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.docDateR}">
+                <rich:column rendered="#{orderList.userPA.docDateR}" style="#{row.nomenclature.ready ? 'background-color: #29a329' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
                         <br/>
                         <h:panelGroup>
