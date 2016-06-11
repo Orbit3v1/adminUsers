@@ -1,7 +1,13 @@
 package com.app.entity;
 
+import com.app.dictionary.NAType;
+import com.app.dictionary.OrderItemState;
+
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orderItem")
@@ -124,4 +130,5 @@ public class OrderItem extends AbstractVersionedEntity{
     public void setOrder(Order order) {
         this.order = order;
     }
+
 }

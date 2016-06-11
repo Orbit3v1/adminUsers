@@ -1,5 +1,7 @@
 package com.app.entity;
 
+import com.app.dictionary.OrderItemState;
+
 import java.util.Date;
 
 /**
@@ -20,6 +22,7 @@ public class OrderListFilter {
     private Date endPlanH;
     private Date endActualL;
     private Date endActualH;
+    private OrderItemState state;
 
     public OrderListFilter() {
     }
@@ -126,5 +129,13 @@ public class OrderListFilter {
 
     public void setEndActualH(Date endActualH) {
         this.endActualH = endActualH;
+    }
+
+    public OrderItemState getState() {
+        return state;
+    }
+
+    public void setState(OrderItemState state) {
+        this.state = state;
     }
 }

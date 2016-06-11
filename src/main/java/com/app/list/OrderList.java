@@ -1,5 +1,6 @@
 package com.app.list;
 
+import com.app.dictionary.OrderItemState;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
@@ -14,10 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import static com.app.utils.AppUtil.notEmpty;
 import static com.app.utils.AppUtil.endDay;
 
@@ -37,6 +36,7 @@ public class OrderList {
     public void init() {
         if(filter == null){
             filter = new OrderListFilter();
+            filter.setState(OrderItemState.IN_WORK);
         }
         initList();
         userPA = Security.getUserPrivilegeAction("orderList");
@@ -99,11 +99,19 @@ public class OrderList {
             sqlWhere += " AND r.endActual >= :endActualH";
             parameters.put("endActualH", endDay(filter.getEndActualH()));
         }
+        switch (filter.getState()){
+            case IN_WORK:
+                sqlWhere += " AND r.endActual is null";
+                break;
+            case FINISHED:
+                sqlWhere += " AND r.endActual is not null";
+                break;
+            default:
+                break;
+        }
 
         if(!sqlWhere.equals("")){
             sqlWhere = "WHERE" + sqlWhere.substring(4);
-        } else {
-            sqlWhere = "WHERE r.endActual is null";
         }
 
         String sqlOrder = " order by r.order.name, r.name";
@@ -146,6 +154,7 @@ public class OrderList {
 
     public void clearFilter() {
         filter = new OrderListFilter();
+        filter.setState(OrderItemState.IN_WORK);
         initList();
     }
 
@@ -176,6 +185,10 @@ public class OrderList {
 
     public int getGibTotal(){
         return gibTotal;
+    }
+
+    public List<OrderItemState> getFilterStates() {
+        return Arrays.asList(OrderItemState.values());
     }
 }
 

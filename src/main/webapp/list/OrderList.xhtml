@@ -46,6 +46,16 @@
                              action="#{orderList.clearFilter}"
                              styleClass="btn"/>
 
+            <h:selectOneMenu value="#{orderList.filter.state}"
+                             styleClass="inputMedium"
+                             style="width: 100px!important;">
+                <f:selectItems value="#{orderList.filterStates}"
+                               var="type"
+                               itemValue="#{type}"
+                               itemLabel="#{type.description}"/>
+                <f:ajax process="@this" partialSubmit="true"/>
+            </h:selectOneMenu>
+
             <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
                             rowClasses="odd-row, even-row">
