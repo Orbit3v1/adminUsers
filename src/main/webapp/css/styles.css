@@ -66,6 +66,7 @@ a{
 .rf-dt-c {
     font-size: 14px !important;
     cursor: text !important;
+    white-space: nowrap !important;
 }
 
 .rf-pick-opt {
