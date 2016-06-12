@@ -29,7 +29,7 @@
                                    styleClass="label"/>
                     <h:inputText id="lastName" value="#{personScreen.entity.lastName}"
                                  styleClass="inputMedium"
-                                 disabled="#{!personScreen.userPA.lastNameW}"/>
+                                 disabled="#{personScreen.isDisabled('lastName')}"/>
                     <h:message for="lastName" errorClass="error"/>
                 </h:panelGroup>
 
@@ -38,7 +38,7 @@
                                    styleClass="label"/>
                     <h:inputText id="firstName" value="#{personScreen.entity.firstName}"
                                  styleClass="inputMedium"
-                                 disabled="#{!personScreen.userPA.firstNameW}"/>
+                                 disabled="#{personScreen.isDisabled('firstName')}"/>
                     <h:message for="firstName" errorClass="error"/>
                 </h:panelGroup>
 
@@ -47,7 +47,7 @@
                                    styleClass="label"/>
                     <h:inputText id="email" value="#{personScreen.entity.email}"
                                  styleClass="inputMedium"
-                                 disabled="#{!personScreen.userPA.emailW}"/>
+                                 disabled="#{personScreen.isDisabled('email')}"/>
                     <h:message for="email" errorClass="error"/>
                 </h:panelGroup>
 
@@ -56,7 +56,7 @@
                                    styleClass="label"/>
                     <h:inputText id="login" value="#{personScreen.entity.login}"
                                  styleClass="inputMedium"
-                                 disabled="#{!personScreen.userPA.loginW}"/>
+                                 disabled="#{personScreen.isDisabled('login')}"/>
                     <h:message for="login" errorClass="error"/>
                 </h:panelGroup>
 
@@ -65,15 +65,16 @@
                                    styleClass="label"/>
                     <h:inputSecret id="password" value="#{personScreen.entity.password}"
                                    styleClass="inputMedium"
-                                   disabled="#{!personScreen.userPA.passwordW}"/>
+                                   disabled="#{personScreen.isDisabled('password')}"/>
                     <h:message for="password" errorClass="error"/>
                 </h:panelGroup>
 
                 <h:panelGroup rendered="#{personScreen.userPA.activeR}">
                     <h:outputLabel value="#{messages.getString('personEntity.active')}" for="active"
                                    styleClass="label"/>
-                    <h:selectBooleanCheckbox id="active" value="#{personScreen.entity.active}"
-                                             disabled="#{!personScreen.userPA.activeW}"/>
+                    <h:selectBooleanCheckbox id="active"
+                                             value="#{personScreen.entity.active}"
+                                             disabled="#{personScreen.isDisabled('active')}"/>
                     <h:message for="active" errorClass="error"/>
                 </h:panelGroup>
 
@@ -98,7 +99,7 @@
                                    copyControlLabel="#{messages.getString('pickList.copyControlLabel')}"
                                    removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
                                    removeControlLabel="#{messages.getString('pickList.removeControlLabel')}"
-                                   disabled="#{!personScreen.userPA.rolesW}">
+                                   disabled="#{personScreen.isDisabled('roles')}">
 
                         <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}"
                                        itemLabel="#{row.name}"/>
@@ -114,13 +115,13 @@
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
-                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
+                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editEx : personScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.save')}"
                                  action="#{personScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
-                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editW : personScreen.userPA.addW)}"/>
+                                 disabled="#{!(personScreen.edit ? personScreen.userPA.editEx : personScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{personScreen.exit}"
                                  styleClass="btn"/>

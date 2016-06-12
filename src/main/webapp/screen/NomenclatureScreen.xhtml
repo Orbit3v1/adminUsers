@@ -24,12 +24,12 @@
                              render="mainForm"
                              styleClass="btn"
                              rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
-                             disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
+                             disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editEx : nomenclatureScreen.userPA.addEx)}"/>
             <h:commandButton value="#{messages.getString('button.save')}" action="#{nomenclatureScreen.saveOnly}"
                              render="mainForm"
                              styleClass="btn"
                              rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
-                             disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editW : nomenclatureScreen.userPA.addW)}"/>
+                             disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editEx : nomenclatureScreen.userPA.addEx)}"/>
             <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
                              action="#{nomenclatureScreen.exit}"
                              styleClass="btn"/>

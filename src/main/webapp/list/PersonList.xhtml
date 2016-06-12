@@ -21,7 +21,7 @@
                              action="#{personScreen.newEntity}"
                              styleClass="btn"
                              rendered="#{personList.userPA.addR}"
-                             disabled="#{!personList.userPA.addW}"/>
+                             disabled="#{!personList.userPA.addEx}"/>
 
             <rich:dataTable id="persons" value="#{personList.persons}" var="row" binding="#{table}"
                             rowClasses="odd-row, even-row">

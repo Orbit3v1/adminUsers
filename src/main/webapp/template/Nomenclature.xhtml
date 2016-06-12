@@ -25,7 +25,7 @@
             <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
                          styleClass="inputLarge"
                          style="margin-left: 20px !important"
-                         disabled="#{!nomenclatureScreen.userPA.nameW}">
+                         disabled="#{nomenclatureScreen.isDisabled('name')}">
                 <f:ajax process="@this" partialSubmit="true"/>
             </h:inputText>
             <h:message for="name" errorClass="error"/>
@@ -44,7 +44,7 @@
                 <h:inputText id="material" value="#{nomenclatureScreen.entity.material}"
                              styleClass="inputLarge"
                              style="margin-left: 9px !important"
-                             disabled="#{!nomenclatureScreen.userPA.materialW}"/>
+                             disabled="#{nomenclatureScreen.isDisabled('material')}"/>
                 <h:message for="material" errorClass="error"/>
             </h:panelGroup>
 
@@ -52,7 +52,7 @@
                 <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                styleClass="label"/>
                 <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
-                                 disabled="#{!nomenclatureScreen.userPA.descriptionW}"
+                                 disabled="#{nomenclatureScreen.isDisabled('description')}"
                                  styleClass="textareaLarge"
                                  style="margin-left: 9px !important">
                     <f:ajax process="@this" partialSubmit="true"/>
@@ -69,7 +69,7 @@
                             <h:commandLink value="#{row.attachment.name}"
                                            action="#{nomenclatureScreen.download(row)}"/>
                         </h:column>
-                        <h:column rendered="#{nomenclatureScreen.userPA.sketchesW}">
+                        <h:column rendered="#{!nomenclatureScreen.isDisabled('sketches')}">
                             <h:commandButton value="#{messages.getString('button.delete')}"
                                              action="#{nomenclatureScreen.delete(row)}"
                                              render="sketches"
@@ -80,7 +80,7 @@
 
                     <div/>
 
-                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.sketchesW}">
+                    <h:panelGroup rendered="#{!nomenclatureScreen.isDisabled('sketches')}">
                         <h:outputLabel for="sketch" value="#{messages.getString('button.upload')}"
                                        styleClass="btn">
                             <h:inputFile id="sketch" value="#{nomenclatureScreen.file}"
@@ -108,7 +108,7 @@
                     <h:commandLink value="#{row.attachment.name}"
                                    action="#{nomenclatureScreen.download(row)}"/>
                 </h:column>
-                <h:column rendered="#{nomenclatureScreen.userPA.drawingsW}">
+                <h:column rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
                     <h:commandButton value="#{messages.getString('button.delete')}"
                                      action="#{nomenclatureScreen.delete(row)}"
                                      render="sketches"
@@ -117,7 +117,7 @@
                 </h:column>
             </rich:dataTable>
 
-            <h:panelGroup rendered="#{nomenclatureScreen.userPA.drawingsW}">
+            <h:panelGroup rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
 
                 <h:selectOneMenu value="#{nomenclatureScreen.fileType}"
                                  styleClass="inputMedium">
@@ -145,7 +145,7 @@
                 <h:inputText id="gib" value="#{nomenclatureScreen.gib}"
                              styleClass="inputLarge"
                              style="margin-left: 9px !important"
-                             disabled="#{!nomenclatureScreen.userPA.gibW}">
+                             disabled="#{nomenclatureScreen.isDisabled('gib')}">
                     <f:validateBean disabled="true"/>
                 </h:inputText>
                 <h:message for="gib" errorClass="error"/>
@@ -156,7 +156,7 @@
                                styleClass="label"/>
                 <h:selectBooleanCheckbox id="ready" value="#{nomenclatureScreen.entity.ready}"
                                          style="margin-left: 9px !important"
-                                         disabled="#{!nomenclatureScreen.userPA.readyW}"/>
+                                         disabled="#{nomenclatureScreen.isDisabled('ready')}"/>
                 <h:message for="ready" errorClass="error"/>
             </h:panelGroup>
 

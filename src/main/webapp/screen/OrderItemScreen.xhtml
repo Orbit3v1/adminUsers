@@ -70,6 +70,7 @@
                     </h:inputText>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
+                                rendered="#{!orderItemScreen.isDisabled('nomenclature')}"
                                 onclick="openPopUp('about:blank', 'NomenclatureListPopUp')"
                                 oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
@@ -94,7 +95,7 @@
                                    styleClass="label"/>
                     <h:inputText id="count" value="#{orderItemScreen.count}"
                                  styleClass="inputLarge"
-                                 disabled="#{!orderItemScreen.userPA.countW}">
+                                 disabled="#{orderItemScreen.isDisabled('count')}">
                         <f:validateBean disabled="true"/>
                     </h:inputText>
                     <h:message for="count" errorClass="error"/>
@@ -107,7 +108,7 @@
                     <rich:calendar id="docDate" value="#{orderItemScreen.entity.docDate}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderItemScreen.userPA.docDateW}"/>
+                                   disabled="#{orderItemScreen.isDisabled('docDate')}"/>
                     <h:message for="docDate" errorClass="error"/>
                 </h:panelGroup>
 
@@ -120,7 +121,7 @@
                                  enableManualInput="true"
                                  defaultLabel=""
                                  listWidth="280"
-                                 disabled="#{!orderItemScreen.userPA.developerW}">
+                                 disabled="#{orderItemScreen.isDisabled('developer')}">
                         <f:selectItem itemLabel="" itemValue="#{null}"/>
                         <f:selectItems value="#{orderItemScreen.developers}"
                                        var="row"
@@ -136,7 +137,7 @@
                     <rich:calendar id="endPlan" value="#{orderItemScreen.entity.endPlan}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderItemScreen.userPA.endPlanW}"/>
+                                   disabled="#{orderItemScreen.isDisabled('endPlan')}"/>
                     <h:message for="endPlan" errorClass="error"/>
                 </h:panelGroup>
 
@@ -171,18 +172,18 @@
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.edit')}"
                                  action="#{orderItemScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editW : orderItemScreen.userPA.addW)}"/>
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{orderItemScreen.delete}"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit and orderItemScreen.userPA.deleteR}"
-                                 disabled="#{!orderItemScreen.edit or !orderItemScreen.userPA.deleteW}"
+                                 disabled="#{!orderItemScreen.edit or !orderItemScreen.userPA.deleteEx}"
                                  onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{orderItemScreen.close}"

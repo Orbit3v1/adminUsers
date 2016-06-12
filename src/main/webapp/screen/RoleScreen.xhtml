@@ -29,7 +29,7 @@
                     <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id" styleClass="label"/>
                     <h:inputText id="id" value="#{roleScreen.entity.id}"
                                  styleClass="inputMedium"
-                                 disabled="#{roleScreen.edit or !roleScreen.userPA.idW}"/>
+                                 disabled="#{roleScreen.isDisabled('id')}"/>
                     <h:message for="id" errorClass="error"/>
                 </h:panelGroup>
 
@@ -38,7 +38,7 @@
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{roleScreen.entity.name}"
                                  styleClass="inputMedium"
-                                 disabled="#{!roleScreen.userPA.nameW}"/>
+                                 disabled="#{roleScreen.isDisabled('name')}"/>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
 
@@ -47,7 +47,7 @@
                                    styleClass="label"/>
                     <h:inputTextarea id="description" value="#{roleScreen.entity.description}"
                                      styleClass="textareaMedium"
-                                     disabled="#{!roleScreen.userPA.descriptionW}"/>
+                                     disabled="#{roleScreen.isDisabled('description')}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>
 
@@ -66,12 +66,22 @@
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.readSelected}"
-                                                 disabled="#{!row.readAvailable or !roleScreen.userPA.privilegesW}"/>
+                                                 disabled="#{!row.readAvailable or roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.writeSelected}"
-                                                 disabled="#{!row.writeAvailable or !roleScreen.userPA.privilegesW}"/>
+                                                 disabled="#{!row.writeAvailable or roleScreen.isDisabled('privileges')}"/>
+                    </rich:column>
+                    <rich:column style="text-align: center">
+                        <f:facet name="header">#{messages.getString('roleScreen.privilege.edit')}</f:facet>
+                        <h:selectBooleanCheckbox value="#{row.editSelected}"
+                                                 disabled="#{!row.editAvailable or roleScreen.isDisabled('privileges')}"/>
+                    </rich:column>
+                    <rich:column style="text-align: center">
+                        <f:facet name="header">#{messages.getString('roleScreen.privilege.execute')}</f:facet>
+                        <h:selectBooleanCheckbox value="#{row.executeSelected}"
+                                                 disabled="#{!row.executeAvailable or roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:collapsiblePanel>
@@ -84,18 +94,18 @@
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
+                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.save')}"
                                  action="#{roleScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editW : roleScreen.userPA.addW)}"/>
+                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{roleScreen.delete}"
                                  styleClass="btn"
                                  rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
-                                 disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteW}"
+                                 disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteEx}"
                                  onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{roleScreen.exit}"

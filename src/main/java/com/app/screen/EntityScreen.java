@@ -67,6 +67,11 @@ public abstract class EntityScreen<T> {
         return "";
     }
 
+    public boolean isDisabled(String privilege){
+        Boolean res = edit ? userPA.get(privilege + "E") : userPA.get(privilege + "W");
+        return  res == null || !res;
+    }
+
     public String saveAndExit() {
         return  save() ? exit() : "";
     }

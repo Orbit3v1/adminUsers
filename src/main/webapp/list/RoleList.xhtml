@@ -21,7 +21,7 @@
                              action="#{roleScreen.newEntity}"
                              styleClass="btn"
                              rendered="#{roleList.userPA.addR}"
-                             disabled="#{!roleList.userPA.addW}"/>
+                             disabled="#{!roleList.userPA.addEx}"/>
 
             <rich:dataTable id="persons" value="#{roleList.roles}" var="row" binding="#{table}"
                             rowClasses="odd-row, even-row">

@@ -30,7 +30,7 @@
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{orderScreen.entity.name}"
                                  styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.nameW}"/>
+                                 disabled="#{orderScreen.isDisabled('name')}"/>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
 
@@ -39,7 +39,7 @@
                                    styleClass="label"/>
                     <h:inputText id="customer" value="#{orderScreen.entity.customer}"
                                  styleClass="inputLarge"
-                                 disabled="#{!orderScreen.userPA.customerW}"/>
+                                 disabled="#{orderScreen.isDisabled('customer')}"/>
                     <h:message for="customer" errorClass="error"/>
                 </h:panelGroup>
 
@@ -52,7 +52,7 @@
                                  enableManualInput="true"
                                  defaultLabel=""
                                  listWidth="280"
-                                 disabled="#{!orderScreen.userPA.responsibleW}">
+                                 disabled="#{orderScreen.isDisabled('responsible')}">
                         <f:selectItem itemLabel="" itemValue="#{null}"/>
                         <f:selectItems value="#{orderScreen.developers}"
                                        var="row"
@@ -68,7 +68,7 @@
                     <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{locale}"
                                    popup="true" datePattern="#{messages.getString('dateTimePattern')}"
                                    showApplyButton="true" cellWidth="24px" cellHeight="22px"
-                                   disabled="#{!orderScreen.userPA.startW}"/>
+                                   disabled="#{orderScreen.isDisabled('start')}"/>
                     <h:message for="start" errorClass="error"/>
                 </h:panelGroup>
 
@@ -82,7 +82,7 @@
                                    action="#{orderItemScreen.newEntity}"
                                    styleClass="btn"
                                    rendered="#{orderScreen.userPA.addItemR}"
-                                   disabled="#{!orderScreen.userPA.addItemW}"
+                                   disabled="#{!orderScreen.userPA.addItemEx}"
                                    onclick="openPopUp('about:blank', 'OrderItemPopUp')"
                                    oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'OrderItemPopUp')"/>
 
@@ -166,7 +166,7 @@
 
                         <h:commandButton value="x"
                                          action="#{orderScreen.delete(orderI)}"
-                                         disabled="#{!orderScreen.userPA.deleteItemW}"
+                                         disabled="#{!orderScreen.userPA.deleteItemEx}"
                                          styleClass="btn"
                                          style="background-color: red !important;"
                                          render="orderItems"
@@ -186,18 +186,18 @@
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editW : orderScreen.userPA.addW)}"/>
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.save')}"
                                  action="#{orderScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editW : orderScreen.userPA.addW)}"/>
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"/>
                 <h:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{orderScreen.delete}"
                                  styleClass="btn"
                                  rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
-                                 disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteW}"
+                                 disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
                                  onclick="return confirm('Вы действительно хотите удалить заказ?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{orderScreen.exit}"

@@ -26,6 +26,8 @@ public class RoleScreen extends EntityScreen<Role>{
 
     private static final String READ = "READ";
     private static final String WRITE = "WRITE";
+    private static final String EDIT = "EDIT";
+    private static final String EXECUTE = "EXECUTE";
 
     @PostConstruct
     public void init() {
@@ -85,6 +87,8 @@ public class RoleScreen extends EntityScreen<Role>{
             for (PrivilegeRow row : privilegeRows) {
                 setPrivilege(row.getPrivilege(), READ, row.isReadSelected());
                 setPrivilege(row.getPrivilege(), WRITE, row.isWriteSelected());
+                setPrivilege(row.getPrivilege(), EDIT, row.isEditSelected());
+                setPrivilege(row.getPrivilege(), EXECUTE, row.isExecuteSelected());
             }
         }
     }
@@ -109,8 +113,11 @@ public class RoleScreen extends EntityScreen<Role>{
 
         privilegeRows = new ArrayList<>();
         for (Privilege privilege : privileges) {
-            privilegeRows.add(new PrivilegeRow(privilege, hasAction(privilege, READ), hasAction(privilege, WRITE)
-                    , isAvailable(privilege, READ), isAvailable(privilege, WRITE)));
+            privilegeRows.add(new PrivilegeRow(privilege
+                    , hasAction(privilege, READ), hasAction(privilege, WRITE)
+                    , hasAction(privilege, EDIT), hasAction(privilege, EXECUTE)
+                    , isAvailable(privilege, READ), isAvailable(privilege, WRITE)
+                    , isAvailable(privilege, EDIT), isAvailable(privilege, EXECUTE)));
         }
 
     }
@@ -143,14 +150,19 @@ public class RoleScreen extends EntityScreen<Role>{
     public class PrivilegeRow {
 
         private Privilege privilege;
-        private boolean readSelected, writeSelected, readAvailable, writeAvailable;
+        private boolean readSelected, writeSelected, editSelected, executeSelected,
+                readAvailable, writeAvailable, editAvailable, executeAvailable;
 
-        public PrivilegeRow(Privilege privilege, boolean readSelected, boolean writeSelected, boolean readAvailable, boolean writeAvailable) {
+        public PrivilegeRow(Privilege privilege, boolean readSelected, boolean writeSelected, boolean editSelected, boolean executeSelected, boolean readAvailable, boolean writeAvailable, boolean editAvailable, boolean executeAvailable) {
             this.privilege = privilege;
             this.readSelected = readSelected;
             this.writeSelected = writeSelected;
+            this.editSelected = editSelected;
+            this.executeSelected = executeSelected;
             this.readAvailable = readAvailable;
             this.writeAvailable = writeAvailable;
+            this.editAvailable = editAvailable;
+            this.executeAvailable = executeAvailable;
         }
 
         public Privilege getPrivilege() {
@@ -193,6 +205,37 @@ public class RoleScreen extends EntityScreen<Role>{
             this.writeAvailable = writeAvailable;
         }
 
+        public boolean isEditSelected() {
+            return editSelected;
+        }
+
+        public void setEditSelected(boolean editSelected) {
+            this.editSelected = editSelected;
+        }
+
+        public boolean isExecuteSelected() {
+            return executeSelected;
+        }
+
+        public void setExecuteSelected(boolean executeSelected) {
+            this.executeSelected = executeSelected;
+        }
+
+        public boolean isEditAvailable() {
+            return editAvailable;
+        }
+
+        public void setEditAvailable(boolean editAvailable) {
+            this.editAvailable = editAvailable;
+        }
+
+        public boolean isExecuteAvailable() {
+            return executeAvailable;
+        }
+
+        public void setExecuteAvailable(boolean executeAvailable) {
+            this.executeAvailable = executeAvailable;
+        }
     }
 
 }
