@@ -5,6 +5,7 @@ import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AppUtil;
+import com.app.web.OrderListFilterBean;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import com.app.utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.*;
@@ -23,10 +25,13 @@ import static com.app.utils.AppUtil.notEmpty;
 import static com.app.utils.AppUtil.endDay;
 
 @Named("orderList")
-@Scope("session")
+@Scope("request")
 public class OrderList {
     @PersistenceContext
     protected EntityManager em;
+
+    @Inject
+    OrderListFilterBean orderListFilterBean;
 
     private List<OrderItem> orderItems;
     private Map<String, Boolean> userPA;
@@ -37,10 +42,7 @@ public class OrderList {
     @PostConstruct
     public void init() {
         userPA = Security.getUserPrivilegeAction("orderList");
-        if(filter == null){
-            filter = new OrderListFilter();
-            filter.setState(getDefaultState());
-        }
+        filter = orderListFilterBean.getFilter();
         initList();
     }
 
@@ -164,18 +166,12 @@ public class OrderList {
     }
 
     public void clearFilter() {
-        filter = new OrderListFilter();
-        filter.setState(getDefaultState());
+        filter = orderListFilterBean.clear();
         initList();
     }
 
     public void refresh(){
         initList();
-    }
-
-
-    public OrderItemState getDefaultState(){
-        return Security.hasAccess(getUserPA(), "accessInWork") ? OrderItemState.IN_WORK : OrderItemState.ALL;
     }
 
 

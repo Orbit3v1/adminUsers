@@ -23,14 +23,6 @@
                 width: 65px !important;
             }
         </style>
-        <script type="text/javascript">
-
-            window.onload = function () {
-                clickIn("mainForm:refresh");
-            }
-
-        </script>
-
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText value="#{messages.getString('orderList.header')}" styleClass="listTitle"/>
@@ -253,7 +245,6 @@
             </rich:dataTable>
             <a4j:commandButton id="refresh"
                                render="orders"
-                               action="#{orderList.refresh}"
                                style="display: none"
                                value="refresh"/>
         </h:form>
