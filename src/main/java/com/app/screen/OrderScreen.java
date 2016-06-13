@@ -4,6 +4,8 @@ import com.app.entity.Nomenclature;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.Person;
+import com.app.utils.Security;
+import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
@@ -27,15 +29,13 @@ public class OrderScreen extends EntityScreen<Order> {
     @Inject
     Validator<Order> validator;
 
-
     private List<Person> developers;
-    private boolean nomenclatureExists = false;
 
     @PostConstruct
     public void init() {
         initEntity();
 
-         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
+        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
         developers = query.getResultList();
     }
 
@@ -81,30 +81,44 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     @Transactional
-    private void saveData(){
+    private void saveData() {
         entity = em.merge(entity);
     }
 
-    public void setEndActual(OrderItem orderItem){
+    public void setEndActual(OrderItem orderItem) {
         Date date = new Date();
         orderItem.setEndActual(date);
     }
 
     @Transactional
-    public void refresh(){
-        for(OrderItem orderItem : entity.getOrderItems()){
+    public void refresh() {
+        for (OrderItem orderItem : entity.getOrderItems()) {
             orderItem.setNomenclature(em.find(Nomenclature.class, orderItem.getNomenclature().getId()));
         }
     }
 
-    public void delete(OrderItem orderItem){
+    public void delete(OrderItem orderItem) {
         entity.getOrderItems().remove(orderItem);
     }
 
     @Transactional
-    public String delete(){
+    public String delete() {
         em.remove(em.merge(entity));
         return exit();
+    }
+
+    public Filter<?> getOrderItemAccess() {
+        return new Filter<OrderItem>() {
+            public boolean accept(OrderItem item) {
+                boolean result = false;
+                if(item.getEndActual() == null){
+                    result = Security.hasAccess(getUserPA(), "accessInWork");
+                } else {
+                    result = Security.hasAccess(getUserPA(), "accessFinished");
+                }
+                return result;
+            }
+        };
     }
 
     private boolean validate() {

@@ -92,7 +92,9 @@
                                 var="orderI"
                                 rowClasses="odd-row, even-row">
 
-                    <rich:column rendered="#{orderScreen.userPA.itemNameR}">
+                    <rich:column rendered="#{orderScreen.userPA.itemNameR}"
+                                 filter="#{orderScreen.orderItemAccess}"
+                                 filterType="custom">
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.name')}
                         </f:facet>

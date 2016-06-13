@@ -16,12 +16,14 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static com.app.utils.AppUtil.notEmpty;
 import static com.app.utils.AppUtil.endDay;
 
 @Named("orderList")
-@Scope("request")
+@Scope("session")
 public class OrderList {
     @PersistenceContext
     protected EntityManager em;
@@ -34,18 +36,27 @@ public class OrderList {
 
     @PostConstruct
     public void init() {
+        userPA = Security.getUserPrivilegeAction("orderList");
         if(filter == null){
             filter = new OrderListFilter();
-            filter.setState(OrderItemState.IN_WORK);
+            filter.setState(getDefaultState());
         }
         initList();
-        userPA = Security.getUserPrivilegeAction("orderList");
     }
 
     private void initList(){
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from OrderItem r ";
-        String sqlWhere = "";
+
+        String sqlAccess = "";
+        if(!Security.hasAccess(userPA, "accessInWork")){
+            sqlAccess += " AND r.endActual is not null";
+        }
+        if(!Security.hasAccess(userPA, "accessFinished")){
+            sqlAccess += " AND r.endActual is null";
+        }
+
+        String sqlWhere = sqlAccess;
 
         if(notEmpty(filter.getName())){
             sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
@@ -154,8 +165,17 @@ public class OrderList {
 
     public void clearFilter() {
         filter = new OrderListFilter();
-        filter.setState(OrderItemState.IN_WORK);
+        filter.setState(getDefaultState());
         initList();
+    }
+
+    public void refresh(){
+        initList();
+    }
+
+
+    public OrderItemState getDefaultState(){
+        return Security.hasAccess(getUserPA(), "accessInWork") ? OrderItemState.IN_WORK : OrderItemState.ALL;
     }
 
 
@@ -188,7 +208,7 @@ public class OrderList {
     }
 
     public List<OrderItemState> getFilterStates() {
-        return Arrays.asList(OrderItemState.values());
+        return Arrays.asList(OrderItemState.values()).stream().filter(v -> v.getPA() == null || Security.hasAccess(userPA, v.getPA())).collect(Collectors.toList());
     }
 }
 

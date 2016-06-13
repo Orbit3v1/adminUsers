@@ -27,6 +27,10 @@ public class Security {
         return false;
     }
 
+    public static boolean hasAccess(Map<String, Boolean> userPA, String access){
+        return userPA.containsKey(access) && userPA.get(access);
+    }
+
     public static Map<String, Boolean> getUserPrivilegeAction(String screenName) {
 //        long startTime = System.currentTimeMillis();
 
@@ -435,6 +439,13 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "EXECUTE")))
                 );
 
+                userPA.put("accessInWork", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemInWork", "READ")))
+                );
+                userPA.put("accessFinished", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemFinished", "READ")))
+                );
+
                 break;
 
             case ("orderList"):
@@ -494,6 +505,13 @@ public class Security {
 
                 userPA.put("gibR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureGib", "READ")))
+                );
+
+                userPA.put("accessInWork", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemInWork", "READ")))
+                );
+                userPA.put("accessFinished", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemFinished", "READ")))
                 );
 
                 break;
