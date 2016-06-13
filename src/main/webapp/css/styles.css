@@ -124,7 +124,7 @@ hr {
     font-family: Arial, Verdana, sans-serif !important;
 }
 
-.btn:hover:enabled {
+.btn:hover {
     background-color: #D4CFC7 !important;
     color: black !important;
 }
