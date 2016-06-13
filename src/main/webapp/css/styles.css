@@ -126,7 +126,7 @@ hr {
 
 .btn:hover {
     background-color: #D4CFC7 !important;
-    color: black !important;
+    color: black;
 }
 
 .btn:active:enabled {
