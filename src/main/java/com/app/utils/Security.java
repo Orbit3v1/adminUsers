@@ -330,6 +330,38 @@ public class Security {
                 userPA.put("readyE", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureReady", "EDIT")))
                 );
+
+                userPA.put("componentAddR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentAdd", "READ")))
+                );
+                userPA.put("componentAddEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentAdd", "EXECUTE")))
+                );
+
+                userPA.put("componentEditR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentEdit", "READ")))
+                );
+                userPA.put("componentEditEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentEdit", "EXECUTE")))
+                );
+
+                userPA.put("componentDeleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentDelete", "READ")))
+                );
+                userPA.put("componentDeleteEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentDelete", "EXECUTE")))
+                );
+
+                userPA.put("componentNameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentName", "READ")),
+                                new PrivilegeAction(new PrivilegeActionId("componentAdd", "WRITE")))
+                );
+                userPA.put("componentNmeW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentName", "WRITE")))
+                );
+                userPA.put("componentNmeE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("componentName", "EDIT")))
+                );
                 break;
             case ("orderScreen"):
                 userPA.put("addR", hasAnyPrivilegeAction(

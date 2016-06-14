@@ -411,3 +411,34 @@ values('orderItemFinished', 'Позиция заказа - Статус - Сда
 insert into privilege_action(privilege, action)
 values('orderItemFinished', 'READ');
 
+-- Component
+
+insert into privilege(id, name, description, pos)
+values('componentAdd', 'Комплектующие - добавить', '', 6000);
+insert into privilege_action(privilege, action)
+values('componentAdd', 'READ');
+insert into privilege_action(privilege, action)
+values('componentAdd', 'EXECUTE');
+
+insert into privilege(id, name, description, pos)
+values('componentEdit', 'Комплектующие - редактировать', '', 6001);
+insert into privilege_action(privilege, action)
+values('componentEdit', 'READ');
+insert into privilege_action(privilege, action)
+values('componentEdit', 'EXECUTE');
+
+insert into privilege(id, name, description, pos)
+values('componentDelete', 'Комплектующие - удалить', '', 6002);
+insert into privilege_action(privilege, action)
+values('componentDelete', 'READ');
+insert into privilege_action(privilege, action)
+values('componentDelete', 'EXECUTE');
+
+insert into privilege(id, name, description, pos)
+values('componentName', 'Комплектующие - Поле - Название', '', 6003);
+insert into privilege_action(privilege, action)
+values('componentName', 'READ');
+insert into privilege_action(privilege, action)
+values('componentName', 'WRITE');
+insert into privilege_action(privilege, action)
+values('componentName', 'EDIT');

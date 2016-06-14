@@ -44,6 +44,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderItemEntity.endPlan", "План сдачи"},
             {"orderItemEntity.endActual", "Продукция сдана"},
 
+            {"componentEntity.name", "Наименование"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -80,6 +82,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureScreen.title", "Номенклатура"},
             {"nomenclatureScreen.task", "Тех задание"},
             {"nomenclatureScreen.drawing", "Чертежи"},
+            {"nomenclatureScreen.components", "Комплектующие"},
             {"nomenclatureScreen.sketchUpload", "Добавить эскиз"},
             {"nomenclatureScreen.sketches", "Эскизы"},
             {"nomenclatureScreen.editText", "Редактирование номенклатуры"},

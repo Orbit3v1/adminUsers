@@ -31,7 +31,10 @@ public class Nomenclature extends AbstractVersionedEntity {
     private boolean ready;
 
     @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<NomenclatureAttachment>();
+    private List<NomenclatureAttachment> nomenclatureAttachments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "nomenclature", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Component> components = new ArrayList<>();
 
     public Nomenclature() {
     }
@@ -101,4 +104,11 @@ public class Nomenclature extends AbstractVersionedEntity {
         this.nomenclatureAttachments = nomenclatureAttachments;
     }
 
+    public List<Component> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<Component> nomenclatureComponents) {
+        this.components = nomenclatureComponents;
+    }
 }

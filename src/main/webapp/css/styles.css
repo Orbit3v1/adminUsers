@@ -139,6 +139,34 @@ hr {
     color: lightgray; !important;
 }
 
+.btnDelete {
+    display: inline-block !important;
+    background-color: red !important;
+    padding: 1px 4px !important;
+    border: 1px solid #C4C0B9 !important;
+    background-image: none !important;
+    margin: 3px !important;
+    font-family: Arial, Verdana, sans-serif !important;
+}
+
+.btnDelete:hover {
+    background-color: #cc0000 !important;
+    color: black;
+}
+
+.btnDelete:active:enabled {
+    background-color: red !important;
+    color: black !important;
+}
+
+.btnDelete:disabled{
+    background-color: #ff9999 !important;
+    color: lightgray !important;
+}
+
+
+
+
 .findBtn{
     vertical-align: middle !important;
     height: 20px !important;

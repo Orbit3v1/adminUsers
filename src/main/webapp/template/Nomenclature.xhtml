@@ -70,10 +70,10 @@
                                            action="#{nomenclatureScreen.download(row)}"/>
                         </h:column>
                         <h:column rendered="#{!nomenclatureScreen.isDisabled('sketches')}">
-                            <h:commandButton value="#{messages.getString('button.delete')}"
+                            <h:commandButton value="X"
                                              action="#{nomenclatureScreen.delete(row)}"
                                              render="sketches"
-                                             styleClass="btn"
+                                             styleClass="btnDelete"
                                              onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                         </h:column>
                     </rich:dataTable>
@@ -109,10 +109,10 @@
                                    action="#{nomenclatureScreen.download(row)}"/>
                 </h:column>
                 <h:column rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
-                    <h:commandButton value="#{messages.getString('button.delete')}"
+                    <h:commandButton value="X"
                                      action="#{nomenclatureScreen.delete(row)}"
                                      render="sketches"
-                                     styleClass="btn"
+                                     styleClass="btnDelete"
                                      onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                 </h:column>
             </rich:dataTable>
@@ -162,5 +162,88 @@
 
         </h:panelGrid>
     </rich:collapsiblePanel>
+
+    <rich:collapsiblePanel header="#{messages.getString('nomenclatureScreen.components')}" switchType="client"
+                           expanded="true"
+                           rendered="#{nomenclatureScreen.userPA.componentNameR}">
+
+
+        <a4j:commandButton value="#{messages.getString('button.add')}"
+                           action="#{nomenclatureScreen.newComponent}"
+                           styleClass="btn"
+                           render="popupComponents"
+                           execute="@this"
+                           rendered="#{nomenclatureScreen.userPA.componentAddR}"
+                           disabled="#{!nomenclatureScreen.userPA.componentAddEx}"
+                           oncomplete="#{rich:component('popupComponents')}.show(); return false;"
+                           />
+
+        <h:message for="components" infoClass="info" errorClass="error"/>
+        <rich:dataTable id="components"
+                        value="#{nomenclatureScreen.entity.components}"
+                        var="components"
+                        binding="#{table}"
+                        rowClasses="odd-row, even-row">
+
+            <rich:column style="text-align: center">
+                <a4j:commandButton value="#{table.rowIndex + 1}"
+                                 action="#{nomenclatureScreen.editComponent(components)}"
+                                 execute="@this"
+                                 render="popupComponents"
+                                 oncomplete="#{rich:component('popupComponents')}.show(); return false;"/>
+            </rich:column>
+
+            <rich:column rendered="#{nomenclatureScreen.userPA.componentNameR}">
+                <f:facet name="header">#{messages.getString('componentEntity.name')}</f:facet>
+                <h:outputText value="#{components.name}"/>
+            </rich:column>
+
+            <rich:column rendered="#{nomenclatureScreen.userPA.componentDeleteR}">
+
+                <h:commandButton value="X"
+                                 action="#{nomenclatureScreen.deleteComponent(components)}"
+                                 disabled="#{!nomenclatureScreen.userPA.componentDeleteEx}"
+                                 styleClass="btnDelete"
+                                 render="components"
+                                 execute="components"
+                                 onclick="return confirm('Вы действительно хотите удалить комплектующие?')"/>
+            </rich:column>
+
+        </rich:dataTable>
+    </rich:collapsiblePanel>
+
+
+    <rich:popupPanel id="popupComponents" modal="true" resizeable="true">
+        <f:facet name="header">
+            <h:outputText value="#{messages.getString('nomenclatureScreen.components')}" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('popupComponents')}.hide(); return false;" style="color: inherit">
+                X
+            </h:outputLink>
+        </f:facet>
+        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
+                       for="componentName"
+                       styleClass="label"/>
+        <h:inputText id="componentName"
+                     value="#{nomenclatureScreen.tmpComponent.name}"
+                     styleClass="inputLarge"
+                     disabled="#{orderScreen.isDisabled('name')}"/>
+
+        <p>
+            <h:commandButton value="#{messages.getString('button.save')}"
+                             action="#{nomenclatureScreen.saveComponent}"
+                             execute="componentName"
+                             render="mainForm"
+                             styleClass="btn"
+                             rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.componentEditR : nomenclatureScreen.userPA.componentAddR}"
+                             disabled="#{!(nomenclatureScreen.componentEdit ? nomenclatureScreen.userPA.componentEditEx : nomenclatureScreen.userPA.componentAddEx)}"
+                             onclick="#{rich:component('popupComponents')}.hide();"/>
+            <h:commandButton value="#{messages.getString('button.cancel')}"
+                             onclick="#{rich:component('popupComponents')}.hide(); return false;"
+                             styleClass="btn"/>
+        </p>
+    </rich:popupPanel>
+
 
 </ui:composition>

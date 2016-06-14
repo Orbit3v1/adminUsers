@@ -166,11 +166,10 @@
 
                     <rich:column rendered="#{orderScreen.userPA.deleteItemR}">
 
-                        <h:commandButton value="x"
+                        <h:commandButton value="X"
                                          action="#{orderScreen.delete(orderI)}"
                                          disabled="#{!orderScreen.userPA.deleteItemEx}"
-                                         styleClass="btn"
-                                         style="background-color: red !important;"
+                                         styleClass="btnDelete"
                                          render="orderItems"
                                          onclick="return confirm('Вы действительно хотите удалить позицию заказа?')"/>
                     </rich:column>

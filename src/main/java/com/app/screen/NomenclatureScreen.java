@@ -32,11 +32,16 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private NAType fileType;
     private boolean closed;
     private boolean saved;
+    private Component tmpComponent;
+    private Component originalComponent;
+    private boolean componentEdit;
 
     @PostConstruct
     public void init() {
         fileType = NAType.BENDING;
         initEntity();
+        tmpComponent = new Component();
+
     }
 
     @Override
@@ -44,6 +49,31 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         return "nomenclatureScreen";
     }
 
+    public void newComponent(){
+        tmpComponent = new Component();
+        tmpComponent.setNomenclature(entity);
+        componentEdit = false;
+    }
+
+    public void editComponent(Component component){
+        originalComponent = component;
+        tmpComponent = new Component();
+        tmpComponent.copyForm(component);
+        componentEdit = true;
+    }
+
+    public void deleteComponent(Component component){
+        entity.getComponents().remove(component);
+    }
+
+    public void saveComponent(){
+        if(componentEdit){
+            originalComponent.copyForm(tmpComponent);
+        } else {
+            entity.getComponents().add(tmpComponent);
+            componentEdit = true;
+        }
+    }
 
     @Transactional
     public String saveRefresh() {
@@ -79,6 +109,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         if(entity.getId() != 0){
             this.entity = em.find(Nomenclature.class, entity.getId());
             this.entity.getNomenclatureAttachments().size();
+            this.entity.getComponents().size();
         } else {
             super.initEntity(entity);
         }
@@ -90,6 +121,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         closed = false;
         entity = new Nomenclature();
         entity.setNomenclatureAttachments(new ArrayList<>());
+        entity.setComponents(new ArrayList<>());
     }
 
     public boolean save() {
@@ -235,5 +267,21 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public void setGib(String gib) {
         this.gib = gib;
+    }
+
+    public Component getTmpComponent() {
+        return tmpComponent;
+    }
+
+    public void setTmpComponent(Component tmpComponent) {
+        this.tmpComponent = tmpComponent;
+    }
+
+    public boolean isComponentEdit() {
+        return componentEdit;
+    }
+
+    public void setComponentEdit(boolean componentEdit) {
+        this.componentEdit = componentEdit;
     }
 }

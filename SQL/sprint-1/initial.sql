@@ -145,4 +145,16 @@ create index orderItem_I2 on orderItem(developer);
 create unique index orderItem_U1 on orderItem(orders, name);
 
 
+create table component(
+  id int IDENTITY(1,1) not null primary key,
+  name varchar(100) not null,
+  version int default 0,
+  nomenclature int not null,
+
+  CONSTRAINT component_FK1 FOREIGN KEY (nomenclature) REFERENCES nomenclature(id)
+);
+
+create index component_I1 on component(nomenclature);
+
+
 
