@@ -1,7 +1,9 @@
 package com.app.screen;
 
 import com.app.entity.Person;
+import com.app.utils.Security;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import com.app.utils.SessionUtil;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ public class LoginScreen {
 
     private String login;
     private String password;
+    protected Logger logger = Logger.getLogger(getClass());
 
     @PostConstruct
     public void init() {
@@ -39,6 +42,7 @@ public class LoginScreen {
 
     @Transactional
     public String login(){
+        logger.info("User login attempt. Login: " + login);
         Query query = em.createQuery("select p from Person p where p.login = :login and p.password = :password")
                 .setParameter("login", login)
                 .setParameter("password", DigestUtils.md5Hex(password));
@@ -49,19 +53,23 @@ public class LoginScreen {
                 user.getRoles().size();
                 SessionUtil.invalidateSession();
                 SessionUtil.addSessionVariable("user", user);
+                logger.info("User login successful. Login: " + login);
             } else {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("loginScreen.inactive"));
                 FacesContext.getCurrentInstance().addMessage("mainForm:panelLogin", facesMessage);
+                logger.info("User login fail (Inactive). Login: " + login);
             }
         } else {
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("loginScreen.error"));
             FacesContext.getCurrentInstance().addMessage("mainForm:panelLogin", facesMessage);
+            logger.info("User login fail (Wrong credentials). Login: " + login);
         }
 
         return "";
     }
 
     public String logout(){
+        logger.info("User logout. User: " + Security.getCurrentUser());
         SessionUtil.removeSessionVariable("user");
         SessionUtil.invalidateSession();
         return "";
