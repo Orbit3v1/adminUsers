@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.ResourceBundle;
+import org.slf4j.MDC;
 
 @Named("loginScreen")
 @Scope("request")
@@ -69,7 +70,8 @@ public class LoginScreen {
     }
 
     public String logout(){
-        logger.info("User logout. User: " + Security.getCurrentUser());
+        Person user = Security.getCurrentUser();
+        logger.info("User logout. User: " + (user == null ? "" : user.getLogin()));
         SessionUtil.removeSessionVariable("user");
         SessionUtil.invalidateSession();
         return "";

@@ -1,6 +1,7 @@
 package com.app.web;
 
 import com.app.entity.Person;
+import org.slf4j.MDC;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ public class LoginFilter implements Filter {
             Person user = (session != null) ? (Person) session.getAttribute("user") : null;
             if (user == null) {
                 response.sendRedirect(loginUrl);
+            } else {
+                MDC.put("login", user.getLogin());
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);

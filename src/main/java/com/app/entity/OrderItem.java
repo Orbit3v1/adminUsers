@@ -59,7 +59,7 @@ public class OrderItem extends AbstractVersionedEntity{
         this.order = orderItem.order;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

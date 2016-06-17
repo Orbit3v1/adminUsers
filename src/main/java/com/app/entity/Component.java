@@ -20,7 +20,7 @@ public class Component extends AbstractVersionedEntity {
     public Component() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

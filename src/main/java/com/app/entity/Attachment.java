@@ -37,7 +37,7 @@ public class Attachment extends AbstractVersionedEntity {
                 : (obj == this);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
