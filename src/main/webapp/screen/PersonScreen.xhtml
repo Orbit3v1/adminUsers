@@ -95,10 +95,10 @@
                                    listWidth="200px"
                                    sourceCaption="#{messages.getString('personScreen.roles.available')}"
                                    targetCaption="#{messages.getString('personScreen.roles.selected')}"
-                                   copyAllControlLabel="#{messages.getString('pickList.copyAllControlLabel')}"
-                                   copyControlLabel="#{messages.getString('pickList.copyControlLabel')}"
-                                   removeAllControlLabel="#{messages.getString('pickList.removeAllControlLabel')}"
-                                   removeControlLabel="#{messages.getString('pickList.removeControlLabel')}"
+                                   addAllText="#{messages.getString('pickList.copyAllControlLabel')}"
+                                   addText="#{messages.getString('pickList.copyControlLabel')}"
+                                   removeAllText="#{messages.getString('pickList.removeAllControlLabel')}"
+                                   removeText="#{messages.getString('pickList.removeControlLabel')}"
                                    disabled="#{personScreen.isDisabled('roles')}">
 
                         <f:selectItems value="#{personScreen.roleSourceList}" var="row" itemValue="#{row}"
