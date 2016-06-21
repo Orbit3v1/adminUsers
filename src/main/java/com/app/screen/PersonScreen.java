@@ -27,6 +27,7 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         initEntity();
         Query query = em.createQuery("select r from Role r order by r.name");
         roleSourceList = query.getResultList();
@@ -61,8 +62,10 @@ public class PersonScreen extends EntityScreen<Person>{
                 edit = true;
                 return true;
             } catch (OptimisticLockException | StaleObjectStateException e){
+                logger.error(e.getMessage());
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
+                logger.error(e.getMessage());
                 e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
@@ -79,6 +82,7 @@ public class PersonScreen extends EntityScreen<Person>{
 
     private void passwordCode(){
         if(!entity.getPassword().equals("")) {
+            logger.info("password was changed");
             oldPassword = DigestUtils.md5Hex(entity.getPassword());
         }
         entity.setPassword(oldPassword);

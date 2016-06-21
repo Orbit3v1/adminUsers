@@ -31,6 +31,7 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         initEntity();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
@@ -44,6 +45,7 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @Transactional
     public String delete(){
+        logger.info("delete");
         em.remove(em.merge(entity));
         return exit();
     }
@@ -64,9 +66,11 @@ public class RoleScreen extends EntityScreen<Role>{
                 edit = true;
                 return true;
             } catch (OptimisticLockException e){
+                logger.error(e.getMessage());
                 e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
+                logger.error(e.getMessage());
                 e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }

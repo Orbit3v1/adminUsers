@@ -33,6 +33,7 @@ public class OrderScreen extends EntityScreen<Order> {
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         initEntity();
 
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
@@ -68,9 +69,11 @@ public class OrderScreen extends EntityScreen<Order> {
                 edit = true;
                 return true;
             } catch (OptimisticLockException e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
@@ -86,12 +89,14 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     public void setEndActual(OrderItem orderItem) {
+        logger.info("set actual end. OrderItem.id = " + orderItem.getId());
         Date date = new Date();
         orderItem.setEndActual(date);
     }
 
     @Transactional
     public void refresh() {
+        logger.info("refresh");
         for (OrderItem orderItem : entity.getOrderItems()) {
             orderItem.setNomenclature(em.find(Nomenclature.class, orderItem.getNomenclature().getId()));
         }
@@ -103,6 +108,7 @@ public class OrderScreen extends EntityScreen<Order> {
 
     @Transactional
     public String delete() {
+        logger.info("delete");
         em.remove(em.merge(entity));
         return exit();
     }

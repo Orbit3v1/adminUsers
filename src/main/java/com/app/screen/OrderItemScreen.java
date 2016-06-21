@@ -37,6 +37,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         initEntity();
 
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
@@ -95,6 +96,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     public String close() {
+        logger.info("close popUp");
         saved = true;
         closed = true;
         return "";
@@ -102,11 +104,13 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     @Transactional
     public void refresh(){
+        logger.info("refresh");
         Nomenclature nomenclature = em.find(Nomenclature.class, entity.getNomenclature().getId());
         entity.setNomenclature(nomenclature);
     }
 
     private void updateOrderItems() {
+        logger.info("updateOrderItems");
         OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
         Order source = orderScreen.getEntity();
         if (edit) {
@@ -120,6 +124,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     public String delete(){
+        logger.info("delete");
         OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
         Order source = orderScreen.getEntity();
         source.getOrderItems().remove(originalOrderItem);

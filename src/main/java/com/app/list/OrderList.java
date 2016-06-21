@@ -6,6 +6,7 @@ import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AppUtil;
 import com.app.web.OrderListFilterBean;
+import org.apache.log4j.Logger;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ import static com.app.utils.AppUtil.endDay;
 public class OrderList {
     @PersistenceContext
     protected EntityManager em;
+    protected Logger logger = Logger.getLogger(getClass());
 
     @Inject
     OrderListFilterBean orderListFilterBean;
@@ -41,12 +43,14 @@ public class OrderList {
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilter();
         initList();
     }
 
     private void initList(){
+        logger.info("initList");
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from OrderItem r ";
 
@@ -139,16 +143,19 @@ public class OrderList {
     }
 
     public void setEndActual(OrderItem orderItem) {
+        logger.info("set actual end. OrderItem.id = " + orderItem.getId());
         Date date = new Date();
         orderItem.setEndActual(date);
         try {
             orderItem = saveData(orderItem);
 
         } catch (OptimisticLockException e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
             orderItem.setEndActual(null);
             SessionUtil.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
             orderItem.setEndActual(null);
             SessionUtil.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
@@ -162,10 +169,12 @@ public class OrderList {
     }
 
     public void doFilter(){
+        logger.info("doFilter");
         initList();
     }
 
     public void clearFilter() {
+        logger.info("clearFilter");
         filter = orderListFilterBean.clear();
         initList();
     }

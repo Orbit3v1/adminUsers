@@ -38,6 +38,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @PostConstruct
     public void init() {
+        logger.info("init");
         fileType = NAType.BENDING;
         initEntity();
         tmpComponent = new Component();
@@ -50,12 +51,14 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     public void newComponent(){
+        logger.info("add component");
         tmpComponent = new Component();
         tmpComponent.setNomenclature(entity);
         componentEdit = false;
     }
 
     public void editComponent(Component component){
+        logger.info("edit component");
         originalComponent = component;
         tmpComponent = new Component();
         tmpComponent.copyForm(component);
@@ -68,8 +71,10 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public void saveComponent(){
         if(componentEdit){
+            logger.info("save existing component");
             originalComponent.copyForm(tmpComponent);
         } else {
+            logger.info("save new component");
             entity.getComponents().add(tmpComponent);
             componentEdit = true;
         }
@@ -77,6 +82,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public String saveRefresh() {
+        logger.info("save in popUp");
         saved = false;
         if (save()) {
             saved = true;
@@ -85,6 +91,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     public String close() {
+        logger.info("close popUp");
         saved = false;
         closed = true;
         return "";
@@ -92,6 +99,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public String saveRefreshClose() {
+        logger.info("save and close popUp");
         saved = false;
         if (save()) {
             saved = true;
@@ -136,9 +144,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
                 return true;
             } catch (OptimisticLockException e) {
                 e.printStackTrace();
+                logger.error(e.getMessage());
                 SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.error(e.getMessage());
                 SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
@@ -175,6 +185,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     public void uploadFile(NAType fileType) {
+        logger.info("upload file. type = " + fileType.getDescription());
         Attachment attachment = AppUtil.getAttachment(file);
         NomenclatureAttachment na = new NomenclatureAttachment();
         na.setAttachment(attachment);
@@ -184,12 +195,13 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     public void delete(NomenclatureAttachment nomenclatureAttachment) {
+        logger.info("delete attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
         entity.getNomenclatureAttachments().remove(nomenclatureAttachment);
     }
 
     @Transactional
     public void download(NomenclatureAttachment nomenclatureAttachment) {
-
+        logger.info("download attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
         Attachment attachment = nomenclatureAttachment.getAttachment();
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -204,6 +216,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             OutputStream output = ec.getResponseOutputStream();
             output.write(content.getContent());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
         }
 

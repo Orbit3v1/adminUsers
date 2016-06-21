@@ -66,11 +66,13 @@ public abstract class EntityScreen<T extends Unique> {
     }
 
     public String exit() {
+        logger.info("exit");
         SessionUtil.cleanSession(getScreenName());
         return "toList";
     }
 
     public String saveOnly() {
+        logger.info("save entity"  + entity.getId());
         save();
         return "";
     }
@@ -81,6 +83,7 @@ public abstract class EntityScreen<T extends Unique> {
     }
 
     public String saveAndExit() {
+        logger.info("save entity and exit. "  + entity.getId());
         return  save() ? exit() : "";
     }
 
