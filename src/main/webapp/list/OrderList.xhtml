@@ -109,7 +109,7 @@
                 <rich:column rendered="#{orderList.userPA.gibR}">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.gib')}
                     </f:facet>
-                    <h:outputText value="#{row.nomenclature.gib}"/>
+                    <h:outputText value="#{row.nomenclature.gib * row.count}"/>
                     <f:facet name="footer">
                         <h:outputText value="#{orderList.gibTotal}"/>
                     </f:facet>

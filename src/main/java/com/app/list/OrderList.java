@@ -139,7 +139,7 @@ public class OrderList {
             query.setParameter(e.getKey(), e.getValue());
         }
         orderItems = query.getResultList();
-        gibTotal = orderItems.stream().filter(v -> v.getNomenclature().getGib() != null).mapToInt(v -> v.getNomenclature().getGib()).sum();
+        gibTotal = orderItems.stream().filter(v -> v.getNomenclature().getGib() != null).mapToInt(v -> v.getNomenclature().getGib() * v.getCount()).sum();
     }
 
     public void setEndActual(OrderItem orderItem) {
