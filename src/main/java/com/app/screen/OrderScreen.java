@@ -48,6 +48,8 @@ public class OrderScreen extends EntityScreen<Order> {
     @Override
     public void initEntity() {
         entity = new Order();
+        entity.setResponsible(Security.getCurrentUser());
+        entity.setStart(new Date());
         entity.setOrderItems(new ArrayList<>());
     }
 
