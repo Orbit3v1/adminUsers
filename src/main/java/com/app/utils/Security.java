@@ -636,6 +636,9 @@ public class Security {
                 userPA.put("endActualW", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "WRITE")))
                 );
+                userPA.put("endActualE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "EDIT")))
+                );
 
                 userPA.put("addItemR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "READ")))

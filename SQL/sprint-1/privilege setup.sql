@@ -400,6 +400,8 @@ insert into privilege_action(privilege, action)
 values('orderItemEndActual', 'READ');
 insert into privilege_action(privilege, action)
 values('orderItemEndActual', 'WRITE');
+insert into privilege_action(privilege, action)
+values('orderItemEndActual', 'EDIT');
 
 insert into privilege(id, name, description, pos)
 values('orderItemInWork', 'Позиция заказа - Статус - В работе', '', 5020);

@@ -35,7 +35,7 @@
                              action="#{nomenclatureScreen.newEntity}"
                              styleClass="btn"
                              rendered="#{nomenclatureListPopUp.userPA.addR}"
-                             disabled="#{!nomenclatureListPopUp.userPA.addEX}"/>
+                             disabled="#{!nomenclatureListPopUp.userPA.addEx}"/>
 
             <h:commandButton id="findBtn"
                              value="#{messages.getString('button.find')}"
@@ -61,6 +61,10 @@
                                      oncomplete="refreshClose()"/>
                 </rich:column>
             </rich:dataTable>
+            <a4j:commandButton value="#{messages.getString('button.cancel')}"
+                               id="close"
+                               onclick="window.close();"
+                               styleClass="btn"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -144,12 +144,22 @@
                 <h:panelGroup id="endActualPG" rendered="#{orderItemScreen.userPA.endActualR}">
                     <h:outputLabel value="#{messages.getString('orderItemEntity.endActual')}" for="endActual"
                                    styleClass="label"/>
-                    <h:outputText id="endActual"
-                                  value="#{orderItemScreen.entity.endActual}"
-                                  rendered="#{orderItemScreen.entity.endActual != null}"
-                                  style="display: inline-block !important; margin: 3px !important;">
-                        <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
-                    </h:outputText>
+
+                    <h:panelGroup id="endActualSet" rendered="#{orderItemScreen.entity.endActual != null}">
+                        <h:inputText id="endActual"
+                                     value="#{orderItemScreen.entity.endActual}"
+                                     disabled="true"
+                                     styleClass="inputLarge">
+                            <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                        </h:inputText>
+                        <h:commandButton id="endActualRevert"
+                                         value="X"
+                                         action="#{orderItemScreen.cancelEndActual}"
+                                         rendered="#{orderItemScreen.userPA.endActualE}"
+                                         styleClass="btnDelete"
+                                         render="orderItems"
+                                         onclick="return confirm('Вы действительно хотите отменить сдачу позиции заказа?')"/>
+                    </h:panelGroup>
 
                     <h:commandButton id="endActualB"
                                      value="#{messages.getString('order.setEnd')}"
@@ -195,7 +205,8 @@
                                oncomplete="window.close();"
                                style="display: none"/>
 
-            <a4j:commandButton id="refresh" render="nomenclatureP" action="#{orderItemScreen.refresh()}" style="display:none;"  value="refresh"/>
+            <a4j:commandButton id="refresh" render="nomenclatureP" action="#{orderItemScreen.refresh()}"
+                               style="display:none;" value="refresh"/>
 
         </h:form>
     </ui:define>

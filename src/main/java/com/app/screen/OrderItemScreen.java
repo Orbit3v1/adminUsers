@@ -131,6 +131,11 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         return close();
     }
 
+    public void cancelEndActual(){
+        logger.info("cancel end actual");
+        entity.setEndActual(null);
+    }
+
     private String getItemName(Order order){
         if(order.getOrderItems() == null || order.getOrderItems().size() == 0){
             return "1";

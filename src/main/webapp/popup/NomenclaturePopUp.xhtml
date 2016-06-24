@@ -51,7 +51,7 @@
         </ui:fragment>
 
         <h:form id="mainForm" enctype="multipart/form-data">
-            <ui:include src="/template/Nomenclature.xhtml"/>
+            <ui:include src="/template/NomenclatureBody.xhtml"/>
             <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                              action="#{nomenclatureScreen.saveRefreshClose}"
                              render="mainForm"
