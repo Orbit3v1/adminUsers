@@ -2,29 +2,87 @@ package com.app.entity;
 
 import com.app.dictionary.OrderItemState;
 
+import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by ayaroslavtsev on 10.06.2016.
- */
-public class OrderListFilter {
+@Entity
+@Table(name = "orderListFilter")
+public class OrderListFilter extends AbstractVersionedEntity {
 
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "customer")
     private String customer;
+
+    @Column(name = "nomenclature")
     private String nomenclature;
+
+    @Column(name = "responsible")
     private String responsible;
+
+    @Column(name = "developer")
     private String developer;
+
+    @Column(name = "startL")
     private Date startL;
+
+    @Column(name = "startH")
     private Date startH;
+
+    @Column(name = "docDateL")
     private Date docDateL;
+
+    @Column(name = "docDateH")
     private Date docDateH;
+
+    @Column(name = "endPlanL")
     private Date endPlanL;
+
+    @Column(name = "endPlanH")
     private Date endPlanH;
+
+    @Column(name = "endActualL")
     private Date endActualL;
+
+    @Column(name = "endActualH")
     private Date endActualH;
+
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
     private OrderItemState state;
 
     public OrderListFilter() {
+    }
+
+    public void clear() {
+        name = null;
+        customer = null;
+        nomenclature = null;
+        responsible = null;
+        developer = null;
+        startL = null;
+        startH = null;
+        docDateL = null;
+        docDateH = null;
+        endPlanL = null;
+        endPlanH = null;
+        endActualL = null;
+        endActualH = null;
+        state = OrderItemState.ALL;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

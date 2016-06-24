@@ -4,6 +4,7 @@ import com.app.dictionary.OrderItemState;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
+import com.app.utils.AddMessage;
 import com.app.utils.AppUtil;
 import com.app.web.OrderListFilterBean;
 import org.apache.log4j.Logger;
@@ -34,6 +35,8 @@ public class OrderList {
 
     @Inject
     OrderListFilterBean orderListFilterBean;
+    @Inject
+    protected AddMessage addMessage;
 
     private List<OrderItem> orderItems;
     private Map<String, Boolean> userPA;
@@ -153,12 +156,12 @@ public class OrderList {
             logger.error(e.getMessage());
             e.printStackTrace();
             orderItem.setEndActual(null);
-            SessionUtil.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
             orderItem.setEndActual(null);
-            SessionUtil.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
     }
 
@@ -176,6 +179,19 @@ public class OrderList {
     public void clearFilter() {
         logger.info("clearFilter");
         filter = orderListFilterBean.clear();
+        initList();
+    }
+
+    public void loadFilter(){
+        logger.info("Load order list filter");
+        filter = orderListFilterBean.load();
+        initList();
+        addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
+    }
+
+    public void saveFilter(){
+        logger.info("Save order list filter");
+        filter = orderListFilterBean.save();
         initList();
     }
 

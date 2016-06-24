@@ -157,4 +157,30 @@ create table component(
 create index component_I1 on component(nomenclature);
 
 
+create table orderListFilter(
+  id int not null primary key,
+  version int default 0,
+  name varchar(500),
+  customer varchar(500),
+  nomenclature varchar(500),
+  responsible varchar(500),
+  developer varchar(500),
+
+  startL date,
+  startH date,
+  docDateL date,
+  docDateH date,
+  endPlanL date,
+  endPlanH date,
+  endActualL date,
+  endActualH date,
+
+  state varchar(500),
+
+  CONSTRAINT orderListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+);
+
+
+
+
 

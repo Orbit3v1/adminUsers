@@ -8,7 +8,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" xmlns:H="http://java.sun.com/jsf/html">
 
     <ui:define name="title">
         <h:outputText value="#{messages.getString('orderList.title')}"/>
@@ -34,26 +34,39 @@
                              disabled="#{!orderList.userPA.addEx}"/>
 
             <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
-            <h:commandButton id="findBtn"
-                             action="#{orderList.doFilter}"
-                             value="#{messages.getString('button.find')}"
-                             render="orders"
-                             styleClass="btn"/>
+            <h:panelGroup id="filterPG">
+                <h:commandButton id="findBtn"
+                                 action="#{orderList.doFilter}"
+                                 value="#{messages.getString('button.find')}"
+                                 render="orders"
+                                 styleClass="btn"/>
 
-            <h:commandButton value="#{messages.getString('button.clearFilter')}"
-                             render="orders"
-                             action="#{orderList.clearFilter}"
-                             styleClass="btn"/>
+                <h:commandButton value="#{messages.getString('button.clearFilter')}"
+                                 render="orders"
+                                 action="#{orderList.clearFilter}"
+                                 styleClass="btn"/>
 
-            <h:selectOneMenu value="#{orderList.filter.state}"
-                             styleClass="inputMedium"
-                             style="width: 100px!important;">
-                <f:selectItems value="#{orderList.filterStates}"
-                               var="type"
-                               itemValue="#{type}"
-                               itemLabel="#{type.description}"/>
-                <f:ajax process="@this" partialSubmit="true"/>
-            </h:selectOneMenu>
+                <h:commandButton value="#{messages.getString('button.saveFilter')}"
+                                 action="#{orderList.saveFilter}"
+                                 render="orders"
+                                 styleClass="btn"/>
+
+                <h:commandButton value="#{messages.getString('button.loadFilter')}"
+                                 render="orders"
+                                 action="#{orderList.loadFilter}"
+                                 styleClass="btn"/>
+
+                <h:selectOneMenu value="#{orderList.filter.state}"
+                                 styleClass="inputMedium"
+                                 style="width: 100px!important;">
+                    <f:selectItems value="#{orderList.filterStates}"
+                                   var="type"
+                                   itemValue="#{type}"
+                                   itemLabel="#{type.description}"/>
+                    <f:ajax process="@this" partialSubmit="true"/>
+                </h:selectOneMenu>
+            </h:panelGroup>
+            <h:message for="filterPG" infoClass="info" errorClass="error"/>
 
             <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
@@ -150,7 +163,8 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.docDateR}" style="#{row.nomenclature.ready ? 'background-color: #29a329' : ''}">
+                <rich:column rendered="#{orderList.userPA.docDateR}"
+                             style="#{row.nomenclature.ready ? 'background-color: #29a329' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
                         <br/>
                         <h:panelGroup>

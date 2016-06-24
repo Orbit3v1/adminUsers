@@ -95,6 +95,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderList.title", "Производство"},
             {"orderList.header", "График производства"},
 
+            {"orderListFilter.saveSuccess", "Фильтр сохранен"},
+            {"orderListFilter.loadSuccess", "Фильтр загружен"},
+
             {"orderScreen.title", "Заказ"},
             {"orderScreen.table.orderItems", "Позиции"},
             {"orderScreen.editText", "Редактирование заказа"},
@@ -132,6 +135,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.upload", "Загрузить"},
             {"button.find", "Поиск"},
             {"button.clearFilter", "Сброс"},
+            {"button.saveFilter", "Сохранить"},
+            {"button.loadFilter", "Загрузить"},
 
 
             {"datePattern", "yyyy-MM-dd"},
