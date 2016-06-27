@@ -117,10 +117,14 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"order.setEnd", "Сдать"},
 
+            {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
             {"loginScreen.error", "Неверный логин или пароль"},
             {"loginScreen.inactive", "Ваш пользователь заблокирован"},
+
+            {"adminScreen.title", "Администрирование"},
+            {"graphicScreen.title", "Графики"},
 
             {"button.add", "Добавить"},
             {"button.cancel", "Отмена"},
