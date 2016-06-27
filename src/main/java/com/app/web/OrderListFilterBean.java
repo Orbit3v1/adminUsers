@@ -6,6 +6,7 @@ import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.utils.SessionUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,10 +59,9 @@ public class OrderListFilterBean {
         return filter;
     }
 
-    @Transactional
     public OrderListFilter save() {
         try {
-            filter = em.merge(filter);
+            saveData();
             addMessage.setMessage("mainForm:orders", "orderListFilter.saveSuccess", FacesMessage.SEVERITY_INFO);
         } catch (OptimisticLockException e) {
             logger.error(e.getMessage());
@@ -81,6 +81,11 @@ public class OrderListFilterBean {
             filter = createNew();
         }
         return filter;
+    }
+
+    @Transactional
+    private void saveData(){
+        filter = em.merge(filter);
     }
 
     public OrderListFilter getFilter() {
