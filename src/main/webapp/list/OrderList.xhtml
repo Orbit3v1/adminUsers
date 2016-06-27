@@ -72,76 +72,84 @@
             <h:message for="filterPG" infoClass="info" errorClass="error"/>
 
             <h:message for="orders" infoClass="info" errorClass="error"/>
-            <rich:dataTable id="orders" value="#{orderList.orderItems}" var="row"
+            <rich:dataTable id="orders" value="#{orderList.listRows}" var="row"
                             rowClasses="odd-row, even-row">
-                <rich:column rendered="#{orderList.userPA.nameR}">
+                <rich:column rendered="#{orderList.userPA.nameR}"
+                            style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderEntity.name')}
                         <br/>
                         <h:inputText value="#{orderList.filter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.order.name}_#{row.name}"
-                                   action="#{orderScreen.editEntity(row.order)}"
+                    <h:commandLink value="#{row.orderItem.order.name}_#{row.orderItem.name}"
+                                   action="#{orderScreen.editEntity(row.orderItem.order)}"
                                    style="display: block; text-decoration: none;"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.customerR}">
+                <rich:column rendered="#{orderList.userPA.customerR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderEntity.customer')}
                         <br/>
                         <h:inputText value="#{orderList.filter.customer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.order.customer}"/>
+                    <h:outputText value="#{row.orderItem.order.customer}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.nomenclatureR}">
+                <rich:column rendered="#{orderList.userPA.nomenclatureR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.nomenclature')}
                         <br/>
                         <h:inputText value="#{orderList.filter.nomenclature}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <a4j:commandLink value="#{row.nomenclature}"
-                                     action="#{nomenclatureScreen.editEntity(row.nomenclature)}"
+                    <a4j:commandLink value="#{row.orderItem.nomenclature}"
+                                     action="#{nomenclatureScreen.editEntity(row.orderItem.nomenclature)}"
                                      onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
                                      oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
                                      style="display: block;"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.countR}">
+                <rich:column rendered="#{orderList.userPA.countR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.count')}
                     </f:facet>
-                    <h:outputText value="#{row.count}"/>
+                    <h:outputText value="#{row.orderItem.count}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.materialR}">
+                <rich:column rendered="#{orderList.userPA.materialR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.material')}
                     </f:facet>
-                    <h:outputText value="#{row.nomenclature.material}"/>
+                    <h:outputText value="#{row.orderItem.nomenclature.material}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.gibR}">
+                <rich:column rendered="#{orderList.userPA.gibR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.gib')}
                     </f:facet>
-                    <h:outputText value="#{row.nomenclature.gib * row.count}"/>
+                    <h:outputText value="#{row.orderItem.nomenclature.gib * row.orderItem.count}"/>
                     <f:facet name="footer">
                         <h:outputText value="#{orderList.gibTotal}"/>
                     </f:facet>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.responsibleR}">
+                <rich:column rendered="#{orderList.userPA.responsibleR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderEntity.responsible')}
                         <br/>
                         <h:inputText value="#{orderList.filter.responsible}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.order.responsible}"/>
+                    <h:outputText value="#{row.orderItem.order.responsible}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.startR}">
+                <rich:column rendered="#{orderList.userPA.startR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderEntity.start')}
                         <br/>
                         <h:panelGroup>
@@ -161,13 +169,15 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.order.start}">
+                    <h:outputText value="#{row.orderItem.order.start}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.docDateR}"
-                             style="#{row.nomenclature.ready ? 'background-color: #29a329' : ''}">
+
+                             style="#{row.orderItem.nomenclature.ready ? 'background-color: #29a329;' : ''}
+                                #{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid;' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
                         <br/>
                         <h:panelGroup>
@@ -187,22 +197,24 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.docDate}">
+                    <h:outputText value="#{row.orderItem.docDate}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.developerR}">
+                <rich:column rendered="#{orderList.userPA.developerR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.developer')}
                         <br/>
                         <h:inputText value="#{orderList.filter.developer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.developer}"/>
+                    <h:outputText value="#{row.orderItem.developer}"/>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.endPlanR}">
+                <rich:column rendered="#{orderList.userPA.endPlanR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.endPlan')}
                         <br/>
                         <h:panelGroup>
@@ -222,12 +234,13 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.endPlan}">
+                    <h:outputText value="#{row.orderItem.endPlan}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{orderList.userPA.endActualR}">
+                <rich:column rendered="#{orderList.userPA.endActualR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('orderItemEntity.endActual')}
                         <br/>
                         <h:panelGroup>
@@ -247,7 +260,7 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.endActual}" rendered="#{row.endActual != null}">
+                    <h:outputText value="#{row.orderItem.endActual}" rendered="#{row.orderItem.endActual != null}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                     <h:commandButton id="endActualB"
@@ -255,7 +268,7 @@
                                      action="#{orderList.setEndActual(row)}"
                                      disabled="#{!orderList.userPA.endActualW}"
                                      styleClass="btn"
-                                     rendered="#{row.endActual == null}"
+                                     rendered="#{row.orderItem.endActual == null}"
                                      render="orders"/>
                 </rich:column>
 

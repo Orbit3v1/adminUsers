@@ -1,18 +1,14 @@
 package com.app.list;
 
 import com.app.dictionary.OrderItemState;
-import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AddMessage;
-import com.app.utils.AppUtil;
 import com.app.web.OrderListFilterBean;
 import org.apache.log4j.Logger;
-import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.Security;
-import com.app.utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.app.utils.AppUtil.notEmpty;
@@ -39,6 +34,7 @@ public class OrderList {
     protected AddMessage addMessage;
 
     private List<OrderItem> orderItems;
+    private List<ListRow> listRows;
     private Map<String, Boolean> userPA;
 
     private OrderListFilter filter;
@@ -49,7 +45,7 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilter();
-
+        //updateList();
     }
 
     public void updateList() {
@@ -146,7 +142,21 @@ public class OrderList {
             query.setParameter(e.getKey(), e.getValue());
         }
         orderItems = query.getResultList();
+        initListRows(orderItems);
         gibTotal = orderItems.stream().filter(v -> v.getNomenclature().getGib() != null).mapToInt(v -> v.getNomenclature().getGib() * v.getCount()).sum();
+    }
+
+    private void initListRows(List<OrderItem> orderItems){
+        listRows = new ArrayList<>();
+        if(orderItems.size() > 0){
+            int lastOrderId = orderItems.get(0).getOrder().getId();
+            listRows.add(new ListRow(orderItems.get(0), false));
+            for(int i = 1; i < orderItems.size(); i++){
+                OrderItem oi = orderItems.get(i);
+                listRows.add(new ListRow(oi, oi.getOrder().getId() != lastOrderId));
+                lastOrderId = orderItems.get(i).getOrder().getId();
+            }
+        }
     }
 
     public void setEndActual(OrderItem orderItem) {
@@ -231,6 +241,41 @@ public class OrderList {
     public List<OrderItemState> getFilterStates() {
         return Arrays.asList(OrderItemState.values()).stream().filter(v -> v.getPA() == null || Security.hasAccess(userPA, v.getPA())).collect(Collectors.toList());
     }
+
+    public List<ListRow> getListRows() {
+        return listRows;
+    }
+
+    public void setListRows(List<ListRow> listRows) {
+        this.listRows = listRows;
+    }
+
+    public class ListRow {
+        private OrderItem orderItem;
+        private boolean fromNewOrder;
+
+        public ListRow(OrderItem orderItem, boolean fromNewOrder) {
+            this.orderItem = orderItem;
+            this.fromNewOrder = fromNewOrder;
+        }
+
+        public OrderItem getOrderItem() {
+            return orderItem;
+        }
+
+        public void setOrderItem(OrderItem orderItem) {
+            this.orderItem = orderItem;
+        }
+
+        public boolean isFromNewOrder() {
+            return fromNewOrder;
+        }
+
+        public void setFromNewOrder(boolean fromNewOrder) {
+            this.fromNewOrder = fromNewOrder;
+        }
+    }
+
 }
 
 
