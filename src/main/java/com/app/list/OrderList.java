@@ -22,7 +22,7 @@ import static com.app.utils.AppUtil.notEmpty;
 import static com.app.utils.AppUtil.endDay;
 
 @Named("orderList")
-@Scope("request")
+@Scope("session")
 public class OrderList {
     @PersistenceContext
     protected EntityManager em;
@@ -45,7 +45,6 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilter();
-        //updateList();
     }
 
     public void updateList() {

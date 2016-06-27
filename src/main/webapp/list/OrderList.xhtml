@@ -265,7 +265,7 @@
                     </h:outputText>
                     <h:commandButton id="endActualB"
                                      value="#{messages.getString('order.setEnd')}"
-                                     action="#{orderList.setEndActual(row)}"
+                                     action="#{orderList.setEndActual(row.orderItem)}"
                                      disabled="#{!orderList.userPA.endActualW}"
                                      styleClass="btn"
                                      rendered="#{row.orderItem.endActual == null}"
