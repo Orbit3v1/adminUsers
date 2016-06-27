@@ -49,77 +49,81 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilter();
+
+    }
+
+    public void updateList() {
         initList();
     }
 
-    private void initList(){
+    private void initList() {
         logger.info("initList");
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from OrderItem r ";
 
         String sqlAccess = "";
-        if(!Security.hasAccess(userPA, "accessInWork")){
+        if (!Security.hasAccess(userPA, "accessInWork")) {
             sqlAccess += " AND r.endActual is not null";
         }
-        if(!Security.hasAccess(userPA, "accessFinished")){
+        if (!Security.hasAccess(userPA, "accessFinished")) {
             sqlAccess += " AND r.endActual is null";
         }
 
         String sqlWhere = sqlAccess;
 
-        if(notEmpty(filter.getName())){
+        if (notEmpty(filter.getName())) {
             sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
             parameters.put("name", filter.getName() + "%");
         }
-        if(notEmpty(filter.getCustomer())){
+        if (notEmpty(filter.getCustomer())) {
             sqlWhere += " AND r.order.customer like :customer";
             parameters.put("customer", filter.getCustomer() + "%");
         }
-        if(notEmpty(filter.getNomenclature())){
+        if (notEmpty(filter.getNomenclature())) {
             sqlWhere += " AND r.nomenclature.name like :nomenclature";
             parameters.put("nomenclature", "%" + filter.getNomenclature() + "%");
         }
-        if(notEmpty(filter.getResponsible())){
+        if (notEmpty(filter.getResponsible())) {
             sqlWhere += " AND concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible";
             parameters.put("responsible", "%" + filter.getResponsible() + "%");
         }
-        if(notEmpty(filter.getDeveloper())){
+        if (notEmpty(filter.getDeveloper())) {
             sqlWhere += " AND concat(r.developer.lastName, ' ', r.developer.firstName) like :developer";
             parameters.put("developer", "%" + filter.getDeveloper() + "%");
         }
-        if(filter.getStartL() != null){
+        if (filter.getStartL() != null) {
             sqlWhere += " AND r.order.start >= :startL";
             parameters.put("startL", filter.getStartL());
         }
-        if(filter.getStartH() != null){
+        if (filter.getStartH() != null) {
             sqlWhere += " AND r.order.start <= :startH";
             parameters.put("startH", endDay(filter.getStartH()));
         }
-        if(filter.getDocDateL() != null){
+        if (filter.getDocDateL() != null) {
             sqlWhere += " AND r.docDate >= :docDateL";
             parameters.put("docDateL", filter.getDocDateL());
         }
-        if(filter.getDocDateH() != null){
+        if (filter.getDocDateH() != null) {
             sqlWhere += " AND r.docDate >= :docDateH";
             parameters.put("docDateH", endDay(filter.getDocDateH()));
         }
-        if(filter.getEndPlanL() != null){
+        if (filter.getEndPlanL() != null) {
             sqlWhere += " AND r.endPlan >= :endPlanL";
             parameters.put("endPlanL", filter.getEndPlanL());
         }
-        if(filter.getEndPlanH() != null){
+        if (filter.getEndPlanH() != null) {
             sqlWhere += " AND r.endPlan >= :endPlanH";
             parameters.put("endPlanH", endDay(filter.getEndPlanH()));
         }
-        if(filter.getEndActualL() != null){
+        if (filter.getEndActualL() != null) {
             sqlWhere += " AND r.endActual >= :endActualL";
             parameters.put("endActualL", filter.getEndActualL());
         }
-        if(filter.getEndActualH() != null){
+        if (filter.getEndActualH() != null) {
             sqlWhere += " AND r.endActual >= :endActualH";
             parameters.put("endActualH", endDay(filter.getEndActualH()));
         }
-        switch (filter.getState()){
+        switch (filter.getState()) {
             case IN_WORK:
                 sqlWhere += " AND r.endActual is null";
                 break;
@@ -130,7 +134,7 @@ public class OrderList {
                 break;
         }
 
-        if(!sqlWhere.equals("")){
+        if (!sqlWhere.equals("")) {
             sqlWhere = "WHERE" + sqlWhere.substring(4);
         }
 
@@ -138,7 +142,7 @@ public class OrderList {
         String sqlFull = sqlFrom + sqlWhere + sqlOrder;
 
         Query query = em.createQuery(sqlFull);
-        for(Map.Entry<String, Object> e : parameters.entrySet()){
+        for (Map.Entry<String, Object> e : parameters.entrySet()) {
             query.setParameter(e.getKey(), e.getValue());
         }
         orderItems = query.getResultList();
@@ -171,31 +175,27 @@ public class OrderList {
         return em.merge(orderItem);
     }
 
-    public void doFilter(){
+    public void doFilter() {
         logger.info("doFilter");
-        initList();
     }
 
     public void clearFilter() {
         logger.info("clearFilter");
         filter = orderListFilterBean.clear();
-        initList();
     }
 
-    public void loadFilter(){
+    public void loadFilter() {
         logger.info("Load order list filter");
         filter = orderListFilterBean.load();
-        initList();
         addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
     }
 
-    public void saveFilter(){
+    public void saveFilter() {
         logger.info("Save order list filter");
         filter = orderListFilterBean.save();
-        initList();
     }
 
-    public void refresh(){
+    public void refresh() {
         initList();
     }
 
@@ -224,7 +224,7 @@ public class OrderList {
         this.filter = filter;
     }
 
-    public int getGibTotal(){
+    public int getGibTotal() {
         return gibTotal;
     }
 

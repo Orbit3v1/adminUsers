@@ -25,6 +25,9 @@
         </style>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+
+            <f:event type="preRenderView" listener="#{orderList.updateList}" />
+
             <h:outputText value="#{messages.getString('orderList.header')}" styleClass="listTitle"/>
             <br/>
             <h:commandButton value="#{messages.getString('button.add')}"
