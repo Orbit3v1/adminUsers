@@ -131,7 +131,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.gib')}
                     </f:facet>
-                    <h:outputText value="#{row.orderItem.nomenclature.gib * row.orderItem.count}"/>
+                    <h:outputText value="#{row.orderItem.nomenclature.gib}"/>
                     <f:facet name="footer">
                         <h:outputText value="#{orderList.gibTotal}"/>
                     </f:facet>
