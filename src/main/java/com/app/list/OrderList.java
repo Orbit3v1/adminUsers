@@ -1,6 +1,7 @@
 package com.app.list;
 
 import com.app.dictionary.OrderItemState;
+import com.app.dto.ProductionReportDTO;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AddMessage;
@@ -34,7 +35,7 @@ public class OrderList {
     protected AddMessage addMessage;
 
     private List<OrderItem> orderItems;
-    private List<ListRow> listRows;
+    private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
 
     private OrderListFilter filter;
@@ -142,17 +143,17 @@ public class OrderList {
         }
         orderItems = query.getResultList();
         initListRows(orderItems);
-        gibTotal = orderItems.stream().filter(v -> v.getNomenclature().getGib() != null).mapToInt(v -> v.getNomenclature().getGib() * v.getCount()).sum();
+        gibTotal = listRows.stream().filter(v -> v.getGib() != null).mapToInt(v -> v.getGib() * v.getCount()).sum();
     }
 
     private void initListRows(List<OrderItem> orderItems){
         listRows = new ArrayList<>();
         if(orderItems.size() > 0){
             int lastOrderId = orderItems.get(0).getOrder().getId();
-            listRows.add(new ListRow(orderItems.get(0), false));
+            listRows.add(new ProductionReportDTO(orderItems.get(0), false));
             for(int i = 1; i < orderItems.size(); i++){
                 OrderItem oi = orderItems.get(i);
-                listRows.add(new ListRow(oi, oi.getOrder().getId() != lastOrderId));
+                listRows.add(new ProductionReportDTO(oi, oi.getOrder().getId() != lastOrderId));
                 lastOrderId = orderItems.get(i).getOrder().getId();
             }
         }
@@ -241,11 +242,11 @@ public class OrderList {
         return Arrays.asList(OrderItemState.values()).stream().filter(v -> v.getPA() == null || Security.hasAccess(userPA, v.getPA())).collect(Collectors.toList());
     }
 
-    public List<ListRow> getListRows() {
+    public List<ProductionReportDTO> getListRows() {
         return listRows;
     }
 
-    public void setListRows(List<ListRow> listRows) {
+    public void setListRows(List<ProductionReportDTO> listRows) {
         this.listRows = listRows;
     }
 
