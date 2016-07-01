@@ -19,6 +19,12 @@
                      styleClass="btn"
                      rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
                      disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editEx : nomenclatureScreen.userPA.addEx)}"/>
+    <h:commandButton value="#{messages.getString('button.delete')}"
+                     action="#{nomenclatureScreen.delete}"
+                     styleClass="btn"
+                     rendered="#{nomenclatureScreen.edit and nomenclatureScreen.userPA.deleteR}"
+                     disabled="#{!nomenclatureScreen.edit or !nomenclatureScreen.userPA.deleteEx}"
+                     onclick="return confirm('Вы действительно хотите удалить запись?')"/>
     <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
                      action="#{nomenclatureScreen.exit}"
                      styleClass="btn"/>

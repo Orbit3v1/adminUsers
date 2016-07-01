@@ -249,12 +249,10 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <rich:calendar value="#{row.docDate}" locale="#{locale}"
-                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
-                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                    <h:outputText value="#{row.docDate}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
 
-                            >
-                    </rich:calendar>
 
                 </rich:column>
 

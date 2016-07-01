@@ -72,7 +72,7 @@
                         </h:column>
                         <h:column rendered="#{!nomenclatureScreen.isDisabled('sketches')}">
                             <h:commandButton value="X"
-                                             action="#{nomenclatureScreen.delete(row)}"
+                                             action="#{nomenclatureScreen.deleteAttachment(row)}"
                                              render="sketches"
                                              styleClass="btnDelete"
                                              onclick="return confirm('Вы действительно хотите удалить запись?')"/>
@@ -112,7 +112,7 @@
                 </h:column>
                 <h:column rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
                     <h:commandButton value="X"
-                                     action="#{nomenclatureScreen.delete(row)}"
+                                     action="#{nomenclatureScreen.deleteAttachment(row)}"
                                      render="sketches"
                                      styleClass="btnDelete"
                                      onclick="return confirm('Вы действительно хотите удалить запись?')"/>

@@ -122,6 +122,12 @@
                                  styleClass="btn"
                                  rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
                                  disabled="#{!(personScreen.edit ? personScreen.userPA.editEx : personScreen.userPA.addEx)}"/>
+                <h:commandButton value="#{messages.getString('button.delete')}"
+                                 action="#{personScreen.delete}"
+                                 styleClass="btn"
+                                 rendered="#{personScreen.edit and personScreen.userPA.deleteR}"
+                                 disabled="#{!personScreen.edit or !personScreen.userPA.deleteEx}"
+                                 onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                 <h:commandButton value="#{messages.getString('button.cancel')}"
                                  action="#{personScreen.exit}"
                                  styleClass="btn"/>

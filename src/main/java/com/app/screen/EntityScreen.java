@@ -3,6 +3,7 @@ package com.app.screen;
 import com.app.entity.Nomenclature;
 import com.app.entity.Person;
 import com.app.entity.Unique;
+import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.utils.SessionUtil;
 import org.apache.log4j.Logger;
@@ -19,6 +20,8 @@ public abstract class EntityScreen<T extends Unique> {
 
     @Inject
     protected ResourceBundle resourceBundle;
+    @Inject
+    protected AddMessage addMessage;
 
     @PersistenceContext
     protected EntityManager em;

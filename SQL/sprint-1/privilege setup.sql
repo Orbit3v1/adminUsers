@@ -49,6 +49,13 @@ insert into privilege_action(privilege, action)
 values('personAdd', 'EXECUTE');
 
 insert into privilege(id, name, description, pos)
+values('personDelete', 'Пользователь - удалить', '', 1001);
+insert into privilege_action(privilege, action)
+values('personDelete', 'READ');
+insert into privilege_action(privilege, action)
+values('personDelete', 'EXECUTE');
+
+insert into privilege(id, name, description, pos)
 values('personEdit', 'Пользователь - редактировать', '', 1002);
 insert into privilege_action(privilege, action)
 values('personEdit', 'READ');
@@ -189,6 +196,13 @@ insert into privilege_action(privilege, action)
 values('nomenclatureEdit', 'READ');
 insert into privilege_action(privilege, action)
 values('nomenclatureEdit', 'EXECUTE');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureDelete', 'Номенклатура - удалить', '', 3001);
+insert into privilege_action(privilege, action)
+values('nomenclatureDelete', 'READ');
+insert into privilege_action(privilege, action)
+values('nomenclatureDelete', 'EXECUTE');
 
 insert into privilege(id, name, description, pos)
 values('nomenclatureName', 'Номенклатура - Поле - Наименование', '', 3002);

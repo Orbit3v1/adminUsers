@@ -45,7 +45,7 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @Transactional
     public String delete(){
-        logger.info("delete");
+        logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
         em.remove(em.merge(entity));
         return exit();
     }

@@ -52,6 +52,13 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("personAdd", "EXECUTE")))
                 );
 
+                userPA.put("deleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personDelete", "READ")))
+                );
+                userPA.put("deleteEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("personDelete", "EXECUTE")))
+                );
+
                 userPA.put("activeR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("personActive", "READ")))
                 );
@@ -258,6 +265,13 @@ public class Security {
                 );
                 userPA.put("editEx", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureEdit", "EXECUTE")))
+                );
+
+                userPA.put("deleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDelete", "READ")))
+                );
+                userPA.put("deleteEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("nomenclatureDelete", "EXECUTE")))
                 );
 
                 userPA.put("nameR", hasAnyPrivilegeAction(

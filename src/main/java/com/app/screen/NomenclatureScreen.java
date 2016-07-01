@@ -118,6 +118,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             this.entity = em.find(Nomenclature.class, entity.getId());
             this.entity.getNomenclatureAttachments().size();
             this.entity.getComponents().size();
+            this.entity.getOrderItems().size();
         } else {
             super.initEntity(entity);
         }
@@ -139,20 +140,20 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
                 saveData();
 
                 String bundleKey = edit ? "nomenclatureScreen.success.edit" : "nomenclatureScreen.success.save";
-                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
+                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
             } catch (OptimisticLockException e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
-                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
-                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            SessionUtil.setMessage("mainForm:panel", "nomenclatureScreen.error.title", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }
@@ -194,10 +195,30 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         entity.getNomenclatureAttachments().add(na);
     }
 
-    public void delete(NomenclatureAttachment nomenclatureAttachment) {
-        logger.info("delete attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
+    public void deleteAttachment(NomenclatureAttachment nomenclatureAttachment) {
+        logger.info("deleteAttachment attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
         entity.getNomenclatureAttachments().remove(nomenclatureAttachment);
     }
+
+    @Transactional
+    public String delete(){
+        logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
+        if(canDelete()){
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
+            logger.info("delete success");
+            return exit();
+        } else {
+            logger.info("delete fail");
+            addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.delete", FacesMessage.SEVERITY_ERROR);
+        }
+        return "";
+
+    }
+
+    private boolean canDelete(){
+        return entity.getOrderItems().size() == 0;
+    }
+
 
     @Transactional
     public void download(NomenclatureAttachment nomenclatureAttachment) {

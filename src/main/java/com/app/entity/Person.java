@@ -38,6 +38,13 @@ public class Person extends AbstractVersionedEntity{
         inverseJoinColumns = @JoinColumn(name = "role"))
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "developer")
+    private List<OrderItem> orderItems;
+
+    @OneToMany(mappedBy = "responsible")
+    private List<Order> orders;
+
+
     public Person() {
     }
 
@@ -77,7 +84,7 @@ public class Person extends AbstractVersionedEntity{
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -135,5 +142,21 @@ public class Person extends AbstractVersionedEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
