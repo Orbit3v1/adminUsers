@@ -176,6 +176,7 @@ create table orderListFilter(
   endActualH date,
 
   state varchar(500),
+  sort varchar(500),
 
   CONSTRAINT orderListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
 );

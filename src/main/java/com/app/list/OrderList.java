@@ -1,6 +1,7 @@
 package com.app.list;
 
 import com.app.dictionary.OrderItemState;
+import com.app.dictionary.ProductionReportSort;
 import com.app.dto.ProductionReportDTO;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
@@ -13,6 +14,7 @@ import com.app.utils.Security;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -34,7 +36,6 @@ public class OrderList {
     @Inject
     protected AddMessage addMessage;
 
-    private List<OrderItem> orderItems;
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
 
@@ -134,14 +135,24 @@ public class OrderList {
             sqlWhere = "WHERE" + sqlWhere.substring(4);
         }
 
-        String sqlOrder = " order by r.order.name, r.name";
+        String sqlOrder = "";
+        if(filter.getSort() != null){
+            sqlOrder += filter.getSort().getSqlOrder();
+        }
+        if(!ProductionReportSort.NAME_ASC.equals(filter.getSort())
+                    && !ProductionReportSort.NAME_DESC.equals(filter.getSort())) {
+            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, r.name";
+        }
+        sqlOrder = " order by " + sqlOrder;
+
         String sqlFull = sqlFrom + sqlWhere + sqlOrder;
 
         Query query = em.createQuery(sqlFull);
         for (Map.Entry<String, Object> e : parameters.entrySet()) {
             query.setParameter(e.getKey(), e.getValue());
         }
-        orderItems = query.getResultList();
+
+        List<OrderItem> orderItems = query.getResultList();
         initListRows(orderItems);
         gibTotal = listRows.stream().filter(v -> v.getGib() != null).mapToInt(v -> v.getGib() * v.getCount()).sum();
     }
@@ -179,6 +190,32 @@ public class OrderList {
         }
     }
 
+    public void setSort(ProductionReportSort sort){
+        if(sort.equals(filter.getSort())){
+            sort = sort.getReverse();
+        }
+        filter.setSort(sort);
+    }
+
+    public String getImage(String name){
+        String image = "sort_neutral";
+        if(filter.getSort() != null){
+            if(filter.getSort().equals(ProductionReportSort.valueOf(name + "_ASC"))){
+                image = "sort_asc";
+            } else if(filter.getSort().equals(ProductionReportSort.valueOf(name + "_DESC"))){
+                image = "sort_desc";
+            }
+        }
+        return image;
+    }
+
+    public void setDate(ValueChangeEvent event){
+        int a = 1;
+
+    }
+
+
+
 
     @Transactional
     private OrderItem saveData(OrderItem orderItem) {
@@ -207,15 +244,6 @@ public class OrderList {
 
     public void refresh() {
         initList();
-    }
-
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public Map<String, Boolean> getUserPA() {
@@ -250,31 +278,6 @@ public class OrderList {
         this.listRows = listRows;
     }
 
-    public class ListRow {
-        private OrderItem orderItem;
-        private boolean fromNewOrder;
-
-        public ListRow(OrderItem orderItem, boolean fromNewOrder) {
-            this.orderItem = orderItem;
-            this.fromNewOrder = fromNewOrder;
-        }
-
-        public OrderItem getOrderItem() {
-            return orderItem;
-        }
-
-        public void setOrderItem(OrderItem orderItem) {
-            this.orderItem = orderItem;
-        }
-
-        public boolean isFromNewOrder() {
-            return fromNewOrder;
-        }
-
-        public void setFromNewOrder(boolean fromNewOrder) {
-            this.fromNewOrder = fromNewOrder;
-        }
-    }
 
 }
 

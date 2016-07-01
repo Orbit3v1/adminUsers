@@ -26,7 +26,7 @@
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
 
-            <f:event type="preRenderView" listener="#{orderList.updateList}" />
+            <f:event type="preRenderView" listener="#{orderList.updateList}"/>
 
             <h:outputText value="#{messages.getString('orderList.header')}" styleClass="listTitle"/>
             <br/>
@@ -74,26 +74,36 @@
             <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.listRows}"
                             var="row"
-                            sortMode="single"
                             rowClasses="odd-row, even-row">
                 <rich:column rendered="#{orderList.userPA.nameR}"
-                            style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderEntity.name')}
-                        <br/>
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.name')}"
+                                       action="#{orderList.setSort('NAME_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NAME')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:inputText value="#{orderList.filter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
                     <h:commandLink value="#{row.name}"
                                    action="#{orderScreen.editEntity(row.order)}"
+                                   styleClass="link"
                                    style="display: block; text-decoration: none;"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.customerR}"
-                             sortBy="#{row.customer}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderEntity.customer')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.customer')}"
+                                       action="#{orderList.setSort('CUSTOMER_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('CUSTOMER')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:inputText value="#{orderList.filter.customer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
@@ -102,10 +112,14 @@
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.nomenclatureR}"
-                             sortBy="#{row.nomenclatureName}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.nomenclature')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.nomenclature')}"
+                                       action="#{orderList.setSort('NOMENCLATURE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NOMENCLATURE')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:inputText value="#{orderList.filter.nomenclature}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
@@ -114,26 +128,45 @@
                                      action="#{nomenclatureScreen.editEntity(row.nomenclature)}"
                                      onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
                                      oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
+                                     styleClass="link"
                                      style="display: block;"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.countR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.count')}
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.count')}"
+                                       action="#{orderList.setSort('COUNT_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('COUNT')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{row.count}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.materialR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('nomenclatureEntity.material')}
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('nomenclatureEntity.material')}"
+                                       action="#{orderList.setSort('MATERIAL_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('MATERIAL')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{row.material}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.gibR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('nomenclatureEntity.gib')}
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('nomenclatureEntity.gib')}"
+                                       action="#{orderList.setSort('GIB_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('GIB')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{row.gib}"/>
                     <f:facet name="footer">
@@ -143,8 +176,13 @@
 
                 <rich:column rendered="#{orderList.userPA.responsibleR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderEntity.responsible')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.responsible')}"
+                                       action="#{orderList.setSort('RESPONSIBLE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('RESPONSIBLE')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:inputText value="#{orderList.filter.responsible}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
@@ -154,8 +192,13 @@
 
                 <rich:column rendered="#{orderList.userPA.startR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderEntity.start')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.start')}"
+                                       action="#{orderList.setSort('START_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('START')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="startL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
@@ -182,8 +225,13 @@
 
                              style="#{row.nomenclature.ready ? 'background-color: #29a329;' : ''}
                                 #{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid;' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.docDate')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.docDate')}"
+                                       action="#{orderList.setSort('DOC_DATE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DOC_DATE')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="docDateL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
@@ -201,15 +249,24 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.docDate}">
-                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
-                    </h:outputText>
+                    <rich:calendar value="#{row.docDate}" locale="#{locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+
+                            >
+                    </rich:calendar>
+
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.developerR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.developer')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.developer')}"
+                                       action="#{orderList.setSort('DEVELOPER_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DEVELOPER')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:inputText value="#{orderList.filter.developer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
@@ -219,8 +276,13 @@
 
                 <rich:column rendered="#{orderList.userPA.endPlanR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.endPlan')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.endPlan')}"
+                                       action="#{orderList.setSort('END_PLAN_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_PLAN')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endPlanL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
@@ -245,8 +307,13 @@
 
                 <rich:column rendered="#{orderList.userPA.endActualR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
-                    <f:facet name="header">#{messages.getString('orderItemEntity.endActual')}
-                        <br/>
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.endActual')}"
+                                       action="#{orderList.setSort('END_ACTUAL_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_ACTUAL')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endActualL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>

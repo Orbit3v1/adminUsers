@@ -1,6 +1,7 @@
 package com.app.entity;
 
 import com.app.dictionary.OrderItemState;
+import com.app.dictionary.ProductionReportSort;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -56,6 +57,10 @@ public class OrderListFilter extends AbstractVersionedEntity {
     @Enumerated(EnumType.STRING)
     private OrderItemState state;
 
+    @Column(name = "sort")
+    @Enumerated(EnumType.STRING)
+    private ProductionReportSort sort;
+
     public OrderListFilter() {
     }
 
@@ -74,6 +79,7 @@ public class OrderListFilter extends AbstractVersionedEntity {
         endActualL = null;
         endActualH = null;
         state = OrderItemState.ALL;
+        sort = null;
     }
 
     @Override
@@ -195,5 +201,13 @@ public class OrderListFilter extends AbstractVersionedEntity {
 
     public void setState(OrderItemState state) {
         this.state = state;
+    }
+
+    public ProductionReportSort getSort() {
+        return sort;
+    }
+
+    public void setSort(ProductionReportSort sort) {
+        this.sort = sort;
     }
 }

@@ -12,10 +12,6 @@
     cursor: pointer;
 }
 
-a{
-    font-size: 14px !important;
-}
-
 .inputSmall{
     font-size: 14px !important;
     margin: 3px !important;
@@ -172,4 +168,20 @@ hr {
     height: 20px !important;
     margin: 0 2px 2px 0 !important;
     padding: 1px 3px !important;
+}
+
+.headerSort{
+    display: block; !important;
+    text-decoration: none; !important;
+    font-size: 16px; !important;
+    color: black !important;
+}
+
+.headerSortImg{
+    margin-left: 3px !important;
+    height: 10px !important;
+}
+
+.link{
+    font-size: 14px; !important;
 }

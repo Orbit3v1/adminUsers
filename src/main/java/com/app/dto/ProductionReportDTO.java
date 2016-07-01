@@ -39,7 +39,7 @@ public class ProductionReportDTO {
         material = nomenclature.getMaterial();
         gib = nomenclature.getGib();
         responsible = order.getResponsible() == null ? null : order.getResponsible().getLastName() + " " + order.getResponsible().getFirstName();
-        developer = orderItem.getDeveloper() == null ? null : orderItem.getDeveloper() + " " + orderItem.getDeveloper();
+        developer = orderItem.getDeveloper() == null ? null : orderItem.getDeveloper().getLastName() + " " + orderItem.getDeveloper().getFirstName();
         start = order.getStart();
         docDate = orderItem.getDocDate();
         endPlan = orderItem.getEndPlan();
