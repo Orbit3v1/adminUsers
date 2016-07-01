@@ -56,7 +56,10 @@ public class OrderList {
     private void initList() {
         logger.info("initList");
         Map<String, Object> parameters = new HashMap<>();
-        String sqlFrom = "select r from OrderItem r ";
+        String sqlFrom = "select r from OrderItem r " +
+                "left join fetch r.order " +
+                "left join fetch r.nomenclature " +
+                "left join fetch r.developer ";
 
         String sqlAccess = "";
         if (!Security.hasAccess(userPA, "accessInWork")) {
