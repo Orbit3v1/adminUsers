@@ -5,6 +5,7 @@ import com.app.dictionary.ProductionReportSort;
 import com.app.dto.ProductionReportDTO;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
+import com.app.excel.ProductionXLS;
 import com.app.utils.AddMessage;
 import com.app.web.OrderListFilterBean;
 import org.apache.log4j.Logger;
@@ -215,6 +216,11 @@ public class OrderList {
     public void setDate(ValueChangeEvent event){
         int a = 1;
 
+    }
+
+    public void exportExcel(){
+        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
+        pXLS.renderExcel();
     }
 
 

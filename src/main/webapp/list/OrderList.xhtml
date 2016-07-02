@@ -69,6 +69,13 @@
                     <f:ajax process="@this" partialSubmit="true"/>
                 </h:selectOneMenu>
             </h:panelGroup>
+
+            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
+            <h:commandButton value="#{messages.getString('button.export.excel')}"
+                             render="orders"
+                             action="#{orderList.exportExcel}"
+                             styleClass="btn"/>
+
             <h:message for="filterPG" infoClass="info" errorClass="error"/>
 
             <h:message for="orders" infoClass="info" errorClass="error"/>
