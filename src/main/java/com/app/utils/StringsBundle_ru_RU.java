@@ -35,6 +35,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderEntity.customer", "Заказчик"},
             {"orderEntity.responsible", "Ответственный"},
             {"orderEntity.start", "Запуск"},
+            {"orderEntity.endPlan", "План сдачи"},
 
             {"orderItemEntity.name", "#"},
             {"orderItemEntity.nomenclature", "Номенклатура"},

@@ -114,6 +114,7 @@ create table orders(
   customer varchar(500),
   responsible int,
   start datetime,
+  endPlan datetime,
 
   CONSTRAINT orders_FK1 FOREIGN KEY (responsible) REFERENCES person(id)
 );

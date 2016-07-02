@@ -72,6 +72,16 @@
                     <h:message for="start" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
+                    <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"
+                                   styleClass="label"/>
+                    <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{locale}"
+                                   popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                   disabled="#{orderScreen.isDisabled('endPlan')}"/>
+                    <h:message for="endPlan" errorClass="error"/>
+                </h:panelGroup>
+
             </h:panelGrid>
 
             <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.orderItems')}"
@@ -140,7 +150,7 @@
                         <h:outputText value="#{orderI.developer}"/>
                     </rich:column>
 
-                    <rich:column rendered="#{orderScreen.userPA.endPlanR}">
+                    <rich:column rendered="#{orderScreen.userPA.endPlanItemR}">
                         <f:facet name="header">
                             #{messages.getString('orderItemEntity.endPlan')}
                         </f:facet>

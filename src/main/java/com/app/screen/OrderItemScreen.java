@@ -54,7 +54,12 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         closed = false;
         saved = false;
         count = null;
+
+        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
+        Order source = orderScreen.getEntity();
         entity = new OrderItem();
+        entity.setOrder(source);
+        entity.setEndPlan(source.getEndPlan());
     }
 
     @Override
@@ -117,8 +122,8 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
             originalOrderItem.copyForm(entity);
         } else {
             entity.setName(getItemName(source));
-            entity.setOrder(source);
-           source.getOrderItems().add(entity);
+
+            source.getOrderItems().add(entity);
             editEntity(entity);
         }
     }

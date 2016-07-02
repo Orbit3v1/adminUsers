@@ -331,6 +331,13 @@ values('orderStart', 'WRITE');
 insert into privilege_action(privilege, action)
 values('orderStart', 'EDIT');
 
+insert into privilege(id, name, description, pos)
+values('orderEndPlan', 'Заказ - Поле - План сдачи', '', 4007);
+insert into privilege_action(privilege, action)
+values('orderEndPlan', 'READ');
+insert into privilege_action(privilege, action)
+values('orderEndPlan', 'WRITE');
+
 -- orderItem
 
 insert into privilege(id, name, description, pos)

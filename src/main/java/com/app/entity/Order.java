@@ -24,6 +24,9 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "start")
     private Date start;
 
+    @Column(name = "endPlan")
+    private Date endPlan;
+
     @ManyToOne
     @JoinColumn(name = "responsible")
     private Person responsible;
@@ -80,5 +83,13 @@ public class Order extends AbstractVersionedEntity {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Date getEndPlan() {
+        return endPlan;
+    }
+
+    public void setEndPlan(Date endPlan) {
+        this.endPlan = endPlan;
     }
 }
