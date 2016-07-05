@@ -81,7 +81,8 @@
             <h:message for="orders" infoClass="info" errorClass="error"/>
             <rich:dataTable id="orders" value="#{orderList.listRows}"
                             var="row"
-                            rowClasses="odd-row, even-row">
+                            rowClasses="odd-row, even-row"
+                            binding="#{table}">
                 <rich:column rendered="#{orderList.userPA.nameR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
@@ -223,7 +224,7 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.start}">
+                       <h:outputText value="#{row.start}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
@@ -256,7 +257,20 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.docDate}">
+                    <h:panelGroup rendered="#{orderList.userPA.docDateE}">
+                        <rich:calendar value="#{row.docDate}"
+                                       locale="#{locale}"
+                                       popup="true"
+                                       datePattern="#{messages.getString('datePattern')}"
+                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SDD')"
+                                       />
+
+                        <h:commandButton value="SDD"
+                                         id="SDD"
+                                         action="#{orderList.setDocDate(row.orderItem, row.docDate)}"
+                                style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
 

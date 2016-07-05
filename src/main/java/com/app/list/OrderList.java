@@ -213,8 +213,21 @@ public class OrderList {
         return image;
     }
 
-    public void setDate(ValueChangeEvent event){
-        int a = 1;
+    public void setDocDate(OrderItem orderItem, Date date){
+        logger.info("change docDate. OrderItem.id = " + orderItem.getId());
+        orderItem.setDocDate(date);
+        try {
+            orderItem = saveData(orderItem);
+        } catch (OptimisticLockException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
+        }
+
 
     }
 

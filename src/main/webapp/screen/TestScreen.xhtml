@@ -25,11 +25,14 @@
 
             <HR/>
 
-            <rich:calendar value="#{testScreen.date}" styleClass="textBox" datePattern="dd-MMM-yyyy" required="false">
-                <a4j:ajax event="change" action="#{testScreen.onChangeDate}" ajaxSingle="true"/>
+            <rich:calendar value="#{testScreen.date}" styleClass="textBox" datePattern="dd-MMM-yyyy" required="false" onchange="alert(1)">
             </rich:calendar>
 
+            <h:commandButton value="setDate" action="#{testScreen.onChangeDate(1, testScreen.date)}"/>
+
             <HR/>
+
+
 
         <h:outputText value="Загрузка файла"/>
 

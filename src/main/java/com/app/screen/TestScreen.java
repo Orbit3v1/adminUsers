@@ -56,7 +56,7 @@ public class TestScreen {
         attachments = query.getResultList();
     }
 
-    public void onChangeDate(){
+    public void onChangeDate(int id, Date date){
         System.out.println("onChangeDate");
     }
 

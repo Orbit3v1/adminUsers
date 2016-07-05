@@ -536,6 +536,9 @@ public class Security {
                 userPA.put("docDateR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "READ")))
                 );
+                userPA.put("docDateE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDocDate", "EDIT")))
+                );
 
                 userPA.put("developerR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "READ")))
