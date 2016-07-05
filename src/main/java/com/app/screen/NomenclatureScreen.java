@@ -17,6 +17,8 @@ import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
 import javax.servlet.http.Part;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -225,12 +227,19 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         logger.info("download attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
         Attachment attachment = nomenclatureAttachment.getAttachment();
 
+        String fileName = attachment.getName();
+        try {
+            fileName = URLEncoder.encode(attachment.getName(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         ec.responseReset();
         ec.setResponseContentType(attachment.getType());
         ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
         try {
             AttachmentContent content = em.find(AttachmentContent.class, attachment.getId());

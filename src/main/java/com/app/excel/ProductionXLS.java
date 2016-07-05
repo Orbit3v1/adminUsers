@@ -11,6 +11,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,6 +31,8 @@ public class ProductionXLS {
     private Sheet sheet;
     private CellStyle cellStyle;
     private int lastRow = 0;
+
+    private static final String FILE_NAME = "производство";
 
     public ProductionXLS(List<ProductionReportDTO> listRows, Map<String, Boolean> userPA, OrderListFilter filter) {
         this.listRows = listRows;
@@ -59,11 +63,17 @@ public class ProductionXLS {
 
     private void generateResponse() {
         String file = getFileName();
+        try {
+            file = URLEncoder.encode(file, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         ec.responseReset();
         ec.setResponseContentType("text/xsl");
+
         ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
 
         try {
@@ -81,7 +91,7 @@ public class ProductionXLS {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String reportDate = df.format(today);
 
-        return "production_" + reportDate + ".xls";
+        return FILE_NAME + "_" + reportDate + ".xls";
     }
 
     private void generateTitle() {

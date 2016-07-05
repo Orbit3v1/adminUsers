@@ -25,6 +25,9 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
 @Named("testScreen")
@@ -40,6 +43,7 @@ public class TestScreen {
 
     private List<Attachment> attachments;
     private Part file;
+    private Date date;
 
     public TestScreen() {
     }
@@ -50,6 +54,10 @@ public class TestScreen {
         EntityManager em = entityManagerFactory.createEntityManager();
         Query query = em.createQuery("select r from Attachment r");
         attachments = query.getResultList();
+    }
+
+    public void onChangeDate(){
+        System.out.println("onChangeDate");
     }
 
     public void sendEmail(){
@@ -126,7 +134,13 @@ public class TestScreen {
         ec.responseReset();
         ec.setResponseContentType(attachment.getType());
         ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + attachment.getName() + "\"");
+        String fileName = attachment.getName();
+        try {
+            fileName = URLEncoder.encode(attachment.getName(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
         try {
             AttachmentContent content = em.find(AttachmentContent.class, attachment.getId());
@@ -196,5 +210,13 @@ public class TestScreen {
 
     public void setFile(Part file) {
         this.file = file;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

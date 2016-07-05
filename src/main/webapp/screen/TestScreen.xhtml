@@ -23,7 +23,13 @@
         <h:outputText value="Отправка email"/>
         <h:commandButton id="sendEmail" value="Send email" action="#{testScreen.sendEmail()}"/>
 
-        <HR/>
+            <HR/>
+
+            <rich:calendar value="#{testScreen.date}" styleClass="textBox" datePattern="dd-MMM-yyyy" required="false">
+                <a4j:ajax event="change" action="#{testScreen.onChangeDate}" ajaxSingle="true"/>
+            </rich:calendar>
+
+            <HR/>
 
         <h:outputText value="Загрузка файла"/>
 
