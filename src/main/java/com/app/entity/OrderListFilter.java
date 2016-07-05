@@ -82,6 +82,24 @@ public class OrderListFilter extends AbstractVersionedEntity {
         sort = null;
     }
 
+    public void copyFrom(OrderListFilter filter){
+        name = filter.name;
+        customer = filter.customer;
+        nomenclature = filter.nomenclature;
+        responsible = filter.responsible;
+        developer = filter.developer;
+        startL = filter.startL;
+        startH = filter.startH;
+        docDateL = filter.docDateL;
+        docDateH = filter.docDateH;
+        endPlanL = filter.endPlanL;
+        endPlanH = filter.endPlanH;
+        endActualL = filter.endActualL;
+        endActualH = filter.endActualH;
+        state = filter.state;
+        sort = filter.sort;
+    }
+
     @Override
     public Integer getId() {
         return id;

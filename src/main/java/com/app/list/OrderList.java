@@ -40,6 +40,7 @@ public class OrderList {
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
 
+    private OrderListFilter filterDB;
     private OrderListFilter filter;
     private int gibTotal;
 
@@ -48,6 +49,8 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilter();
+        filterDB = new OrderListFilter();
+        filterDB.copyFrom(filter);
     }
 
     public void updateList() {
@@ -72,59 +75,59 @@ public class OrderList {
 
         String sqlWhere = sqlAccess;
 
-        if (notEmpty(filter.getName())) {
+        if (notEmpty(filterDB.getName())) {
             sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
-            parameters.put("name", filter.getName() + "%");
+            parameters.put("name", filterDB.getName() + "%");
         }
-        if (notEmpty(filter.getCustomer())) {
+        if (notEmpty(filterDB.getCustomer())) {
             sqlWhere += " AND r.order.customer like :customer";
-            parameters.put("customer", filter.getCustomer() + "%");
+            parameters.put("customer", filterDB.getCustomer() + "%");
         }
-        if (notEmpty(filter.getNomenclature())) {
+        if (notEmpty(filterDB.getNomenclature())) {
             sqlWhere += " AND r.nomenclature.name like :nomenclature";
-            parameters.put("nomenclature", "%" + filter.getNomenclature() + "%");
+            parameters.put("nomenclature", "%" + filterDB.getNomenclature() + "%");
         }
-        if (notEmpty(filter.getResponsible())) {
+        if (notEmpty(filterDB.getResponsible())) {
             sqlWhere += " AND concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible";
-            parameters.put("responsible", "%" + filter.getResponsible() + "%");
+            parameters.put("responsible", "%" + filterDB.getResponsible() + "%");
         }
-        if (notEmpty(filter.getDeveloper())) {
+        if (notEmpty(filterDB.getDeveloper())) {
             sqlWhere += " AND concat(r.developer.lastName, ' ', r.developer.firstName) like :developer";
-            parameters.put("developer", "%" + filter.getDeveloper() + "%");
+            parameters.put("developer", "%" + filterDB.getDeveloper() + "%");
         }
-        if (filter.getStartL() != null) {
+        if (filterDB.getStartL() != null) {
             sqlWhere += " AND r.order.start >= :startL";
-            parameters.put("startL", filter.getStartL());
+            parameters.put("startL", filterDB.getStartL());
         }
-        if (filter.getStartH() != null) {
+        if (filterDB.getStartH() != null) {
             sqlWhere += " AND r.order.start <= :startH";
-            parameters.put("startH", endDay(filter.getStartH()));
+            parameters.put("startH", endDay(filterDB.getStartH()));
         }
-        if (filter.getDocDateL() != null) {
+        if (filterDB.getDocDateL() != null) {
             sqlWhere += " AND r.docDate >= :docDateL";
-            parameters.put("docDateL", filter.getDocDateL());
+            parameters.put("docDateL", filterDB.getDocDateL());
         }
-        if (filter.getDocDateH() != null) {
+        if (filterDB.getDocDateH() != null) {
             sqlWhere += " AND r.docDate >= :docDateH";
-            parameters.put("docDateH", endDay(filter.getDocDateH()));
+            parameters.put("docDateH", endDay(filterDB.getDocDateH()));
         }
-        if (filter.getEndPlanL() != null) {
+        if (filterDB.getEndPlanL() != null) {
             sqlWhere += " AND r.endPlan >= :endPlanL";
-            parameters.put("endPlanL", filter.getEndPlanL());
+            parameters.put("endPlanL", filterDB.getEndPlanL());
         }
-        if (filter.getEndPlanH() != null) {
+        if (filterDB.getEndPlanH() != null) {
             sqlWhere += " AND r.endPlan >= :endPlanH";
-            parameters.put("endPlanH", endDay(filter.getEndPlanH()));
+            parameters.put("endPlanH", endDay(filterDB.getEndPlanH()));
         }
-        if (filter.getEndActualL() != null) {
+        if (filterDB.getEndActualL() != null) {
             sqlWhere += " AND r.endActual >= :endActualL";
-            parameters.put("endActualL", filter.getEndActualL());
+            parameters.put("endActualL", filterDB.getEndActualL());
         }
-        if (filter.getEndActualH() != null) {
+        if (filterDB.getEndActualH() != null) {
             sqlWhere += " AND r.endActual >= :endActualH";
-            parameters.put("endActualH", endDay(filter.getEndActualH()));
+            parameters.put("endActualH", endDay(filterDB.getEndActualH()));
         }
-        switch (filter.getState()) {
+        switch (filterDB.getState()) {
             case IN_WORK:
                 sqlWhere += " AND r.endActual is null";
                 break;
@@ -140,11 +143,11 @@ public class OrderList {
         }
 
         String sqlOrder = "";
-        if(filter.getSort() != null){
-            sqlOrder += filter.getSort().getSqlOrder();
+        if(filterDB.getSort() != null){
+            sqlOrder += filterDB.getSort().getSqlOrder();
         }
-        if(!ProductionReportSort.NAME_ASC.equals(filter.getSort())
-                    && !ProductionReportSort.NAME_DESC.equals(filter.getSort())) {
+        if(!ProductionReportSort.NAME_ASC.equals(filterDB.getSort())
+                    && !ProductionReportSort.NAME_DESC.equals(filterDB.getSort())) {
             sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, r.name";
         }
         sqlOrder = " order by " + sqlOrder;
@@ -199,6 +202,8 @@ public class OrderList {
             sort = sort.getReverse();
         }
         filter.setSort(sort);
+        filterDB.setSort(sort);
+
     }
 
     public String getImage(String name){
@@ -232,7 +237,7 @@ public class OrderList {
     }
 
     public void exportExcel(){
-        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
+        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filterDB);
         pXLS.renderExcel();
     }
 
@@ -246,22 +251,26 @@ public class OrderList {
 
     public void doFilter() {
         logger.info("doFilter");
+        filterDB.copyFrom(filter);
     }
 
     public void clearFilter() {
         logger.info("clearFilter");
         filter = orderListFilterBean.clear();
+        filterDB.copyFrom(filter);
     }
 
     public void loadFilter() {
         logger.info("Load order list filter");
         filter = orderListFilterBean.load();
+        filterDB.copyFrom(filter);
         addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
     }
 
     public void saveFilter() {
         logger.info("Save order list filter");
         filter = orderListFilterBean.save();
+        filterDB.copyFrom(filter);
     }
 
     public void refresh() {

@@ -265,9 +265,11 @@
                                        onchange="clickIn('mainForm:orders:#{table.rowIndex}:SDD')"
                                        />
 
-                        <h:commandButton value="SDD"
+                        <a4j:commandButton value="SDD"
                                          id="SDD"
                                          action="#{orderList.setDocDate(row.orderItem, row.docDate)}"
+                                         execute="@form"
+                                         render="@none"
                                 style="display: none"/>
                     </h:panelGroup>
                     <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
