@@ -1,6 +1,7 @@
 package com.app.web;
 
 import com.app.dictionary.OrderItemState;
+import com.app.dictionary.ProductionReportSort;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
@@ -31,6 +32,7 @@ public class OrderListFilterBean {
     protected Logger logger = Logger.getLogger(getClass());
 
     private OrderListFilter filter;
+    private OrderListFilter filterOriginal;
     private Map<String, Boolean> userPA;
 
     @PostConstruct
@@ -41,6 +43,8 @@ public class OrderListFilterBean {
         if (filter == null) {
             filter = createNew();
         }
+        filterOriginal = new OrderListFilter();
+        filterOriginal.copyFrom(filter);
     }
 
     private OrderListFilter createNew(){
@@ -54,15 +58,18 @@ public class OrderListFilterBean {
         return Security.hasAccess(userPA, "accessInWork") ? OrderItemState.IN_WORK : OrderItemState.ALL;
     }
 
-    public OrderListFilter clear() {
+    public void clear() {
+        logger.info("clearFilter");
         filter.clear();
-        return filter;
+        filterOriginal.copyFrom(filter);
     }
 
-    public OrderListFilter save() {
+    public void save() {
+        logger.info("Save order list filter");
         try {
             saveData();
             addMessage.setMessage("mainForm:orders", "orderListFilter.saveSuccess", FacesMessage.SEVERITY_INFO);
+            filterOriginal.copyFrom(filter);
         } catch (OptimisticLockException e) {
             logger.error(e.getMessage());
             e.printStackTrace();
@@ -72,15 +79,29 @@ public class OrderListFilterBean {
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
-        return filter;
     }
 
-    public OrderListFilter load(){
+    public void load(){
+        logger.info("Load order list filter");
         filter = em.find(OrderListFilter.class, Security.getCurrentUser().getId());
         if(filter == null){
             filter = createNew();
         }
-        return filter;
+        filterOriginal.copyFrom(filter);
+        addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
+    }
+
+    public void setSort(ProductionReportSort sort){
+        if(sort.equals(filter.getSort())){
+            sort = sort.getReverse();
+        }
+        filter.setSort(sort);
+        filterOriginal.setSort(sort);
+    }
+
+    public void find() {
+        logger.info("find");
+        filterOriginal.copyFrom(filter);
     }
 
     @Transactional
@@ -94,5 +115,13 @@ public class OrderListFilterBean {
 
     public void setFilter(OrderListFilter filter) {
         this.filter = filter;
+    }
+
+    public OrderListFilter getFilterOriginal() {
+        return filterOriginal;
+    }
+
+    public void setFilterOriginal(OrderListFilter filterOriginal) {
+        this.filterOriginal = filterOriginal;
     }
 }

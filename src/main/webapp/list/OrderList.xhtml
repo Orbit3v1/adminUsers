@@ -39,27 +39,27 @@
             <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
             <h:panelGroup id="filterPG">
                 <h:commandButton id="findBtn"
-                                 action="#{orderList.doFilter}"
+                                 action="#{orderListFilterBean.find}"
                                  value="#{messages.getString('button.find')}"
                                  render="orders"
                                  styleClass="btn"/>
 
                 <h:commandButton value="#{messages.getString('button.clearFilter')}"
                                  render="orders"
-                                 action="#{orderList.clearFilter}"
+                                 action="#{orderListFilterBean.clear}"
                                  styleClass="btn"/>
 
                 <h:commandButton value="#{messages.getString('button.saveFilter')}"
-                                 action="#{orderList.saveFilter}"
+                                 action="#{orderListFilterBean.save}"
                                  render="orders"
                                  styleClass="btn"/>
 
                 <h:commandButton value="#{messages.getString('button.loadFilter')}"
                                  render="orders"
-                                 action="#{orderList.loadFilter}"
+                                 action="#{orderListFilterBean.load}"
                                  styleClass="btn"/>
 
-                <h:selectOneMenu value="#{orderList.filter.state}"
+                <h:selectOneMenu value="#{orderListFilterBean.filter.state}"
                                  styleClass="inputMedium"
                                  style="width: 100px!important;">
                     <f:selectItems value="#{orderList.filterStates}"
@@ -87,12 +87,12 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderEntity.name')}"
-                                       action="#{orderList.setSort('NAME_ASC')}"
+                                       action="#{orderListFilterBean.setSort('NAME_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NAME')}.png.xhtml"
                                             styleClass="headerSortImg"/>
                         </h:commandLink>
-                        <h:inputText value="#{orderList.filter.name}"
+                        <h:inputText value="#{orderListFilterBean.filter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -106,13 +106,13 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderEntity.customer')}"
-                                       action="#{orderList.setSort('CUSTOMER_ASC')}"
+                                       action="#{orderListFilterBean.setSort('CUSTOMER_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
                                     value="/javax.faces.resource/images/#{orderList.getImage('CUSTOMER')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
-                        <h:inputText value="#{orderList.filter.customer}"
+                        <h:inputText value="#{orderListFilterBean.filter.customer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -123,12 +123,12 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.nomenclature')}"
-                                       action="#{orderList.setSort('NOMENCLATURE_ASC')}"
+                                       action="#{orderListFilterBean.setSort('NOMENCLATURE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NOMENCLATURE')}.png.xhtml"
                                             styleClass="headerSortImg"/>
                         </h:commandLink>
-                        <h:inputText value="#{orderList.filter.nomenclature}"
+                        <h:inputText value="#{orderListFilterBean.filter.nomenclature}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -144,7 +144,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.count')}"
-                                       action="#{orderList.setSort('COUNT_ASC')}"
+                                       action="#{orderListFilterBean.setSort('COUNT_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('COUNT')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -157,7 +157,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('nomenclatureEntity.material')}"
-                                       action="#{orderList.setSort('MATERIAL_ASC')}"
+                                       action="#{orderListFilterBean.setSort('MATERIAL_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('MATERIAL')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -170,7 +170,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('nomenclatureEntity.gib')}"
-                                       action="#{orderList.setSort('GIB_ASC')}"
+                                       action="#{orderListFilterBean.setSort('GIB_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('GIB')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -186,12 +186,12 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderEntity.responsible')}"
-                                       action="#{orderList.setSort('RESPONSIBLE_ASC')}"
+                                       action="#{orderListFilterBean.setSort('RESPONSIBLE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('RESPONSIBLE')}.png.xhtml"
                                             styleClass="headerSortImg"/>
                         </h:commandLink>
-                        <h:inputText value="#{orderList.filter.responsible}"
+                        <h:inputText value="#{orderListFilterBean.filter.responsible}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -202,7 +202,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderEntity.start')}"
-                                       action="#{orderList.setSort('START_ASC')}"
+                                       action="#{orderListFilterBean.setSort('START_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('START')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -210,7 +210,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="startL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="startL" value="#{orderList.filter.startL}" locale="#{locale}"
+                            <rich:calendar id="startL" value="#{orderListFilterBean.filter.startL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -218,7 +218,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="startH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="startH" value="#{orderList.filter.startH}" locale="#{locale}"
+                            <rich:calendar id="startH" value="#{orderListFilterBean.filter.startH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -235,7 +235,7 @@
                                 #{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid;' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.docDate')}"
-                                       action="#{orderList.setSort('DOC_DATE_ASC')}"
+                                       action="#{orderListFilterBean.setSort('DOC_DATE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DOC_DATE')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -243,7 +243,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="docDateL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateL" value="#{orderList.filter.docDateL}" locale="#{locale}"
+                            <rich:calendar id="docDateL" value="#{orderListFilterBean.filter.docDateL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -251,7 +251,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="docDateH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateH" value="#{orderList.filter.docDateH}" locale="#{locale}"
+                            <rich:calendar id="docDateH" value="#{orderListFilterBean.filter.docDateH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -283,12 +283,12 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.developer')}"
-                                       action="#{orderList.setSort('DEVELOPER_ASC')}"
+                                       action="#{orderListFilterBean.setSort('DEVELOPER_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DEVELOPER')}.png.xhtml"
                                             styleClass="headerSortImg"/>
                         </h:commandLink>
-                        <h:inputText value="#{orderList.filter.developer}"
+                        <h:inputText value="#{orderListFilterBean.filter.developer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
@@ -299,7 +299,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.endPlan')}"
-                                       action="#{orderList.setSort('END_PLAN_ASC')}"
+                                       action="#{orderListFilterBean.setSort('END_PLAN_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_PLAN')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -307,7 +307,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endPlanL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanL" value="#{orderList.filter.endPlanL}" locale="#{locale}"
+                            <rich:calendar id="endPlanL" value="#{orderListFilterBean.filter.endPlanL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -315,7 +315,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endPlanH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanH" value="#{orderList.filter.endPlanH}" locale="#{locale}"
+                            <rich:calendar id="endPlanH" value="#{orderListFilterBean.filter.endPlanH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -330,7 +330,7 @@
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('orderItemEntity.endActual')}"
-                                       action="#{orderList.setSort('END_ACTUAL_ASC')}"
+                                       action="#{orderListFilterBean.setSort('END_ACTUAL_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_ACTUAL')}.png.xhtml"
                                             styleClass="headerSortImg"/>
@@ -338,7 +338,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endActualL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualL" value="#{orderList.filter.endActualL}" locale="#{locale}"
+                            <rich:calendar id="endActualL" value="#{orderListFilterBean.filter.endActualL}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -346,7 +346,7 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endActualH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualH" value="#{orderList.filter.endActualH}" locale="#{locale}"
+                            <rich:calendar id="endActualH" value="#{orderListFilterBean.filter.endActualH}" locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
