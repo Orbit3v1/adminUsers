@@ -1,0 +1,9 @@
+1) install tomcat 7
+2) create db backup and restore it
+3) recreate db user
+4) change db info in files:
+    liquibase.properties
+    applicationContext.xml
+5) add root folder to tomcat web folder
+6) run tomcat
+7) test
