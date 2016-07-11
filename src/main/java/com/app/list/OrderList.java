@@ -39,6 +39,7 @@ public class OrderList {
 
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
+    private boolean saveError;
 
     private OrderListFilter filter;
     private int gibTotal;
@@ -222,16 +223,18 @@ public class OrderList {
     private void save(OrderItem orderItem){
         try {
             orderItem = saveData(orderItem);
+            saveError = false;
         } catch (OptimisticLockException e) {
             logger.error(e.getMessage());
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+            saveError = true;
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
+            saveError = true;
         }
-
     }
 
     @Transactional
@@ -269,7 +272,13 @@ public class OrderList {
         this.listRows = listRows;
     }
 
+    public boolean isSaveError() {
+        return saveError;
+    }
 
+    public void setSaveError(boolean saveError) {
+        this.saveError = saveError;
+    }
 }
 
 

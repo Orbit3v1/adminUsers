@@ -15,6 +15,14 @@
     </ui:define>
 
     <ui:define name="body">
+
+        <script type="text/javascript">
+            function postSave(saveError) {
+                if(!saveError) {
+                    #{rich:component('savePanel')}.hide();
+                }
+            }
+        </script>
         <style type="text/css">
             /*rich:calendar*/
             .rf-cal-inp {
@@ -269,7 +277,9 @@
                                          id="SDD"
                                          action="#{orderList.setDocDate(row)}"
                                          execute="@form"
-                                         render="@none"
+                                         onclick="#{rich:component('savePanel')}.show();"
+                                         oncomplete="postSave(#{orderList.saveError})"
+                                         render="saveInfo"
                                 style="display: none"/>
                     </h:panelGroup>
                     <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
@@ -312,7 +322,9 @@
                                            id="SD"
                                            action="#{orderList.setDeveloper(row)}"
                                            execute="@form"
-                                           render="@none"
+                                           onclick="#{rich:component('savePanel')}.show();"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
                                            style="display: none"/>
                     </h:panelGroup>
                     <h:outputText value="#{row.developer}" rendered="#{!orderList.userPA.developerE}"/>
@@ -356,7 +368,9 @@
                                            id="SEP"
                                            action="#{orderList.setEndPlan(row)}"
                                            execute="@form"
-                                           render="@none"
+                                           onclick="#{rich:component('savePanel')}.show();"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
                                            style="display: none"/>
                     </h:panelGroup>
                     <h:outputText value="#{row.endPlan}" rendered="#{!orderList.userPA.endPlanE}">
@@ -408,6 +422,26 @@
                                render="orders"
                                style="display: none"
                                value="refresh"/>
+
+            <rich:popupPanel id="savePanel" modal="true" resizeable="true">
+                <f:facet name="header">
+                    <h:outputText value="Сохранение"/>
+                </f:facet>
+                <h:panelGroup id="saveInfo">
+                    <h:panelGroup rendered="#{!testBean.saveError}">
+                        <h:outputText  value="Идет сохранение"
+                                       styleClass="info"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{testBean.saveError}">
+                        <h:outputText  value="Ошибка сохранения"
+                                       styleClass="error"/>
+                        <br/>
+                        <h:commandButton value="Закрыть"
+                                         onclick="#{rich:component('savePanel')}.hide();"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </rich:popupPanel>
+
         </h:form>
     </ui:define>
 </ui:composition>
