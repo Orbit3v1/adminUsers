@@ -18,8 +18,8 @@
 
         <script type="text/javascript">
             function postSave(saveError) {
-                if(!saveError) {
-                    #{rich:component('savePanel')}.hide();
+                if(saveError) {
+                    #{rich:component('savePanel')}.show();
                 }
             }
         </script>
@@ -277,7 +277,6 @@
                                          id="SDD"
                                          action="#{orderList.setDocDate(row)}"
                                          execute="@form"
-                                         onclick="#{rich:component('savePanel')}.show();"
                                          oncomplete="postSave(#{orderList.saveError})"
                                          render="saveInfo"
                                 style="display: none"/>
@@ -322,7 +321,6 @@
                                            id="SD"
                                            action="#{orderList.setDeveloper(row)}"
                                            execute="@form"
-                                           onclick="#{rich:component('savePanel')}.show();"
                                            oncomplete="postSave(#{orderList.saveError})"
                                            render="saveInfo"
                                            style="display: none"/>
@@ -368,7 +366,6 @@
                                            id="SEP"
                                            action="#{orderList.setEndPlan(row)}"
                                            execute="@form"
-                                           onclick="#{rich:component('savePanel')}.show();"
                                            oncomplete="postSave(#{orderList.saveError})"
                                            render="saveInfo"
                                            style="display: none"/>
@@ -428,12 +425,8 @@
                     <h:outputText value="Сохранение"/>
                 </f:facet>
                 <h:panelGroup id="saveInfo">
-                    <h:panelGroup rendered="#{!testBean.saveError}">
-                        <h:outputText  value="Идет сохранение"
-                                       styleClass="info"/>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{testBean.saveError}">
-                        <h:outputText  value="Ошибка сохранения"
+                    <h:panelGroup rendered="#{orderList.saveError}">
+                        <h:outputText  value="Ошибка сохранения позиции: #{orderList.textError}"
                                        styleClass="error"/>
                         <br/>
                         <h:commandButton value="Закрыть"

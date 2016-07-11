@@ -40,6 +40,7 @@ public class OrderList {
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
     private boolean saveError;
+    private String textError;
 
     private OrderListFilter filter;
     private int gibTotal;
@@ -229,11 +230,13 @@ public class OrderList {
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             saveError = true;
+            textError = orderItem.getOrder().getName() + "_" + orderItem.getName();
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
             saveError = true;
+            textError = orderItem.getOrder().getName() + "_" + orderItem.getName();
         }
     }
 
@@ -278,6 +281,14 @@ public class OrderList {
 
     public void setSaveError(boolean saveError) {
         this.saveError = saveError;
+    }
+
+    public String getTextError() {
+        return textError;
+    }
+
+    public void setTextError(String textError) {
+        this.textError = textError;
     }
 }
 

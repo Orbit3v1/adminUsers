@@ -5,6 +5,8 @@ TO DISK = 'C:\work\backup\appOwner.bak'
     MEDIANAME = 'MyBackups',
     NAME = 'Full backup of my database'
 
+--from cmd
+SQLCMD -S (local) -U sa -P Orbit3v1 -Q "BACKUP DATABASE appOwner TO DISK = 'C:\work\backup\appOwner.bak' WITH FORMAT, MEDIANAME = 'MyBackups', NAME = 'Full backup of my database'"
 
 --restore
 --Our first step will be to run the following query:
