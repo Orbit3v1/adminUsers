@@ -3,6 +3,7 @@ package com.app.dto;
 import com.app.entity.Nomenclature;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
+import com.app.entity.Person;
 
 import java.util.Date;
 
@@ -24,6 +25,7 @@ public class ProductionReportDTO {
     private Order order;
     private OrderItem orderItem;
     private Nomenclature nomenclature;
+    private Person developerEntity;
 
     public ProductionReportDTO() {
     }
@@ -32,6 +34,7 @@ public class ProductionReportDTO {
         this.orderItem = orderItem;
         this.order = orderItem.getOrder();
         this.nomenclature = orderItem.getNomenclature();
+        this.developerEntity = orderItem.getDeveloper();
         name = order.getName() + "_" + orderItem.getName();
         customer = order.getCustomer();
         nomenclatureName = nomenclature.getName();
@@ -173,5 +176,13 @@ public class ProductionReportDTO {
 
     public void setDeveloper(String developer) {
         this.developer = developer;
+    }
+
+    public Person getDeveloperEntity() {
+        return developerEntity;
+    }
+
+    public void setDeveloperEntity(Person developerEntity) {
+        this.developerEntity = developerEntity;
     }
 }

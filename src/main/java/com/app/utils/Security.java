@@ -543,9 +543,15 @@ public class Security {
                 userPA.put("developerR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "READ")))
                 );
+                userPA.put("developerE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemDeveloper", "EDIT")))
+                );
 
                 userPA.put("endPlanR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "READ")))
+                );
+                userPA.put("endPlanE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEndPlan", "EDIT")))
                 );
 
                 userPA.put("endActualR", hasAnyPrivilegeAction(

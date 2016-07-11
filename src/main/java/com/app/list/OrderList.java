@@ -174,27 +174,6 @@ public class OrderList {
         }
     }
 
-    public void setEndActual(OrderItem orderItem) {
-        logger.info("set actual end. OrderItem.id = " + orderItem.getId());
-        Date date = new Date();
-        orderItem.setEndActual(date);
-        try {
-            orderItem = saveData(orderItem);
-
-        } catch (OptimisticLockException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-            orderItem.setEndActual(null);
-            addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-            orderItem.setEndActual(null);
-            addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
-        }
-    }
-
-
     public String getImage(String name){
         String image = "sort_neutral";
         if(filter.getSort() != null){
@@ -207,9 +186,40 @@ public class OrderList {
         return image;
     }
 
-    public void setDocDate(OrderItem orderItem, Date date){
+    public void setEndActual(OrderItem orderItem) {
+        logger.info("set actual end. OrderItem.id = " + orderItem.getId());
+        Date date = new Date();
+        orderItem.setEndActual(date);
+        save(orderItem);
+    }
+
+    public void setDocDate(ProductionReportDTO dto){
+        OrderItem orderItem = dto.getOrderItem();
         logger.info("change docDate. OrderItem.id = " + orderItem.getId());
-        orderItem.setDocDate(date);
+        orderItem.setDocDate(dto.getDocDate());
+        save(orderItem);
+    }
+
+    public void setEndPlan(ProductionReportDTO dto){
+        OrderItem orderItem = dto.getOrderItem();
+        logger.info("change endPlan. OrderItem.id = " + orderItem.getId());
+        orderItem.setEndPlan(dto.getEndPlan());
+        save(orderItem);
+    }
+
+    public void setDeveloper(ProductionReportDTO dto){
+        OrderItem orderItem = dto.getOrderItem();
+        logger.info("change developer. OrderItem.id = " + orderItem.getId());
+        orderItem.setDeveloper(dto.getDeveloperEntity());
+        save(orderItem);
+    }
+
+    public void exportExcel(){
+        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
+        pXLS.renderExcel();
+    }
+
+    private void save(OrderItem orderItem){
         try {
             orderItem = saveData(orderItem);
         } catch (OptimisticLockException e) {
@@ -222,12 +232,6 @@ public class OrderList {
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
 
-
-    }
-
-    public void exportExcel(){
-        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
-        pXLS.renderExcel();
     }
 
     @Transactional

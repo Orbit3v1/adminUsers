@@ -147,8 +147,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.loadFilter", "Загрузить"},
             {"button.export.excel", "Excel"},
 
-
-
             {"datePattern", "dd.MM.yyyy"},
             {"dateTimePattern", "dd.MM.yyyy HH:mm"},
 

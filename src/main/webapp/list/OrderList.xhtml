@@ -267,7 +267,7 @@
 
                         <a4j:commandButton value="SDD"
                                          id="SDD"
-                                         action="#{orderList.setDocDate(row.orderItem, row.docDate)}"
+                                         action="#{orderList.setDocDate(row)}"
                                          execute="@form"
                                          render="@none"
                                 style="display: none"/>
@@ -292,7 +292,30 @@
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:outputText value="#{row.developer}"/>
+                    <h:panelGroup rendered="#{orderList.userPA.developerE}">
+                        <rich:select id="developer"
+                                     value="#{row.developerEntity}"
+                                     converter="#{personConverter}"
+                                     enableManualInput="true"
+                                     defaultLabel=""
+                                     listWidth="280"
+                                     onchange="clickIn('mainForm:orders:#{table.rowIndex}:SD')">
+                            <f:selectItem itemLabel="" itemValue="#{null}"/>
+                            <f:selectItems value="#{orderItemScreen.developers}"
+                                           var="row"
+                                           itemLabel="#{row}"
+                                           itemValue="#{row}"/>
+                        </rich:select>
+
+
+                        <a4j:commandButton value="SD"
+                                           id="SD"
+                                           action="#{orderList.setDeveloper(row)}"
+                                           execute="@form"
+                                           render="@none"
+                                           style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.developer}" rendered="#{!orderList.userPA.developerE}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.endPlanR}"
@@ -321,9 +344,25 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:outputText value="#{row.endPlan}">
+                    <h:panelGroup rendered="#{orderList.userPA.endPlanE}">
+                        <rich:calendar value="#{row.endPlan}"
+                                       locale="#{locale}"
+                                       popup="true"
+                                       datePattern="#{messages.getString('datePattern')}"
+                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SEP')"
+                                />
+
+                        <a4j:commandButton value="SEP"
+                                           id="SEP"
+                                           action="#{orderList.setEndPlan(row)}"
+                                           execute="@form"
+                                           render="@none"
+                                           style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.endPlan}" rendered="#{!orderList.userPA.endPlanE}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
+
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.endActualR}"
