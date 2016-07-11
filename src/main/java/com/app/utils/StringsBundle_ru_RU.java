@@ -149,8 +149,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
 
 
-            {"datePattern", "yyyy-MM-dd"},
-            {"dateTimePattern", "yyyy-MM-dd HH:mm"},
+            {"datePattern", "dd.MM.yyyy"},
+            {"dateTimePattern", "dd.MM.yyyy HH:mm"},
 
             {"pickList.copyAllControlLabel", "Добавить все"},
             {"pickList.copyControlLabel", "Добавить"},
