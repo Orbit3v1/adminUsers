@@ -77,7 +77,20 @@ public class Person extends AbstractVersionedEntity{
 
     @Override
     public String toString() {
-        return lastName + " " + firstName;
+        String res = "";
+        if(lastName != null && !lastName.equals("")){
+            res += lastName;
+        }
+        if(firstName != null && !firstName.equals("")){
+            if(!res.equals("")){
+                res += " ";
+            }
+            res += firstName;
+        }
+        if(res.equals("")){
+            res = login;
+        }
+        return res;
     }
 
     public Integer getId() {

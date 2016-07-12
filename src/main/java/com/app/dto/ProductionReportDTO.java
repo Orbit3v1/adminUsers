@@ -41,8 +41,8 @@ public class ProductionReportDTO {
         count = orderItem.getCount();
         material = nomenclature.getMaterial();
         gib = nomenclature.getGib();
-        responsible = order.getResponsible() == null ? null : order.getResponsible().getLastName() + " " + order.getResponsible().getFirstName();
-        developer = orderItem.getDeveloper() == null ? null : orderItem.getDeveloper().getLastName() + " " + orderItem.getDeveloper().getFirstName();
+        responsible = order.getResponsible() == null ? null : order.getResponsible().toString();
+        developer = orderItem.getDeveloper() == null ? null : orderItem.getDeveloper().toString();
         start = order.getStart();
         docDate = orderItem.getDocDate();
         endPlan = orderItem.getEndPlan();
