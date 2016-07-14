@@ -226,18 +226,21 @@ public class OrderList {
             orderItem = saveData(orderItem);
             saveError = false;
         } catch (OptimisticLockException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
+            catchError(e, orderItem);
             addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            saveError = true;
-            textError = orderItem.getOrder().getName() + "_" + orderItem.getName();
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
+            catchError(e, orderItem);
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
-            saveError = true;
-            textError = orderItem.getOrder().getName() + "_" + orderItem.getName();
+
         }
+    }
+
+
+    private void catchError(Exception e, OrderItem orderItem){
+        logger.error(e.getMessage());
+        e.printStackTrace();
+        saveError = true;
+        textError = orderItem.getOrder().getName() + "_" + orderItem.getName();
     }
 
     @Transactional
