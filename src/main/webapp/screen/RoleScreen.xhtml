@@ -66,22 +66,26 @@
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.read')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.readSelected}"
-                                                 disabled="#{!row.readAvailable or roleScreen.isDisabled('privileges')}"/>
+                                                 rendered="#{row.readAvailable}"
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.write')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.writeSelected}"
-                                                 disabled="#{!row.writeAvailable or roleScreen.isDisabled('privileges')}"/>
+                                                 rendered="#{row.writeAvailable}"
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.edit')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.editSelected}"
-                                                 disabled="#{!row.editAvailable or roleScreen.isDisabled('privileges')}"/>
+                                                 rendered="#{row.editAvailable}"
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                     <rich:column style="text-align: center">
                         <f:facet name="header">#{messages.getString('roleScreen.privilege.execute')}</f:facet>
                         <h:selectBooleanCheckbox value="#{row.executeSelected}"
-                                                 disabled="#{!row.executeAvailable or roleScreen.isDisabled('privileges')}"/>
+                                                 rendered="#{row.executeAvailable}"
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:collapsiblePanel>
