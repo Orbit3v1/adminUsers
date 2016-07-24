@@ -17,17 +17,18 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.role')}" styleClass="listTitle"/>
             <br/>
-            <h:commandButton value="#{messages.getString('button.add')}"
-                             action="#{roleScreen.newEntity}"
+            <h:button value="#{messages.getString('button.add')}"
                              styleClass="btn"
+                             onclick="openPopUp('/screen/RoleScreen.xhtml', 'RolePopUp')"
                              rendered="#{roleList.userPA.addR}"
                              disabled="#{!roleList.userPA.addEx}"/>
 
-            <rich:dataTable id="persons" value="#{roleList.roles}" var="row" binding="#{table}"
+            <rich:dataTable id="roles" value="#{roleList.roles}" var="row" binding="#{table}"
                             rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
-                    <a4j:commandButton value="#{table.rowIndex + 1}" action="#{roleScreen.editEntity(row)}"/>
+                    <h:button value="#{table.rowIndex + 1}"
+                                       onclick="openPopUp('/screen/RoleScreen.xhtml?id=#{row.id}', 'RolePopUp#{row.id}')"/>
                 </rich:column>
                 <rich:column rendered="#{roleList.userPA.idR}">
                     <f:facet name="header">#{messages.getString('roleEntity.id')}</f:facet>
@@ -42,6 +43,11 @@
                     <h:outputText value="#{row.description}"/>
                 </rich:column>>
             </rich:dataTable>
+
+            <a4j:commandButton id="refresh"
+                               render="roles"
+                               style="display: none"
+                               value="refresh"/>
         </h:form>
     </ui:define>
 </ui:composition>

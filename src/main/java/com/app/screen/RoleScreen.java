@@ -8,6 +8,7 @@ import com.app.validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
@@ -15,7 +16,7 @@ import javax.persistence.Query;
 import java.util.*;
 
 @Named("roleScreen")
-@Scope("session")
+@Scope("view")
 public class RoleScreen extends EntityScreen<Role>{
 
     @Inject
@@ -35,12 +36,26 @@ public class RoleScreen extends EntityScreen<Role>{
         initEntity();
         Query query = em.createQuery("select r.id from PrivilegeAction r");
         privilegeActions = new HashSet<>(query.getResultList());
+
+    }
+
+    private String getParameter(String name){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String passedParameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
+        return passedParameter;
     }
 
     @Override
     public void initEntity() {
-        entity = new Role();
-        entity.setPrivilegeAction(new ArrayList<>());
+        String id = getParameter("id");
+        if(id != null){
+            entity = em.find(Role.class, id);
+            edit = true;
+        } else{
+            entity = new Role();
+            entity.setPrivilegeAction(new ArrayList<>());
+        }
+
     }
 
     @Transactional
