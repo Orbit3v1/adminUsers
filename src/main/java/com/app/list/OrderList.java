@@ -107,7 +107,7 @@ public class OrderList {
             parameters.put("docDateL", filter.getDocDateL());
         }
         if (filter.getDocDateH() != null) {
-            sqlWhere += " AND r.docDate >= :docDateH";
+            sqlWhere += " AND r.docDate <= :docDateH";
             parameters.put("docDateH", endDay(filter.getDocDateH()));
         }
         if (filter.getEndPlanL() != null) {
@@ -115,7 +115,7 @@ public class OrderList {
             parameters.put("endPlanL", filter.getEndPlanL());
         }
         if (filter.getEndPlanH() != null) {
-            sqlWhere += " AND r.endPlan >= :endPlanH";
+            sqlWhere += " AND r.endPlan <= :endPlanH";
             parameters.put("endPlanH", endDay(filter.getEndPlanH()));
         }
         if (filter.getEndActualL() != null) {
@@ -123,7 +123,7 @@ public class OrderList {
             parameters.put("endActualL", filter.getEndActualL());
         }
         if (filter.getEndActualH() != null) {
-            sqlWhere += " AND r.endActual >= :endActualH";
+            sqlWhere += " AND r.endActual <= :endActualH";
             parameters.put("endActualH", endDay(filter.getEndActualH()));
         }
         switch (filter.getState()) {
