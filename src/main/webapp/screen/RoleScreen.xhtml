@@ -21,11 +21,12 @@
             <f:viewParam name="id" value="#{roleScreen.entity.id}"/>
         </f:metadata>
 
+        <script src="../js/roleScreen.js" type="text/javascript"/>
         <script type="text/javascript">
-
             function save() {
                 refreshOpener();
             }
+
 
             function exit() {
                 window.close();
@@ -46,38 +47,10 @@
                 }
             }
 
-            function synchronizeCheckboxes(headerCheckbox, targetSuffix) {
-                var elements = getElementsBySuffixId(targetSuffix);
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].checked = headerCheckbox.checked;
-                }
+
+            window.onload = function () {
+                initCheckboxHeader();
             }
-
-            function synchronizeCheckboxHeader(targetId, targetSuffix) {
-                var checkbox = document.getElementById("mainForm:".concat(targetId));
-                checkbox.checked = true;
-
-                var elements = getElementsBySuffixId(targetSuffix);
-                for (var i = 0; i < elements.length; i++) {
-                    if (!elements[i].checked) {
-                        checkbox.checked = false;
-                        break;
-                    }
-                }
-            }
-
-            function getElementsBySuffixId(suffix) {
-                var elements = [];
-                var inputs = document.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length; i++) {
-                    if (inputs[i].id.indexOf(suffix) > -1) {
-                        elements.push(inputs[i]);
-                    }
-                }
-                return elements;
-            }
-
-
         </script>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
@@ -133,9 +106,9 @@
                         <f:facet name="header">
                             #{messages.getString('roleScreen.privilege.read')}
                             <h:selectBooleanCheckbox id="cbReadHeader"
-                                                     rendered="#{row.readAvailable}"
                                                      disabled="#{roleScreen.isDisabled('privileges')}"
-                                                     onclick="synchronizeCheckboxes(this, 'cbRead')"/>
+                                                     onclick="synchronizeCheckboxes(this, 'cbRead')"
+                                                     style="vertical-align: middle; margin: 0;"/>
                         </f:facet>
                         <h:selectBooleanCheckbox id="cbRead"
                                                  value="#{row.readSelected}"
@@ -147,9 +120,9 @@
                         <f:facet name="header">
                             #{messages.getString('roleScreen.privilege.write')}
                             <h:selectBooleanCheckbox id="cbWriteHeader"
-                                                     rendered="#{row.readAvailable}"
                                                      disabled="#{roleScreen.isDisabled('privileges')}"
-                                                     onclick="synchronizeCheckboxes(this, 'cbWrite')"/>
+                                                     onclick="synchronizeCheckboxes(this, 'cbWrite')"
+                                                     style="vertical-align: middle; margin: 0;"/>
                         </f:facet>
                         <h:selectBooleanCheckbox id="cbWrite"
                                                  value="#{row.writeSelected}"
@@ -161,9 +134,9 @@
                         <f:facet name="header">
                             #{messages.getString('roleScreen.privilege.edit')}
                             <h:selectBooleanCheckbox id="cbEditHeader"
-                                                     rendered="#{row.readAvailable}"
                                                      disabled="#{roleScreen.isDisabled('privileges')}"
-                                                     onclick="synchronizeCheckboxes(this, 'cbEdit')"/>
+                                                     onclick="synchronizeCheckboxes(this, 'cbEdit')"
+                                                     style="vertical-align: middle; margin: 0;"/>
                         </f:facet>
                         <h:selectBooleanCheckbox id="cbEdit"
                                                  value="#{row.editSelected}"
@@ -172,10 +145,18 @@
                                                  onclick="synchronizeCheckboxHeader('cbEditHeader', 'cbEdit')"/>
                     </rich:column>
                     <rich:column style="text-align: center">
-                        <f:facet name="header">#{messages.getString('roleScreen.privilege.execute')}</f:facet>
-                        <h:selectBooleanCheckbox value="#{row.executeSelected}"
+                        <f:facet name="header">
+                            #{messages.getString('roleScreen.privilege.execute')}
+                            <h:selectBooleanCheckbox id="cbExecuteHeader"
+                                                     disabled="#{roleScreen.isDisabled('privileges')}"
+                                                     onclick="synchronizeCheckboxes(this, 'cbExecute')"
+                                                     style="vertical-align: middle; margin: 0;"/>
+                        </f:facet>
+                        <h:selectBooleanCheckbox id="cbExecute"
+                                                 value="#{row.executeSelected}"
                                                  rendered="#{row.executeAvailable}"
-                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"
+                                                 onclick="synchronizeCheckboxHeader('cbExecuteHeader', 'cbExecute')"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:collapsiblePanel>
