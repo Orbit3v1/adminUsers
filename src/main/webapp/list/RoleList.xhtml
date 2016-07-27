@@ -17,9 +17,9 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.role')}" styleClass="listTitle"/>
             <br/>
-            <h:button value="#{messages.getString('button.add')}"
+            <a4j:commandButton value="#{messages.getString('button.add')}"
                              styleClass="btn"
-                             onclick="openPopUp('/screen/RoleScreen.xhtml', 'RolePopUp')"
+                             onclick="openPopUp('/screen/RoleScreen.xhtml', 'RoleScreen')"
                              rendered="#{roleList.userPA.addR}"
                              disabled="#{!roleList.userPA.addEx}"/>
 
@@ -27,8 +27,8 @@
                             rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
-                    <h:button value="#{table.rowIndex + 1}"
-                                       onclick="openPopUp('/screen/RoleScreen.xhtml?id=#{row.id}', 'RolePopUp#{row.id}')"/>
+                    <a4j:commandButton value="#{table.rowIndex + 1}"
+                                       onclick="openPopUp('/screen/RoleScreen.xhtml?id=#{row.id}', 'RoleScreen#{row.id}')"/>
                 </rich:column>
                 <rich:column rendered="#{roleList.userPA.idR}">
                     <f:facet name="header">#{messages.getString('roleEntity.id')}</f:facet>

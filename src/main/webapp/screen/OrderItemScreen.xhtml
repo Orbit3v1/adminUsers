@@ -77,10 +77,8 @@
                                 styleClass="findBtn"/>
 
                         <a4j:commandButton
-                                action="#{nomenclatureScreen.editEntity(orderItemScreen.entity.nomenclature)}"
                                 rendered="#{orderItemScreen.entity.nomenclature != null}"
-                                onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
-                                oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
+                                onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{orderItemScreen.entity.nomenclature.id}', 'NomenclatureScreen#{orderItemScreen.entity.nomenclature.id}')"
                                 image="/javax.faces.resource/images/find.png.xhtml"
                                 style="vertical-align: middle !important;
                                                 outline: none !important;

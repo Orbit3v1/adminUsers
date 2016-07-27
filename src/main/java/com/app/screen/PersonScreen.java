@@ -1,6 +1,7 @@
 package com.app.screen;
 
 import com.app.entity.*;
+import com.app.utils.AppUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.StaleObjectStateException;
 import org.springframework.context.annotation.Scope;
@@ -13,10 +14,11 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named("personScreen")
-@Scope("session")
+@Scope("view")
 public class PersonScreen extends EntityScreen<Person>{
 
     @Inject
@@ -35,15 +37,17 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @Override
     @Transactional
-    public void initEntity(Person entity) {
-        this.entity = em.find(Person.class, entity.getId());
-        this.entity.getRoles().size();
-        oldPassword = this.entity.getPassword();
-    }
-
-    @Override
     public void initEntity() {
-        entity = new Person();
+        String id = getParameter("id");
+        if(id != null && AppUtil.isNumeric(id)){
+            entity = em.find(Person.class, AppUtil.toInteger(id));
+            entity.getRoles().size();
+            oldPassword = entity.getPassword();
+            edit = true;
+        } else{
+            entity = new Person();
+        }
+
     }
 
     @Override
@@ -58,19 +62,19 @@ public class PersonScreen extends EntityScreen<Person>{
                 saveData();
 
                 String bundleKey = edit ? "personScreen.success.edit" : "personScreen.success.save";
-                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
+                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
             } catch (OptimisticLockException | StaleObjectStateException e){
                 logger.error(e.getMessage());
-                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            SessionUtil.setMessage("mainForm:panel", "personScreen.error.title", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "personScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }

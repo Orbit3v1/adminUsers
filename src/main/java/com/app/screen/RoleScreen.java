@@ -39,12 +39,6 @@ public class RoleScreen extends EntityScreen<Role>{
 
     }
 
-    private String getParameter(String name){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String passedParameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
-        return passedParameter;
-    }
-
     @Override
     public void initEntity() {
         String id = getParameter("id");
@@ -77,20 +71,20 @@ public class RoleScreen extends EntityScreen<Role>{
                 saveData();
 
                 String bundleKey = edit ? "roleScreen.success.edit" : "roleScreen.success.save";
-                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
+                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
             } catch (OptimisticLockException e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            SessionUtil.setMessage("mainForm:panel", "roleScreen.error.title", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "roleScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }

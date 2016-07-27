@@ -141,9 +141,7 @@
                                      style="width: 100px"/>
                     </f:facet>
                     <a4j:commandLink value="#{row.nomenclatureName}"
-                                     action="#{nomenclatureScreen.editEntity(row.nomenclature)}"
-                                     onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
-                                     oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
+                                     onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{row.nomenclature.id}', 'NomenclatureScreen#{row.nomenclature.id}')"
                                      styleClass="link"
                                      style="display: block;"/>
                 </rich:column>
@@ -405,7 +403,7 @@
                     <h:outputText value="#{row.endActual}" rendered="#{row.endActual != null}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
-                    <h:commandButton id="endActualB"
+                    <a4j:commandButton id="endActualB"
                                      value="#{messages.getString('order.setEnd')}"
                                      action="#{orderList.setEndActual(row.orderItem)}"
                                      disabled="#{!orderList.userPA.endActualW}"

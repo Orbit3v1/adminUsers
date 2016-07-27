@@ -9,6 +9,7 @@ import com.app.utils.SessionUtil;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -88,6 +89,12 @@ public abstract class EntityScreen<T extends Unique> {
     public String saveAndExit() {
         logger.info("save entity and exit. "  + entity.getId());
         return  save() ? exit() : "";
+    }
+
+    protected String getParameter(String name){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String passedParameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
+        return passedParameter;
     }
 
     public T getEntity() {

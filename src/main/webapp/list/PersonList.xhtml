@@ -17,8 +17,8 @@
         <h:form id="mainForm">
             <h:outputText value="#{messages.getString('menu.admin.user')}" styleClass="listTitle"/>
             <br/>
-            <h:commandButton value="#{messages.getString('button.add')}"
-                             action="#{personScreen.newEntity}"
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                             onclick="openPopUp('/screen/PersonScreen.xhtml', 'PersonScreen')"
                              styleClass="btn"
                              rendered="#{personList.userPA.addR}"
                              disabled="#{!personList.userPA.addEx}"/>
@@ -27,7 +27,8 @@
                             rowClasses="odd-row, even-row">
                 <rich:column style="text-align: center">
                     <f:facet name="header">#{messages.getString('table.edit')}</f:facet>
-                    <h:commandButton value="#{table.rowIndex + 1}" action="#{personScreen.editEntity(row)}"/>
+                    <a4j:commandButton value="#{table.rowIndex + 1}"
+                              onclick="openPopUp('/screen/PersonScreen.xhtml?id=#{row.id}', 'PersonScreen#{row.id}')"/>
                 </rich:column>
                 <rich:column rendered="#{personList.userPA.lastNameR}">
                     <f:facet name="header">#{messages.getString('personEntity.lastName')}</f:facet>
@@ -50,6 +51,11 @@
                     <h:selectBooleanCheckbox value="#{row.active}" disabled="true"/>
                 </rich:column>
             </rich:dataTable>
+
+            <a4j:commandButton id="refresh"
+                               render="persons"
+                               style="display: none"
+                               value="refresh"/>
         </h:form>
     </ui:define>
 </ui:composition>

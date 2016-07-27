@@ -119,12 +119,11 @@
                             #{messages.getString('orderItemEntity.nomenclature')}
                         </f:facet>
 
-                        <a4j:commandLink value="#{orderI.nomenclature}"
-                                         action="#{nomenclatureScreen.editEntity(orderI.nomenclature)}"
-                                         onclick="openPopUp('about:blank', 'NomenclaturePopUp')"
-                                         oncomplete="openPopUp('/popup/NomenclaturePopUp.xhtml', 'NomenclaturePopUp')"
+                        <a4j:commandLink value="#{orderI.nomenclature.name}"
+                                         onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{orderI.nomenclature.id}', 'NomenclatureScreen#{orderI.nomenclature.id}')"
                                          styleClass="link"
                                          style="display: block;"/>
+
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.countR}">

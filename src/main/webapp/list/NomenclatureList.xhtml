@@ -18,11 +18,11 @@
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText value="#{messages.getString('menu.admin.nomenclature')}" styleClass="listTitle"/>
             <br/>
-            <h:commandButton value="#{messages.getString('button.add')}"
-                             action="#{nomenclatureScreen.newEntity}"
-                             styleClass="btn"
-                             rendered="#{nomenclatureList.userPA.addR}"
-                             disabled="#{!nomenclatureList.userPA.addEx}"/>
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                      onclick="openPopUp('/screen/NomenclatureScreen.xhtml', 'NomenclatureScreen')"
+                      styleClass="btn"
+                      rendered="#{nomenclatureList.userPA.addR}"
+                      disabled="#{!nomenclatureList.userPA.addEx}"/>
 
             <h:commandButton id="findBtn"
                              value="#{messages.getString('button.find')}"
@@ -31,20 +31,25 @@
 
             <rich:dataTable id="nomenclatures" value="#{nomenclatureList.nomenclatures}" var="row"
                             rowClasses="odd-row, even-row">
-                <rich:column filterValue="#{nomenclatureList.nameFilter}"
-                             filterExpression="#{fn:containsIgnoreCase(row.name, nomenclatureList.nameFilter)}"
+                <rich:column filterValue="#{nomenclatureFilter.name}"
+                             filterExpression="#{fn:containsIgnoreCase(row.name, nomenclatureFilter.name)}"
                              filterType="custom">
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.name')}
-                        <h:inputText value="#{nomenclatureList.nameFilter}"
+                        <h:inputText value="#{nomenclatureFilter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      styleClass="inputSmall"/>
                     </f:facet>
-                    <h:commandLink value="#{row.name}"
-                                   action="#{nomenclatureScreen.editEntity(row)}"
-                                   styleClass="link"
-                                   style="display: block;"/>
+                    <a4j:commandLink value="#{row.name}"
+                            onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{row.id}', 'NomenclatureScreen#{row.id}')"
+                            styleClass="link"
+                            style="display: block;"/>
                 </rich:column>
             </rich:dataTable>
+
+            <a4j:commandButton id="refresh"
+                               render="nomenclatures"
+                               style="display: none"
+                               value="refresh"/>
         </h:form>
     </ui:define>
 </ui:composition>

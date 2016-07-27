@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Named("nomenclatureScreen")
-@Scope("session")
+@Scope("view")
 public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Inject
@@ -127,12 +127,24 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     @Override
+    @Transactional
     public void initEntity() {
         saved = false;
         closed = false;
-        entity = new Nomenclature();
-        entity.setNomenclatureAttachments(new ArrayList<>());
-        entity.setComponents(new ArrayList<>());
+        String id = getParameter("id");
+        if(id != null && AppUtil.isNumeric(id)){
+            entity = em.find(Nomenclature.class, AppUtil.toInteger(id));
+            this.entity.getNomenclatureAttachments().size();
+            this.entity.getComponents().size();
+            this.entity.getOrderItems().size();
+            gib = AppUtil.toString(entity.getGib());
+            edit = true;
+        } else{
+            entity = new Nomenclature();
+            entity.setNomenclatureAttachments(new ArrayList<>());
+            entity.setComponents(new ArrayList<>());
+        }
+
     }
 
     public boolean save() {
@@ -207,6 +219,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
         if(canDelete()){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
+            saved = true;
+            closed = true;
             logger.info("delete success");
             return exit();
         } else {

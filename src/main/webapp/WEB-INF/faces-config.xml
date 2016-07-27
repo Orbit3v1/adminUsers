@@ -12,43 +12,6 @@
     </application>
 
     <navigation-rule>
-        <from-view-id>/list/PersonList.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>editEntity</from-outcome>
-            <to-view-id>/screen/PersonScreen.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/screen/PersonScreen.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>toList</from-outcome>
-            <to-view-id>/list/PersonList.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/list/NomenclatureList.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>editEntity</from-outcome>
-            <to-view-id>/screen/NomenclatureScreen.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/screen/NomenclatureScreen.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>toList</from-outcome>
-            <to-view-id>/list/NomenclatureList.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
-
-    <navigation-rule>
         <from-view-id>/popup/NomenclatureListPopUp.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>editEntity</from-outcome>
