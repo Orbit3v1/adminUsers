@@ -19,16 +19,16 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Named("orderItemScreen")
-@Scope("session")
+@Scope("view")
 public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     private String count;
     private List<Person> developers;
-    private boolean closed;
-    private boolean saved;
     private OrderItem originalOrderItem;
+    private Order source;
 
     @Inject
     private ApplicationContext applicationContext;
@@ -38,6 +38,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     @PostConstruct
     public void init() {
         logger.info("init");
+        initSource();
         initEntity();
 
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
@@ -49,27 +50,57 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         return "orderItemScreen";
     }
 
+    public void initSource(){
+        String id = getParameter("orderId");
+        if(id != null && AppUtil.isNumeric(id)){
+            source = (Order) SessionUtil.getSessionVariable("Order" + id);
+        }
+    }
+
     @Override
     public void initEntity() {
-        closed = false;
-        saved = false;
-        count = null;
+        String id = getParameter("id");
+        if(id != null && AppUtil.isNumeric(id)){
+            entity = getOrderItemById(source, AppUtil.toInteger(id));
+            originalOrderItem = entity;
+            count = AppUtil.toString(entity.getCount());
+            entity = new OrderItem();
+            entity.copyForm(originalOrderItem);
+            edit = true;
+        } else {
+            count = null;
 
-        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
-        Order source = orderScreen.getEntity();
-        entity = new OrderItem();
-        entity.setOrder(source);
-        entity.setEndPlan(source.getEndPlan());
+            entity = new OrderItem();
+            entity.setOrder(source);
+            entity.setEndPlan(source.getEndPlan());
+        }
+    }
+
+    private OrderItem getOrderItemById(Order order, Integer orderItemId){
+        OrderItem orderItem = null;
+        for(OrderItem oi : order.getOrderItems()){
+            if(oi.getId().equals(orderItemId)){
+                orderItem = oi;
+                break;
+            }
+        }
+        return orderItem;
     }
 
     @Override
     public void initEntity(OrderItem entity) {
-        closed = false;
-        saved = false;
-        count = AppUtil.toString(entity.getCount());
-        originalOrderItem = entity;
-        this.entity = new OrderItem();
-        this.entity.copyForm(originalOrderItem);
+
+
+    }
+
+    public void shareOrderItem(){
+        SessionUtil.addSessionVariable("OrderItem", entity);
+    }
+
+    @Override
+    public String exit() {
+        SessionUtil.removeSessionVariable("OrderItem" + entity.getId());
+        return super.exit();
     }
 
     @Override
@@ -84,29 +115,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         return false;
     }
 
-    public String saveOnly() {
-        if (save()) {
-            saved = true;
-            closed = false;
-        }
-        return "";
-    }
-
-    public String saveAndExit() {
-        if (save()) {
-            saved = true;
-            closed = true;
-        }
-        return "";
-    }
-
-    public String close() {
-        logger.info("close popUp");
-        saved = true;
-        closed = true;
-        return "";
-    }
-
     @Transactional
     public void refresh(){
         logger.info("refresh");
@@ -116,8 +124,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     private void updateOrderItems() {
         logger.info("updateOrderItems");
-        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
-        Order source = orderScreen.getEntity();
         if (edit) {
             originalOrderItem.copyForm(entity);
         } else {
@@ -128,12 +134,13 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         }
     }
 
+
+
     public String delete(){
         logger.info("delete");
         OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
-        Order source = orderScreen.getEntity();
         source.getOrderItems().remove(originalOrderItem);
-        return close();
+        return exit();
     }
 
     public void cancelEndActual(){
@@ -171,19 +178,4 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         this.developers = developers;
     }
 
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
-    public boolean isSaved() {
-        return saved;
-    }
-
-    public void setSaved(boolean saved) {
-        this.saved = saved;
-    }
 }

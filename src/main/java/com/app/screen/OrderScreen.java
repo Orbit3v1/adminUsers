@@ -4,8 +4,10 @@ import com.app.entity.Nomenclature;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.Person;
+import com.app.utils.AppUtil;
 import com.app.utils.Security;
 import org.richfaces.model.Filter;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
@@ -23,8 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Named("orderScreen")
-@Scope("session")
-public class OrderScreen extends EntityScreen<Order> {
+@Scope("view")
+public class OrderScreen extends EntityScreen<Order>  {
 
     @Inject
     Validator<Order> validator;
@@ -46,11 +48,20 @@ public class OrderScreen extends EntityScreen<Order> {
     }
 
     @Override
+    @Transactional
     public void initEntity() {
-        entity = new Order();
-        entity.setResponsible(Security.getCurrentUser());
-        entity.setStart(new Date());
-        entity.setOrderItems(new ArrayList<>());
+        String id = getParameter("id");
+        if(id != null && AppUtil.isNumeric(id)){
+            entity = em.find(Order.class, AppUtil.toInteger(id));
+            entity.getOrderItems().size();
+            edit = true;
+        } else {
+            entity = new Order();
+            entity.setResponsible(Security.getCurrentUser());
+            entity.setStart(new Date());
+            entity.setOrderItems(new ArrayList<>());
+        }
+
     }
 
     @Override
@@ -127,6 +138,16 @@ public class OrderScreen extends EntityScreen<Order> {
                 return result;
             }
         };
+    }
+
+    public void shareOrder(){
+        SessionUtil.addSessionVariable("Order" + entity.getId(), entity);
+    }
+
+    @Override
+    public String exit() {
+        SessionUtil.removeSessionVariable("Order" + entity.getId());
+        return super.exit();
     }
 
     private boolean validate() {

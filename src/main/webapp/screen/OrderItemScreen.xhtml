@@ -17,39 +17,6 @@
 
     <ui:define name="body">
         <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
-        <script type="text/javascript">
-            function refreshOpener() {
-                var opener = window.opener;
-                if (!opener)
-                    return;
-                var refreshButton = opener.document.getElementById("mainForm:refresh");
-                if (refreshButton != null) {
-                    refreshButton.click();
-                }
-            }
-
-            function closePopup() {
-                window.document.getElementById("mainForm:close").click();
-            }
-
-            var init = [];
-            window.onload = function () {
-                for (var i in init) {
-                    if (typeof( init[i] ) == 'function') init[i]();
-                }
-            }
-
-        </script>
-        <ui:fragment rendered="#{orderItemScreen.saved}">
-            <script type="text/javascript">
-                init.push(refreshOpener);
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{orderItemScreen.closed}">
-            <script type="text/javascript">
-                init.push(closePopup);
-            </script>
-        </ui:fragment>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
@@ -71,6 +38,7 @@
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
                                 rendered="#{!orderItemScreen.isDisabled('nomenclature')}"
+                                action="#{orderItemScreen.shareOrderItem}"
                                 onclick="openPopUp('about:blank', 'NomenclatureListPopUp')"
                                 oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
@@ -175,33 +143,32 @@
             <HR/>
 
             <p>
-                <h:commandButton value="#{messages.getString('button.editAndExit')}"
+                <a4j:commandButton value="#{messages.getString('button.editAndExit')}"
                                  action="#{orderItemScreen.saveAndExit}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"/>
-                <h:commandButton value="#{messages.getString('button.edit')}"
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"
+                                 oncomplete="saveExit()"/>
+                <a4j:commandButton value="#{messages.getString('button.edit')}"
                                  action="#{orderItemScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"/>
-                <h:commandButton value="#{messages.getString('button.delete')}"
+                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"
+                                 oncomplete="save()"/>
+                <a4j:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{orderItemScreen.delete}"
                                  styleClass="btn"
                                  rendered="#{orderItemScreen.edit and orderItemScreen.userPA.deleteR}"
                                  disabled="#{!orderItemScreen.edit or !orderItemScreen.userPA.deleteEx}"
-                                 onclick="return confirm('Вы действительно хотите удалить запись?')"/>
-                <h:commandButton value="#{messages.getString('button.cancel')}"
-                                 action="#{orderItemScreen.close}"
+                                 onclick="return confirm('Вы действительно хотите удалить запись?')"
+                                 oncomplete="saveExit()"/>
+                <a4j:commandButton value="#{messages.getString('button.cancel')}"
+                                   action="#{orderItemScreen.exit}"
+                                 onclick="exit()"
                                  styleClass="btn"/>
             </p>
-
-            <a4j:commandButton value="close" id="close"
-                               action="#{orderItemScreen.exit}"
-                               oncomplete="window.close();"
-                               style="display: none"/>
 
             <a4j:commandButton id="refresh" render="nomenclatureP" action="#{orderItemScreen.refresh()}"
                                style="display:none;" value="refresh"/>

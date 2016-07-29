@@ -18,7 +18,7 @@
 
         <script type="text/javascript">
             function postSave(saveError) {
-                if(saveError) {
+                if (saveError) {
                     #{rich:component('savePanel')}.show();
                 }
             }
@@ -38,11 +38,11 @@
 
             <h:outputText value="#{messages.getString('orderList.header')}" styleClass="listTitle"/>
             <br/>
-            <h:commandButton value="#{messages.getString('button.add')}"
-                             action="#{orderScreen.newEntity}"
-                             styleClass="btn"
-                             rendered="#{orderList.userPA.addR}"
-                             disabled="#{!orderList.userPA.addEx}"/>
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                               onclick="openPopUp('/screen/OrderScreen.xhtml', 'OrderScreen')"
+                               styleClass="btn"
+                               rendered="#{orderList.userPA.addR}"
+                               disabled="#{!orderList.userPA.addEx}"/>
 
             <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
             <h:panelGroup id="filterPG">
@@ -104,10 +104,10 @@
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:commandLink value="#{row.name}"
-                                   action="#{orderScreen.editEntity(row.order)}"
-                                   styleClass="link"
-                                   style="display: block; text-decoration: none;"/>
+                    <a4j:commandLink value="#{row.name}"
+                                     onclick="openPopUp('/screen/OrderScreen.xhtml?id=#{row.order.id}', 'OrderScreen#{row.order.id}')"
+                                     styleClass="link"
+                                     style="display: block; text-decoration: none;"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.customerR}"
@@ -133,8 +133,9 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.nomenclature')}"
                                        action="#{orderListFilterBean.setSort('NOMENCLATURE_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NOMENCLATURE')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('NOMENCLATURE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{orderListFilterBean.filter.nomenclature}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
@@ -152,8 +153,9 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.count')}"
                                        action="#{orderListFilterBean.setSort('COUNT_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('COUNT')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('COUNT')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{row.count}"/>
@@ -165,8 +167,9 @@
                         <h:commandLink value="#{messages.getString('nomenclatureEntity.material')}"
                                        action="#{orderListFilterBean.setSort('MATERIAL_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('MATERIAL')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('MATERIAL')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{row.material}"/>
@@ -194,8 +197,9 @@
                         <h:commandLink value="#{messages.getString('orderEntity.responsible')}"
                                        action="#{orderListFilterBean.setSort('RESPONSIBLE_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('RESPONSIBLE')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('RESPONSIBLE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{orderListFilterBean.filter.responsible}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
@@ -210,8 +214,9 @@
                         <h:commandLink value="#{messages.getString('orderEntity.start')}"
                                        action="#{orderListFilterBean.setSort('START_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('START')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('START')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="startL"
@@ -230,7 +235,7 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                       <h:outputText value="#{row.start}">
+                    <h:outputText value="#{row.start}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                 </rich:column>
@@ -243,13 +248,15 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.docDate')}"
                                        action="#{orderListFilterBean.setSort('DOC_DATE_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DOC_DATE')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('DOC_DATE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="docDateL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateL" value="#{orderListFilterBean.filter.docDateL}" locale="#{locale}"
+                            <rich:calendar id="docDateL" value="#{orderListFilterBean.filter.docDateL}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -257,7 +264,8 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="docDateH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="docDateH" value="#{orderListFilterBean.filter.docDateH}" locale="#{locale}"
+                            <rich:calendar id="docDateH" value="#{orderListFilterBean.filter.docDateH}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -269,15 +277,15 @@
                                        popup="true"
                                        datePattern="#{messages.getString('datePattern')}"
                                        onchange="clickIn('mainForm:orders:#{table.rowIndex}:SDD')"
-                                       />
+                                />
 
                         <a4j:commandButton value="SDD"
-                                         id="SDD"
-                                         action="#{orderList.setDocDate(row)}"
-                                         execute="@form"
-                                         oncomplete="postSave(#{orderList.saveError})"
-                                         render="saveInfo"
-                                style="display: none"/>
+                                           id="SDD"
+                                           action="#{orderList.setDocDate(row)}"
+                                           execute="@form"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
+                                           style="display: none"/>
                     </h:panelGroup>
                     <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
@@ -292,8 +300,9 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.developer')}"
                                        action="#{orderListFilterBean.setSort('DEVELOPER_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('DEVELOPER')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('DEVELOPER')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{orderListFilterBean.filter.developer}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
@@ -308,7 +317,7 @@
                                      listWidth="280"
                                      onchange="clickIn('mainForm:orders:#{table.rowIndex}:SD')">
                             <f:selectItem itemLabel="" itemValue="#{null}"/>
-                            <f:selectItems value="#{orderItemScreen.developers}"
+                            <f:selectItems value="#{orderList.developers}"
                                            var="row"
                                            itemLabel="#{row}"
                                            itemValue="#{row}"/>
@@ -332,13 +341,15 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.endPlan')}"
                                        action="#{orderListFilterBean.setSort('END_PLAN_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_PLAN')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('END_PLAN')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endPlanL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanL" value="#{orderListFilterBean.filter.endPlanL}" locale="#{locale}"
+                            <rich:calendar id="endPlanL" value="#{orderListFilterBean.filter.endPlanL}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -346,7 +357,8 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endPlanH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endPlanH" value="#{orderListFilterBean.filter.endPlanH}" locale="#{locale}"
+                            <rich:calendar id="endPlanH" value="#{orderListFilterBean.filter.endPlanH}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -380,13 +392,15 @@
                         <h:commandLink value="#{messages.getString('orderItemEntity.endActual')}"
                                        action="#{orderListFilterBean.setSort('END_ACTUAL_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('END_ACTUAL')}.png.xhtml"
-                                            styleClass="headerSortImg"/>
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('END_ACTUAL')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
                             <h:outputLabel value="≥" for="endActualL"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualL" value="#{orderListFilterBean.filter.endActualL}" locale="#{locale}"
+                            <rich:calendar id="endActualL" value="#{orderListFilterBean.filter.endActualL}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -394,7 +408,8 @@
                         <h:panelGroup>
                             <h:outputLabel value="≤" for="endActualH"
                                            style="font-size: 12px; vertical-align: middle !important;"/>
-                            <rich:calendar id="endActualH" value="#{orderListFilterBean.filter.endActualH}" locale="#{locale}"
+                            <rich:calendar id="endActualH" value="#{orderListFilterBean.filter.endActualH}"
+                                           locale="#{locale}"
                                            popup="true" datePattern="#{messages.getString('datePattern')}"
                                            cellWidth="24px" cellHeight="22px"/>
                         </h:panelGroup>
@@ -404,12 +419,12 @@
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
                     <a4j:commandButton id="endActualB"
-                                     value="#{messages.getString('order.setEnd')}"
-                                     action="#{orderList.setEndActual(row.orderItem)}"
-                                     disabled="#{!orderList.userPA.endActualW}"
-                                     styleClass="btn"
-                                     rendered="#{row.endActual == null}"
-                                     render="orders"/>
+                                       value="#{messages.getString('order.setEnd')}"
+                                       action="#{orderList.setEndActual(row.orderItem)}"
+                                       disabled="#{!orderList.userPA.endActualW}"
+                                       styleClass="btn"
+                                       rendered="#{row.endActual == null}"
+                                       render="orders"/>
                 </rich:column>
 
             </rich:dataTable>
@@ -424,8 +439,8 @@
                 </f:facet>
                 <h:panelGroup id="saveInfo">
                     <h:panelGroup rendered="#{orderList.saveError}">
-                        <h:outputText  value="Ошибка сохранения позиции: #{orderList.textError}"
-                                       styleClass="error"/>
+                        <h:outputText value="Ошибка сохранения позиции: #{orderList.textError}"
+                                      styleClass="error"/>
                         <br/>
                         <h:commandButton value="Закрыть"
                                          onclick="#{rich:component('savePanel')}.hide();"/>

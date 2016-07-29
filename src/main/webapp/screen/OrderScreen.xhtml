@@ -12,7 +12,7 @@
     <ui:define name="title">
         <h:outputText value="#{messages.getString('orderScreen.title')}"/>
     </ui:define>
-    <!--<ui:define name="headerMenu"/>-->
+    <ui:define name="headerMenu"/>
 
 
     <ui:define name="body">
@@ -89,12 +89,12 @@
                                    expanded="true">
 
                 <a4j:commandButton value="#{messages.getString('button.add')}"
-                                   action="#{orderItemScreen.newEntity}"
                                    styleClass="btn"
+                                   action="#{orderScreen.shareOrder}"
                                    rendered="#{orderScreen.userPA.addItemR}"
                                    disabled="#{!orderScreen.userPA.addItemEx}"
-                                   onclick="openPopUp('about:blank', 'OrderItemPopUp')"
-                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'OrderItemPopUp')"/>
+                                   onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
+                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?orderId=#{orderScreen.entity.id}', 'OrderItemScreen')"/>
 
                 <h:message for="orderItems" infoClass="info" errorClass="error"/>
                 <rich:dataTable id="orderItems"
@@ -109,9 +109,10 @@
                             #{messages.getString('orderItemEntity.name')}
                         </f:facet>
                         <a4j:commandButton value="#{orderI.name}"
-                                           action="#{orderItemScreen.editEntity(orderI)}"
-                                           onclick="openPopUp('about:blank', 'OrderItemPopUp')"
-                                           oncomplete="openPopUp('/screen/OrderItemScreen.xhtml', 'OrderItemPopUp')"/>
+                                           action="#{orderScreen.shareOrder}"
+                                           onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
+                                           oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?id=#{orderI.id}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.id}')">
+                                </a4j:commandButton>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
@@ -192,31 +193,37 @@
             <HR/>
 
             <p>
-                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
-                                 action="#{orderScreen.saveAndExit}"
-                                 render="mainForm"
-                                 styleClass="btn"
-                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"/>
-                <h:commandButton value="#{messages.getString('button.save')}"
-                                 action="#{orderScreen.saveOnly}"
-                                 render="mainForm"
-                                 styleClass="btn"
-                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"/>
-                <h:commandButton value="#{messages.getString('button.delete')}"
-                                 action="#{orderScreen.delete}"
-                                 styleClass="btn"
-                                 rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
-                                 disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
-                                 onclick="return confirm('Вы действительно хотите удалить заказ?')"/>
-                <h:commandButton value="#{messages.getString('button.cancel')}"
-                                 action="#{orderScreen.exit}"
-                                 styleClass="btn"/>
+                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                                   action="#{orderScreen.saveAndExit}"
+                                   render="mainForm"
+                                   styleClass="btn"
+                                   rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                   disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
+                                   oncomplete="saveExit()"/>
+                <a4j:commandButton value="#{messages.getString('button.save')}"
+                                   action="#{orderScreen.saveOnly}"
+                                   render="mainForm"
+                                   styleClass="btn"
+                                   rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                   disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
+                                   oncomplete="save()"/>
+                <a4j:commandButton value="#{messages.getString('button.delete')}"
+                                   action="#{orderScreen.delete}"
+                                   styleClass="btn"
+                                   rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
+                                   disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
+                                   onclick="return confirm('Вы действительно хотите удалить заказ?')"
+                                   oncomplete="saveExit()"/>
+                <a4j:commandButton value="#{messages.getString('button.cancel')}"
+                                   action="#{orderScreen.exit}"
+                                   onclick="exit()"
+                                   styleClass="btn"/>
             </p>
-            <a4j:commandButton id="refresh" render="orderItems" action="#{orderScreen.refresh()}" style="display:none;"
+            <a4j:commandButton id="refresh"
+                               render="orderItems"
+                               action="#{orderScreen.refresh()}"
+                               style="display:none;"
                                value="refresh"/>
-
         </h:form>
     </ui:define>
 </ui:composition>

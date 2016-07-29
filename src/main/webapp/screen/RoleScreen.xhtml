@@ -158,7 +158,7 @@
                                    rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
                                    disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteEx}"
                                    onclick="return confirm('Вы действительно хотите удалить запись?')"
-                                   oncomplete="exit()"/>
+                                   oncomplete="saveExit()"/>
                 <a4j:commandButton value="#{messages.getString('button.cancel')}"
                                    onclick="exit()"
                                    styleClass="btn"/>

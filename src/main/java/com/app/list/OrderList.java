@@ -5,6 +5,7 @@ import com.app.dictionary.ProductionReportSort;
 import com.app.dto.ProductionReportDTO;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
+import com.app.entity.Person;
 import com.app.excel.ProductionXLS;
 import com.app.utils.AddMessage;
 import com.app.web.OrderListFilterBean;
@@ -31,6 +32,7 @@ public class OrderList {
     @PersistenceContext
     protected EntityManager em;
     protected Logger logger = Logger.getLogger(getClass());
+    private List<Person> developers;
 
     @Inject
     OrderListFilterBean orderListFilterBean;
@@ -50,6 +52,9 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = orderListFilterBean.getFilterOriginal();
+
+        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
+        developers = query.getResultList();
     }
 
     public void updateList() {
@@ -292,6 +297,14 @@ public class OrderList {
 
     public void setTextError(String textError) {
         this.textError = textError;
+    }
+
+    public List<Person> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(List<Person> developers) {
+        this.developers = developers;
     }
 }
 
