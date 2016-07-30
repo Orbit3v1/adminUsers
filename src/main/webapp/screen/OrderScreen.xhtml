@@ -17,6 +17,33 @@
 
     <ui:define name="body">
         <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
+        <script type="text/javascript">
+
+            var init = [];
+            window.onload = function () {
+                for (var i in init) {
+                    if (typeof( init[i] ) == 'function') init[i]();
+                }
+            }
+
+
+        </script>
+
+        <ui:fragment rendered="#{!orderScreen.saved and orderScreen.closed}">
+            <script type="text/javascript">
+                init.push(exit());
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{orderScreen.saved and !orderScreen.closed}">
+            <script type="text/javascript">
+                init.push(save);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{orderScreen.saved and orderScreen.closed}">
+            <script type="text/javascript">
+                init.push(saveExit());
+            </script>
+        </ui:fragment>
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>
@@ -193,30 +220,29 @@
             <HR/>
 
             <p>
-                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                                    action="#{orderScreen.saveAndExit}"
                                    render="mainForm"
                                    styleClass="btn"
                                    rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
                                    disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
-                                   oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.save')}"
+                                   />
+                <h:commandButton value="#{messages.getString('button.save')}"
                                    action="#{orderScreen.saveOnly}"
                                    render="mainForm"
                                    styleClass="btn"
                                    rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
                                    disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
-                                   oncomplete="save()"/>
-                <a4j:commandButton value="#{messages.getString('button.delete')}"
+                                   />
+                <h:commandButton value="#{messages.getString('button.delete')}"
                                    action="#{orderScreen.delete}"
                                    styleClass="btn"
                                    rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
                                    disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
                                    onclick="return confirm('Вы действительно хотите удалить заказ?')"
-                                   oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.cancel')}"
+                                   />
+                <h:commandButton value="#{messages.getString('button.cancel')}"
                                    action="#{orderScreen.exit}"
-                                   onclick="exit()"
                                    styleClass="btn"/>
             </p>
             <a4j:commandButton id="refresh"

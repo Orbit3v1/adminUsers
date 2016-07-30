@@ -80,19 +80,18 @@ public class PersonScreen extends EntityScreen<Person>{
     }
 
     @Transactional
-    public String delete(){
+    public void delete(){
         logger.info("delete. id = " + entity.getId() + "; name = " + entity.getLogin());
         if(canDelete()){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             logger.info("delete success");
-            return exit();
+            saved = true;
+            exit();
         } else {
             logger.info("delete fail");
             addMessage.setMessage("mainForm:panel", "personScreen.error.delete", FacesMessage.SEVERITY_ERROR);
         }
-        return "";
-
-    }
+     }
 
     @Transactional
     private boolean canDelete(){

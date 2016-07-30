@@ -16,26 +16,15 @@
     <ui:define name="headerMenu"/>
 
     <ui:define name="body">
-        <script type="text/javascript">
-            function refreshClose() {
-                var opener = window.opener;
-                if (!opener)
-                    return;
-                var refreshButton = opener.document.getElementById("mainForm:refresh");
-                if (refreshButton != null) {
-                    refreshButton.click();
-                }
-                window.close();
-            }
-        </script>
+
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText value="#{messages.getString('menu.admin.nomenclature')}" styleClass="listTitle"/>
             <br/>
-            <h:commandButton value="#{messages.getString('button.add')}"
-                             action="#{nomenclatureScreen.newEntity}"
-                             styleClass="btn"
-                             rendered="#{nomenclatureListPopUp.userPA.addR}"
-                             disabled="#{!nomenclatureListPopUp.userPA.addEx}"/>
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                               onclick="openPopUp('/screen/NomenclatureScreen.xhtml', 'NomenclatureScreen')"
+                               styleClass="btn"
+                               rendered="#{nomenclatureListPopUp.userPA.addR}"
+                               disabled="#{!nomenclatureListPopUp.userPA.addEx}"/>
 
             <h:commandButton id="findBtn"
                              value="#{messages.getString('button.find')}"
@@ -52,20 +41,26 @@
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      styleClass="inputSmall"/>
                     </f:facet>
-                    <h:commandLink value="#{row.name}" action="#{nomenclatureScreen.editEntity(row)}"
-                                   styleClass="link"
-                                   style="display: block;"/>
+                    <a4j:commandLink value="#{row.name}"
+                                     onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{row.id}', 'NomenclatureScreen#{row.id}')"
+                                     styleClass="link"
+                                     style="display: block;"/>
                 </rich:column>
                 <rich:column>
                     <a4j:commandButton value=">"
                                        action="#{nomenclatureListPopUp.choose(row)}"
-                                     oncomplete="refreshClose()"/>
+                                       oncomplete="saveExit()"/>
                 </rich:column>
             </rich:dataTable>
             <a4j:commandButton value="#{messages.getString('button.cancel')}"
                                id="close"
-                               onclick="window.close();"
+                               onclick="exit()"
                                styleClass="btn"/>
+            <a4j:commandButton id="refresh"
+                               render="nomenclatures"
+                               style="display: none"
+                               value="refresh"/>
+
         </h:form>
     </ui:define>
 </ui:composition>

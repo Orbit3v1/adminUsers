@@ -13,7 +13,12 @@ function save() {
 }
 
 function exit() {
+    var opener = window.opener;
+    if (opener) {
+        opener.focus();
+    }
     window.close();
+
 }
 
 function saveExit() {

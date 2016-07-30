@@ -1,6 +1,7 @@
 package com.app.screen;
 
 import com.app.entity.Person;
+import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
@@ -28,6 +29,8 @@ public class LoginScreen {
     protected EntityManager em;
     @Inject
     ResourceBundle resourceBundle;
+    @Inject
+    protected AddMessage addMessage;
 
     private String login;
     private String password;
@@ -56,13 +59,11 @@ public class LoginScreen {
                 SessionUtil.addSessionVariable("user", user);
                 logger.info("User login successful. Login: " + login);
             } else {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("loginScreen.inactive"));
-                FacesContext.getCurrentInstance().addMessage("mainForm:panelLogin", facesMessage);
+                addMessage.setMessage("mainForm:panelLogin", "loginScreen.inactive", FacesMessage.SEVERITY_ERROR);
                 logger.info("User login fail (Inactive). Login: " + login);
             }
         } else {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "errorTitle", resourceBundle.getString("loginScreen.error"));
-            FacesContext.getCurrentInstance().addMessage("mainForm:panelLogin", facesMessage);
+            addMessage.setMessage("mainForm:panelLogin", "loginScreen.error", FacesMessage.SEVERITY_ERROR);
             logger.info("User login fail (Wrong credentials). Login: " + login);
         }
 

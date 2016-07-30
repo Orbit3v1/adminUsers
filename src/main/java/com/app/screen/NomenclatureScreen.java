@@ -32,8 +32,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private String gib;
     private Part file;
     private NAType fileType;
-    private boolean closed;
-    private boolean saved;
+
     private Component tmpComponent;
     private Component originalComponent;
     private boolean componentEdit;
@@ -82,55 +81,9 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         }
     }
 
-    @Transactional
-    public String saveRefresh() {
-        logger.info("save in popUp");
-        saved = false;
-        if (save()) {
-            saved = true;
-        }
-        return "";
-    }
-
-    public String close() {
-        logger.info("close popUp");
-        saved = false;
-        closed = true;
-        return "";
-    }
-
-    @Transactional
-    public String saveRefreshClose() {
-        logger.info("save and close popUp");
-        saved = false;
-        if (save()) {
-            saved = true;
-            closed = true;
-        }
-        return "";
-    }
-
-
-    @Transactional
-    public void initEntity(Nomenclature entity) {
-        saved = false;
-        closed = false;
-        gib = AppUtil.toString(entity.getGib());
-        if(entity.getId() != 0){
-            this.entity = em.find(Nomenclature.class, entity.getId());
-            this.entity.getNomenclatureAttachments().size();
-            this.entity.getComponents().size();
-            this.entity.getOrderItems().size();
-        } else {
-            super.initEntity(entity);
-        }
-    }
-
     @Override
     @Transactional
     public void initEntity() {
-        saved = false;
-        closed = false;
         String id = getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Nomenclature.class, AppUtil.toInteger(id));
@@ -215,20 +168,17 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
     @Transactional
-    public String delete(){
+    public void delete(){
         logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
         if(canDelete()){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             saved = true;
-            closed = true;
             logger.info("delete success");
-            return exit();
+            exit();
         } else {
             logger.info("delete fail");
             addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.delete", FacesMessage.SEVERITY_ERROR);
         }
-        return "";
-
     }
 
     private boolean canDelete(){

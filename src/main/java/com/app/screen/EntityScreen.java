@@ -32,6 +32,9 @@ public abstract class EntityScreen<T extends Unique> {
     private Map<String, Boolean> userPA;
     protected Logger logger = Logger.getLogger(getClass());
 
+    protected boolean closed;
+    protected boolean saved;
+
     @PostConstruct
     protected void initSecurity() {
         logger.info("init security");
@@ -41,54 +44,34 @@ public abstract class EntityScreen<T extends Unique> {
     protected abstract String getScreenName();
     protected abstract boolean save();
 
-    public String editEntity(T entity) {
-        logger.info("edit entity");
-        if(entity != null) {
-            logger.info("entity id: " + entity.getId());
-            edit = true;
-            initEntity(entity);
-            return "editEntity";
-        } else {
-            logger.warn("null entity");
-            return newEntity();
-        }
-    }
-
-    public String newEntity() {
-        logger.info("add entity");
-        initEntity();
-        edit = false;
-        return "editEntity";
-    }
-
-    public void initEntity(T entity){
-        this.entity = entity;
-    }
 
     public void initEntity(){
 
     }
 
-    public String exit() {
+    public void  exit() {
         logger.info("exit");
-        SessionUtil.cleanSession(getScreenName());
-        return "toList";
+        closed = true;
     }
 
-    public String saveOnly() {
+    public void saveOnly() {
         logger.info("save entity"  + entity.getId());
-        save();
-        return "";
+        if (save()) {
+            saved = true;
+        }
+    }
+
+    public void saveAndExit() {
+        logger.info("save entity and exit. "  + entity.getId());
+        if (save()) {
+            saved = true;
+            exit();
+        }
     }
 
     public boolean isDisabled(String privilege){
         Boolean res = edit ? userPA.get(privilege + "E") : userPA.get(privilege + "W");
         return  res == null || !res;
-    }
-
-    public String saveAndExit() {
-        logger.info("save entity and exit. "  + entity.getId());
-        return  save() ? exit() : "";
     }
 
     protected String getParameter(String name){
@@ -119,5 +102,21 @@ public abstract class EntityScreen<T extends Unique> {
 
     public void setUserPA(Map<String, Boolean> userPA) {
         this.userPA = userPA;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }

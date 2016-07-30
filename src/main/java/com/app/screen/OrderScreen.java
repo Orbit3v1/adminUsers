@@ -65,33 +65,26 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     @Override
-    @Transactional
-    public void initEntity(Order entity) {
-        this.entity = em.find(Order.class, entity.getId());
-        this.entity.getOrderItems().size();
-    }
-
-    @Override
     public boolean save() {
         if (validate()) {
             try {
                 saveData();
 
                 String bundleKey = edit ? "orderScreen.success.edit" : "orderScreen.success.save";
-                SessionUtil.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
+                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
                 edit = true;
                 return true;
             } catch (OptimisticLockException e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                SessionUtil.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                SessionUtil.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
-            SessionUtil.setMessage("mainForm:panel", "orderScreen.error.title", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "orderScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }
@@ -120,10 +113,11 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     @Transactional
-    public String delete() {
+    public void delete() {
         logger.info("delete");
         em.remove(em.merge(entity));
-        return exit();
+        saved = true;
+        exit();
     }
 
     public Filter<?> getOrderItemAccess() {
@@ -145,9 +139,9 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     @Override
-    public String exit() {
+    public void exit() {
         SessionUtil.removeSessionVariable("Order" + entity.getId());
-        return super.exit();
+        super.exit();
     }
 
     private boolean validate() {

@@ -16,6 +16,35 @@
 
 
     <ui:define name="body">
+        <script type="text/javascript">
+
+            var init = [];
+            window.onload = function () {
+                for (var i in init) {
+                    if (typeof( init[i] ) == 'function') init[i]();
+                }
+            }
+
+
+        </script>
+
+
+        <ui:fragment rendered="#{!personScreen.saved and personScreen.closed}">
+            <script type="text/javascript">
+                init.push(exit());
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{personScreen.saved and !personScreen.closed}">
+            <script type="text/javascript">
+                init.push(save);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{personScreen.saved and personScreen.closed}">
+            <script type="text/javascript">
+                init.push(saveExit());
+            </script>
+        </ui:fragment>
+
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
@@ -111,29 +140,30 @@
             <HR/>
 
             <p>
-                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                                  action="#{personScreen.saveAndExit}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
                                  disabled="#{!(personScreen.edit ? personScreen.userPA.editEx : personScreen.userPA.addEx)}"
-                                 oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.save')}"
+                                 />
+                <h:commandButton value="#{messages.getString('button.save')}"
                                  action="#{personScreen.saveOnly}"
                                  render="mainForm"
                                  styleClass="btn"
                                  rendered="#{personScreen.edit ? personScreen.userPA.editR : personScreen.userPA.addR}"
                                  disabled="#{!(personScreen.edit ? personScreen.userPA.editEx : personScreen.userPA.addEx)}"
-                                 oncomplete="save()"/>
-                <a4j:commandButton value="#{messages.getString('button.delete')}"
+                                 />
+                <h:commandButton value="#{messages.getString('button.delete')}"
                                  action="#{personScreen.delete}"
                                  styleClass="btn"
+                                 render="mainForm"
                                  rendered="#{personScreen.edit and personScreen.userPA.deleteR}"
                                  disabled="#{!personScreen.edit or !personScreen.userPA.deleteEx}"
                                  onclick="return confirm('Вы действительно хотите удалить запись?')"
-                                 oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.cancel')}"
-                                 onclick="exit()"
+                                 />
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{personScreen.exit}"
                                  styleClass="btn"/>
             </p>
         </h:form>

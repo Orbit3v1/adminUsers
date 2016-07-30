@@ -282,13 +282,13 @@
                 </p>
             </rich:popupPanel>
             <h:commandButton value="#{messages.getString('button.saveAndExit')}"
-                             action="#{nomenclatureScreen.saveRefreshClose}"
+                             action="#{nomenclatureScreen.saveAndExit}"
                              render="mainForm"
                              styleClass="btn"
                              rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
                              disabled="#{!(nomenclatureScreen.edit ? nomenclatureScreen.userPA.editEx : nomenclatureScreen.userPA.addEx)}"/>
             <h:commandButton value="#{messages.getString('button.save')}"
-                             action="#{nomenclatureScreen.saveRefresh}"
+                             action="#{nomenclatureScreen.saveOnly}"
                              render="mainForm"
                              styleClass="btn"
                              rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.editR : nomenclatureScreen.userPA.addR}"
@@ -300,7 +300,7 @@
                              disabled="#{!nomenclatureScreen.edit or !nomenclatureScreen.userPA.deleteEx}"
                              onclick="return confirm('Вы действительно хотите удалить запись?')"/>
             <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
-                             action="#{nomenclatureScreen.close}"
+                             action="#{nomenclatureScreen.exit}"
                              styleClass="btn"/>
 
         </h:form>

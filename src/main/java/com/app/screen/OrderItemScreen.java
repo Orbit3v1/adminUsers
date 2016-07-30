@@ -87,20 +87,15 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         return orderItem;
     }
 
-    @Override
-    public void initEntity(OrderItem entity) {
-
-
-    }
 
     public void shareOrderItem(){
         SessionUtil.addSessionVariable("OrderItem", entity);
     }
 
     @Override
-    public String exit() {
+    public void exit() {
         SessionUtil.removeSessionVariable("OrderItem" + entity.getId());
-        return super.exit();
+        super.exit();
     }
 
     @Override
@@ -110,7 +105,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
             updateOrderItems();
             return true;
         } else {
-            SessionUtil.setMessage("mainForm:panel", "orderItemScreen.error.title", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "orderItemScreen.error.title", FacesMessage.SEVERITY_ERROR);
         }
         return false;
     }
@@ -130,17 +125,21 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
             entity.setName(getItemName(source));
 
             source.getOrderItems().add(entity);
-            editEntity(entity);
+            originalOrderItem = entity;
+            entity = new OrderItem();
+            entity.copyForm(originalOrderItem);
+            edit = true;
         }
     }
 
 
 
-    public String delete(){
+    public void delete(){
         logger.info("delete");
         OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
         source.getOrderItems().remove(originalOrderItem);
-        return exit();
+        saved = true;
+        exit();
     }
 
     public void cancelEndActual(){

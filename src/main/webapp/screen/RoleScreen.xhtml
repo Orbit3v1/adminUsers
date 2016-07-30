@@ -21,12 +21,32 @@
         <script src="../js/roleScreen.js" type="text/javascript"/>
         <script type="text/javascript">
 
+            var init = [];
             window.onload = function () {
                 initCheckboxHeader();
+                for (var i in init) {
+                    if (typeof( init[i] ) == 'function') init[i]();
+                }
             }
 
 
         </script>
+
+        <ui:fragment rendered="#{!roleScreen.saved and roleScreen.closed}">
+            <script type="text/javascript">
+                init.push(exit());
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{roleScreen.saved and !roleScreen.closed}">
+            <script type="text/javascript">
+                init.push(save);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{roleScreen.saved and roleScreen.closed}">
+            <script type="text/javascript">
+                init.push(saveExit());
+            </script>
+        </ui:fragment>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
@@ -130,7 +150,8 @@
                         <h:selectBooleanCheckbox id="cbExecute"
                                                  value="#{row.executeSelected}"
                                                  rendered="#{row.executeAvailable}"
-                                                 disabled="#{roleScreen.isDisabled('privileges')}"/>
+                                                 disabled="#{roleScreen.isDisabled('privileges')}"
+                                                 onclick="synchronizeCheckboxHeader('cbExecuteHeader', 'cbExecute')"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:collapsiblePanel>
@@ -138,30 +159,30 @@
             <HR/>
 
             <p>
-                <a4j:commandButton value="#{messages.getString('button.saveAndExit')}"
-                                   action="#{roleScreen.saveAndExit}"
-                                   render="mainForm"
-                                   styleClass="btn"
-                                   rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                                   disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"
-                                   oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.save')}"
-                                   action="#{roleScreen.saveOnly}"
-                                   render="mainForm"
-                                   styleClass="btn"
-                                   rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
-                                   disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"
-                                   oncomplete="save()"/>
-                <a4j:commandButton value="#{messages.getString('button.delete')}"
-                                   action="#{roleScreen.delete}"
-                                   styleClass="btn"
-                                   rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
-                                   disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteEx}"
-                                   onclick="return confirm('Вы действительно хотите удалить запись?')"
-                                   oncomplete="saveExit()"/>
-                <a4j:commandButton value="#{messages.getString('button.cancel')}"
-                                   onclick="exit()"
-                                   styleClass="btn"/>
+                <h:commandButton value="#{messages.getString('button.saveAndExit')}"
+                                 action="#{roleScreen.saveAndExit}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
+                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"
+                        />
+                <h:commandButton value="#{messages.getString('button.save')}"
+                                 action="#{roleScreen.saveOnly}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{roleScreen.edit ? roleScreen.userPA.editR : roleScreen.userPA.addR}"
+                                 disabled="#{!(roleScreen.edit ? roleScreen.userPA.editEx : roleScreen.userPA.addEx)}"
+                        />
+                <h:commandButton value="#{messages.getString('button.delete')}"
+                                 action="#{roleScreen.delete}"
+                                 styleClass="btn"
+                                 rendered="#{roleScreen.edit and roleScreen.userPA.deleteR}"
+                                 disabled="#{!roleScreen.edit or !roleScreen.userPA.deleteEx}"
+                                 onclick="return confirm('Вы действительно хотите удалить запись?')"
+                        />
+                <h:commandButton value="#{messages.getString('button.cancel')}"
+                                 action="#{roleScreen.exit}"
+                                 styleClass="btn"/>
 
             </p>
         </h:form>
