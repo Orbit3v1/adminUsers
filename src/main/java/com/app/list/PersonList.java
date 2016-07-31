@@ -1,6 +1,7 @@
 package com.app.list;
 
 import com.app.entity.Person;
+import com.app.web.Loggable;
 import org.springframework.context.annotation.Scope;
 import com.app.utils.Security;
 
@@ -22,7 +23,7 @@ public class PersonList {
     private List<Person> persons;
     private Map<String, Boolean> userPA;
 
-
+    @Loggable
     @PostConstruct
     public void init(){
         Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName");

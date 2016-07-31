@@ -5,5 +5,10 @@
         <include within="com.app..*"/>
     </weaver>
 
+    <aspects>
+        <!-- weave in just this aspect -->
+        <aspect name="com.app.web.WebServiceLogger"/>
+    </aspects>
+
 
 </aspectj>
