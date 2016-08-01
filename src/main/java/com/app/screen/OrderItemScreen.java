@@ -151,7 +151,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         if(order.getOrderItems() == null || order.getOrderItems().size() == 0){
             return "1";
         }
-        OrderItem itemWithMaxName = Collections.max(order.getOrderItems(), (i1, i2) -> (i1.getName().compareTo(i2.getName())));
+        OrderItem itemWithMaxName = Collections.max(order.getOrderItems(), (i1, i2) -> (AppUtil.toInteger(i1.getName()).compareTo(AppUtil.toInteger(i2.getName()))));
         String maxName = itemWithMaxName.getName();
         Integer max = AppUtil.toInteger(maxName);
         return AppUtil.toString(max + 1);
