@@ -6,8 +6,8 @@ import java.util.Date;
  * Created by ayaroslavtsev on 01.07.2016.
  */
 public enum ProductionReportSort {
-    NAME_ASC("r.order.name, r.name"),
-    NAME_DESC("r.order.name desc, r.name desc"),
+    NAME_ASC("r.order.name, cast(r.name as int)"),
+    NAME_DESC("r.order.name desc, cast(r.name as int) desc"),
     CUSTOMER_ASC("r.order.customer"),
     CUSTOMER_DESC("r.order.customer desc"),
     NOMENCLATURE_ASC("r.nomenclature.name"),

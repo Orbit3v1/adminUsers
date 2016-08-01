@@ -152,7 +152,7 @@ public class OrderList {
         }
         if(!ProductionReportSort.NAME_ASC.equals(filter.getSort())
                     && !ProductionReportSort.NAME_DESC.equals(filter.getSort())) {
-            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, r.name";
+            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, cast(r.name as int)";
         }
         sqlOrder = " order by " + sqlOrder;
 
