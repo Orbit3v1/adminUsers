@@ -47,6 +47,8 @@ public class OrderList {
     private OrderListFilter filter;
     private int gibTotal;
 
+    private String orderItemIdEdit;
+
     @PostConstruct
     public void init() {
         logger.info("init");
@@ -193,6 +195,10 @@ public class OrderList {
         return image;
     }
 
+    public void editOrderItem(String id){
+        this.orderItemIdEdit = id;
+    }
+
     public void setEndActual(OrderItem orderItem) {
         logger.info("set actual end. OrderItem.id = " + orderItem.getId());
         Date date = new Date();
@@ -305,6 +311,14 @@ public class OrderList {
 
     public void setDevelopers(List<Person> developers) {
         this.developers = developers;
+    }
+
+    public String getOrderItemIdEdit() {
+        return orderItemIdEdit;
+    }
+
+    public void setOrderItemIdEdit(String orderItemIdEdit) {
+        this.orderItemIdEdit = orderItemIdEdit;
     }
 }
 

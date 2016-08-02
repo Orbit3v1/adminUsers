@@ -19,7 +19,9 @@
         <script type="text/javascript">
             function postSave(saveError) {
                 if (saveError) {
-                    #{rich:component('savePanel')}.show();
+                    #{rich:component('savePanel')}
+                .
+                    show();
                 }
             }
         </script>
@@ -91,6 +93,14 @@
                             var="row"
                             rowClasses="odd-row, even-row"
                             binding="#{table}">
+                <rich:column rendered="#{orderList.userPA.editEx}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <a4j:commandButton value="e"
+                                       styleClass="btn"
+                                       action="#{orderList.editOrderItem(row.orderItem.id)}"
+                                       render="orders"
+                            />
+                </rich:column>
                 <rich:column rendered="#{orderList.userPA.nameR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
@@ -108,6 +118,8 @@
                                      onclick="openPopUp('/screen/OrderScreen.xhtml?id=#{row.order.id}', 'OrderScreen#{row.order.id}')"
                                      styleClass="link"
                                      style="display: block; text-decoration: none;"/>
+
+
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.customerR}"
@@ -271,7 +283,8 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:panelGroup rendered="#{orderList.userPA.docDateE}">
+                    <h:panelGroup
+                            rendered="#{orderList.userPA.docDateE and orderList.orderItemIdEdit == row.orderItem.id}">
                         <rich:calendar value="#{row.docDate}"
                                        locale="#{locale}"
                                        popup="true"
@@ -287,7 +300,8 @@
                                            render="saveInfo"
                                            style="display: none"/>
                     </h:panelGroup>
-                    <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
+                    <h:outputText value="#{row.docDate}"
+                                  rendered="#{!orderList.userPA.docDateE or orderList.orderItemIdEdit != row.orderItem.id}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
 
@@ -308,7 +322,8 @@
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                                      style="width: 100px"/>
                     </f:facet>
-                    <h:panelGroup rendered="#{orderList.userPA.developerE}">
+                    <h:panelGroup
+                            rendered="#{orderList.userPA.developerE and orderList.orderItemIdEdit == row.orderItem.id}">
                         <rich:select id="developer"
                                      value="#{row.developerEntity}"
                                      converter="#{personConverter}"
@@ -333,7 +348,8 @@
                                            render="saveInfo"
                                            style="display: none"/>
                     </h:panelGroup>
-                    <h:outputText value="#{row.developer}" rendered="#{!orderList.userPA.developerE}"/>
+                    <h:outputText value="#{row.developer}"
+                                  rendered="#{!orderList.userPA.developerE or orderList.orderItemIdEdit != row.orderItem.id}"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.endPlanR}"
@@ -365,7 +381,8 @@
                         </h:panelGroup>
                         <br/>
                     </f:facet>
-                    <h:panelGroup rendered="#{orderList.userPA.endPlanE}">
+                    <h:panelGroup
+                            rendered="#{orderList.userPA.endPlanE and orderList.orderItemIdEdit == row.orderItem.id}">
                         <rich:calendar value="#{row.endPlan}"
                                        locale="#{locale}"
                                        popup="true"
@@ -381,7 +398,8 @@
                                            render="saveInfo"
                                            style="display: none"/>
                     </h:panelGroup>
-                    <h:outputText value="#{row.endPlan}" rendered="#{!orderList.userPA.endPlanE}">
+                    <h:outputText value="#{row.endPlan}"
+                                  rendered="#{!orderList.userPA.endPlanE or orderList.orderItemIdEdit != row.orderItem.id}">
                         <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
                     </h:outputText>
 

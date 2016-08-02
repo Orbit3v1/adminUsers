@@ -509,6 +509,13 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("orderAdd", "EXECUTE")))
                 );
 
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEdit", "READ")))
+                );
+                userPA.put("editEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderItemEdit", "EXECUTE")))
+                );
+
                 userPA.put("nameR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderName", "READ")))
                 );
