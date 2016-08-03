@@ -46,6 +46,7 @@ public class OrderList {
 
     private OrderListFilter filter;
     private int gibTotal;
+    private int test1;
 
     @PostConstruct
     public void init() {
