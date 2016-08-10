@@ -30,11 +30,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     private OrderItem originalOrderItem;
     private Order source;
 
-    @Inject
-    private ApplicationContext applicationContext;
-    @Inject
-    Validator<OrderItem> validator;
-
     @PostConstruct
     public void init() {
         logger.info("init");
@@ -57,7 +52,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         }
     }
 
-    @Override
     public void initEntity() {
         String id = getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
@@ -99,15 +93,9 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     @Override
-    protected boolean save() {
-        if (validate()) {
-            entity.setCount(AppUtil.toInteger(count));
-            updateOrderItems();
-            return true;
-        } else {
-            addMessage.setMessage("mainForm:panel", "orderItemScreen.error.title", FacesMessage.SEVERITY_ERROR);
-        }
-        return false;
+    protected void save() {
+        entity.setCount(AppUtil.toInteger(count));
+        updateOrderItems();
     }
 
     @Transactional
@@ -136,7 +124,6 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
     public void delete(){
         logger.info("delete");
-        OrderScreen orderScreen = applicationContext.getBean(OrderScreen.class);
         source.getOrderItems().remove(originalOrderItem);
         saved = true;
         exit();
@@ -157,7 +144,8 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         return AppUtil.toString(max + 1);
     }
 
-    private boolean validate() {
+    @Override
+    protected boolean validate() {
         return validator.validate(entity, edit, count);
     }
 

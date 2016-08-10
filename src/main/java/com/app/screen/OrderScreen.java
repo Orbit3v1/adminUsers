@@ -28,9 +28,6 @@ import java.util.stream.Collectors;
 @Scope("view")
 public class OrderScreen extends EntityScreen<Order>  {
 
-    @Inject
-    Validator<Order> validator;
-
     private List<Person> developers;
 
     @PostConstruct
@@ -47,7 +44,6 @@ public class OrderScreen extends EntityScreen<Order>  {
         return "orderScreen";
     }
 
-    @Override
     @Transactional
     public void initEntity() {
         String id = getParameter("id");
@@ -65,28 +61,8 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     @Override
-    public boolean save() {
-        if (validate()) {
-            try {
-                saveData();
-
-                String bundleKey = edit ? "orderScreen.success.edit" : "orderScreen.success.save";
-                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
-                edit = true;
-                return true;
-            } catch (OptimisticLockException e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
-            }
-        } else {
-            addMessage.setMessage("mainForm:panel", "orderScreen.error.title", FacesMessage.SEVERITY_ERROR);
-        }
-        return false;
+    public void save() {
+        saveData();
     }
 
     @Transactional
@@ -144,9 +120,6 @@ public class OrderScreen extends EntityScreen<Order>  {
         super.exit();
     }
 
-    private boolean validate() {
-        return validator.validate(entity, edit);
-    }
 
     public List<Person> getDevelopers() {
         return developers;

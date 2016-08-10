@@ -5,8 +5,6 @@ import com.app.entity.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.AppUtil;
-import com.app.utils.SessionUtil;
-import com.app.validator.Validator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,7 +12,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.OptimisticLockException;
 import javax.servlet.http.Part;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,9 +22,6 @@ import java.util.stream.Collectors;
 @Named("nomenclatureScreen")
 @Scope("view")
 public class NomenclatureScreen extends EntityScreen<Nomenclature> {
-
-    @Inject
-    Validator<Nomenclature> validator;
 
     private String gib;
     private Part file;
@@ -81,7 +75,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         }
     }
 
-    @Override
     @Transactional
     public void initEntity() {
         String id = getParameter("id");
@@ -100,29 +93,9 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     }
 
-    public boolean save() {
-        if (validate()) {
-            entity.setGib(AppUtil.toInteger(gib));
-            try {
-                saveData();
-
-                String bundleKey = edit ? "nomenclatureScreen.success.edit" : "nomenclatureScreen.success.save";
-                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
-                edit = true;
-                return true;
-            } catch (OptimisticLockException e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
-                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
-                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
-            }
-        } else {
-            addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.title", FacesMessage.SEVERITY_ERROR);
-        }
-        return false;
+    public void save() {
+        entity.setGib(AppUtil.toInteger(gib));
+        saveData();
     }
 
     @Transactional
@@ -140,7 +113,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         entity = em.merge(entity);
     }
 
-    private boolean validate() {
+    @Override
+    protected boolean validate() {
         return validator.validate(entity, edit, gib);
     }
 
@@ -250,22 +224,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     public void setFileType(NAType fileType) {
         this.fileType = fileType;
-    }
-
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
-    public boolean isSaved() {
-        return saved;
-    }
-
-    public void setSaved(boolean saved) {
-        this.saved = saved;
     }
 
     public String getGib() {

@@ -19,8 +19,6 @@ import java.util.*;
 @Scope("view")
 public class RoleScreen extends EntityScreen<Role>{
 
-    @Inject
-    Validator<Role> validator;
 
     private List<PrivilegeRow> privilegeRows;
     private Set<PrivilegeActionId> privilegeActions;
@@ -39,7 +37,6 @@ public class RoleScreen extends EntityScreen<Role>{
 
     }
 
-    @Override
     public void initEntity() {
         String id = getParameter("id");
         if(id != null){
@@ -65,29 +62,9 @@ public class RoleScreen extends EntityScreen<Role>{
         return "roleScreen";
     }
 
-    public boolean save() {
-        if (validate()) {
-            try {
-                savePrivileges();
-                saveData();
-
-                String bundleKey = edit ? "roleScreen.success.edit" : "roleScreen.success.save";
-                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
-                edit = true;
-                return true;
-            } catch (OptimisticLockException e){
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
-            }
-        } else {
-            addMessage.setMessage("mainForm:panel", "roleScreen.error.title", FacesMessage.SEVERITY_ERROR);
-        }
-        return false;
+    public void save() {
+        savePrivileges();
+        saveData();
     }
 
     @Transactional
@@ -117,9 +94,7 @@ public class RoleScreen extends EntityScreen<Role>{
         }
     }
 
-    private boolean validate() {
-        return validator.validate(entity, edit);
-    }
+
 
     private void initPrivilegeRows() {
         Query query = em.createQuery("select r from Privilege r order by r.pos");

@@ -2,16 +2,20 @@ package com.app.screen;
 
 import com.app.entity.Nomenclature;
 import com.app.entity.Person;
+import com.app.entity.Role;
 import com.app.entity.Unique;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.utils.SessionUtil;
+import com.app.validator.Validator;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -23,6 +27,8 @@ public abstract class EntityScreen<T extends Unique> {
     protected ResourceBundle resourceBundle;
     @Inject
     protected AddMessage addMessage;
+    @Inject
+    protected Validator<T> validator;
 
     @PersistenceContext
     protected EntityManager em;
@@ -42,11 +48,21 @@ public abstract class EntityScreen<T extends Unique> {
     }
 
     protected abstract String getScreenName();
-    protected abstract boolean save();
+    protected abstract void save();
 
+    public void saveOnly() {
+        logger.info("save entity"  + entity.getId());
+        if (saveAttempt()) {
+            saved = true;
+        }
+    }
 
-    public void initEntity(){
-
+    public void saveAndExit() {
+        logger.info("save entity and exit. "  + entity.getId());
+        if (saveAttempt()) {
+            saved = true;
+            exit();
+        }
     }
 
     public void  exit() {
@@ -54,19 +70,37 @@ public abstract class EntityScreen<T extends Unique> {
         closed = true;
     }
 
-    public void saveOnly() {
-        logger.info("save entity"  + entity.getId());
-        if (save()) {
-            saved = true;
+    private boolean saveAttempt(){
+        boolean success = false;
+        if (validate()) {
+            try {
+                save();
+                postSave();
+
+                success = true;
+            } catch (OptimisticLockException e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+            } catch (Exception e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+            }
+        } else {
+            addMessage.setMessage("mainForm:panel", getScreenName() + ".error.title", FacesMessage.SEVERITY_ERROR);
         }
+        return success;
     }
 
-    public void saveAndExit() {
-        logger.info("save entity and exit. "  + entity.getId());
-        if (save()) {
-            saved = true;
-            exit();
-        }
+    private void postSave(){
+        String bundleKey = edit ? getScreenName() + ".success.edit" : getScreenName() + ".success.save";
+        addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
+        edit = true;
+    }
+
+    protected boolean validate() {
+        return validator.validate(entity, edit);
     }
 
     public boolean isDisabled(String privilege){

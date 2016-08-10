@@ -37,7 +37,7 @@ public class Nomenclature extends AbstractVersionedEntity {
     private List<Component> components = new ArrayList<>();
 
     @OneToMany(mappedBy = "nomenclature")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Nomenclature() {
     }

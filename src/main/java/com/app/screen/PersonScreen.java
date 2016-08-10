@@ -21,9 +21,6 @@ import java.util.List;
 @Scope("view")
 public class PersonScreen extends EntityScreen<Person>{
 
-    @Inject
-    Validator<Person> validator;
-
     private List<Role> roleSourceList;
     private String oldPassword;
 
@@ -35,7 +32,6 @@ public class PersonScreen extends EntityScreen<Person>{
         roleSourceList = query.getResultList();
     }
 
-    @Override
     @Transactional
     public void initEntity() {
         String id = getParameter("id");
@@ -55,28 +51,9 @@ public class PersonScreen extends EntityScreen<Person>{
         return "personScreen";
     }
 
-    public boolean save(){
-        if (validate()) {
-            passwordCode();
-            try {
-                saveData();
-
-                String bundleKey = edit ? "personScreen.success.edit" : "personScreen.success.save";
-                addMessage.setMessage("mainForm:panel", bundleKey, FacesMessage.SEVERITY_INFO);
-                edit = true;
-                return true;
-            } catch (OptimisticLockException | StaleObjectStateException e){
-                logger.error(e.getMessage());
-                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
-            }
-        } else {
-            addMessage.setMessage("mainForm:panel", "personScreen.error.title", FacesMessage.SEVERITY_ERROR);
-        }
-        return false;
+    public void save(){
+        passwordCode();
+        saveData();
     }
 
     @Transactional
@@ -110,10 +87,6 @@ public class PersonScreen extends EntityScreen<Person>{
             oldPassword = DigestUtils.md5Hex(entity.getPassword());
         }
         entity.setPassword(oldPassword);
-    }
-
-    private boolean validate(){
-        return validator.validate(entity, edit);
     }
 
     public List<Role> getRoleSourceList() {
