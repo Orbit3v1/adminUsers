@@ -81,11 +81,11 @@ public class OrderList {
 
         if (notEmpty(filter.getName())) {
             sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
-            parameters.put("name", filter.getName() + "%");
+            parameters.put("name", "%" + filter.getName() + "%");
         }
         if (notEmpty(filter.getCustomer())) {
             sqlWhere += " AND r.order.customer like :customer";
-            parameters.put("customer", filter.getCustomer() + "%");
+            parameters.put("customer", "%" + filter.getCustomer() + "%");
         }
         if (notEmpty(filter.getNomenclature())) {
             sqlWhere += " AND r.nomenclature.name like :nomenclature";
