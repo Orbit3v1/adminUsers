@@ -46,14 +46,14 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     public void initSource(){
-        String id = getParameter("orderId");
+        String id = SessionUtil.getParameter("orderId");
         if(id != null && AppUtil.isNumeric(id)){
             source = (Order) SessionUtil.getSessionVariable("Order" + id);
         }
     }
 
     public void initEntity() {
-        String id = getParameter("id");
+        String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = getOrderItemById(source, AppUtil.toInteger(id));
             originalOrderItem = entity;

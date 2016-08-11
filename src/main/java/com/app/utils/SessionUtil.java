@@ -31,6 +31,12 @@ public class SessionUtil {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
+    public static String getParameter(String name){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String passedParameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
+        return passedParameter;
+    }
+
     @Deprecated
     public static void setMessage(String componentId, String bundleKey, FacesMessage.Severity type){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

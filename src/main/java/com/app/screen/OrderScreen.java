@@ -46,7 +46,7 @@ public class OrderScreen extends EntityScreen<Order>  {
 
     @Transactional
     public void initEntity() {
-        String id = getParameter("id");
+        String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Order.class, AppUtil.toInteger(id));
             entity.getOrderItems().size();

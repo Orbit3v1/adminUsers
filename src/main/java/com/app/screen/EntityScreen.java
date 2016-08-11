@@ -8,6 +8,7 @@ import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.utils.SessionUtil;
 import com.app.validator.Validator;
+import com.app.web.Loggable;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -41,9 +42,9 @@ public abstract class EntityScreen<T extends Unique> {
     protected boolean closed;
     protected boolean saved;
 
+    @Loggable
     @PostConstruct
     protected void initSecurity() {
-        logger.info("init security");
         userPA = Security.getUserPrivilegeAction(getScreenName());
     }
 
@@ -106,12 +107,6 @@ public abstract class EntityScreen<T extends Unique> {
     public boolean isDisabled(String privilege){
         Boolean res = edit ? userPA.get(privilege + "E") : userPA.get(privilege + "W");
         return  res == null || !res;
-    }
-
-    protected String getParameter(String name){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String passedParameter = facesContext.getExternalContext().getRequestParameterMap().get(name);
-        return passedParameter;
     }
 
     public T getEntity() {

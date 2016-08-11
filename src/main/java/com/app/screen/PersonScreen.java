@@ -34,7 +34,7 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @Transactional
     public void initEntity() {
-        String id = getParameter("id");
+        String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Person.class, AppUtil.toInteger(id));
             entity.getRoles().size();

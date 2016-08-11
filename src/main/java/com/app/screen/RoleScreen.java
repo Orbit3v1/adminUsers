@@ -38,7 +38,7 @@ public class RoleScreen extends EntityScreen<Role>{
     }
 
     public void initEntity() {
-        String id = getParameter("id");
+        String id = SessionUtil.getParameter("id");
         if(id != null){
             entity = em.find(Role.class, id);
             edit = true;

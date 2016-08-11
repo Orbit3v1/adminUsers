@@ -2,6 +2,7 @@ package com.app.screen;
 
 import com.app.dictionary.NAType;
 import com.app.entity.*;
+import com.app.utils.SessionUtil;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.AppUtil;
@@ -77,7 +78,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     public void initEntity() {
-        String id = getParameter("id");
+        String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Nomenclature.class, AppUtil.toInteger(id));
             this.entity.getNomenclatureAttachments().size();
