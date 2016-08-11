@@ -2,6 +2,7 @@ package com.app.screen;
 
 import com.app.dictionary.NAType;
 import com.app.entity.*;
+import com.app.utils.Download;
 import com.app.utils.SessionUtil;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
 @Named("nomenclatureScreen")
 @Scope("view")
 public class NomenclatureScreen extends EntityScreen<Nomenclature> {
+
+    @Inject
+    private Download downloader;
 
     private String gib;
     private Part file;
@@ -158,36 +162,10 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     }
 
 
-    @Transactional
     public void download(NomenclatureAttachment nomenclatureAttachment) {
         logger.info("download attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
         Attachment attachment = nomenclatureAttachment.getAttachment();
-
-        String fileName = attachment.getName();
-        try {
-            fileName = URLEncoder.encode(attachment.getName(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        ec.responseReset();
-        ec.setResponseContentType(attachment.getType());
-        ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-
-        try {
-            AttachmentContent content = em.find(AttachmentContent.class, attachment.getId());
-            OutputStream output = ec.getResponseOutputStream();
-            output.write(content.getContent());
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        }
-
-        fc.responseComplete();
-
+        downloader.download(attachment);
     }
 
     public Part getFile() {
