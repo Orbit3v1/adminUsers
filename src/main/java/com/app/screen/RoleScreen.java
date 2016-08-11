@@ -44,7 +44,6 @@ public class RoleScreen extends EntityScreen<Role>{
             edit = true;
         } else{
             entity = new Role();
-            entity.setPrivilegeAction(new ArrayList<>());
         }
 
     }

@@ -55,7 +55,6 @@ public class OrderScreen extends EntityScreen<Order>  {
             entity = new Order();
             entity.setResponsible(Security.getCurrentUser());
             entity.setStart(new Date());
-            entity.setOrderItems(new ArrayList<>());
         }
 
     }

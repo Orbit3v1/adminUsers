@@ -88,10 +88,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             edit = true;
         } else{
             entity = new Nomenclature();
-            entity.setNomenclatureAttachments(new ArrayList<>());
-            entity.setComponents(new ArrayList<>());
         }
-
     }
 
     public void save() {
