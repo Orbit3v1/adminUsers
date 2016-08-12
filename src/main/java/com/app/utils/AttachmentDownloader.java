@@ -2,7 +2,6 @@ package com.app.utils;
 
 import com.app.entity.Attachment;
 import com.app.entity.AttachmentContent;
-import com.app.entity.NomenclatureAttachment;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,27 +22,30 @@ public class AttachmentDownloader implements Download{
     @PersistenceContext
     private EntityManager em;
     private Logger logger = Logger.getLogger(getClass());
+    
+    private FacesContext facesContext;
+    private ExternalContext externalContext;
+    private Attachment attachment;
 
     public void download(Attachment attachment) {
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-
-        populateExternalContent(ec, attachment);
-
-        fc.responseComplete();
-
+        init(attachment);
+        populateExternalContent();
+        sendResponse();
+    }
+    
+    private void init(Attachment attachment){
+        this.attachment = attachment;
+        facesContext = FacesContext.getCurrentInstance();
+        externalContext = facesContext.getExternalContext();
     }
 
-    private void populateExternalContent(ExternalContext ec, Attachment attachment){
+    private void populateExternalContent(){
+        externalContext.responseReset();
+        externalContext.setResponseContentType(attachment.getType());
+        externalContext.setResponseContentLength(Math.toIntExact(attachment.getSize()));
+        externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + getFileName(attachment) + "\"");
 
-        ec.responseReset();
-        ec.setResponseContentType(attachment.getType());
-        ec.setResponseContentLength(Math.toIntExact(attachment.getSize()));
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + getFileName(attachment) + "\"");
-
-        addContentTo(ec, attachment);
-
+        addContent();
     }
 
     private String getFileName(Attachment attachment){
@@ -56,10 +58,10 @@ public class AttachmentDownloader implements Download{
         return fileName;
     }
 
-    private void addContentTo(ExternalContext ec, Attachment attachment){
+    private void addContent(){
         try {
-            byte[] content = getContent(attachment);
-            OutputStream output = ec.getResponseOutputStream();
+            byte[] content = getContent();
+            OutputStream output = externalContext.getResponseOutputStream();
             output.write(content);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -68,9 +70,9 @@ public class AttachmentDownloader implements Download{
     }
 
     @Transactional
-    private byte[] getContent(Attachment attachment){
+    private byte[] getContent(){
         AttachmentContent attachmentContent;
-        if(isSaved(attachment)){
+        if(isAttachmentSaved()){
             attachmentContent = em.find(AttachmentContent.class, attachment.getId());
         } else {
             attachmentContent = attachment.getContent();
@@ -78,8 +80,11 @@ public class AttachmentDownloader implements Download{
         return attachmentContent.getContent();
     }
 
-    private boolean isSaved(Attachment attachment){
+    private boolean isAttachmentSaved(){
         return attachment.getId() != 0;
     }
 
+    private void sendResponse(){
+        facesContext.responseComplete();
+    }
 }
