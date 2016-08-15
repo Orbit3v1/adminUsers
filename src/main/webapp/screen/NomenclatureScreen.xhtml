@@ -205,7 +205,7 @@
 
 
                 <a4j:commandButton value="#{messages.getString('button.add')}"
-                                   action="#{nomenclatureScreen.newComponent}"
+                                   action="#{nomenclatureScreen.NCM.add}"
                                    styleClass="btn"
                                    render="popupComponents"
                                    execute="@this"
@@ -223,7 +223,7 @@
 
                     <rich:column style="text-align: center">
                         <a4j:commandButton value="#{table.rowIndex + 1}"
-                                           action="#{nomenclatureScreen.editComponent(components)}"
+                                           action="#{nomenclatureScreen.NCM.edit(components)}"
                                            execute="@this"
                                            render="popupComponents"
                                            oncomplete="#{rich:component('popupComponents')}.show(); return false;"/>
@@ -237,7 +237,7 @@
                     <rich:column rendered="#{nomenclatureScreen.userPA.componentDeleteR}">
 
                         <h:commandButton value="X"
-                                         action="#{nomenclatureScreen.deleteComponent(components)}"
+                                         action="#{nomenclatureScreen.NCM.delete(components)}"
                                          disabled="#{!nomenclatureScreen.userPA.componentDeleteEx}"
                                          styleClass="btnDelete"
                                          render="components"
@@ -263,18 +263,18 @@
                                for="componentName"
                                styleClass="label"/>
                 <h:inputText id="componentName"
-                             value="#{nomenclatureScreen.tmpComponent.name}"
+                             value="#{nomenclatureScreen.NCM.tmpComponent.name}"
                              styleClass="inputLarge"
                              disabled="#{nomenclatureScreen.isDisabled('name')}"/>
 
                 <p>
                     <h:commandButton value="#{messages.getString('button.save')}"
-                                     action="#{nomenclatureScreen.saveComponent}"
+                                     action="#{nomenclatureScreen.NCM.save}"
                                      execute="componentName"
                                      render="mainForm"
                                      styleClass="btn"
                                      rendered="#{nomenclatureScreen.edit ? nomenclatureScreen.userPA.componentEditR : nomenclatureScreen.userPA.componentAddR}"
-                                     disabled="#{!(nomenclatureScreen.componentEdit ? nomenclatureScreen.userPA.componentEditEx : nomenclatureScreen.userPA.componentAddEx)}"
+                                     disabled="#{!(nomenclatureScreen.NCM.edit ? nomenclatureScreen.userPA.componentEditEx : nomenclatureScreen.userPA.componentAddEx)}"
                                      onclick="#{rich:component('popupComponents')}.hide();"/>
                     <h:commandButton value="#{messages.getString('button.cancel')}"
                                      onclick="#{rich:component('popupComponents')}.hide(); return false;"

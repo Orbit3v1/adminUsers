@@ -1,5 +1,6 @@
 package com.app.screen;
 
+import com.app.common.NomenclatureComponentManager;
 import com.app.dictionary.NAType;
 import com.app.entity.*;
 import com.app.utils.Download;
@@ -10,14 +11,9 @@ import com.app.utils.AppUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,53 +27,20 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private String gib;
     private Part file;
     private NAType fileType;
-
-    private Component tmpComponent;
-    private Component originalComponent;
-    private boolean componentEdit;
+    private NomenclatureComponentManager NCM;
 
     @PostConstruct
     public void init() {
         logger.info("init");
         fileType = NAType.BENDING;
         initEntity();
-        tmpComponent = new Component();
 
+        NCM = new NomenclatureComponentManager(entity);
     }
 
     @Override
     protected String getScreenName() {
         return "nomenclatureScreen";
-    }
-
-    public void newComponent(){
-        logger.info("add component");
-        tmpComponent = new Component();
-        tmpComponent.setNomenclature(entity);
-        componentEdit = false;
-    }
-
-    public void editComponent(Component component){
-        logger.info("edit component");
-        originalComponent = component;
-        tmpComponent = new Component();
-        tmpComponent.copyForm(component);
-        componentEdit = true;
-    }
-
-    public void deleteComponent(Component component){
-        entity.getComponents().remove(component);
-    }
-
-    public void saveComponent(){
-        if(componentEdit){
-            logger.info("save existing component");
-            originalComponent.copyForm(tmpComponent);
-        } else {
-            logger.info("save new component");
-            entity.getComponents().add(tmpComponent);
-            componentEdit = true;
-        }
     }
 
     @Transactional
@@ -210,19 +173,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         this.gib = gib;
     }
 
-    public Component getTmpComponent() {
-        return tmpComponent;
+    public NomenclatureComponentManager getNCM() {
+        return NCM;
     }
 
-    public void setTmpComponent(Component tmpComponent) {
-        this.tmpComponent = tmpComponent;
-    }
-
-    public boolean isComponentEdit() {
-        return componentEdit;
-    }
-
-    public void setComponentEdit(boolean componentEdit) {
-        this.componentEdit = componentEdit;
+    public void setNCM(NomenclatureComponentManager NCM) {
+        this.NCM = NCM;
     }
 }
