@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityGraph;
 import javax.servlet.http.Part;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,10 +48,14 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
-            entity = em.find(Nomenclature.class, AppUtil.toInteger(id));
-            this.entity.getNomenclatureAttachments().size();
-            this.entity.getComponents().size();
-            this.entity.getOrderItems().size();
+            EntityGraph<Nomenclature> graph = em.createEntityGraph(Nomenclature.class);
+            graph.addAttributeNodes("nomenclatureAttachments");
+            graph.addAttributeNodes("components");
+            graph.addAttributeNodes("orderItems");
+            Map<String, Object> hints = new HashMap<>();
+            hints.put("javax.persistence.loadgraph", graph);
+
+            entity = em.find(Nomenclature.class, AppUtil.toInteger(id), hints);
             gib = AppUtil.toString(entity.getGib());
             edit = true;
         } else{
