@@ -10,7 +10,7 @@
                 xmlns:a4j="http://richfaces.org/a4j">
 
     <ui:define name="title">
-        <h:outputText value="#{messages.getString('loginScreen.title')}"/>
+        <h:outputText value="#{bundle['loginScreen.title']}"/>
     </ui:define>
 
     <ui:define name="body">
@@ -19,15 +19,15 @@
                 <h:message for="panelLogin" infoClass="info" errorClass="error"/>
                 <h:panelGrid id="panelLogin" columns="2">
 
-                    <h:outputLabel value="#{messages.getString('loginScreen.login')}" for="login"/>
+                    <h:outputLabel value="#{bundle['loginScreen.login']}" for="login"/>
                     <h:inputText id="login" value="#{loginScreen.login}" styleClass="inputMedium" />
 
-                    <h:outputLabel value="#{messages.getString('loginScreen.password')}" for="password"/>
+                    <h:outputLabel value="#{bundle['loginScreen.password']}" for="password"/>
                     <h:inputSecret id="password" value="#{loginScreen.password}" styleClass="inputMedium"/>
 
                 </h:panelGrid>
 
-                <h:commandButton value="#{messages.getString('button.login')}"
+                <h:commandButton value="#{bundle['button.login']}"
                                  action="#{loginScreen.login}"
                                  styleClass="btn"
                                  render="content"/>
@@ -38,7 +38,7 @@
                               style="font-size: 18px; font-weight: bold"/>
                 <br/>
                 <br/>
-                <h:commandButton value="#{messages.getString('button.logout')}"
+                <h:commandButton value="#{bundle['button.logout']}"
                                  action="#{loginScreen.logout}"
                                  styleClass="btn"
                                  render="content"/>

@@ -9,7 +9,21 @@
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
+
+        <resource-bundle>
+            <base-name>
+                com.app.utils.StringsBundle
+            </base-name>
+            <var>bundle</var>
+        </resource-bundle>
+
+        <locale-config>
+            <default-locale>ru_RU</default-locale>
+        </locale-config>
+
     </application>
+
+
 
 
 </faces-config>
