@@ -71,5 +71,12 @@
 
     <bean name="webServiceLogger" class="com.app.web.WebServiceLogger" />
 
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:liquibase/master.xml" />
+        <property name="contexts" value="test, production" />
+        <property name="dropFirst" value="false" />
+    </bean>
+
 
 </beans>
