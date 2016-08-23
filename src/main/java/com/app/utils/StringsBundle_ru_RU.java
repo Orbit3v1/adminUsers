@@ -47,6 +47,24 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"componentEntity.name", "Наименование"},
 
+            {"specificationEntity.name", "#"},
+            {"specificationEntity.nomenclature", "Номенклатура"},
+            {"specificationEntity.responsible", "Ответственный"},
+            {"specificationEntity.start", "Дата рег."},
+            {"specificationEntity.price", "Цена"},
+            {"specificationEntity.discount", "Скидка"},
+            {"specificationEntity.type", "Катег."},
+            {"specificationEntity.developer", "Разработка"},
+            {"specificationEntity.responseDate", "Ответственный"},
+            {"specificationEntity.mainSize", "Габаритные размеры"},
+            {"specificationEntity.detailSize", "Присоединительные, установочные, обязательные размеры, мм"},
+            {"specificationEntity.pressure", "Нагрузка на элементы конструкции, кг**"},
+            {"specificationEntity.additional", "Дополнительные требования к конструкции*"},
+            {"specificationEntity.workDays", "Ориентировочный срок изготовления, раб. дни"},
+            {"specificationEntity.approved", "Дата подписи"},
+            {"specificationEntity.approvedBy", "Подписал"},
+            {"specificationEntity.checked", "Проверенно"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
