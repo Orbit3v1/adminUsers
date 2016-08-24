@@ -28,14 +28,14 @@ import java.util.stream.Collectors;
 @Scope("session")
 public class OrderList {
     @PersistenceContext
-    protected EntityManager em;
-    protected Logger logger = Logger.getLogger(getClass());
+    private EntityManager em;
+    private Logger logger = Logger.getLogger(getClass());
     private List<Person> developers;
 
     @Inject
     ListFilterBean listFilterBeanBean;
     @Inject
-    protected AddMessage addMessage;
+    private AddMessage addMessage;
 
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;

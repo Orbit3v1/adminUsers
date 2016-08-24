@@ -1,11 +1,15 @@
 package com.app.list;
 
+import com.app.entity.OrderItem;
 import com.app.entity.Role;
 import com.app.entity.Specification;
+import com.app.utils.AddMessage;
 import com.app.utils.Security;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +21,11 @@ import java.util.Map;
 @Scope("session")
 public class SpecificationList {
     @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em;
+    private Logger logger = Logger.getLogger(getClass());
+
+    @Inject
+    private AddMessage addMessage;
 
     private List<Specification> specifications;
     private Map<String, Boolean> userPA;
@@ -28,6 +36,16 @@ public class SpecificationList {
         Query query = em.createQuery("select r from Specification r order by r.id");
         specifications = query.getResultList();
         userPA = Security.getUserPrivilegeAction("specificationList");
+    }
+
+    public void updateList() {
+        initList();
+    }
+
+    private void initList() {
+        logger.info("initList");
+
+        //TODO
     }
 
 

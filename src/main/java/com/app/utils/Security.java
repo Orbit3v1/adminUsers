@@ -702,6 +702,9 @@ public class Security {
                 userPA.put("graphicMenuProductionR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("graphicMenuProduction", "READ")))
                 );
+                userPA.put("graphicMenuSpecificationR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("graphicMenuSpecification", "READ")))
+                );
                 break;
             }
 

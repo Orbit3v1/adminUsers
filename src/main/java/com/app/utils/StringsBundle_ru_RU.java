@@ -55,11 +55,11 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationEntity.discount", "Скидка"},
             {"specificationEntity.type", "Катег."},
             {"specificationEntity.developer", "Разработка"},
-            {"specificationEntity.responseDate", "Ответственный"},
+            {"specificationEntity.responseDate", "Ответ на ТЗ"},
             {"specificationEntity.mainSize", "Габаритные размеры"},
             {"specificationEntity.detailSize", "Присоединительные, установочные, обязательные размеры, мм"},
-            {"specificationEntity.pressure", "Нагрузка на элементы конструкции, кг**"},
-            {"specificationEntity.additional", "Дополнительные требования к конструкции*"},
+            {"specificationEntity.pressure", "Нагрузка на элементы конструкции, кг"},
+            {"specificationEntity.additional", "Дополнительные требования к конструкции"},
             {"specificationEntity.workDays", "Ориентировочный срок изготовления, раб. дни"},
             {"specificationEntity.approved", "Дата подписи"},
             {"specificationEntity.approvedBy", "Подписал"},
@@ -139,6 +139,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"order.setEnd", "Сдать"},
 
+            {"specificationList.title", "Реестр ТЗ"},
+            {"specificationList.header", "Реестр ТЗ"},
+
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},
@@ -189,6 +192,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.admin.role", "Роли"},
             {"menu.admin.nomenclature", "Номенклатуры"},
 
-            {"menu.graphic.production", "Производство"}
+            {"menu.graphic.production", "Производство"},
+            {"menu.graphic.specification", "Реестр ТЗ"}
+
     };
 }

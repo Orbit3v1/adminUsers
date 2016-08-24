@@ -15,8 +15,18 @@
 
     <ui:define name="body">
         <ul id="menu" class="leftMenu">
-            <li><h:link id="user" value="#{messages.getString('menu.graphic.production')}" outcome="/list/OrderList"
-                        rendered="#{menu.userPA.graphicMenuProductionR}"/></li>
+            <li>
+                <h:link id="production"
+                        value="#{messages.getString('menu.graphic.production')}"
+                        outcome="/list/OrderList"
+                        rendered="#{menu.userPA.graphicMenuProductionR}"/>
+            </li>
+            <li>
+                <h:link id="specification"
+                        value="#{messages.getString('menu.graphic.specification')}"
+                        outcome="/list/SpecificationList"
+                        rendered="#{menu.userPA.graphicMenuSpecificationR}"/>
+            </li>
 
         </ul>
     </ui:define>

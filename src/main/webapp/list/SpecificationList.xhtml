@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" xmlns:H="http://java.sun.com/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('specificationList.title')}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <script type="text/javascript">
+            function postSave(saveError) {
+                if (saveError) {
+                    #{rich:component('savePanel')}.show();
+                }
+            }
+        </script>
+        <style type="text/css">
+            /*rich:calendar*/
+            .rf-cal-inp {
+                font-size: 12px !important;
+                margin: 3px 3px 3px 3px !important;
+                width: 65px !important;
+            }
+        </style>
+
+        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+
+            <f:event type="preRenderView" listener="#{specificationList.updateList}"/>
+
+            <h:outputText value="#{messages.getString('specificationList.header')}" styleClass="listTitle"/>
+            <br/>
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                               onclick="openPopUp('/screen/OrderScreen.xhtml', 'OrderScreen')"
+                               styleClass="btn"
+                               rendered="#{specificationList.userPA.addR}"
+                               disabled="#{!specificationList.userPA.addEx}"/>
+
+            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
+            <h:panelGroup id="filterPG">
+                <h:commandButton id="findBtn"
+                                 action="#{orderListFilterBean.find}"
+                                 value="#{messages.getString('button.find')}"
+                                 render="orders"
+                                 styleClass="btn"/>
+
+                <h:commandButton value="#{messages.getString('button.clearFilter')}"
+                                 render="orders"
+                                 action="#{orderListFilterBean.clear}"
+                                 styleClass="btn"/>
+
+                <h:commandButton value="#{messages.getString('button.saveFilter')}"
+                                 action="#{orderListFilterBean.save}"
+                                 render="orders"
+                                 styleClass="btn"/>
+
+                <h:commandButton value="#{messages.getString('button.loadFilter')}"
+                                 render="orders"
+                                 action="#{orderListFilterBean.load}"
+                                 styleClass="btn"/>
+
+                <h:selectOneMenu value="#{orderListFilterBean.filter.state}"
+                                 styleClass="inputMedium"
+                                 style="width: 100px!important;">
+                    <f:selectItems value="#{orderList.filterStates}"
+                                   var="type"
+                                   itemValue="#{type}"
+                                   itemLabel="#{type.description}"/>
+                    <f:ajax process="@this" partialSubmit="true"/>
+                </h:selectOneMenu>
+            </h:panelGroup>
+
+            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
+            <h:commandButton value="#{messages.getString('button.export.excel')}"
+                             render="orders"
+                             action="#{orderList.exportExcel}"
+                             styleClass="btn"/>
+
+            <h:message for="filterPG" infoClass="info" errorClass="error"/>
+
+            <h:message for="orders" infoClass="info" errorClass="error"/>
+            <rich:dataTable id="orders" value="#{orderList.listRows}"
+                            var="row"
+                            rowClasses="odd-row, even-row"
+                            binding="#{table}">
+                <rich:column rendered="#{orderList.userPA.nameR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.name')}"
+                                       action="#{orderListFilterBean.setSort('NAME_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('NAME')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:inputText value="#{orderListFilterBean.filter.name}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
+                    </f:facet>
+                    <a4j:commandLink value="#{row.name}"
+                                     onclick="openPopUp('/screen/OrderScreen.xhtml?id=#{row.order.id}', 'OrderScreen#{row.order.id}')"
+                                     styleClass="link"
+                                     style="display: block; text-decoration: none;"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.customerR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.customer')}"
+                                       action="#{orderListFilterBean.setSort('CUSTOMER_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('CUSTOMER')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:inputText value="#{orderListFilterBean.filter.customer}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
+                    </f:facet>
+                    <h:outputText value="#{row.customer}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.nomenclatureR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.nomenclature')}"
+                                       action="#{orderListFilterBean.setSort('NOMENCLATURE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('NOMENCLATURE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:inputText value="#{orderListFilterBean.filter.nomenclature}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
+                    </f:facet>
+                    <a4j:commandLink value="#{row.nomenclatureName}"
+                                     onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{row.nomenclature.id}', 'NomenclatureScreen#{row.nomenclature.id}')"
+                                     styleClass="link"
+                                     style="display: block;"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.countR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.count')}"
+                                       action="#{orderListFilterBean.setSort('COUNT_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('COUNT')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                    </f:facet>
+                    <h:outputText value="#{row.count}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.materialR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('nomenclatureEntity.material')}"
+                                       action="#{orderListFilterBean.setSort('MATERIAL_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('MATERIAL')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                    </f:facet>
+                    <h:outputText value="#{row.material}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.gibR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('nomenclatureEntity.gib')}"
+                                       action="#{orderListFilterBean.setSort('GIB_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage value="/javax.faces.resource/images/#{orderList.getImage('GIB')}.png.xhtml"
+                                            styleClass="headerSortImg"/>
+                        </h:commandLink>
+                    </f:facet>
+                    <h:outputText value="#{row.gib}"/>
+                    <f:facet name="footer">
+                        <h:outputText value="#{orderList.gibTotal}"/>
+                    </f:facet>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.responsibleR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.responsible')}"
+                                       action="#{orderListFilterBean.setSort('RESPONSIBLE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('RESPONSIBLE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:inputText value="#{orderListFilterBean.filter.responsible}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
+                    </f:facet>
+                    <h:outputText value="#{row.responsible}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.startR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderEntity.start')}"
+                                       action="#{orderListFilterBean.setSort('START_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('START')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:panelGroup>
+                            <h:outputLabel value="≥" for="startL"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="startL" value="#{orderListFilterBean.filter.startL}" locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                        <h:panelGroup>
+                            <h:outputLabel value="≤" for="startH"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="startH" value="#{orderListFilterBean.filter.startH}" locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                    </f:facet>
+                    <h:outputText value="#{row.start}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.docDateR}"
+
+                             style="#{row.nomenclature.ready ? 'background-color: #29a329;' : ''}
+                                #{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid;' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.docDate')}"
+                                       action="#{orderListFilterBean.setSort('DOC_DATE_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('DOC_DATE')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:panelGroup>
+                            <h:outputLabel value="≥" for="docDateL"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="docDateL" value="#{orderListFilterBean.filter.docDateL}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                        <h:panelGroup>
+                            <h:outputLabel value="≤" for="docDateH"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="docDateH" value="#{orderListFilterBean.filter.docDateH}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                    </f:facet>
+                    <h:panelGroup rendered="#{orderList.userPA.docDateE}">
+                        <rich:calendar value="#{row.docDate}"
+                                       locale="#{locale}"
+                                       popup="true"
+                                       datePattern="#{messages.getString('datePattern')}"
+                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SDD')"
+                                />
+
+                        <a4j:commandButton value="SDD"
+                                           id="SDD"
+                                           action="#{orderList.setDocDate(row)}"
+                                           execute="@form"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
+                                           style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.docDate}" rendered="#{!orderList.userPA.docDateE}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+
+
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.developerR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.developer')}"
+                                       action="#{orderListFilterBean.setSort('DEVELOPER_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('DEVELOPER')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:inputText value="#{orderListFilterBean.filter.developer}"
+                                     onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                                     style="width: 100px"/>
+                    </f:facet>
+                    <h:panelGroup rendered="#{orderList.userPA.developerE}">
+                        <rich:select id="developer"
+                                     value="#{row.developerEntity}"
+                                     converter="#{personConverter}"
+                                     enableManualInput="true"
+                                     defaultLabel=""
+                                     listWidth="280"
+                                     listHeight="200"
+                                     onchange="clickIn('mainForm:orders:#{table.rowIndex}:SD')">
+                            <f:selectItem itemLabel="" itemValue="#{null}"/>
+                            <f:selectItems value="#{orderList.developers}"
+                                           var="row"
+                                           itemLabel="#{row}"
+                                           itemValue="#{row}"/>
+                        </rich:select>
+
+
+                        <a4j:commandButton value="SD"
+                                           id="SD"
+                                           action="#{orderList.setDeveloper(row)}"
+                                           execute="@form"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
+                                           style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.developer}" rendered="#{!orderList.userPA.developerE}"/>
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.endPlanR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.endPlan')}"
+                                       action="#{orderListFilterBean.setSort('END_PLAN_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('END_PLAN')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:panelGroup>
+                            <h:outputLabel value="≥" for="endPlanL"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="endPlanL" value="#{orderListFilterBean.filter.endPlanL}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                        <h:panelGroup>
+                            <h:outputLabel value="≤" for="endPlanH"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="endPlanH" value="#{orderListFilterBean.filter.endPlanH}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                    </f:facet>
+                    <h:panelGroup rendered="#{orderList.userPA.endPlanE}">
+                        <rich:calendar value="#{row.endPlan}"
+                                       locale="#{locale}"
+                                       popup="true"
+                                       datePattern="#{messages.getString('datePattern')}"
+                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SEP')"
+                                />
+
+                        <a4j:commandButton value="SEP"
+                                           id="SEP"
+                                           action="#{orderList.setEndPlan(row)}"
+                                           execute="@form"
+                                           oncomplete="postSave(#{orderList.saveError})"
+                                           render="saveInfo"
+                                           style="display: none"/>
+                    </h:panelGroup>
+                    <h:outputText value="#{row.endPlan}" rendered="#{!orderList.userPA.endPlanE}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+
+                </rich:column>
+
+                <rich:column rendered="#{orderList.userPA.endActualR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:commandLink value="#{messages.getString('orderItemEntity.endActual')}"
+                                       action="#{orderListFilterBean.setSort('END_ACTUAL_ASC')}"
+                                       styleClass="headerSort">
+                            <h:graphicImage
+                                    value="/javax.faces.resource/images/#{orderList.getImage('END_ACTUAL')}.png.xhtml"
+                                    styleClass="headerSortImg"/>
+                        </h:commandLink>
+                        <h:panelGroup>
+                            <h:outputLabel value="≥" for="endActualL"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="endActualL" value="#{orderListFilterBean.filter.endActualL}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                        <h:panelGroup>
+                            <h:outputLabel value="≤" for="endActualH"
+                                           style="font-size: 12px; vertical-align: middle !important;"/>
+                            <rich:calendar id="endActualH" value="#{orderListFilterBean.filter.endActualH}"
+                                           locale="#{locale}"
+                                           popup="true" datePattern="#{messages.getString('datePattern')}"
+                                           cellWidth="24px" cellHeight="22px"/>
+                        </h:panelGroup>
+                        <br/>
+                    </f:facet>
+                    <h:outputText value="#{row.endActual}" rendered="#{row.endActual != null}">
+                        <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                    </h:outputText>
+                    <a4j:commandButton id="endActualB"
+                                       value="#{messages.getString('order.setEnd')}"
+                                       action="#{orderList.setEndActual(row.orderItem)}"
+                                       disabled="#{!orderList.userPA.endActualW}"
+                                       styleClass="btn"
+                                       rendered="#{row.endActual == null}"
+                                       render="orders"/>
+                </rich:column>
+
+            </rich:dataTable>
+            <a4j:commandButton id="refresh"
+                               render="orders"
+                               style="display: none"
+                               value="refresh"/>
+
+            <rich:popupPanel id="savePanel" modal="true" resizeable="true">
+                <f:facet name="header">
+                    <h:outputText value="Сохранение"/>
+                </f:facet>
+                <h:panelGroup id="saveInfo">
+                    <h:panelGroup rendered="#{orderList.saveError}">
+                        <h:outputText value="Ошибка сохранения позиции: #{orderList.textError}"
+                                      styleClass="error"/>
+                        <br/>
+                        <h:commandButton value="Закрыть"
+                                         onclick="#{rich:component('savePanel')}.hide();"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </rich:popupPanel>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
