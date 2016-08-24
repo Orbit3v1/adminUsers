@@ -1,4 +1,4 @@
-package com.app.web;
+package com.app.filter;
 
 
 import org.springframework.context.annotation.Scope;

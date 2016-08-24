@@ -7,8 +7,10 @@ import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.entity.Person;
 import com.app.excel.ProductionXLS;
+import com.app.filter.ListFilterBean;
+import com.app.filter.OrderListFilterBeanBean;
 import com.app.utils.AddMessage;
-import com.app.web.OrderListFilterBean;
+import com.app.utils.EntityUtil;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,15 +18,11 @@ import com.app.utils.Security;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.app.utils.AppUtil.notEmpty;
-import static com.app.utils.AppUtil.endDay;
 
 @Named("orderList")
 @Scope("session")
@@ -35,7 +33,7 @@ public class OrderList {
     private List<Person> developers;
 
     @Inject
-    OrderListFilterBean orderListFilterBean;
+    ListFilterBean listFilterBeanBean;
     @Inject
     protected AddMessage addMessage;
 
@@ -51,10 +49,9 @@ public class OrderList {
     public void init() {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
-        filter = orderListFilterBean.getFilterOriginal();
+        filter = ((OrderListFilterBeanBean) listFilterBeanBean).getFilterOriginal();
 
-        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
-        developers = query.getResultList();
+        developers = EntityUtil.getDevelopers(em);
     }
 
     public void updateList() {
@@ -63,107 +60,8 @@ public class OrderList {
 
     private void initList() {
         logger.info("initList");
-        Map<String, Object> parameters = new HashMap<>();
-        String sqlFrom = "select r from OrderItem r " +
-                "left join fetch r.order " +
-                "left join fetch r.nomenclature " +
-                "left join fetch r.developer ";
 
-        String sqlAccess = "";
-        if (!Security.hasAccess(userPA, "accessInWork")) {
-            sqlAccess += " AND r.endActual is not null";
-        }
-        if (!Security.hasAccess(userPA, "accessFinished")) {
-            sqlAccess += " AND r.endActual is null";
-        }
-
-        String sqlWhere = sqlAccess;
-
-        if (notEmpty(filter.getName())) {
-            sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
-            parameters.put("name", "%" + filter.getName() + "%");
-        }
-        if (notEmpty(filter.getCustomer())) {
-            sqlWhere += " AND r.order.customer like :customer";
-            parameters.put("customer", "%" + filter.getCustomer() + "%");
-        }
-        if (notEmpty(filter.getNomenclature())) {
-            sqlWhere += " AND r.nomenclature.name like :nomenclature";
-            parameters.put("nomenclature", "%" + filter.getNomenclature() + "%");
-        }
-        if (notEmpty(filter.getResponsible())) {
-            sqlWhere += " AND concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible";
-            parameters.put("responsible", "%" + filter.getResponsible() + "%");
-        }
-        if (notEmpty(filter.getDeveloper())) {
-            sqlWhere += " AND concat(r.developer.lastName, ' ', r.developer.firstName) like :developer";
-            parameters.put("developer", "%" + filter.getDeveloper() + "%");
-        }
-        if (filter.getStartL() != null) {
-            sqlWhere += " AND r.order.start >= :startL";
-            parameters.put("startL", filter.getStartL());
-        }
-        if (filter.getStartH() != null) {
-            sqlWhere += " AND r.order.start <= :startH";
-            parameters.put("startH", endDay(filter.getStartH()));
-        }
-        if (filter.getDocDateL() != null) {
-            sqlWhere += " AND r.docDate >= :docDateL";
-            parameters.put("docDateL", filter.getDocDateL());
-        }
-        if (filter.getDocDateH() != null) {
-            sqlWhere += " AND r.docDate <= :docDateH";
-            parameters.put("docDateH", endDay(filter.getDocDateH()));
-        }
-        if (filter.getEndPlanL() != null) {
-            sqlWhere += " AND r.endPlan >= :endPlanL";
-            parameters.put("endPlanL", filter.getEndPlanL());
-        }
-        if (filter.getEndPlanH() != null) {
-            sqlWhere += " AND r.endPlan <= :endPlanH";
-            parameters.put("endPlanH", endDay(filter.getEndPlanH()));
-        }
-        if (filter.getEndActualL() != null) {
-            sqlWhere += " AND r.endActual >= :endActualL";
-            parameters.put("endActualL", filter.getEndActualL());
-        }
-        if (filter.getEndActualH() != null) {
-            sqlWhere += " AND r.endActual <= :endActualH";
-            parameters.put("endActualH", endDay(filter.getEndActualH()));
-        }
-        switch (filter.getState()) {
-            case IN_WORK:
-                sqlWhere += " AND r.endActual is null";
-                break;
-            case FINISHED:
-                sqlWhere += " AND r.endActual is not null";
-                break;
-            default:
-                break;
-        }
-
-        if (!sqlWhere.equals("")) {
-            sqlWhere = "WHERE" + sqlWhere.substring(4);
-        }
-
-        String sqlOrder = "";
-        if(filter.getSort() != null){
-            sqlOrder += filter.getSort().getSqlOrder();
-        }
-        if(!ProductionReportSort.NAME_ASC.equals(filter.getSort())
-                    && !ProductionReportSort.NAME_DESC.equals(filter.getSort())) {
-            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, cast(r.name as int)";
-        }
-        sqlOrder = " order by " + sqlOrder;
-
-        String sqlFull = sqlFrom + sqlWhere + sqlOrder;
-
-        Query query = em.createQuery(sqlFull);
-        for (Map.Entry<String, Object> e : parameters.entrySet()) {
-            query.setParameter(e.getKey(), e.getValue());
-        }
-
-        List<OrderItem> orderItems = query.getResultList();
+        List<OrderItem> orderItems = listFilterBeanBean.getList();
         initListRows(orderItems);
         gibTotal = listRows.stream().filter(v -> v.getGib() != null).mapToInt(v -> v.getGib() * v.getCount()).sum();
     }
@@ -239,7 +137,6 @@ public class OrderList {
 
         }
     }
-
 
     private void catchError(Exception e, OrderItem orderItem){
         logger.error(e.getMessage());

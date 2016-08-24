@@ -5,6 +5,7 @@ import com.app.entity.Order;
 import com.app.entity.OrderItem;
 import com.app.entity.Person;
 import com.app.utils.AppUtil;
+import com.app.utils.EntityUtil;
 import com.app.utils.Security;
 import org.richfaces.model.Filter;
 import org.springframework.beans.factory.BeanNameAware;
@@ -35,8 +36,7 @@ public class OrderScreen extends EntityScreen<Order>  {
         logger.info("init");
         initEntity();
 
-        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
-        developers = query.getResultList();
+        developers = EntityUtil.getDevelopers(em);
     }
 
     @Override
