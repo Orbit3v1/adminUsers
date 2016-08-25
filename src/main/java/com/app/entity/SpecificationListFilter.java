@@ -1,16 +1,16 @@
 package com.app.entity;
 
 import com.app.dictionary.OrderItemState;
+import com.app.dictionary.ProductionReportSort;
+import com.app.dictionary.Sort;
+import com.app.dictionary.SpecificationSort;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "specificationListFilter")
-public class SpecificationListFilter extends AbstractVersionedEntity  {
+public class SpecificationListFilter extends AbstractVersionedEntity implements Filter<SpecificationListFilter> {
     @Id
     @Column(name = "id")
     private int id;
@@ -42,6 +42,10 @@ public class SpecificationListFilter extends AbstractVersionedEntity  {
     @Column(name = "responseDate")
     private Date responseDate;
 
+    @Column(name = "sort")
+    @Enumerated(EnumType.STRING)
+    private SpecificationSort sort;
+
     public SpecificationListFilter() {
     }
 
@@ -55,9 +59,11 @@ public class SpecificationListFilter extends AbstractVersionedEntity  {
         discount = null;
         start = null;
         responseDate = null;
+        sort = null;
     }
 
     public void copyFrom(SpecificationListFilter filter){
+
         name = filter.name;
         type = filter.type;
         nomenclature = filter.nomenclature;
@@ -67,6 +73,7 @@ public class SpecificationListFilter extends AbstractVersionedEntity  {
         discount = filter.discount;
         start = filter.start;
         responseDate = filter.responseDate;
+        sort = filter.sort;
     }
 
     @Override
@@ -148,5 +155,14 @@ public class SpecificationListFilter extends AbstractVersionedEntity  {
 
     public void setResponseDate(Date responseDate) {
         this.responseDate = responseDate;
+    }
+
+    @Override
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = (SpecificationSort) sort;
     }
 }

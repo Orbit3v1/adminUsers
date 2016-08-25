@@ -8,7 +8,7 @@ import com.app.entity.OrderListFilter;
 import com.app.entity.Person;
 import com.app.excel.ProductionXLS;
 import com.app.filter.ListFilterBean;
-import com.app.filter.OrderListFilterBeanBean;
+import com.app.filter.OrderListFilterBean;
 import com.app.utils.AddMessage;
 import com.app.utils.EntityUtil;
 import org.apache.log4j.Logger;
@@ -33,7 +33,7 @@ public class OrderList {
     private List<Person> developers;
 
     @Inject
-    ListFilterBean listFilterBeanBean;
+    ListFilterBean listFilterBean;
     @Inject
     private AddMessage addMessage;
 
@@ -49,7 +49,7 @@ public class OrderList {
     public void init() {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
-        filter = ((OrderListFilterBeanBean) listFilterBeanBean).getFilterOriginal();
+        filter = ((OrderListFilterBean) listFilterBean).getFilterOriginal();
 
         developers = EntityUtil.getDevelopers(em);
     }
@@ -61,7 +61,7 @@ public class OrderList {
     private void initList() {
         logger.info("initList");
 
-        List<OrderItem> orderItems = listFilterBeanBean.getList();
+        List<OrderItem> orderItems = listFilterBean.getList();
         initListRows(orderItems);
         gibTotal = listRows.stream().filter(v -> v.getGib() != null).mapToInt(v -> v.getGib() * v.getCount()).sum();
     }

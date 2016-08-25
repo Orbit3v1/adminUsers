@@ -27,90 +27,34 @@ import static com.app.utils.AppUtil.notEmpty;
 
 @Named("orderListFilterBean")
 @Scope("session")
-public class OrderListFilterBeanBean implements ListFilterBean<OrderItem> {
+public class OrderListFilterBean extends FilterBean implements ListFilterBean<OrderItem> {
 
-    @PersistenceContext
-    protected EntityManager em;
-    @Inject
-    protected AddMessage addMessage;
 
-    protected Logger logger = Logger.getLogger(getClass());
 
-    private OrderListFilter filter;
-    private OrderListFilter filterOriginal;
-    private Map<String, Boolean> userPA;
 
-    @PostConstruct
-    public void init() {
-        userPA = Security.getUserPrivilegeAction("orderList");
-        Integer userId = Security.getCurrentUser().getId();
-        filter = em.find(OrderListFilter.class, userId);
-        if (filter == null) {
-            filter = createNew();
-        }
-        filterOriginal = new OrderListFilter();
-        filterOriginal.copyFrom(filter);
+    @Override
+    protected String getFilterName() {
+        return "orderList";
     }
 
-    private OrderListFilter createNew(){
-        OrderListFilter filter = new OrderListFilter();
-        filter.setId(Security.getCurrentUser().getId());
-        filter.setState(getDefaultState());
-        return filter;
+    @Override
+    protected OrderListFilter createNew() {
+        return new OrderListFilter();
     }
 
-    public OrderItemState getDefaultState() {
+    @Override
+    protected void resetFilter(){
+        super.resetFilter();
+        getFilter().setState(getDefaultState());
+    }
+
+    private OrderItemState getDefaultState() {
         return Security.hasAccess(userPA, "accessInWork") ? OrderItemState.IN_WORK : OrderItemState.ALL;
-    }
-
-    public void clear() {
-        logger.info("clearFilter");
-        filter.clear();
-        filterOriginal.copyFrom(filter);
-    }
-
-    public void save() {
-        logger.info("Save order list filter");
-        try {
-            saveData();
-            addMessage.setMessage("mainForm:orders", "orderListFilter.saveSuccess", FacesMessage.SEVERITY_INFO);
-            filterOriginal.copyFrom(filter);
-        } catch (OptimisticLockException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-            addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-            addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
-        }
-    }
-
-    public void load(){
-        logger.info("Load order list filter");
-        filter = em.find(OrderListFilter.class, Security.getCurrentUser().getId());
-        if(filter == null){
-            filter = createNew();
-        }
-        filterOriginal.copyFrom(filter);
-        addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
-    }
-
-    public void setSort(ProductionReportSort sort){
-        if(sort.equals(filter.getSort())){
-            sort = sort.getReverse();
-        }
-        filter.setSort(sort);
-        filterOriginal.setSort(sort);
-    }
-
-    public void find() {
-        logger.info("find");
-        filterOriginal.copyFrom(filter);
     }
 
     @Override
     public List<OrderItem> getList() {
+        OrderListFilter filterOriginal = getFilterOriginal();
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from OrderItem r " +
                 "left join fetch r.order " +
@@ -126,6 +70,7 @@ public class OrderListFilterBeanBean implements ListFilterBean<OrderItem> {
         }
 
         String sqlWhere = sqlAccess;
+
 
         if (notEmpty(filterOriginal.getName())) {
             sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
@@ -215,13 +160,9 @@ public class OrderListFilterBeanBean implements ListFilterBean<OrderItem> {
         return orderItems;
     }
 
-    @Transactional
-    private void saveData(){
-        filter = em.merge(filter);
-    }
 
     public OrderListFilter getFilter() {
-        return filter;
+        return (OrderListFilter) filter;
     }
 
     public void setFilter(OrderListFilter filter) {
@@ -229,10 +170,7 @@ public class OrderListFilterBeanBean implements ListFilterBean<OrderItem> {
     }
 
     public OrderListFilter getFilterOriginal() {
-        return filterOriginal;
+        return (OrderListFilter) filterOriginal;
     }
 
-    public void setFilterOriginal(OrderListFilter filterOriginal) {
-        this.filterOriginal = filterOriginal;
-    }
 }

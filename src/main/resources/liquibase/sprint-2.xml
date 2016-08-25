@@ -5,5 +5,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
     <include file="SQL/sprint-2/1.specification init.sql" />
+    <include file="SQL/sprint-2/2.specification priv.sql" />
+    <include file="SQL/sprint-2/3.spec filter.sql" />
 
 </databaseChangeLog>

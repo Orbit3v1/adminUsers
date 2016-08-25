@@ -2,13 +2,14 @@ package com.app.entity;
 
 import com.app.dictionary.OrderItemState;
 import com.app.dictionary.ProductionReportSort;
+import com.app.dictionary.Sort;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "orderListFilter")
-public class OrderListFilter extends AbstractVersionedEntity {
+public class OrderListFilter extends AbstractVersionedEntity implements Filter<OrderListFilter> {
 
     @Id
     @Column(name = "id")
@@ -221,11 +222,11 @@ public class OrderListFilter extends AbstractVersionedEntity {
         this.state = state;
     }
 
-    public ProductionReportSort getSort() {
+    public Sort getSort() {
         return sort;
     }
 
-    public void setSort(ProductionReportSort sort) {
-        this.sort = sort;
+    public void setSort(Sort sort) {
+        this.sort = (ProductionReportSort) sort;
     }
 }

@@ -7,4 +7,5 @@ public interface ListFilterBean<T> {
 
     public List<T> getList();
 
+
 }
