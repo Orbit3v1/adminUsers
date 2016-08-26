@@ -9,8 +9,10 @@ create table specificationListFilter(
   responsible varchar(500),
   developer varchar(500),
 
-  start date,
-  responseDate date,
+  startL date,
+  startH date,
+  responseDateL date,
+  responseDateH date,
 
   sort varchar(500),
 

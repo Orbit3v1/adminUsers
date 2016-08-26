@@ -13,7 +13,7 @@ public enum SpecificationSort implements Sort{
     PRICE_ASC("r.price"),
     PRICE_DESC("r.price desc"),
     DISCOUNT_ASC("r.discount"),
-    DISCOUNT__DESC("r.discount desc"),
+    DISCOUNT_DESC("r.discount desc"),
     RESPONSIBLE_ASC("r.responsible.lastName, r.responsible.firstName"),
     RESPONSIBLE_DESC("r.responsible.lastName desc, r.responsible.firstName desc"),
     DEVELOPER_ASC("r.developer.lastName, r.developer.firstName"),

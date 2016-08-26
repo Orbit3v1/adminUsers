@@ -678,6 +678,50 @@ public class Security {
                 );
 
             }
+            case("specificationList"):{
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdd", "READ")))
+                );
+                userPA.put("addEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdd", "EXECUTE")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationName", "READ")))
+                );
+
+                userPA.put("startR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationStart", "READ")))
+                );
+
+                userPA.put("typeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationType", "READ")))
+                );
+
+                userPA.put("nomenclatureR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationNomenclature", "READ")))
+                );
+
+                userPA.put("priceR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPrice", "READ")))
+                );
+
+                userPA.put("discountR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDiscount", "READ")))
+                );
+
+                userPA.put("responseDateR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponseDate", "READ")))
+                );
+
+                userPA.put("developerR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDeveloper", "READ")))
+                );
+
+                userPA.put("responsibleR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponsible", "READ")))
+                );
+            }
             case("menu"): {
                 userPA.put("graphMenuR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("graphMenu", "READ")))

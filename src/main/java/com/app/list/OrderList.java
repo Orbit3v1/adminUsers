@@ -8,15 +8,19 @@ import com.app.entity.OrderListFilter;
 import com.app.entity.Person;
 import com.app.excel.ProductionXLS;
 import com.app.filter.ListFilterBean;
+import com.app.filter.OrderListCDI;
 import com.app.filter.OrderListFilterBean;
 import com.app.utils.AddMessage;
 import com.app.utils.EntityUtil;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.Security;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,7 +36,8 @@ public class OrderList {
     private Logger logger = Logger.getLogger(getClass());
     private List<Person> developers;
 
-    @Inject
+    @OrderListCDI
+    @Autowired
     ListFilterBean listFilterBean;
     @Inject
     private AddMessage addMessage;

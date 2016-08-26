@@ -1,6 +1,7 @@
 package com.app.filter;
 
 import com.app.dictionary.ProductionReportSort;
+import com.app.dictionary.Sort;
 import com.app.entity.Filter;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
@@ -71,7 +72,7 @@ public abstract class FilterBean {
         filterOriginal.copyFrom(filter);
     }
 
-    public void setSort(ProductionReportSort sort){
+    public void setSort(Sort sort){
         if(sort.equals(filter.getSort())){
             sort = sort.getReverse();
         }

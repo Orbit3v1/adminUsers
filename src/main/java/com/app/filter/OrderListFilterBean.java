@@ -2,12 +2,14 @@ package com.app.filter;
 
 import com.app.dictionary.OrderItemState;
 import com.app.dictionary.ProductionReportSort;
+import com.app.dictionary.Sort;
 import com.app.entity.OrderItem;
 import com.app.entity.OrderListFilter;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
@@ -25,12 +27,10 @@ import java.util.Map;
 import static com.app.utils.AppUtil.endDay;
 import static com.app.utils.AppUtil.notEmpty;
 
+@OrderListCDI
 @Named("orderListFilterBean")
 @Scope("session")
 public class OrderListFilterBean extends FilterBean implements ListFilterBean<OrderItem> {
-
-
-
 
     @Override
     protected String getFilterName() {
@@ -50,6 +50,10 @@ public class OrderListFilterBean extends FilterBean implements ListFilterBean<Or
 
     private OrderItemState getDefaultState() {
         return Security.hasAccess(userPA, "accessInWork") ? OrderItemState.IN_WORK : OrderItemState.ALL;
+    }
+
+    public void setSort(ProductionReportSort sort){
+        super.setSort(sort);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class Specification extends AbstractVersionedEntity {
     private String name;
 
     @Column(name = "subName")
-    private int subName;
+    private Integer subName;
 
     @Column(name = "start")
     private Date start;
@@ -26,7 +26,7 @@ public class Specification extends AbstractVersionedEntity {
     private String price;
 
     @Column(name = "discount")
-    private int discount;
+    private Integer discount;
 
     @Column(name = "type")
     private String type;
@@ -47,14 +47,14 @@ public class Specification extends AbstractVersionedEntity {
     private String additional;
 
     @Column(name = "workDays")
-    private int workDays;
+    private Integer workDays;
 
     @Column(name = "approved")
     private Date approved;
 
     @Column(name = "checked")
     @Type(type = "yes_no")
-    private boolean checked;
+    private Boolean checked;
 
     @ManyToOne
     @JoinColumn(name="nomenclature")
@@ -124,11 +124,11 @@ public class Specification extends AbstractVersionedEntity {
         this.price = price;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 
@@ -180,11 +180,11 @@ public class Specification extends AbstractVersionedEntity {
         this.additional = additional;
     }
 
-    public int getWorkDays() {
+    public Integer getWorkDays() {
         return workDays;
     }
 
-    public void setWorkDays(int workDays) {
+    public void setWorkDays(Integer workDays) {
         this.workDays = workDays;
     }
 

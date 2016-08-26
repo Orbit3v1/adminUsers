@@ -36,11 +36,17 @@ public class SpecificationListFilter extends AbstractVersionedEntity implements 
     @Column(name = "developer")
     private String developer;
 
-    @Column(name = "start")
-    private Date start;
+    @Column(name = "startL")
+    private Date startL;
 
-    @Column(name = "responseDate")
-    private Date responseDate;
+    @Column(name = "startH")
+    private Date startH;
+
+    @Column(name = "responseDateL")
+    private Date responseDateL;
+
+    @Column(name = "responseDateH")
+    private Date responseDateH;
 
     @Column(name = "sort")
     @Enumerated(EnumType.STRING)
@@ -57,8 +63,10 @@ public class SpecificationListFilter extends AbstractVersionedEntity implements 
         developer = null;
         price = null;
         discount = null;
-        start = null;
-        responseDate = null;
+        startL = null;
+        startH = null;
+        responseDateL = null;
+        responseDateH = null;
         sort = null;
     }
 
@@ -71,8 +79,10 @@ public class SpecificationListFilter extends AbstractVersionedEntity implements 
         developer = filter.developer;
         price = filter.price;
         discount = filter.discount;
-        start = filter.start;
-        responseDate = filter.responseDate;
+        startL = filter.startL;
+        startH = filter.startH;
+        responseDateL = filter.responseDateL;
+        responseDateH = filter.responseDateH;
         sort = filter.sort;
     }
 
@@ -141,20 +151,36 @@ public class SpecificationListFilter extends AbstractVersionedEntity implements 
         this.developer = developer;
     }
 
-    public Date getStart() {
-        return start;
+    public Date getStartL() {
+        return startL;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartL(Date startL) {
+        this.startL = startL;
     }
 
-    public Date getResponseDate() {
-        return responseDate;
+    public Date getStartH() {
+        return startH;
     }
 
-    public void setResponseDate(Date responseDate) {
-        this.responseDate = responseDate;
+    public void setStartH(Date startH) {
+        this.startH = startH;
+    }
+
+    public Date getResponseDateL() {
+        return responseDateL;
+    }
+
+    public void setResponseDateL(Date responseDateL) {
+        this.responseDateL = responseDateL;
+    }
+
+    public Date getResponseDateH() {
+        return responseDateH;
+    }
+
+    public void setResponseDateH(Date responseDateH) {
+        this.responseDateH = responseDateH;
     }
 
     @Override
