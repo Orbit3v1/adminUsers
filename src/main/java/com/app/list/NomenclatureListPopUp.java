@@ -3,6 +3,7 @@ package com.app.list;
 import com.app.entity.Nomenclature;
 import com.app.entity.Order;
 import com.app.entity.OrderItem;
+import com.app.entity.SetNomenclature;
 import com.app.screen.OrderItemScreen;
 import com.app.screen.OrderScreen;
 import com.app.utils.AppUtil;
@@ -19,7 +20,7 @@ import javax.inject.Named;
 public class NomenclatureListPopUp extends NomenclatureList{
 
     public void choose(Nomenclature nomenclature){
-        OrderItem source = (OrderItem) SessionUtil.getSessionVariable("OrderItem");
+        SetNomenclature source = (SetNomenclature) SessionUtil.getSessionVariable("EntityNomenclature");
         source.setNomenclature(nomenclature);
     }
 }

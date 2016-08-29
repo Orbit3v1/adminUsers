@@ -7,5 +7,6 @@
     <include file="SQL/sprint-2/1.specification init.sql" />
     <include file="SQL/sprint-2/2.specification priv.sql" />
     <include file="SQL/sprint-2/3.spec filter.sql" />
+    <include file="SQL/sprint-2/4.more priv.sql" />
 
 </databaseChangeLog>

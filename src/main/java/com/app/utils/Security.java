@@ -676,7 +676,7 @@ public class Security {
                 userPA.put("addItemEx", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "EXECUTE")))
                 );
-
+                break;
             }
             case("specificationList"):{
                 userPA.put("addR", hasAnyPrivilegeAction(
@@ -721,6 +721,130 @@ public class Security {
                 userPA.put("responsibleR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("specificationResponsible", "READ")))
                 );
+                break;
+            }
+            case("specificationScreen"):{
+                userPA.put("addR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdd", "READ")))
+                );
+                userPA.put("addEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdd", "EXECUTE")))
+                );
+
+                userPA.put("deleteR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDelete", "READ")))
+                );
+                userPA.put("deleteEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDelete", "EXECUTE")))
+                );
+
+                userPA.put("editR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationEdit", "READ")))
+                );
+                userPA.put("editEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationEdit", "EXECUTE")))
+                );
+
+                userPA.put("nameR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationName", "READ")))
+                );
+                userPA.put("nameW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationName", "WRITE")))
+                );
+                userPA.put("nameE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationName", "EDIT")))
+                );
+
+                userPA.put("startR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationStart", "READ")))
+                );
+                userPA.put("startW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationStart", "WRITE")))
+                );
+                userPA.put("startE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationStart", "EDIT")))
+                );
+
+                userPA.put("typeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationType", "READ")))
+                );
+                userPA.put("typeW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationType", "WRITE")))
+                );
+                userPA.put("typeE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationType", "EDIT")))
+                );
+
+                userPA.put("nomenclatureR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationNomenclature", "READ")))
+                );
+                userPA.put("nomenclatureW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationNomenclature", "WRITE")))
+                );
+                userPA.put("nomenclatureE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationNomenclature", "EDIT")))
+                );
+
+                userPA.put("priceR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPrice", "READ")))
+                );
+                userPA.put("priceW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPrice", "WRITE")))
+                );
+                userPA.put("priceE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPrice", "EDIT")))
+                );
+
+                userPA.put("discountR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDiscount", "READ")))
+                );
+                userPA.put("discountW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDiscount", "WRITE")))
+                );
+                userPA.put("discountE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDiscount", "EDIT")))
+                );
+
+                userPA.put("responseDateR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponseDate", "READ")))
+                );
+                userPA.put("responseDateW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponseDate", "WRITE")))
+                );
+                userPA.put("responseDateE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponseDate", "EDIT")))
+                );
+
+                userPA.put("developerR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDeveloper", "READ")))
+                );
+                userPA.put("developerW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDeveloper", "WRITE")))
+                );
+                userPA.put("developerE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDeveloper", "EDIT")))
+                );
+
+                userPA.put("responsibleR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponsible", "READ")))
+                );
+                userPA.put("responsibleW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponsible", "WRITE")))
+                );
+                userPA.put("responsibleE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationResponsible", "EDIT")))
+                );
+
+                userPA.put("sketchesR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationSketches", "READ")))
+                );
+                userPA.put("sketchesW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationSketches", "WRITE")))
+                );
+                userPA.put("sketchesE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationSketches", "EDIT")))
+                );
+                break;
             }
             case("menu"): {
                 userPA.put("graphMenuR", hasAnyPrivilegeAction(

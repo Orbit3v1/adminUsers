@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orderItem")
-public class OrderItem extends AbstractVersionedEntity{
+public class OrderItem extends AbstractVersionedEntity implements SetNomenclature{
 
     @Id
     @GeneratedValue

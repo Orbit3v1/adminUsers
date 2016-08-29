@@ -4,8 +4,8 @@ package com.app.dictionary;
  * Created by ayaroslavtsev on 25.08.2016.
  */
 public enum SpecificationSort implements Sort{
-    NAME_ASC("r.name, r.subName"),
-    NAME_DESC("r.name desc, r.subName desc"),
+    NAME_ASC("r.name, cast(r.subName as int)"),
+    NAME_DESC("r.name desc, cast(r.subName as int) desc"),
     TYPE_ASC("r.type"),
     TYPE_DESC("r.type desc"),
     NOMENCLATURE_ASC("r.nomenclature.name"),

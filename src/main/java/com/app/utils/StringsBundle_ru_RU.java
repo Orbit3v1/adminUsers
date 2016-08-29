@@ -142,6 +142,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationList.title", "Реестр ТЗ"},
             {"specificationList.header", "Реестр ТЗ"},
 
+            {"specificationScreen.title", "ТЗ"},
+            {"specificationScreen.sketches", "Эскизы"},
+            {"specificationScreen.editText", "Редактирование ТЗ"},
+            {"specificationScreen.addText", "Добавление ТЗ"},
+            {"specificationScreen.error.title", "Неверные данные"},
+            {"specificationScreen.error.nameDuplicate", "Такое же наименование есть у другого ТЗ, созраниете ТЗ еще раз"},
+            {"specificationScreen.success.save", "ТЗ успешно создано"},
+            {"specificationScreen.success.edit", "ТЗ успешно изменено"},
+
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},
             {"loginScreen.password", "Пароль"},

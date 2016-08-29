@@ -3,11 +3,13 @@ package com.app.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "specification")
-public class Specification extends AbstractVersionedEntity {
+public class Specification extends AbstractVersionedEntity implements SetNomenclature{
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -17,7 +19,7 @@ public class Specification extends AbstractVersionedEntity {
     private String name;
 
     @Column(name = "subName")
-    private Integer subName;
+    private String subName;
 
     @Column(name = "start")
     private Date start;
@@ -26,7 +28,7 @@ public class Specification extends AbstractVersionedEntity {
     private String price;
 
     @Column(name = "discount")
-    private Integer discount;
+    private String discount;
 
     @Column(name = "type")
     private String type;
@@ -72,14 +74,17 @@ public class Specification extends AbstractVersionedEntity {
     @JoinColumn(name = "approvedBy")
     private Person approvedBy;
 
+    @OneToMany(mappedBy = "specification", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<SpecificationAttachment> specificationAttachments = new ArrayList<>();
+
     public Specification() {
     }
 
-    public boolean isChecked() {
+    public Boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
+    public void setChecked(Boolean checked) {
         this.checked = checked;
     }
 
@@ -100,11 +105,11 @@ public class Specification extends AbstractVersionedEntity {
         this.name = name;
     }
 
-    public int getSubName() {
+    public String getSubName() {
         return subName;
     }
 
-    public void setSubName(int subName) {
+    public void setSubName(String subName) {
         this.subName = subName;
     }
 
@@ -124,11 +129,11 @@ public class Specification extends AbstractVersionedEntity {
         this.price = price;
     }
 
-    public Integer getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
@@ -226,5 +231,13 @@ public class Specification extends AbstractVersionedEntity {
 
     public void setApprovedBy(Person approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    public List<SpecificationAttachment> getSpecificationAttachments() {
+        return specificationAttachments;
+    }
+
+    public void setSpecificationAttachments(List<SpecificationAttachment> specificationAttachments) {
+        this.specificationAttachments = specificationAttachments;
     }
 }

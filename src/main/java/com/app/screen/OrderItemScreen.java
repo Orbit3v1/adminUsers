@@ -83,12 +83,12 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
 
 
     public void shareOrderItem(){
-        SessionUtil.addSessionVariable("OrderItem", entity);
+        SessionUtil.addSessionVariable("EntityNomenclature", entity);
     }
 
     @Override
     public void exit() {
-        SessionUtil.removeSessionVariable("OrderItem" + entity.getId());
+        SessionUtil.removeSessionVariable("EntityNomenclature" + entity.getId());
         super.exit();
     }
 

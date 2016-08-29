@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('specificationScreen.title')}"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+
+    <ui:define name="body">
+        <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
+        <script type="text/javascript">
+
+            var init = [];
+            window.onload = function () {
+                for (var i in init) {
+                    if (typeof( init[i] ) == 'function') init[i]();
+                }
+            }
+
+        </script>
+        <ui:fragment rendered="#{!specificationScreen.saved and specificationScreen.closed}">
+            <script type="text/javascript">
+                init.push(exit());
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{specificationScreen.saved and !specificationScreen.closed}">
+            <script type="text/javascript">
+                init.push(save);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{specificationScreen.saved and specificationScreen.closed}">
+            <script type="text/javascript">
+                init.push(saveExit());
+            </script>
+        </ui:fragment>
+
+        <h:form id="mainForm">
+            <!--Invisible button to catch enter press-->
+            <h:commandButton value="invisible" style="display: none" onclick="return false;"/>
+
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{specificationScreen.edit ? messages.getString('specificationScreen.editText') : messages.getString('specificationScreen.addText')}"/>
+
+            <HR/>
+
+            <h:panelGrid columns="1">
+                <h:message for="panel" infoClass="info" errorClass="error"/>
+
+                <h:panelGroup id="panel" rendered="#{specificationScreen.userPA.nameR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.name')}" for="name"
+                                   styleClass="label"/>
+                    <h:inputText id="name" value="#{specificationScreen.entity.name}"
+                                 styleClass="inputLarge"
+                                 style="width: 218px !important"
+                                 disabled="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
+                    <h:outputText value="-"/>
+                    <h:inputText id="subName" value="#{specificationScreen.entity.subName}"
+                                 styleClass="inputLarge"
+                                 style="width: 50px !important"
+                                 disabled="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
+                    <h:message for="name" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="nomenclatureP" rendered="#{specificationScreen.userPA.nomenclatureR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.nomenclature')}" for="nomenclature"
+                                   styleClass="label"/>
+                    <h:inputText id="nomenclature"
+                                 value="#{specificationScreen.entity.nomenclature}"
+                                 styleClass="inputLarge"
+                                 style="width: 260px !important;"
+                                 disabled="true">
+                    </h:inputText>
+                    <h:panelGroup id="nomenclatureInfo">
+                        <a4j:commandButton
+                                rendered="#{!specificationScreen.isDisabled('nomenclature')}"
+                                action="#{specificationScreen.shareEntity}"
+                                onclick="openPopUp('about:blank', 'NomenclatureListPopUp')"
+                                oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
+                                value="..."
+                                styleClass="findBtn"/>
+
+                        <a4j:commandButton
+                                rendered="#{specificationScreen.entity.nomenclature != null}"
+                                onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{specificationScreen.entity.nomenclature.id}', 'NomenclatureScreen#{specificationScreen.entity.nomenclature.id}')"
+                                image="/javax.faces.resource/images/find.png.xhtml"
+                                style="vertical-align: middle !important;
+                                                outline: none !important;
+                                                border: none !important;"/>
+                        <h:message for="nomenclature" errorClass="error" infoClass="info"/>
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.startR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.start')}" for="start"
+                                   styleClass="label"/>
+                    <rich:calendar id="start"
+                                   value="#{specificationScreen.entity.start}"
+                                   locale="#{locale}"
+                                   popup="true"
+                                   datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true"
+                                   cellWidth="24px"
+                                   cellHeight="22px"
+                                   disabled="#{specificationScreen.isDisabled('start')}"/>
+                    <h:message for="start" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.responsibleR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.responsible')}" for="responsible"
+                                   styleClass="label"/>
+                    <rich:select id="responsible"
+                                 value="#{specificationScreen.entity.responsible}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 listHeight="200"
+                                 disabled="#{specificationScreen.isDisabled('responsible')}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{specificationScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="responsible" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.typeR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.type')}" for="type"
+                                   styleClass="label"/>
+                    <h:inputText id="type" value="#{specificationScreen.entity.type}"
+                                 styleClass="inputLarge"
+                                 disabled="#{specificationScreen.isDisabled('type')}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
+                    <h:message for="type" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.priceR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.price')}" for="price"
+                                   styleClass="label"/>
+                    <h:inputText id="price" value="#{specificationScreen.entity.price}"
+                                 styleClass="inputLarge"
+                                 disabled="#{specificationScreen.isDisabled('price')}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
+                    <h:message for="price" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.discountR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.discount')}" for="discount"
+                                   styleClass="label"/>
+                    <h:inputText id="discount" value="#{specificationScreen.entity.discount}"
+                                 styleClass="inputLarge"
+                                 disabled="#{specificationScreen.isDisabled('discount')}">
+                        <f:ajax process="@this" partialSubmit="true"/>
+                    </h:inputText>
+                    <h:message for="discount" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.developerR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.developer')}" for="developer"
+                                   styleClass="label"/>
+                    <rich:select id="developer"
+                                 value="#{specificationScreen.entity.developer}"
+                                 converter="#{personConverter}"
+                                 enableManualInput="true"
+                                 defaultLabel=""
+                                 listWidth="280"
+                                 listHeight="200"
+                                 disabled="#{specificationScreen.isDisabled('developer')}">
+                        <f:selectItem itemLabel="" itemValue="#{null}"/>
+                        <f:selectItems value="#{specificationScreen.developers}"
+                                       var="row"
+                                       itemLabel="#{row}"
+                                       itemValue="#{row}"/>
+                    </rich:select>
+                    <h:message for="developer" errorClass="error"/>
+                </h:panelGroup>
+
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.responseDateR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.responseDate')}" for="responseDate"
+                                   styleClass="label"/>
+                    <rich:calendar id="responseDate"
+                                   value="#{specificationScreen.entity.responseDate}"
+                                   locale="#{locale}"
+                                   popup="true"
+                                   datePattern="#{messages.getString('dateTimePattern')}"
+                                   showApplyButton="true"
+                                   cellWidth="24px"
+                                   cellHeight="22px"
+                                   disabled="#{specificationScreen.isDisabled('responseDate')}"/>
+                    <h:message for="responseDate" errorClass="error"/>
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+
+            <rich:collapsiblePanel header="#{messages.getString('specificationScreen.sketches')}" switchType="client"
+                                   expanded="true"
+                                   rendered="#{specificationScreen.userPA.sketchesR}">
+                <h:panelGrid columns="1">
+
+                    <rich:dataTable id="drawings" value="#{specificationScreen.sketches}" var="row">
+                        <h:column>
+                            <h:commandLink value="#{row.attachment.name}"
+                                           styleClass="link"
+                                           action="#{specificationScreen.download(row)}"/>
+                        </h:column>
+                        <h:column rendered="#{!specificationScreen.isDisabled('sketches')}">
+                            <h:commandButton value="X"
+                                             action="#{specificationScreen.deleteAttachment(row)}"
+                                             render="sketches"
+                                             styleClass="btnDelete"
+                                             onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                        </h:column>
+                    </rich:dataTable>
+
+                    <h:panelGroup rendered="#{!specificationScreen.isDisabled('sketches')}">
+                        <h:outputLabel for="drawing"
+                                       value="#{messages.getString('button.upload')}"
+                                       styleClass="btn">
+
+                        </h:outputLabel>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:collapsiblePanel>
+
+
+            <h:commandButton value="#{messages.getString('button.saveAndExit')}"
+                             action="#{specificationScreen.saveAndExit}"
+                             render="mainForm"
+                             styleClass="btn"
+                             rendered="#{specificationScreen.edit ? specificationScreen.userPA.editR : specificationScreen.userPA.addR}"
+                             disabled="#{!(specificationScreen.edit ? specificationScreen.userPA.editEx : specificationScreen.userPA.addEx)}"/>
+            <h:commandButton value="#{messages.getString('button.save')}"
+                             action="#{specificationScreen.saveOnly}"
+                             render="mainForm"
+                             styleClass="btn"
+                             rendered="#{specificationScreen.edit ? specificationScreen.userPA.editR : specificationScreen.userPA.addR}"
+                             disabled="#{!(specificationScreen.edit ? specificationScreen.userPA.editEx : specificationScreen.userPA.addEx)}"/>
+            <h:commandButton value="#{messages.getString('button.delete')}"
+                             action="#{specificationScreen.delete}"
+                             styleClass="btn"
+                             rendered="#{specificationScreen.edit and specificationScreen.userPA.deleteR}"
+                             disabled="#{!specificationScreen.edit or !specificationScreen.userPA.deleteEx}"
+                             onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+            <h:commandButton value="#{messages.getString('button.cancel')}" id="exit"
+                             action="#{specificationScreen.exit}"
+                             styleClass="btn"/>
+
+            <a4j:commandButton id="refresh" render="nomenclatureP" action="#{specificationScreen.refresh()}"
+                               style="display:none;" value="refresh"/>
+
+
+        </h:form>
+
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <h:inputFile id="drawing" value="#{specificationScreen.file}"
+                         style="display: none">
+                <a4j:ajax listener="#{specificationScreen.uploadFile}" render="mainForm"/>
+            </h:inputFile>
+        </h:form>
+    </ui:define>
+</ui:composition>

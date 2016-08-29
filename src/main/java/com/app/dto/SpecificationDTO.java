@@ -16,7 +16,7 @@ public class SpecificationDTO {
     private String nomenclatureName;
     private Integer nomenclatureId;
     private String price;
-    private int discount;
+    private String discount;
     private String responsible;
     private String developer;
     private Date start;
@@ -69,11 +69,11 @@ public class SpecificationDTO {
         this.price = price;
     }
 
-    public int getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
