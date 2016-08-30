@@ -844,6 +844,73 @@ public class Security {
                 userPA.put("sketchesE", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("specificationSketches", "EDIT")))
                 );
+
+                userPA.put("mainSizeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationMainSize", "READ")))
+                );
+                userPA.put("mainSizeW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationMainSize", "WRITE")))
+                );
+                userPA.put("mainSizeE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationMainSize", "EDIT")))
+                );
+
+                userPA.put("detailSizeR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDetailSize", "READ")))
+                );
+                userPA.put("detailSizeW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDetailSize", "WRITE")))
+                );
+                userPA.put("detailSizeE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDetailSize", "EDIT")))
+                );
+
+                userPA.put("pressureR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPressure", "READ")))
+                );
+                userPA.put("pressureW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPressure", "WRITE")))
+                );
+                userPA.put("pressureE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationPressure", "EDIT")))
+                );
+
+                userPA.put("additionalR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdditional", "READ")))
+                );
+                userPA.put("additionalW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdditional", "WRITE")))
+                );
+                userPA.put("additionalE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationAdditional", "EDIT")))
+                );
+
+                userPA.put("workDaysR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationWorkDays", "READ")))
+                );
+                userPA.put("workDaysW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationWorkDays", "WRITE")))
+                );
+                userPA.put("workDaysE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationWorkDays", "EDIT")))
+                );
+
+                userPA.put("checkedR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationChecked", "READ")))
+                );
+                userPA.put("checkedW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationChecked", "WRITE")))
+                );
+                userPA.put("checkedE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationChecked", "EDIT")))
+                );
+
+                userPA.put("approveR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationApprove", "READ")))
+                );
+                userPA.put("approveW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationApprove", "WRITE")))
+                );
                 break;
             }
             case("menu"): {
