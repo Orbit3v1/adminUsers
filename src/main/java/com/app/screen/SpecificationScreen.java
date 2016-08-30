@@ -28,6 +28,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
 
     private List<Person> developers;
     private Part file;
+    private String workDays;
 
     @PostConstruct
     public void init() {
@@ -52,6 +53,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
             hints.put("javax.persistence.loadgraph", graph);
 
             entity = em.find(Specification.class, AppUtil.toInteger(id), hints);
+            workDays = AppUtil.toString(entity.getWorkDays());
             edit = true;
         } else {
             entity = new Specification();
@@ -83,23 +85,33 @@ public class SpecificationScreen extends EntityScreen<Specification>{
 
     @Override
     public void save() {
+        entity.setWorkDays(AppUtil.toInteger(workDays));
         if(!edit){
             generateName();
         }
         try {
             saveData();
         } catch (Exception e){
-            Throwable t = e.getCause();
-            while ((t != null) && !(t instanceof ConstraintViolationException)) {
-                t = t.getCause();
-            }
-            if (t instanceof ConstraintViolationException) {
+            if (isConstraintViolationException(e)) {
                 generateSubName();
                 saveData();
             } else {
                 throw e;
             }
         }
+    }
+
+    private boolean isConstraintViolationException(Throwable e){
+        Throwable t = e.getCause();
+        while ((t != null) && !(t instanceof ConstraintViolationException)) {
+            t = t.getCause();
+        }
+        return t instanceof ConstraintViolationException;
+    }
+
+    @Override
+    protected boolean validate() {
+        return validator.validate(entity, edit, workDays);
     }
 
     private void generateName(){
@@ -199,5 +211,13 @@ public class SpecificationScreen extends EntityScreen<Specification>{
 
     public List<SpecificationAttachment> getSketches() {
         return entity.getSpecificationAttachments();
+    }
+
+    public String getWorkDays() {
+        return workDays;
+    }
+
+    public void setWorkDays(String workDays) {
+        this.workDays = workDays;
     }
 }

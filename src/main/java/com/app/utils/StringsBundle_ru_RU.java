@@ -152,6 +152,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationScreen.error.nameDuplicate", "Такое же наименование есть у другого ТЗ, созраниете ТЗ еще раз"},
             {"specificationScreen.success.save", "ТЗ успешно создано"},
             {"specificationScreen.success.edit", "ТЗ успешно изменено"},
+            {"specificationScreen.error.nameDuplicate", "Такое же имя есть у другого ТЗ"},
 
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},

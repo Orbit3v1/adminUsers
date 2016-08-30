@@ -251,7 +251,7 @@
                 <h:panelGroup rendered="#{specificationScreen.userPA.workDaysR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.workDays')}" for="workDays"
                                    styleClass="labelLarge"/>
-                    <h:inputText id="workDays" value="#{specificationScreen.entity.workDays}"
+                    <h:inputText id="workDays" value="#{specificationScreen.workDays}"
                                  styleClass="inputLarge"
                                  disabled="#{specificationScreen.isDisabled('workDays')}"/>
                     <h:message for="workDays" errorClass="error"/>
