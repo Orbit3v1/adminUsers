@@ -212,6 +212,15 @@
                     <h:message for="responseDate" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{specificationScreen.userPA.descriptionR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.description')}" for="description"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="description" value="#{specificationScreen.entity.description}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('description')}"/>
+                    <h:message for="description" errorClass="error"/>
+                </h:panelGroup>
+
                 <h:panelGroup rendered="#{specificationScreen.userPA.mainSizeR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.mainSize')}" for="mainSize"
                                    styleClass="labelLarge"/>

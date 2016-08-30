@@ -755,6 +755,16 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("specificationName", "EDIT")))
                 );
 
+                userPA.put("descriptionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDescription", "READ")))
+                );
+                userPA.put("descriptionW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDescription", "WRITE")))
+                );
+                userPA.put("descriptionE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("specificationDescription", "EDIT")))
+                );
+
                 userPA.put("startR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("specificationStart", "READ")))
                 );

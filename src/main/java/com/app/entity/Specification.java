@@ -21,6 +21,9 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
     @Column(name = "subName")
     private String subName;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "start")
     private Date start;
 
@@ -78,6 +81,10 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
     private List<SpecificationAttachment> specificationAttachments = new ArrayList<>();
 
     public Specification() {
+    }
+
+    public String getFullName(){
+        return name + "-" + subName;
     }
 
     public Boolean getChecked() {
@@ -239,5 +246,13 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
 
     public void setSpecificationAttachments(List<SpecificationAttachment> specificationAttachments) {
         this.specificationAttachments = specificationAttachments;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

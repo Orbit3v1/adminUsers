@@ -48,6 +48,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"componentEntity.name", "Наименование"},
 
             {"specificationEntity.name", "#"},
+            {"specificationEntity.description", "Назначение изделия"},
             {"specificationEntity.nomenclature", "Номенклатура"},
             {"specificationEntity.responsible", "Ответственный"},
             {"specificationEntity.start", "Дата рег."},

@@ -116,7 +116,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     }
 
     private void generateName(){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
         String name = df.format(new Date());
         entity.setName(name);
         generateSubName();

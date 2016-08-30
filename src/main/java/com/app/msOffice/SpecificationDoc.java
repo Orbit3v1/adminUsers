@@ -50,8 +50,9 @@ public class SpecificationDoc {
     }
 
     private void generateData(){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        replaceText("$:Name", specification.getName() + "-" + specification.getSubName());
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        replaceText("$:Name", specification.getFullName());
+        replaceText("$:description", specification.getDescription() == null ? "" : specification.getDescription());
         replaceText("$:nomenclature", specification.getNomenclature() == null ? "" : specification.getNomenclature().getName());
         replaceText("$:responsible", specification.getResponsible() == null ? "" : specification.getResponsible().toString());
         replaceText("$:start", specification.getStart() == null ? "" : df.format(specification.getStart()));
@@ -111,7 +112,7 @@ public class SpecificationDoc {
     }
 
     private String getFileName() {
-        return "ТЗ" + "_" + specification.getName() + "-" + specification.getSubName() + ".doc";
+        return "ТЗ" + "_" + specification.getFullName() + ".doc";
     }
 
 }

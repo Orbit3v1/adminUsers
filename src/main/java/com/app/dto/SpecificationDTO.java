@@ -25,7 +25,7 @@ public class SpecificationDTO {
 
     public SpecificationDTO(Specification sp) {
         this.id = sp.getId();
-        this.name = sp.getName() + "-" + sp.getSubName();
+        this.name = sp.getFullName();
         this.type = sp.getType();
         this.nomenclatureName = sp.getNomenclature() == null ? null : sp.getNomenclature().getName();
         this.nomenclatureId = sp.getNomenclature() == null ? null : sp.getNomenclature().getId();
