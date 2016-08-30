@@ -44,6 +44,15 @@ public class Person extends AbstractVersionedEntity{
     @OneToMany(mappedBy = "responsible")
     private List<Order> orders;
 
+    @OneToMany(mappedBy = "developer")
+    private List<Specification> spDeveloped;
+
+    @OneToMany(mappedBy = "responsible")
+    private List<Specification> spResponsible;
+
+    @OneToMany(mappedBy = "approvedBy")
+    private List<Specification> spApproved;
+
 
     public Person() {
     }
@@ -171,5 +180,29 @@ public class Person extends AbstractVersionedEntity{
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Specification> getSpDeveloped() {
+        return spDeveloped;
+    }
+
+    public void setSpDeveloped(List<Specification> spDeveloped) {
+        this.spDeveloped = spDeveloped;
+    }
+
+    public List<Specification> getSpResponsible() {
+        return spResponsible;
+    }
+
+    public void setSpResponsible(List<Specification> spResponsible) {
+        this.spResponsible = spResponsible;
+    }
+
+    public List<Specification> getSpApproved() {
+        return spApproved;
+    }
+
+    public void setSpApproved(List<Specification> spApproved) {
+        this.spApproved = spApproved;
     }
 }

@@ -80,7 +80,7 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
     public Specification() {
     }
 
-    public Boolean isChecked() {
+    public Boolean getChecked() {
         return checked;
     }
 

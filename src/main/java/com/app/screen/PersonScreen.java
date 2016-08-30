@@ -73,7 +73,11 @@ public class PersonScreen extends EntityScreen<Person>{
     @Transactional
     private boolean canDelete(){
         Person person = em.find(Person.class, entity.getId());
-        return person.getOrderItems().size() == 0 && person.getOrders().size() == 0;
+        return person.getOrderItems().size() == 0
+                && person.getOrders().size() == 0
+                && person.getSpResponsible().size() == 0
+                && person.getSpDeveloped().size() == 0
+                && person.getSpApproved().size() == 0;
     }
 
     @Transactional

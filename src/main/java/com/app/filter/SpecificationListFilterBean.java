@@ -84,11 +84,11 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
             parameters.put("startH", endDay(filterOriginal.getStartH()));
         }
         if (filterOriginal.getResponseDateL() != null) {
-            sqlWhere += " AND r.responseDateL >= :responseDateL";
+            sqlWhere += " AND r.responseDate >= :responseDateL";
             parameters.put("responseDateL", filterOriginal.getResponseDateL());
         }
         if (filterOriginal.getResponseDateH() != null) {
-            sqlWhere += " AND r.responseDateH <= :responseDateH";
+            sqlWhere += " AND r.responseDate <= :responseDateH";
             parameters.put("responseDateH", endDay(filterOriginal.getResponseDateH()));
         }
 
@@ -100,8 +100,8 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
         if(filterOriginal.getSort() != null){
             sqlOrder += filterOriginal.getSort().getSqlOrder();
         }
-        if(!ProductionReportSort.NAME_ASC.equals(filterOriginal.getSort())
-                && !ProductionReportSort.NAME_DESC.equals(filterOriginal.getSort())) {
+        if(!SpecificationSort.NAME_ASC.equals(filterOriginal.getSort())
+                && !SpecificationSort.NAME_DESC.equals(filterOriginal.getSort())) {
             sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.name, cast(r.subName as int)";
         }
         sqlOrder = " order by " + sqlOrder;

@@ -57,7 +57,7 @@
 
                 <h:panelGroup id="panel" rendered="#{specificationScreen.userPA.nameR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.name')}" for="name"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <h:inputText id="name" value="#{specificationScreen.entity.name}"
                                  styleClass="inputLarge"
                                  style="width: 218px !important"
@@ -76,7 +76,7 @@
 
                 <h:panelGroup id="nomenclatureP" rendered="#{specificationScreen.userPA.nomenclatureR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.nomenclature')}" for="nomenclature"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <h:inputText id="nomenclature"
                                  value="#{specificationScreen.entity.nomenclature}"
                                  styleClass="inputLarge"
@@ -106,7 +106,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.startR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.start')}" for="start"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <rich:calendar id="start"
                                    value="#{specificationScreen.entity.start}"
                                    locale="#{locale}"
@@ -122,7 +122,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.responsibleR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.responsible')}" for="responsible"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <rich:select id="responsible"
                                  value="#{specificationScreen.entity.responsible}"
                                  converter="#{personConverter}"
@@ -142,7 +142,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.typeR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.type')}" for="type"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <h:inputText id="type" value="#{specificationScreen.entity.type}"
                                  styleClass="inputLarge"
                                  disabled="#{specificationScreen.isDisabled('type')}">
@@ -154,7 +154,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.priceR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.price')}" for="price"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <h:inputText id="price" value="#{specificationScreen.entity.price}"
                                  styleClass="inputLarge"
                                  disabled="#{specificationScreen.isDisabled('price')}">
@@ -166,7 +166,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.discountR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.discount')}" for="discount"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <h:inputText id="discount" value="#{specificationScreen.entity.discount}"
                                  styleClass="inputLarge"
                                  disabled="#{specificationScreen.isDisabled('discount')}">
@@ -178,7 +178,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.developerR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.developer')}" for="developer"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <rich:select id="developer"
                                  value="#{specificationScreen.entity.developer}"
                                  converter="#{personConverter}"
@@ -199,7 +199,7 @@
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.responseDateR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.responseDate')}" for="responseDate"
-                                   styleClass="label"/>
+                                   styleClass="labelLarge"/>
                     <rich:calendar id="responseDate"
                                    value="#{specificationScreen.entity.responseDate}"
                                    locale="#{locale}"
@@ -212,6 +212,50 @@
                     <h:message for="responseDate" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{specificationScreen.userPA.mainSizeR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.mainSize')}" for="mainSize"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="mainSize" value="#{specificationScreen.entity.mainSize}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('mainSize')}"/>
+                    <h:message for="mainSize" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.detailSizeR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.detailSize')}" for="detailSize"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="detailSize" value="#{specificationScreen.entity.detailSize}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('detailSize')}"/>
+                    <h:message for="detailSize" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.pressureR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.pressure')}" for="pressure"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="pressure" value="#{specificationScreen.entity.pressure}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('pressure')}"/>
+                    <h:message for="pressure" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.additionalR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.additional')}" for="additional"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="additional" value="#{specificationScreen.entity.additional}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('additional')}"/>
+                    <h:message for="additional" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{specificationScreen.userPA.workDaysR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.workDays')}" for="workDays"
+                                   styleClass="labelLarge"/>
+                    <h:inputText id="workDays" value="#{specificationScreen.entity.workDays}"
+                                 styleClass="inputLarge"
+                                 disabled="#{specificationScreen.isDisabled('workDays')}"/>
+                    <h:message for="workDays" errorClass="error"/>
+                </h:panelGroup>
             </h:panelGrid>
 
 
@@ -245,6 +289,40 @@
                 </h:panelGrid>
             </rich:collapsiblePanel>
 
+            <h:panelGrid columns="1">
+                <h:panelGroup rendered="#{specificationScreen.userPA.checkedR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.checked')}" for="checked"
+                                   styleClass="labelLarge"/>
+                    <h:selectBooleanCheckbox id="checked" value="#{specificationScreen.entity.checked}"
+                                             disabled="#{specificationScreen.isDisabled('checked')}"/>
+                    <h:message for="checked" errorClass="error"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="approvePG" rendered="#{specificationScreen.userPA.approveR}">
+                    <h:outputLabel value="#{messages.getString('specificationScreen.approve')}" for="approve"
+                                   styleClass="labelLarge"/>
+
+                    <h:panelGroup id="approve">
+                        <h:inputText id="approved"
+                                     value="#{specificationScreen.approved}"
+                                     disabled="true"
+                                     styleClass="inputLarge"
+                                     rendered="#{specificationScreen.entity.approved != null}">
+                        </h:inputText>
+
+                        <h:commandButton id="approvedSet"
+                                         value="#{messages.getString('specificationScreen.approveB')}"
+                                         action="#{specificationScreen.setApprove}"
+                                         disabled="#{!specificationScreen.userPA.approveW}"
+                                         styleClass="btn"
+                                         rendered="#{specificationScreen.entity.approved == null}"
+                                         render="approvePG"/>
+                    </h:panelGroup>
+                    <h:message for="approve" errorClass="error"/>
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <HR/>
 
             <h:commandButton value="#{messages.getString('button.saveAndExit')}"
                              action="#{specificationScreen.saveAndExit}"

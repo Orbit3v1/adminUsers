@@ -125,8 +125,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         }
     }
 
+    @Transactional
     private boolean canDelete(){
-        return entity.getOrderItems().size() == 0;
+        Nomenclature nomenclature = em.find(Nomenclature.class, entity.getId());
+        return nomenclature.getOrderItems().size() == 0
+                && nomenclature.getSpecifications().size() == 0;
     }
 
 

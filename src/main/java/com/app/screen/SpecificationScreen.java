@@ -2,11 +2,13 @@ package com.app.screen;
 
 import com.app.entity.*;
 import com.app.utils.*;
+import com.app.web.Loggable;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityGraph;
@@ -111,7 +113,8 @@ public class SpecificationScreen extends EntityScreen<Specification>{
         Query query = em.createQuery("select max(cast(p.subName as int)) from Specification p where p.name like :name");
         query.setParameter("name", entity.getName());
         Integer lastSubName = (Integer) query.getSingleResult();
-        entity.setSubName(String.valueOf(lastSubName + 1));
+        lastSubName = lastSubName == null ? 1 : lastSubName + 1;
+        entity.setSubName(String.valueOf(lastSubName));
     }
 
     @Transactional
@@ -140,10 +143,42 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     }
 
     @Transactional
+    public void delete(){
+        logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
+        if(canDelete()){
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
+            saved = true;
+            logger.info("delete success");
+            exit();
+        } else {
+            logger.info("delete fail");
+            addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.delete", FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    private boolean canDelete(){
+        return true;
+    }
+
+    @Transactional
     public void refresh(){
         logger.info("refresh");
         Nomenclature nomenclature = em.find(Nomenclature.class, entity.getNomenclature().getId());
         entity.setNomenclature(nomenclature);
+    }
+
+    public String getApproved(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String approved = df.format(new Date());
+        String approvedBy = entity.getApprovedBy().toString();
+        return approvedBy + " " + approved;
+    }
+
+    @Loggable
+    public void setApprove(){
+        entity.setApproved(new Date());
+        Person approver = Security.getCurrentUser();
+        entity.setApprovedBy(approver);
     }
 
     public List<Person> getDevelopers() {
