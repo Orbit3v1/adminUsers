@@ -1,6 +1,7 @@
 package com.app.screen;
 
 import com.app.entity.*;
+import com.app.msOffice.SpecificationDoc;
 import com.app.utils.*;
 import com.app.web.Loggable;
 import org.hibernate.exception.ConstraintViolationException;
@@ -192,6 +193,19 @@ public class SpecificationScreen extends EntityScreen<Specification>{
         Person approver = Security.getCurrentUser();
         entity.setApprovedBy(approver);
     }
+
+
+    public void generateWord(){
+        SpecificationDoc specificationDoc = new SpecificationDoc(entity);
+        try {
+            specificationDoc.render();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
 
     public List<Person> getDevelopers() {
         return developers;

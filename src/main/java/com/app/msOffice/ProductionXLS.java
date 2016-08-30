@@ -1,7 +1,6 @@
-package com.app.excel;
+package com.app.msOffice;
 
 import com.app.dto.ProductionReportDTO;
-import com.app.dto.SpecificationDTO;
 import com.app.entity.OrderListFilter;
 import com.app.entity.Person;
 import com.app.utils.Security;
@@ -18,23 +17,26 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by ayaroslavtsev on 30.08.2016.
+ * Created by Andrey on 02.07.2016.
  */
-public class SpecificationXLS {
+public class ProductionXLS {
+
     private ResourceBundle resourceBundle;
 
-    private List<SpecificationDTO> listRows;
+    private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
+    private OrderListFilter filter;
     private Workbook wb;
     private Sheet sheet;
     private CellStyle cellStyle;
     private int lastRow = 0;
 
-    private static final String FILE_NAME = "реестрт_ТЗ";
+    private static final String FILE_NAME = "производство";
 
-    public SpecificationXLS(List<SpecificationDTO> listRows, Map<String, Boolean> userPA) {
+    public ProductionXLS(List<ProductionReportDTO> listRows, Map<String, Boolean> userPA, OrderListFilter filter) {
         this.listRows = listRows;
         this.userPA = userPA;
+        this.filter = filter;
         init();
     }
 
@@ -126,53 +128,93 @@ public class SpecificationXLS {
 
         if (userPA.get("nameR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.name"));
+            cell.setCellValue(resourceBundle.getString("orderEntity.name"));
         }
-        if (userPA.get("startR")) {
+        if (userPA.get("customerR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.start"));
-        }
-        if (userPA.get("typeR")) {
-            cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.type"));
+            cell.setCellValue(resourceBundle.getString("orderEntity.customer"));
         }
         if (userPA.get("nomenclatureR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.nomenclature"));
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.nomenclature"));
         }
-        if (userPA.get("priceR")) {
+        if (userPA.get("countR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.price"));
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.count"));
         }
-        if (userPA.get("discountR")) {
+        if (userPA.get("materialR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.discount"));
+            cell.setCellValue(resourceBundle.getString("nomenclatureEntity.material"));
         }
-        if (userPA.get("responseDateR")) {
+        if (userPA.get("gibR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.responseDate"));
-        }
-        if (userPA.get("developerR")) {
-            cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.developer"));
+            cell.setCellValue(resourceBundle.getString("nomenclatureEntity.gib"));
         }
         if (userPA.get("responsibleR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("specificationEntity.responsible"));
+            cell.setCellValue(resourceBundle.getString("orderEntity.responsible"));
         }
+        if (userPA.get("startR")) {
+            cell = row.createCell(lastCell++);
+            cell.setCellValue(resourceBundle.getString("orderEntity.start"));
+        }
+        if (userPA.get("docDateR")) {
+            cell = row.createCell(lastCell++);
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.docDate"));
+        }
+        if (userPA.get("developerR")) {
+            cell = row.createCell(lastCell++);
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.developer"));
+        }
+        if (userPA.get("endPlanR")) {
+            cell = row.createCell(lastCell++);
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.endPlan"));
+        }
+        if (userPA.get("endActualR")) {
+            cell = row.createCell(lastCell);
+            cell.setCellValue(resourceBundle.getString("orderItemEntity.endActual"));
+        }
+
     }
 
     private void generateBody() {
         Row row;
         Cell cell;
 
-        for (SpecificationDTO r : listRows) {
+
+        for (ProductionReportDTO r : listRows) {
             int lastCell = 0;
             row = sheet.createRow(lastRow++);
 
             if (userPA.get("nameR")) {
                 cell = row.createCell(lastCell++);
                 cell.setCellValue(r.getName());
+            }
+            if (userPA.get("customerR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellValue(r.getCustomer());
+            }
+            if (userPA.get("nomenclatureR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellValue(r.getNomenclatureName());
+            }
+            if (userPA.get("countR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellValue(r.getCount());
+            }
+            if (userPA.get("materialR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellValue(r.getMaterial());
+            }
+            if (userPA.get("gibR")) {
+                cell = row.createCell(lastCell++);
+                if (r.getGib() != null) {
+                    cell.setCellValue(r.getGib());
+                }
+            }
+            if (userPA.get("responsibleR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellValue(r.getResponsible());
             }
             if (userPA.get("startR")) {
                 cell = row.createCell(lastCell++);
@@ -181,50 +223,36 @@ public class SpecificationXLS {
                     cell.setCellStyle(cellStyle);
                 }
             }
-            if (userPA.get("typeR")) {
+            if (userPA.get("docDateR")) {
                 cell = row.createCell(lastCell++);
-                if (r.getStart() != null) {
-                    cell.setCellValue(r.getType());
-                }
-            }
-            if (userPA.get("nomenclatureR")) {
-                cell = row.createCell(lastCell++);
-                if (r.getNomenclatureName() != null) {
-                    cell.setCellValue(r.getNomenclatureName());
-                }
-            }
-            if (userPA.get("priceR")) {
-                cell = row.createCell(lastCell++);
-                if (r.getPrice() != null) {
-                    cell.setCellValue(r.getPrice());
-                }
-            }
-            if (userPA.get("discountR")) {
-                cell = row.createCell(lastCell++);
-                if (r.getDiscount() != null) {
-                    cell.setCellValue(r.getDiscount());
-                }
-            }
-            if (userPA.get("responseDateR")) {
-                cell = row.createCell(lastCell++);
-                if (r.getResponseDate() != null) {
-                    cell.setCellValue(r.getResponseDate());
+                if (r.getDocDate() != null) {
+                    cell.setCellValue(r.getDocDate());
                     cell.setCellStyle(cellStyle);
                 }
             }
             if (userPA.get("developerR")) {
                 cell = row.createCell(lastCell++);
-                if (r.getDeveloper() != null) {
-                    cell.setCellValue(r.getDeveloper());
-                }
+                cell.setCellValue(r.getDeveloper());
             }
-            if (userPA.get("responsibleR")) {
+            if (userPA.get("endPlanR")) {
                 cell = row.createCell(lastCell++);
-                if (r.getResponsible() != null) {
-                    cell.setCellValue(r.getResponsible());
+                if (r.getEndPlan() != null) {
+                    cell.setCellValue(r.getEndPlan());
+                    cell.setCellStyle(cellStyle);
                 }
             }
+            if (userPA.get("endActualR")) {
+                cell = row.createCell(lastCell);
+                if (r.getEndActual() != null) {
+                    cell.setCellValue(r.getEndActual());
+                    cell.setCellStyle(cellStyle);
+                }
+            }
+
         }
     }
+
+
 }
+
 

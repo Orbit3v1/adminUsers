@@ -346,6 +346,11 @@
                              action="#{specificationScreen.exit}"
                              styleClass="btn"/>
 
+            <h:commandButton value="WORD" id="word"
+                             action="#{specificationScreen.generateWord}"
+                             styleClass="btn"
+                             render="mainForm"/>
+
             <a4j:commandButton id="refresh" render="nomenclatureP" action="#{specificationScreen.refresh()}"
                                style="display:none;" value="refresh"/>
 

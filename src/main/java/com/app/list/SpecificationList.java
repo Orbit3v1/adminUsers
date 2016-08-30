@@ -1,12 +1,9 @@
 package com.app.list;
 
-import com.app.dictionary.ProductionReportSort;
 import com.app.dictionary.SpecificationSort;
-import com.app.dto.ProductionReportDTO;
 import com.app.dto.SpecificationDTO;
 import com.app.entity.*;
-import com.app.excel.ProductionXLS;
-import com.app.excel.SpecificationXLS;
+import com.app.msOffice.SpecificationXLS;
 import com.app.filter.*;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
@@ -20,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
