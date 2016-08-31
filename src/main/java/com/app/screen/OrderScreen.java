@@ -87,14 +87,6 @@ public class OrderScreen extends EntityScreen<Order>  {
         entity.getOrderItems().remove(orderItem);
     }
 
-    @Transactional
-    public void delete() {
-        logger.info("delete");
-        em.remove(em.merge(entity));
-        saved = true;
-        exit();
-    }
-
     public Filter<?> getOrderItemAccess() {
         return new Filter<OrderItem>() {
             public boolean accept(OrderItem item) {

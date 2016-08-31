@@ -17,7 +17,7 @@ public abstract class AbstractValidator<T> implements Validator<T>{
     protected T entity;
 
     @Override
-    public abstract boolean validate(T entity, Object... args);
+    public abstract boolean validate(T entity, Object ... args);
 
 }
 

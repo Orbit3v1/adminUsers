@@ -120,8 +120,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         }
     }
 
-
-
+    @Override
     public void delete(){
         logger.info("delete");
         source.getOrderItems().remove(originalOrderItem);

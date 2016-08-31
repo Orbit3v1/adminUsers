@@ -48,14 +48,6 @@ public class RoleScreen extends EntityScreen<Role>{
 
     }
 
-    @Transactional
-    public void delete(){
-        logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
-        em.remove(em.merge(entity));
-        saved = true;
-        exit();
-    }
-
     @Override
     protected String getScreenName() {
         return "roleScreen";

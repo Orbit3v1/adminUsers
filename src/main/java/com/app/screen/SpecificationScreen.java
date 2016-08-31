@@ -156,24 +156,6 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     }
 
     @Transactional
-    public void delete(){
-        logger.info("delete. id = " + entity.getId() + "; name = " + entity.getName());
-        if(canDelete()){
-            em.remove(em.contains(entity) ? entity : em.merge(entity));
-            saved = true;
-            logger.info("delete success");
-            exit();
-        } else {
-            logger.info("delete fail");
-            addMessage.setMessage("mainForm:panel", "nomenclatureScreen.error.delete", FacesMessage.SEVERITY_ERROR);
-        }
-    }
-
-    private boolean canDelete(){
-        return true;
-    }
-
-    @Transactional
     public void refresh(){
         logger.info("refresh");
         Nomenclature nomenclature = em.find(Nomenclature.class, entity.getNomenclature().getId());

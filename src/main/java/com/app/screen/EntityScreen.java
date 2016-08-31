@@ -10,6 +10,7 @@ import com.app.utils.SessionUtil;
 import com.app.validator.Validator;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -102,6 +103,24 @@ public abstract class EntityScreen<T extends Unique> {
 
     protected boolean validate() {
         return validator.validate(entity, edit);
+    }
+
+    @Transactional
+    public void delete(){
+        logger.info("delete. id = " + entity.getId());
+        if(canDelete()){
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
+            saved = true;
+            logger.info("delete success");
+            exit();
+        } else {
+            logger.info("delete fail");
+            addMessage.setMessage("mainForm:panel", "error.delete", FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    protected boolean canDelete(){
+        return true;
     }
 
     public boolean isDisabled(String privilege){

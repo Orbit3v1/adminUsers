@@ -76,7 +76,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"personScreen.error.title", "Неверные данные"},
             {"personScreen.error.emailDuplicate", "Такой же email есть у другого пользователя"},
             {"personScreen.error.loginDuplicate", "Такой же логин есть у другого пользователя"},
-            {"personScreen.error.delete", "Пользователь используется в заказах или ТЗ. Удалите пользователя из всех связей"},
             {"personScreen.success.save", "Пользователь успешно создан"},
             {"personScreen.success.edit", "Пользователь успешно изменен"},
 
@@ -110,7 +109,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureScreen.addText", "Добавление номенклатуры"},
             {"nomenclatureScreen.error.title", "Неверные данные"},
             {"nomenclatureScreen.error.nameDuplicate", "Такое же наименование есть у другой номенклатуры"},
-            {"nomenclatureScreen.error.delete", "Номенклатура используется в заказах или ТЗ. Удалите номенклатуру из всех связей"},
             {"nomenclatureScreen.success.save", "Номенклатура успешно создана"},
             {"nomenclatureScreen.success.edit", "Номенклатура успешно изменена"},
 
@@ -196,6 +194,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.entityWasChanged", "Запись была удалена или изменена другим пользователем"},
             {"error.exception", "Ошибка приложения"},
             {"error.notNumber", "Поле должно быть числом"},
+            {"error.delete", "Сущность используется в заказах или ТЗ. Разорвите все связи перед удалением"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},
