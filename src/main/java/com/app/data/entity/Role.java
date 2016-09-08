@@ -24,7 +24,7 @@ public class Role extends AbstractVersionedEntity {
                     @JoinColumn(name = "privilege", referencedColumnName = "privilege"),
                     @JoinColumn(name = "action", referencedColumnName = "action")
             })
-    private List<PrivilegeAction> privilegeAction = new ArrayList<>();;
+    private List<PrivilegeAction> privilegeAction = new ArrayList<>();
 
     public Role() {
     }

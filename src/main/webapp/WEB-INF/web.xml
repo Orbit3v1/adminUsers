@@ -29,19 +29,20 @@
         <welcome-file>screen/LoginScreen.xhtml</welcome-file>
     </welcome-file-list>
 
-    <filter>
-        <filter-name>LoginFilter</filter-name>
-        <filter-class>com.app.web.LoginFilter</filter-class>
-    </filter>
+    <!--TODO activate after development-->
+    <!--<filter>-->
+        <!--<filter-name>LoginFilter</filter-name>-->
+        <!--<filter-class>com.app.web.LoginFilter</filter-class>-->
+    <!--</filter>-->
 
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/screen/*</url-pattern>
-        <url-pattern>/list/*</url-pattern>
+    <!--<filter-mapping>-->
+        <!--<filter-name>LoginFilter</filter-name>-->
+        <!--<url-pattern>/screen/*</url-pattern>-->
+        <!--<url-pattern>/list/*</url-pattern>-->
 
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
+        <!--<dispatcher>REQUEST</dispatcher>-->
+        <!--<dispatcher>FORWARD</dispatcher>-->
+    <!--</filter-mapping>-->
 
     <error-page>
         <error-code>404</error-code>

@@ -7,13 +7,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
-
+    <!--TODO add privs and labels-->
     <ul id="menu" class="headerMenu">
         <li><h:link id="home" value="#{messages.getString('menu.header.home')}" outcome="/screen/LoginScreen"/></li>
         <li><h:link id="graphic" value="#{messages.getString('menu.header.graphic')}" outcome="/screen/GraphicScreen"
                     rendered="#{menu.userPA.graphMenuR}"/></li>
         <li><h:link id="admin" value="#{messages.getString('menu.header.admin')}" outcome="/screen/AdminScreen"
                     rendered="#{menu.userPA.adminMenuR}"/></li>
+        <li><h:link id="calculation" value="Calculation" outcome="/screen/CalculationScreen"
+                    /></li>
     </ul>
     <br/>
 
