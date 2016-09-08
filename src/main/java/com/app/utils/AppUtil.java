@@ -1,18 +1,14 @@
 package com.app.utils;
 
 
-import com.app.entity.Attachment;
-import com.app.entity.AttachmentContent;
+import com.app.data.entity.Attachment;
+import com.app.data.entity.AttachmentContent;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class AppUtil {
 

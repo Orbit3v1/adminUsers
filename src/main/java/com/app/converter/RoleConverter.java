@@ -1,6 +1,6 @@
 package com.app.converter;
 
-import com.app.entity.Role;
+import com.app.data.entity.Role;
 import org.springframework.context.annotation.Scope;
 
 import javax.faces.component.UIComponent;

@@ -1,7 +1,7 @@
 package com.app.common;
 
-import com.app.entity.Component;
-import com.app.entity.Nomenclature;
+import com.app.data.entity.Component;
+import com.app.data.entity.Nomenclature;
 import org.apache.log4j.Logger;
 
 public class NomenclatureComponentManager {

@@ -1,6 +1,6 @@
 package com.app.validator;
 
-import com.app.entity.Person;
+import com.app.data.entity.Person;
 import org.springframework.context.annotation.Scope;
 
 import javax.faces.application.FacesMessage;

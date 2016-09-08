@@ -1,19 +1,12 @@
 package com.app.validator;
 
-import com.app.entity.Nomenclature;
-import com.app.entity.Order;
+import com.app.data.entity.Order;
 import org.springframework.context.annotation.Scope;
-import com.app.utils.AppUtil;
-import com.app.utils.SessionUtil;
 
 import javax.faces.application.FacesMessage;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.ResourceBundle;
 
 @Named("orderValidator")
 @Scope("request")

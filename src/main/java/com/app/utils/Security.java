@@ -1,9 +1,9 @@
 package com.app.utils;
 
-import com.app.entity.Person;
-import com.app.entity.PrivilegeAction;
-import com.app.entity.PrivilegeActionId;
-import com.app.entity.Role;
+import com.app.data.entity.Person;
+import com.app.data.entity.PrivilegeAction;
+import com.app.data.entity.PrivilegeActionId;
+import com.app.data.entity.Role;
 
 import java.util.*;
 

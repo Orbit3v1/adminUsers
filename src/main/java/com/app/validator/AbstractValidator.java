@@ -1,6 +1,5 @@
 package com.app.validator;
 
-import com.app.entity.Person;
 import com.app.utils.AddMessage;
 
 import javax.inject.Inject;

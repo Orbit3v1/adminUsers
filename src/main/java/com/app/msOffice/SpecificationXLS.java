@@ -1,7 +1,7 @@
 package com.app.msOffice;
 
-import com.app.dto.SpecificationDTO;
-import com.app.entity.Person;
+import com.app.data.dto.SpecificationDTO;
+import com.app.data.entity.Person;
 import com.app.utils.Security;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;

@@ -1,6 +1,6 @@
 package com.app.converter;
 
-import com.app.entity.Nomenclature;
+import com.app.data.entity.Nomenclature;
 import org.springframework.context.annotation.Scope;
 
 import javax.faces.component.UIComponent;

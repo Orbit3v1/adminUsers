@@ -1,6 +1,6 @@
 package com.app.utils;
 
-import com.app.entity.Person;
+import com.app.data.entity.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

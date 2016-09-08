@@ -1,7 +1,6 @@
 package com.app.msOffice;
 
-import com.app.entity.Specification;
-import com.app.utils.AppUtil;
+import com.app.data.entity.Specification;
 import org.apache.log4j.Logger;
 import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
@@ -13,11 +12,9 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.apache.poi.hwpf.HWPFDocument;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 

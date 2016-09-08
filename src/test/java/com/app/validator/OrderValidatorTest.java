@@ -1,7 +1,6 @@
 package com.app.validator;
 
-import com.app.entity.Nomenclature;
-import com.app.entity.Order;
+import com.app.data.entity.Order;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

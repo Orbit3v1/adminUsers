@@ -1,7 +1,6 @@
 package com.app.validator;
 
-import com.app.entity.Order;
-import com.app.entity.OrderItem;
+import com.app.data.entity.OrderItem;
 import com.app.utils.AppUtil;
 import org.springframework.context.annotation.Scope;
 

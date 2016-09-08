@@ -1,8 +1,6 @@
 package com.app.validator;
 
-import com.app.entity.Nomenclature;
-import com.app.entity.Role;
-import com.app.entity.Specification;
+import com.app.data.entity.Specification;
 import com.app.utils.AppUtil;
 import org.springframework.context.annotation.Scope;
 

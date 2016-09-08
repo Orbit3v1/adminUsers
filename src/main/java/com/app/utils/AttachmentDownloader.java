@@ -1,7 +1,7 @@
 package com.app.utils;
 
-import com.app.entity.Attachment;
-import com.app.entity.AttachmentContent;
+import com.app.data.entity.Attachment;
+import com.app.data.entity.AttachmentContent;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;

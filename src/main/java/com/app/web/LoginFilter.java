@@ -1,6 +1,6 @@
 package com.app.web;
 
-import com.app.entity.Person;
+import com.app.data.entity.Person;
 import org.slf4j.MDC;
 
 import javax.servlet.*;

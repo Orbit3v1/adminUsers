@@ -1,7 +1,6 @@
 package com.app.validator;
 
-import com.app.entity.Person;
-import com.app.entity.Role;
+import com.app.data.entity.Role;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
