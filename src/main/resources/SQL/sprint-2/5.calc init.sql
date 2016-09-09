@@ -1,6 +1,7 @@
 --drop table calc_tnc;
 --drop table calc_work;
 
+
 create table calc_tnc(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
@@ -8,8 +9,8 @@ create table calc_tnc(
   detailName  varchar(500),
   unitsFrom varchar(50),
   unitsTo varchar(50),
-  ratio numeric,
-  price numeric
+  ratio numeric(19, 4),
+  price numeric(19, 2)
 );
 
 create unique index calc_tnc_U1 on calc_tnc(name);
@@ -18,8 +19,8 @@ create table calc_work(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
   name varchar(500) not null,
-  detail  varchar(500),
-  price numeric
+  description  varchar(500),
+  price numeric(19, 2)
 );
 
 create unique index calc_work_U1 on calc_work(name);

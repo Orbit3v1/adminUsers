@@ -14,8 +14,8 @@ public class Work extends AbstractVersionedEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "detailName")
-    private String detailName;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "price", precision = 21, scale = 4)
     private BigDecimal price;
@@ -37,12 +37,12 @@ public class Work extends AbstractVersionedEntity {
         this.name = name;
     }
 
-    public String getDetailName() {
-        return detailName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetailName(String detailName) {
-        this.detailName = detailName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getPrice() {
