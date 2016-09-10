@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Named("workList")
-@Scope("session")
+@Scope("view")
 public class WorkList {
     @PersistenceContext
     private EntityManager em;
@@ -32,6 +32,8 @@ public class WorkList {
     private List<Work> works;
     private Map<String, Boolean> userPA;
     private Work editEntity;
+    private Work original;
+    private boolean edit;
 
     @Loggable
     @PostConstruct
@@ -42,6 +44,16 @@ public class WorkList {
         editEntity = new Work();
     }
 
+    public void add(){
+        edit = false;
+        editEntity = new Work();
+    }
+
+    public void edit(Work work){
+        edit = true;
+        original = work;
+        editEntity = work.copy();
+    }
 
     public void save(){
         if (validate()) {
@@ -67,8 +79,13 @@ public class WorkList {
 
     @Transactional
     private void saveAttempt(){
-        editEntity = em.merge(editEntity);
-        works.add(editEntity);
+        if(edit){
+            original.copyData(editEntity);
+            original = em.merge(original);
+        } else {
+            editEntity = em.merge(editEntity);
+            works.add(editEntity);
+        }
         editEntity = new Work();
     }
 

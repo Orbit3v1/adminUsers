@@ -17,3 +17,8 @@ ALTER USER owner WITH DEFAULT_SCHEMA = dbo;
 GRANT ALTER ON SCHEMA::dbo TO owner;
 GRANT all to owner;
 sp_addrolemember db_owner,owner;
+
+--db for 1C
+create database owner1C;
+alter database owner1C
+set containment = partial;

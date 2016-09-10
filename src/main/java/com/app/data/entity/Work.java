@@ -52,4 +52,18 @@ public class Work extends AbstractVersionedEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public Work copy(){
+        Work copy = new Work();
+        copy.name = this.name;
+        copy.description = this.description;
+        copy.price = this.price;
+        return copy;
+    }
+
+    public void copyData(Work copy){
+        this.name = copy.name;
+        this.description = copy.description;
+        this.price = copy.price;
+    }
 }
