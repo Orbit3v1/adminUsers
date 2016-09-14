@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "calc_product")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type",discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("PRODUCT")
@@ -37,7 +38,7 @@ public class Product extends AbstractVersionedEntity{
     @JoinColumn(name="parentId")
     private Product parent;
 
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
     private List<Product> subordinates = new ArrayList<>();
 
 
