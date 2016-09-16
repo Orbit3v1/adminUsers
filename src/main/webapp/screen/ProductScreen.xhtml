@@ -19,16 +19,41 @@
             <h:outputText value="Product" styleClass="listTitle"/>
             <br/>
 
+            <p:growl id="growl" showDetail="true"/>
 
-            <p:treeTable value="#{productScreen.root}" var="product"  >
+            <h:commandButton value="#{messages.getString('button.save')}"
+                             action="#{productScreen.save}"
+                             render="mainForm"
+                             styleClass="btn"
+
+                    />
+
+
+            <p:treeTable value="#{productScreen.root}"
+                         var="product"
+                         editable="true"
+                         editMode="cell"
+                         style="font-size: 14px !important;">
+
+                <p:ajax event="cellEdit" listener="#{productScreen.onCellEdit}" update=":mainForm:growl"/>
+
                 <p:column headerText="Name">
-                    <h:outputText value="#{product.name}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.name}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{product.name}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
                 <p:column headerText="Size">
-                    <h:outputText value="#{product.width}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.width}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{product.width}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
                 <p:column headerText="Type">
-                    <h:outputText value="#{product.detail}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.detail}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
             </p:treeTable>
 
