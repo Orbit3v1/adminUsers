@@ -29,11 +29,13 @@ public class ProductScreen {
 
     private TreeNode root;
     private Product entity;
-    private Map<Product, TreeNode> connector;
+    private List<Product> deleteProducts;
+ //   private Map<Product, TreeNode> connector;
 
     @PostConstruct
     public void init() {
         String id = SessionUtil.getParameter("id");
+        deleteProducts = new ArrayList<>();
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Product.class, AppUtil.toInteger(id));
             entity.getSubordinates();
@@ -45,20 +47,41 @@ public class ProductScreen {
 
     private void initRoot(){
         root = new DefaultTreeNode();
-        connector = new HashMap<>();
         TreeNode tn = new DefaultTreeNode(entity, root);
-        connector.put(entity, tn);
+        tn.setExpanded(true);
         initSubordinates(entity, tn);
+        int a = 1;
     }
 
     @Transactional
     private void initSubordinates(Product product, TreeNode parentNode){
-        product = em.find(Product.class, product.getId());
+       // product = em.find(Product.class, product.getId());
         for(Product p : product.getSubordinates()){
             TreeNode tn = new DefaultTreeNode(p, parentNode);
-            connector.put(p, tn);
+            tn.setExpanded(true);
             initSubordinates(p, tn);
         }
+    }
+
+
+    public void addNodeTo(TreeNode node){
+        Product product = new Product();
+        Product parentProduct = (Product) node.getData();
+        product.setParent(parentProduct);
+        parentProduct.getSubordinates().add(product);
+        TreeNode tn = new DefaultTreeNode(product, node);
+        tn.setExpanded(true);
+    }
+
+    public void deleteNode(TreeNode node){
+        TreeNode parentNode = node.getParent();
+        parentNode.getChildren().remove(node);
+        node.setParent(null);
+
+        Product parentProduct = (Product) parentNode.getData();
+        Product product = (Product) node.getData();
+        parentProduct.getSubordinates().remove(product);
+      //  deleteProducts.add();
     }
 
     public void onCellEdit(CellEditEvent event) {
@@ -71,10 +94,24 @@ public class ProductScreen {
         }
     }
 
-    @Transactional
     public void save(){
-        for(Product p : connector.keySet()){
-            p =  em.merge(p);
+        saveNode(root);
+//        delete();
+    }
+
+    @Transactional
+    private void saveNode(TreeNode treeNode){
+        for(TreeNode tn : treeNode.getChildren()){
+            em.merge((Product) tn.getData());
+//            saveNode(tn);
+        }
+    }
+    @Transactional
+    private void delete(){
+        for(Product p : deleteProducts){
+//            em.remove(em.contains(p) ? p : em.merge(p));
+            p = em.find(Product.class, p.getId());
+            em.remove(p);
         }
     }
 
@@ -85,4 +122,5 @@ public class ProductScreen {
     public void setRoot(TreeNode root) {
         this.root = root;
     }
+
 }

@@ -17,8 +17,14 @@
         <h:form id="mainForm">
             <h:outputText value="Product" styleClass="listTitle"/>
             <br/>
-
-            <rich:dataTable id="Products" value="#{productList.products}" var="row"
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                               styleClass="btn"
+                               action="#{productList.add()}"
+                               render="popupAdd"
+                               execute="@this"
+                               oncomplete="#{rich:component('popupAdd')}.show(); return false;"
+                    />
+            <rich:dataTable id="products" value="#{productList.products}" var="row"
                             rowClasses="odd-row, even-row">
                 <rich:column rendered="#{true}">
                     <f:facet name="header">Наименование</f:facet>
@@ -31,6 +37,47 @@
                                render="Products"
                                style="display: none"
                                value="refresh"/>
+
+
+
+            <rich:popupPanel id="popupAdd"
+                             modal="true"
+                             resizeable="true"
+                             width="500"
+                             height="600">
+                <f:facet name="header">
+                    <h:outputText value="#{messages.getString('nomenclatureScreen.components')}"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('popupAdd')}.hide(); return false;"
+                                  style="color: inherit">
+                        X
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
+                                       for="componentName"
+                                       styleClass="label"/>
+                        <h:inputText id="componentName"
+                                     value="#{productList.editEntity.name}"
+                                     styleClass="inputLarge"
+                                />
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <p>
+                    <a4j:commandButton value="#{messages.getString('button.save')}"
+                                     action="#{productList.save}"
+                                     execute="componentName"
+                                     render="products"
+                                     styleClass="btn"
+                                     onclick="#{rich:component('popupAdd')}.hide();"/>
+                    <h:commandButton value="#{messages.getString('button.cancel')}"
+                                     onclick="#{rich:component('popupAdd')}.hide(); return false;"
+                                     styleClass="btn"/>
+                </p>
+            </rich:popupPanel>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -29,10 +29,13 @@
                     />
 
 
-            <p:treeTable value="#{productScreen.root}"
+            <p:treeTable  id="products"
+                          value="#{productScreen.root}"
                          var="product"
+                          nodeVar="node"
                          editable="true"
                          editMode="cell"
+
                          style="font-size: 14px !important;">
 
                 <p:ajax event="cellEdit" listener="#{productScreen.onCellEdit}" update=":mainForm:growl"/>
@@ -54,6 +57,18 @@
                         <f:facet name="output"><h:outputText value="#{product.detail}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
                     </p:cellEditor>
+                </p:column>
+                <p:column style="width:24px">
+                    <p:commandLink update=":mainForm:products"
+                                   action="#{productScreen.addNodeTo(node)}"
+                                   title="Add element"
+                                   styleClass="ui-icon ui-icon-plus">
+                    </p:commandLink>
+                    <p:commandLink update=":mainForm:products"
+                                   action="#{productScreen.deleteNode(node)}"
+                                   title="Delete element"
+                                   styleClass="ui-icon ui-icon-cancel">
+                    </p:commandLink>
                 </p:column>
             </p:treeTable>
 

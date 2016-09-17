@@ -34,11 +34,11 @@ public class Product extends AbstractVersionedEntity{
     @Column(name = "formula")
     private String formula;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="parentId")
     private Product parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
     private List<Product> subordinates = new ArrayList<>();
 
 
