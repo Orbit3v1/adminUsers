@@ -95,6 +95,7 @@ public class ProductScreen {
         Product parentProduct = (Product) parentNode.getData();
         Product product = (Product) node.getData();
         parentProduct.getSubordinates().remove(product);
+        selectedNode = null;
         //  deleteProducts.add();
     }
 

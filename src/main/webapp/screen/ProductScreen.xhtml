@@ -42,9 +42,9 @@
                              disabled="#{productScreen.selectedNode == null}">
                 <p:ajax event="dialogReturn"
                         listener="#{productScreen.onTNCChosen}"
-                        update=":mainForm:products" />
+                        update=":mainForm" />
             </p:commandButton>
-            <p:commandLink update=":mainForm:products"
+            <p:commandLink update=":mainForm"
                            action="#{productScreen.delete}"
                            title="Delete element"
                            value="delete"
@@ -118,7 +118,7 @@
                                 update=":mainForm:products" />
                         <f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}" />
                     </p:commandButton>
-                    <p:commandLink update=":mainForm:products"
+                    <p:commandLink update=":mainForm"
                                    action="#{productScreen.deleteNode(node)}"
                                    title="Delete element"
                                    rendered="#{product.parent != null}"

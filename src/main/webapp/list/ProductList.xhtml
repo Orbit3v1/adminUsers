@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         <h:outputText value="Product"/>
@@ -67,10 +68,10 @@
                 </h:panelGrid>
 
                 <p>
-                    <a4j:commandButton value="#{messages.getString('button.save')}"
+                    <p:commandButton value="#{messages.getString('button.save')}"
                                      action="#{productList.save}"
                                      execute="componentName"
-                                     render="products"
+                                     update=":mainForm:products"
                                      styleClass="btn"
                                      onclick="#{rich:component('popupAdd')}.hide();"/>
                     <h:commandButton value="#{messages.getString('button.cancel')}"

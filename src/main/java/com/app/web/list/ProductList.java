@@ -76,6 +76,7 @@ public class ProductList {
     @Transactional
     private void saveAttempt(){
         editEntity = em.merge(editEntity);
+        products.add(editEntity);
     }
 
     public List<Product> getProducts() {
