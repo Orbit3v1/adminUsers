@@ -1,11 +1,13 @@
 package com.app.web.list;
 
 import com.app.data.entity.Product;
+import com.app.data.entity.Specification;
 import com.app.data.entity.Work;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.QueryHints;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +36,15 @@ public class ProductList {
     @Loggable
     @PostConstruct
     public void init(){
+
+//        EntityGraph<Product> graph = em.createEntityGraph(Product.class);
+//        graph.addAttributeNodes("name");
+//        Query query = em.createQuery("select p from Product p where p.parent = null order by p.name").setHint(QueryHints.FETCHGRAPH, graph);
+
         Query query = em.createQuery("select p from Product p where p.parent = null order by p.name");
         products = query.getResultList();
         userPA = Security.getUserPrivilegeAction("personList");
+        editEntity = new Product();
     }
 
     public void add(){

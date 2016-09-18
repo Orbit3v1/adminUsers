@@ -1,11 +1,8 @@
 package com.app.data.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table(name = "calc_product")
+@Entity
 @DiscriminatorValue("WORK")
 public class ProductWork  extends Product{
     @ManyToOne()

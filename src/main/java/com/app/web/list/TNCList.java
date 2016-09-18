@@ -4,6 +4,7 @@ import com.app.data.entity.Person;
 import com.app.data.entity.TNC;
 import com.app.utils.Security;
 import com.app.web.Loggable;
+import org.primefaces.context.RequestContext;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Named("TNCList")
-@Scope("request")
+@Scope("view")
 public class TNCList {
 
     @PersistenceContext
@@ -30,6 +31,10 @@ public class TNCList {
         Query query = em.createQuery("select p from TNC p order by p.name");
         TNCs = query.getResultList();
         userPA = Security.getUserPrivilegeAction("personList");
+    }
+
+    public void select(TNC tnc) {
+        RequestContext.getCurrentInstance().closeDialog(tnc);
     }
 
     public List<TNC> getTNCs() {

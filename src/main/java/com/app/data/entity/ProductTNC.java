@@ -2,8 +2,7 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 
-
-@Table(name = "calc_product")
+@Entity
 @DiscriminatorValue("TNC")
 public class ProductTNC extends Product{
     @ManyToOne()
