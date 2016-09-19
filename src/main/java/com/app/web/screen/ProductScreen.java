@@ -1,5 +1,6 @@
 package com.app.web.screen;
 
+import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.*;
 import com.app.utils.AppUtil;
 import com.app.utils.SessionUtil;
@@ -22,6 +23,9 @@ import javax.persistence.Query;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.*;
 
 @Named("productScreen")
@@ -49,6 +53,7 @@ public class ProductScreen {
             entity = new Product();
         }
         initRoot();
+        rootCalc = new DefaultTreeNode();
     }
 
     private void initRoot() {
@@ -159,20 +164,46 @@ public class ProductScreen {
 
     public void calculate(){
 
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        String foo = "function calc(a){" +
-                "return a+2;" +
-                "}" +
-                "" +
-                "a=1;" +
-                "calc(a)";
 
+        rootCalc = new DefaultTreeNode();
+        generateCalcTree(rootCalc, entity);
+        int a = 1;
+    }
+
+    private void generateCalcTree(TreeNode parentNode, Product product){
+        BigDecimal price = execute(product.getFormula());
+        CalculationDTO calc = new CalculationDTO(product.getName(), price);
+
+        TreeNode tn = new DefaultTreeNode(calc, parentNode);
+        tn.setExpanded(true);
+        for(Product p : product.getSubordinates()){
+            generateCalcTree(tn, p);
+        }
+
+        if(parentNode.getData() != null){
+            CalculationDTO parentCalc = (CalculationDTO) parentNode.getData();
+            parentCalc.setPrice(parentCalc.getPrice().add(calc.getPrice()));
+        }
+
+    }
+
+    private BigDecimal execute(String formula){
+         ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+//        double result = 0;
+//        try {
+//            result = (double) engine.eval(formula);
+//        } catch (ScriptException e) {
+//            e.printStackTrace();
+//        }
+//        return new BigDecimal(result,  MathContext.DECIMAL64);
+        String result = "0";
         try {
-            System.out.println(engine.eval(foo));
+            result = engine.eval(formula).toString();
         } catch (ScriptException e) {
             e.printStackTrace();
         }
+        return new BigDecimal(result);
     }
 
     public TreeNode getRoot() {
@@ -189,5 +220,13 @@ public class ProductScreen {
 
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
+    }
+
+    public TreeNode getRootCalc() {
+        return rootCalc;
+    }
+
+    public void setRootCalc(TreeNode rootCalc) {
+        this.rootCalc = rootCalc;
     }
 }

@@ -29,41 +29,48 @@
 
                     />
             <h:panelGroup id="buttons">
-            <p:commandLink update=":mainForm:products"
-                           action="#{productScreen.addProduct}"
-                           title="Add element"
-                           value="P"
-                           disabled="#{productScreen.selectedNode == null}"
-                    >
-            </p:commandLink>
-            <p:commandButton value="TNC"
-                             icon="ui-icon-extlink"
-                             actionListener="#{productScreen.chooseTNC}"
-                             disabled="#{productScreen.selectedNode == null}">
-                <p:ajax event="dialogReturn"
-                        listener="#{productScreen.onTNCChosen}"
-                        update=":mainForm" />
-            </p:commandButton>
-            <p:commandLink update=":mainForm"
-                           action="#{productScreen.delete}"
-                           title="Delete element"
-                           value="delete"
-                           disabled="#{productScreen.selectedNode.data.parent == null}"
-                           styleClass="btn">
-            </p:commandLink>
+                <p:commandLink update=":mainForm:products"
+                               action="#{productScreen.addProduct}"
+                               title="Add element"
+                               value="P"
+                               disabled="#{productScreen.selectedNode == null}"
+                        >
+                </p:commandLink>
+                <p:commandButton value="TNC"
+                                 icon="ui-icon-extlink"
+                                 actionListener="#{productScreen.chooseTNC}"
+                                 disabled="#{productScreen.selectedNode == null}">
+                    <p:ajax event="dialogReturn"
+                            listener="#{productScreen.onTNCChosen}"
+                            update=":mainForm"/>
+                </p:commandButton>
+                <p:commandLink update=":mainForm"
+                               action="#{productScreen.delete}"
+                               title="Delete element"
+                               value="delete"
+                               disabled="#{productScreen.selectedNode.data.parent == null}"
+                               styleClass="btn">
+                </p:commandLink>
+
+                <p:commandLink update=":mainForm:calcs"
+                               action="#{productScreen.calculate}"
+                               title="Calculate"
+                               value="calculate"
+                               styleClass="btn">
+                </p:commandLink>
             </h:panelGroup>
-            <p:treeTable  id="products"
-                          value="#{productScreen.root}"
+            <p:treeTable id="products"
+                         value="#{productScreen.root}"
                          var="product"
-                          nodeVar="node"
+                         nodeVar="node"
                          editable="true"
                          editMode="cell"
-                          selectionMode="single"
-                          selection="#{productScreen.selectedNode}"
-                          style="font-size: 14px !important;">
+                         selectionMode="single"
+                         selection="#{productScreen.selectedNode}"
+                         style="font-size: 14px !important;">
 
                 <p:ajax event="cellEdit" listener="#{productScreen.onCellEdit}" update=":mainForm:growl"/>
-                <p:ajax event="select"  update=":mainForm:buttons" />
+                <p:ajax event="select" update=":mainForm:buttons"/>
 
                 <p:column headerText="Name">
                     <p:cellEditor>
@@ -115,8 +122,8 @@
 
                         <p:ajax event="dialogReturn"
                                 listener="#{productScreen.onTNCChosen}"
-                                update=":mainForm:products" />
-                        <f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}" />
+                                update=":mainForm:products"/>
+                        <f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}"/>
                     </p:commandButton>
                     <p:commandLink update=":mainForm"
                                    action="#{productScreen.deleteNode(node)}"
@@ -125,6 +132,21 @@
                                    styleClass="ui-icon ui-icon-cancel">
                     </p:commandLink>
                 </p:column>
+            </p:treeTable>
+
+            <p:treeTable id="calcs"
+                         value="#{productScreen.rootCalc}"
+                         var="calc"
+                         style="font-size: 14px !important;">
+
+
+                <p:column headerText="Name">
+                    <h:outputText value="#{calc.name}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{calc.price}"/>
+                </p:column>
+
             </p:treeTable>
 
         </h:form>
