@@ -19,6 +19,9 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.*;
 
 @Named("productScreen")
@@ -29,6 +32,7 @@ public class ProductScreen {
     protected EntityManager em;
 
     private TreeNode root;
+    private TreeNode rootCalc;
     private Product entity;
     //    private List<Product> deleteProducts;
     private TreeNode selectedNode;
@@ -151,6 +155,24 @@ public class ProductScreen {
         ProductTNC pTNC = new ProductTNC();
         pTNC.setTnc(tnc);
         add(selectedNode, pTNC);
+    }
+
+    public void calculate(){
+
+        ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        String foo = "function calc(a){" +
+                "return a+2;" +
+                "}" +
+                "" +
+                "a=1;" +
+                "calc(a)";
+
+        try {
+            System.out.println(engine.eval(foo));
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
     }
 
     public TreeNode getRoot() {
