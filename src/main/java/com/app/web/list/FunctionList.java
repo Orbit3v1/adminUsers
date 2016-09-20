@@ -11,12 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +38,7 @@ public class FunctionList {
     private Function editEntity;
     private Function original;
     private boolean edit;
+    private boolean valid;
 
     @Loggable
     @PostConstruct
@@ -73,8 +78,25 @@ public class FunctionList {
         }
     }
 
+    private boolean validateCode(){
+        boolean isValid = true;
+        ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+//        formula = includedFunctions + " " + formula;
+        try {
+            engine.eval(editEntity.getCode());
+        } catch (ScriptException e) {
+            isValid = false;
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Error");
+            FacesContext.getCurrentInstance().addMessage("mainForm:code", msg);
+            e.printStackTrace();
+        }
+        return isValid;
+    }
+
     private boolean validate() {
-        return true;
+        valid = validateCode();
+        return valid;
     }
 
     public void select(Function entity) {
@@ -107,5 +129,13 @@ public class FunctionList {
 
     public void setEditEntity(Function editEntity) {
         this.editEntity = editEntity;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
