@@ -22,9 +22,11 @@
 
             <p:growl id="growl" showDetail="true"/>
 
-            <h:commandButton value="#{messages.getString('button.save')}"
+            <p:commandButton value="#{messages.getString('button.save')}"
                              action="#{productScreen.save}"
-                             render="mainForm"
+                             onclick="this.disabled=true"
+                             oncomplete="this.disabled=false"
+                             update=":mainForm"
                              styleClass="btn"
 
                     />
@@ -37,11 +39,17 @@
                         >
                 </p:commandLink>
                 <p:commandButton value="TNC"
-                                 icon="ui-icon-extlink"
                                  actionListener="#{productScreen.chooseTNC}"
                                  disabled="#{productScreen.selectedNode == null}">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onTNCChosen}"
+                            update=":mainForm"/>
+                </p:commandButton>
+                <p:commandButton value="Work"
+                                 actionListener="#{productScreen.chooseWork}"
+                                 disabled="#{productScreen.selectedNode == null}">
+                    <p:ajax event="dialogReturn"
+                            listener="#{productScreen.onWorkChosen}"
                             update=":mainForm"/>
                 </p:commandButton>
                 <p:commandLink update=":mainForm"
@@ -52,7 +60,7 @@
                                styleClass="btn">
                 </p:commandLink>
 
-                <p:commandLink update=":mainForm:calcs"
+                <p:commandLink update=":mainForm:calcsPG"
                                action="#{productScreen.calculate}"
                                title="Calculate"
                                value="calculate"
@@ -133,8 +141,9 @@
                     </p:commandLink>
                 </p:column>
             </p:treeTable>
-
+            <h:panelGroup id="calcsPG">
             <p:treeTable id="calcs"
+                         rendered="#{productScreen.rootCalc != null}"
                          value="#{productScreen.rootCalc}"
                          var="calc"
                          style="font-size: 14px !important;">
@@ -148,6 +157,7 @@
                 </p:column>
 
             </p:treeTable>
+            </h:panelGroup>
 
         </h:form>
     </ui:define>

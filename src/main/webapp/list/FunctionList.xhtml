@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+
+    <ui:define name="title">
+        <h:outputText value="function"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <h:form id="mainForm">
+
+
+            <a4j:commandButton value="#{messages.getString('button.add')}"
+                               styleClass="btn"
+                               action="#{functionList.add()}"
+                               render="popupDetail"
+                               execute="@this"
+                               oncomplete="#{rich:component('popupDetail')}.show(); return false;"
+                    />
+
+            <rich:dataTable id="entities" value="#{functionList.entities}" var="row"
+                            rowClasses="odd-row, even-row">
+                <rich:column rendered="#{true}">
+                    <f:facet name="header">Наименование</f:facet>
+                    <a4j:commandLink value="#{row.name}"
+                                     action="#{functionList.edit(row)}"
+                                     render="popupDetail"
+                                     oncomplete="#{rich:component('popupDetail')}.show(); return false;"/>
+                </rich:column>
+                <rich:column rendered="#{true}">
+                    <f:facet name="header">detail</f:facet>
+                    <h:outputText value="#{row.description}"/>
+                </rich:column>
+
+            </rich:dataTable>
+
+
+            <rich:popupPanel id="popupDetail"
+                             modal="true"
+                             resizeable="true"
+                             width="500"
+                             height="600">
+                <f:facet name="header">
+                    <h:outputText value="#{messages.getString('nomenclatureScreen.components')}"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('popupComponents')}.hide(); return false;"
+                                  style="color: inherit">
+                        X
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
+                                       for="componentName"
+                                       styleClass="label"/>
+                        <h:inputText id="componentName"
+                                     value="#{functionList.editEntity.name}"
+                                     styleClass="inputLarge"
+                                />
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="description"
+                                       for="description"
+                                       styleClass="label"/>
+                        <h:inputTextarea id="description"
+                                         value="#{functionList.editEntity.description}"
+                                         disabled="#{false}"
+                                         styleClass="textareaLarge"
+                                />
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="code"
+                                       for="code"
+                                       styleClass="label"/>
+                        <h:inputTextarea id="code"
+                                         value="#{functionList.editEntity.code}"
+                                         disabled="#{false}"
+                                         styleClass="textareaLarge"
+                                />
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <p>
+                    <h:commandButton value="#{messages.getString('button.save')}"
+                                     action="#{functionList.save}"
+                                     execute="componentName"
+                                     render="mainForm"
+                                     styleClass="btn"
+                                     onclick="#{rich:component('popupDetail')}.hide();"/>
+                    <h:commandButton value="#{messages.getString('button.cancel')}"
+                                     onclick="#{rich:component('popupDetail')}.hide(); return false;"
+                                     styleClass="btn"/>
+                </p>
+            </rich:popupPanel>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

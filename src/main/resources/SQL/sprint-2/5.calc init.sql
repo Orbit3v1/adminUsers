@@ -46,3 +46,13 @@ create table calc_product(
 );
 
 create index calc_product_I1 on calc_product(parentId);
+
+create table calc_function(
+  id int IDENTITY(1,1) not null primary key,
+  version int default 0,
+  name varchar(500) not null,
+  description varchar(4000),
+  code varchar(4000)
+);
+
+create unique index calc_function_U1 on calc_function(name);

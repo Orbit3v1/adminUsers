@@ -41,6 +41,7 @@ public class ProductScreen {
     //    private List<Product> deleteProducts;
     private TreeNode selectedNode;
     //   private Map<Product, TreeNode> connector;
+    private String includedFunctions;
 
     @PostConstruct
     public void init() {
@@ -53,7 +54,6 @@ public class ProductScreen {
             entity = new Product();
         }
         initRoot();
-        rootCalc = new DefaultTreeNode();
     }
 
     private void initRoot() {
@@ -61,7 +61,6 @@ public class ProductScreen {
         TreeNode tn = new DefaultTreeNode(entity, root);
         tn.setExpanded(true);
         initSubordinates(entity, tn);
-        int a = 1;
     }
 
     @Transactional
@@ -131,10 +130,13 @@ public class ProductScreen {
 
     @Transactional
     private void saveNode(TreeNode treeNode) {
-        for (TreeNode tn : treeNode.getChildren()) {
-            em.merge((Product) tn.getData());
-//            saveNode(tn);
-        }
+//        for (TreeNode tn : treeNode.getChildren()) {
+//            em.merge((Product) tn.getData());
+////            saveNode(tn);
+//        }
+        entity = em.merge(entity);
+
+        initRoot();
     }
 //    @Transactional
 //    private void delete(){
@@ -162,16 +164,46 @@ public class ProductScreen {
         add(selectedNode, pTNC);
     }
 
+    public void chooseWork() {
+        Map<String, Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        RequestContext rq = RequestContext.getCurrentInstance();
+        rq.openDialog("/select/selectWork", options, null);
+    }
+
+    @Transactional
+    public void onWorkChosen(SelectEvent event) {
+        Work work = (Work) event.getObject();
+        ProductWork pWork = new ProductWork();
+        pWork.setWork(work);
+        add(selectedNode, pWork);
+    }
+
     public void calculate(){
-
-
+        initFunctions();
         rootCalc = new DefaultTreeNode();
         generateCalcTree(rootCalc, entity);
-        int a = 1;
+    }
+
+    @Transactional
+    private void initFunctions(){
+        includedFunctions = "";
+        Query query = em.createQuery("select p from Function p order by p.name");
+        List<Function> functions = query.getResultList();
+        for(Function f : functions){
+            includedFunctions += f.getCode();
+        }
     }
 
     private void generateCalcTree(TreeNode parentNode, Product product){
         BigDecimal price = execute(product.getFormula());
+        if(product instanceof ProductTNC){
+            BigDecimal ratio = ((ProductTNC) product).getTnc().getRatio();
+            ratio = ratio == null ? BigDecimal.ONE : ratio;
+            price = price.divide(ratio, BigDecimal.ROUND_CEILING);
+        }
         CalculationDTO calc = new CalculationDTO(product.getName(), price);
 
         TreeNode tn = new DefaultTreeNode(calc, parentNode);
@@ -187,17 +219,12 @@ public class ProductScreen {
 
     }
 
+
     private BigDecimal execute(String formula){
-         ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-//        double result = 0;
-//        try {
-//            result = (double) engine.eval(formula);
-//        } catch (ScriptException e) {
-//            e.printStackTrace();
-//        }
-//        return new BigDecimal(result,  MathContext.DECIMAL64);
         String result = "0";
+        formula = includedFunctions + " " + formula;
         try {
             result = engine.eval(formula).toString();
         } catch (ScriptException e) {

@@ -1,7 +1,6 @@
 package com.app.web.list;
 
-import com.app.data.entity.TNC;
-import com.app.data.entity.Work;
+import com.app.data.entity.Function;
 import com.app.utils.AddMessage;
 import com.app.utils.Security;
 import com.app.web.Loggable;
@@ -21,39 +20,39 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
 
-@Named("workList")
+@Named("functionList")
 @Scope("view")
-public class WorkList {
+public class FunctionList {
     @PersistenceContext
     private EntityManager em;
     @Inject
     protected AddMessage addMessage;
     protected Logger logger = Logger.getLogger(getClass());
 
-    private List<Work> works;
+    private List<Function> entities;
     private Map<String, Boolean> userPA;
-    private Work editEntity;
-    private Work original;
+    private Function editEntity;
+    private Function original;
     private boolean edit;
 
     @Loggable
     @PostConstruct
     public void init(){
-        Query query = em.createQuery("select p from Work p order by p.name");
-        works = query.getResultList();
+        Query query = em.createQuery("select p from Function p order by p.name");
+        entities = query.getResultList();
         userPA = Security.getUserPrivilegeAction("personList");
-        editEntity = new Work();
+        editEntity = new Function();
     }
 
     public void add(){
         edit = false;
-        editEntity = new Work();
+        editEntity = new Function();
     }
 
-    public void edit(Work work){
+    public void edit(Function entity){
         edit = true;
-        original = work;
-        editEntity = work.copy();
+        original = entity;
+        editEntity = entity.copy();
     }
 
     public void save(){
@@ -78,8 +77,8 @@ public class WorkList {
         return true;
     }
 
-    public void select(Work work) {
-        RequestContext.getCurrentInstance().closeDialog(work);
+    public void select(Function entity) {
+        RequestContext.getCurrentInstance().closeDialog(entity);
     }
 
     @Transactional
@@ -89,24 +88,24 @@ public class WorkList {
             original = em.merge(original);
         } else {
             editEntity = em.merge(editEntity);
-            works.add(editEntity);
+            entities.add(editEntity);
         }
-        editEntity = new Work();
+        editEntity = new Function();
     }
 
-    public List<Work> getWorks() {
-        return works;
+    public List<Function> getEntities() {
+        return entities;
     }
 
-    public void setWorks(List<Work> works) {
-        works = works;
+    public void setEntities(List<Function> entities) {
+        this.entities = entities;
     }
 
-    public Work getEditEntity() {
+    public Function getEditEntity() {
         return editEntity;
     }
 
-    public void setEditEntity(Work editEntity) {
+    public void setEditEntity(Function editEntity) {
         this.editEntity = editEntity;
     }
 }
