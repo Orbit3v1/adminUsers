@@ -7,7 +7,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:p="http://primefaces.org/ui">
 
 
     <ui:define name="title">
@@ -20,22 +20,21 @@
         <h:form id="mainForm">
 
 
-            <a4j:commandButton value="#{messages.getString('button.add')}"
+            <p:commandButton value="#{messages.getString('button.add')}"
                                styleClass="btn"
-                               action="#{functionList.add()}"
-                               render="popupDetail"
-                               execute="@this"
-                               oncomplete="#{rich:component('popupDetail')}.show(); return false;"
+                               actionListener="#{functionList.add}"
+                               update=":mainForm:popupDetail"
+                               oncomplete="PF('popup').show()"
                     />
 
             <rich:dataTable id="entities" value="#{functionList.entities}" var="row"
                             rowClasses="odd-row, even-row">
                 <rich:column rendered="#{true}">
                     <f:facet name="header">Наименование</f:facet>
-                    <a4j:commandLink value="#{row.name}"
-                                     action="#{functionList.edit(row)}"
-                                     render="popupDetail"
-                                     oncomplete="#{rich:component('popupDetail')}.show(); return false;"/>
+                    <p:commandLink value="#{row.name}"
+                                     actionListener="#{functionList.edit(row)}"
+                                     update=":mainForm:popupDetail"
+                                     onclick="PF('popup').show()"/>
                 </rich:column>
                 <rich:column rendered="#{true}">
                     <f:facet name="header">detail</f:facet>
@@ -45,20 +44,14 @@
             </rich:dataTable>
 
 
-            <rich:popupPanel id="popupDetail"
+            <p:dialog id="popupDetail"
+                      widgetVar="popup"
                              modal="true"
                              resizeable="true"
                              width="500"
-                             height="600">
-                <f:facet name="header">
-                    <h:outputText value="#{messages.getString('nomenclatureScreen.components')}"/>
-                </f:facet>
-                <f:facet name="controls">
-                    <h:outputLink value="#" onclick="#{rich:component('popupComponents')}.hide(); return false;"
-                                  style="color: inherit">
-                        X
-                    </h:outputLink>
-                </f:facet>
+                             height="600"
+                      header="#{messages.getString('nomenclatureScreen.components')}"
+                    >
                 <h:panelGrid columns="1">
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('componentEntity.name')}"
@@ -92,20 +85,23 @@
                 </h:panelGrid>
 
                 <p>
-                    <h:commandButton value="#{messages.getString('button.save')}"
-                                     action="#{functionList.save}"
-                                     execute="componentName"
-                                     render="mainForm"
+                    <p:commandButton value="#{messages.getString('button.save')}"
+                                     actionListener="#{functionList.save}"
+                                     update=":mainForm:entities"
                                      styleClass="btn"
-                                     onclick="#{rich:component('popupDetail')}.hide();"/>
+                                     />
                     <h:commandButton value="#{messages.getString('button.cancel')}"
-                                     onclick="#{rich:component('popupDetail')}.hide(); return false;"
+                                     onclick="PF('popup').hide()"
                                      styleClass="btn"/>
                 </p>
-            </rich:popupPanel>
+            </p:dialog>
+
+            <p:dialog header="Header Text" widgetVar="dlg">test</p:dialog>
+            <h:commandButton value="Show" type="button" onclick="PF('dlg').show()" />
+            <h:commandButton value="Hide" type="button" onclick="PF('dlg').hide()" />
 
         </h:form>
 
-
+        <h:outputScript>
     </ui:define>
 </ui:composition>
