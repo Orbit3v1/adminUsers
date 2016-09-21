@@ -38,7 +38,6 @@ public class FunctionList {
     private Function editEntity;
     private Function original;
     private boolean edit;
-    private boolean valid;
 
     @Loggable
     @PostConstruct
@@ -64,6 +63,7 @@ public class FunctionList {
         if (validate()) {
             try {
                 saveAttempt();
+                addMessage.setMessage(null, "Saved", FacesMessage.SEVERITY_INFO);
             } catch (OptimisticLockException e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
@@ -87,21 +87,20 @@ public class FunctionList {
             engine.eval(editEntity.getCode());
         } catch (ScriptException e) {
             isValid = false;
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Error");
-            FacesContext.getCurrentInstance().addMessage("mainForm:code", msg);
+            addMessage.setMessage("mainForm:code", e.getMessage(), FacesMessage.SEVERITY_ERROR);
             e.printStackTrace();
         }
         return isValid;
     }
 
     private boolean validate() {
-        valid = validateCode();
-        return valid;
+        return validateCode();
     }
 
     public void select(Function entity) {
         RequestContext.getCurrentInstance().closeDialog(entity);
     }
+
 
     @Transactional
     private void saveAttempt(){
@@ -113,6 +112,8 @@ public class FunctionList {
             entities.add(editEntity);
         }
         editEntity = new Function();
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('popup').hide();");
     }
 
     public List<Function> getEntities() {
@@ -131,11 +132,4 @@ public class FunctionList {
         this.editEntity = editEntity;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
 }

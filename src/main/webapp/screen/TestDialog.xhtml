@@ -1,55 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../template/application.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:p="http://primefaces.org/ui">
-
-
-    <ui:define name="title">
-        <h:outputText value="function"/>
-    </ui:define>
-
-    <ui:define name="body">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui"
+        >
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/menu.css"/>
+    <script src="../js/common.js" type="text/javascript"/>
+</h:head>
+<h:body>
+    <h:panelGroup layout="block" id="content">
         <h:form id="mainForm">
-            <p:growl id="growl" showDetail="true"/>
+
 
             <p:commandButton value="#{messages.getString('button.add')}"
-                               styleClass="btn"
-                               actionListener="#{functionList.add}"
-                               update=":mainForm:popupDetail"
-                               oncomplete="PF('popup').show()"
+                             styleClass="btn"
+                             actionListener="#{functionList.add}"
+                             update=":mainForm:popupDetail"
+                             oncomplete="closePopup()"
                     />
 
-            <p:dataTable id="entities" value="#{functionList.entities}" var="row"
-                            rowClasses="odd-row, even-row">
-                <p:column rendered="#{true}" headerText="Наименование">
-                    <p:commandLink value="#{row.name}"
-                                     actionListener="#{functionList.edit(row)}"
-                                     update=":mainForm:popupDetail"
-                                     oncomplete="PF('popup').show()"/>
-                </p:column>
-                <p:column rendered="#{true}" headerText="detail">
-                    <h:outputText value="#{row.description}"/>
-                </p:column>
-
-            </p:dataTable>
+ =
 
 
-            <p:dialog
+            <p:dialog id="popupDetail"
                       widgetVar="popup"
-                             modal="true"
-                             resizeable="true"
-                             width="500"
-                             height="600"
+                      modal="true"
+                      resizeable="true"
+                      width="500"
+                      height="600"
                       header="#{messages.getString('nomenclatureScreen.components')}"
                     >
-                <h:panelGrid columns="1" id="popupDetail">
+                <h:panelGrid columns="1">
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('componentEntity.name')}"
                                        for="componentName"
@@ -78,25 +65,26 @@
                                          disabled="#{false}"
                                          styleClass="textareaLarge"
                                 />
-                        <h:message for="code" errorClass="error"/>
                     </h:panelGroup>
                 </h:panelGrid>
 
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
                                      actionListener="#{functionList.save}"
-                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"
                                      styleClass="btn"
-                                     />
+                            />
                     <h:commandButton value="#{messages.getString('button.cancel')}"
                                      onclick="PF('popup').hide()"
                                      styleClass="btn"/>
-
                 </p>
             </p:dialog>
 
+            <p:dialog header="Header Text" widgetVar="dlg">test</p:dialog>
+            <h:commandButton value="Show" type="button" onclick="PF('dlg').show()" />
+            <h:commandButton value="Hide" type="button" onclick="PF('dlg').hide()" />
 
         </h:form>
+    </h:panelGroup>
+</h:body>
 
-    </ui:define>
-</ui:composition>
+</html>
