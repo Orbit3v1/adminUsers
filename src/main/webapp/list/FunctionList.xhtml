@@ -27,14 +27,20 @@
                     />
 
             <p:dataTable id="entities" value="#{functionList.entities}" var="row"
-                            rowClasses="odd-row, even-row">
-                <p:column rendered="#{true}" headerText="Наименование">
+
+                            sortMode="multiple"
+                            resizableColumns="true">
+                <p:column rendered="#{true}"
+                          headerText="Наименование"
+                          sortBy="#{row.name}"
+                          filterBy="#{row.name}"
+                          filterMatchMode="contains">
                     <p:commandLink value="#{row.name}"
                                      actionListener="#{functionList.edit(row)}"
                                      update=":mainForm:popupDetail"
                                      oncomplete="PF('popup').show()"/>
                 </p:column>
-                <p:column rendered="#{true}" headerText="detail">
+                <p:column rendered="#{true}" headerText="detail" sortBy="#{row.description}">
                     <h:outputText value="#{row.description}"/>
                 </p:column>
 

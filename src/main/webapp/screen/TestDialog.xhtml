@@ -9,82 +9,21 @@
         >
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/menu.css"/>
-    <script src="../js/common.js" type="text/javascript"/>
 </h:head>
 <h:body>
-    <h:panelGroup layout="block" id="content">
-        <h:form id="mainForm">
+
+            <h:form>
+                <p:dataTable   id="carTable"  value="#{functionList.entities}" var="row">
+                    <p:column headerText="Id" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputText value="#{row.name}" />
+                    </p:column>
+                    <p:column headerText="Year" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputText value="#{row.name}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
 
 
-            <p:commandButton value="#{messages.getString('button.add')}"
-                             styleClass="btn"
-                             actionListener="#{functionList.add}"
-                             update=":mainForm:popupDetail"
-                             oncomplete="closePopup()"
-                    />
-
- =
-
-
-            <p:dialog id="popupDetail"
-                      widgetVar="popup"
-                      modal="true"
-                      resizeable="true"
-                      width="500"
-                      height="600"
-                      header="#{messages.getString('nomenclatureScreen.components')}"
-                    >
-                <h:panelGrid columns="1">
-                    <h:panelGroup>
-                        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
-                                       for="componentName"
-                                       styleClass="label"/>
-                        <h:inputText id="componentName"
-                                     value="#{functionList.editEntity.name}"
-                                     styleClass="inputLarge"
-                                />
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:outputLabel value="description"
-                                       for="description"
-                                       styleClass="label"/>
-                        <h:inputTextarea id="description"
-                                         value="#{functionList.editEntity.description}"
-                                         disabled="#{false}"
-                                         styleClass="textareaLarge"
-                                />
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:outputLabel value="code"
-                                       for="code"
-                                       styleClass="label"/>
-                        <h:inputTextarea id="code"
-                                         value="#{functionList.editEntity.code}"
-                                         disabled="#{false}"
-                                         styleClass="textareaLarge"
-                                />
-                    </h:panelGroup>
-                </h:panelGrid>
-
-                <p>
-                    <p:commandButton value="#{messages.getString('button.save')}"
-                                     actionListener="#{functionList.save}"
-                                     styleClass="btn"
-                            />
-                    <h:commandButton value="#{messages.getString('button.cancel')}"
-                                     onclick="PF('popup').hide()"
-                                     styleClass="btn"/>
-                </p>
-            </p:dialog>
-
-            <p:dialog header="Header Text" widgetVar="dlg">test</p:dialog>
-            <h:commandButton value="Show" type="button" onclick="PF('dlg').show()" />
-            <h:commandButton value="Hide" type="button" onclick="PF('dlg').hide()" />
-
-        </h:form>
-    </h:panelGroup>
 </h:body>
 
 </html>
