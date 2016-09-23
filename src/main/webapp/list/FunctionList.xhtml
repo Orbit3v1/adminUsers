@@ -6,7 +6,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:rich="http://richfaces.org/rich"
                 xmlns:p="http://primefaces.org/ui">
 
 
@@ -20,53 +19,67 @@
             <p:growl id="growl" showDetail="true"/>
 
             <p:commandButton value="#{messages.getString('button.add')}"
-                               styleClass="btn"
-                               actionListener="#{functionList.add}"
-                               update=":mainForm:popupDetail"
-                               oncomplete="PF('popup').show()"
+                             actionListener="#{functionList.add}"
+                             update=":mainForm:popupDetail"
+                             oncomplete="PF('popup').show()"
                     />
 
+            <h:message for="entities" infoClass="info" errorClass="error"/>
             <p:dataTable id="entities" value="#{functionList.entities}" var="row"
-
-                            sortMode="multiple"
-                            resizableColumns="true">
+                         filteredValue="#{functionList.filteredEntities}"
+                         sortMode="multiple"
+                         resizableColumns="true">
                 <p:column rendered="#{true}"
-                          headerText="Наименование"
+                          headerText="#{messages.getString('functionEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
                           filterMatchMode="contains">
                     <p:commandLink value="#{row.name}"
-                                     actionListener="#{functionList.edit(row)}"
-                                     update=":mainForm:popupDetail"
-                                     oncomplete="PF('popup').show()"/>
+                                   actionListener="#{functionList.edit(row)}"
+                                   update=":mainForm:popupDetail"
+                                   oncomplete="PF('popup').show()"
+                                   style="display: block;"/>
                 </p:column>
-                <p:column rendered="#{true}" headerText="detail" sortBy="#{row.description}">
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('functionEntity.description')}"
+                          sortBy="#{row.description}">
                     <h:outputText value="#{row.description}"/>
                 </p:column>
-
+                <p:column rendered="#{true}"
+                          headerText=""
+                          width="25">
+                    <p:commandLink update=":mainForm:entities, :mainForm:growl"
+                                   title="#{messages.getString('button.delete')}"
+                                   actionListener="#{functionList.delete(row)}"
+                                   styleClass="ui-icon delete">
+                        <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                                   message="#{messages.getString('button.delete.message')}"
+                                   icon="ui-icon-alert"/>
+                    </p:commandLink>
+                </p:column>
             </p:dataTable>
 
 
-            <p:dialog
-                      widgetVar="popup"
-                             modal="true"
-                             resizeable="true"
-                             width="500"
-                             height="600"
+            <p:dialog widgetVar="popup"
+                      modal="true"
+                      resizeable="true"
+                      width="500"
+                      height="600"
                       header="#{messages.getString('nomenclatureScreen.components')}"
                     >
                 <h:panelGrid columns="1" id="popupDetail">
                     <h:panelGroup>
-                        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
-                                       for="componentName"
+                        <h:outputLabel value="#{messages.getString('functionEntity.name')}"
+                                       for="name"
                                        styleClass="label"/>
-                        <h:inputText id="componentName"
+                        <h:inputText id="name"
                                      value="#{functionList.editEntity.name}"
                                      styleClass="inputLarge"
                                 />
+                        <h:message for="name" errorClass="error"/>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <h:outputLabel value="description"
+                        <h:outputLabel value="#{messages.getString('functionEntity.description')}"
                                        for="description"
                                        styleClass="label"/>
                         <h:inputTextarea id="description"
@@ -76,7 +89,7 @@
                                 />
                     </h:panelGroup>
                     <h:panelGroup>
-                        <h:outputLabel value="code"
+                        <h:outputLabel value="#{messages.getString('functionEntity.code')}"
                                        for="code"
                                        styleClass="label"/>
                         <h:inputTextarea id="code"
@@ -91,18 +104,16 @@
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
                                      actionListener="#{functionList.save}"
-                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"
-                                     styleClass="btn"
-                                     />
-                    <h:commandButton value="#{messages.getString('button.cancel')}"
-                                     onclick="PF('popup').hide()"
-                                     styleClass="btn"/>
-
+                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
+                    <p:commandButton value="#{messages.getString('button.cancel')}"
+                                     onclick="PF('popup').hide()"/>
                 </p>
             </p:dialog>
 
-
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
         </h:form>
-
     </ui:define>
 </ui:composition>

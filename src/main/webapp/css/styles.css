@@ -199,3 +199,9 @@ hr {
 .link{
     font-size: 14px; !important;
 }
+
+.delete {
+    background-image: url(/javax.faces.resource/images/delete.png.xhtml) !important;
+    height: 23px !important;
+    width: 23px !important;
+}

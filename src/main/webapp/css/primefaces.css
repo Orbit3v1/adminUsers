@@ -1,0 +1,13 @@
+.ui-widget {
+    font-size: 14px !important;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+.ui-column-title{
+    font-size: 16px !important;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+    background: #ffdaae;
+}

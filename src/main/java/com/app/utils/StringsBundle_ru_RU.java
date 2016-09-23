@@ -66,6 +66,10 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationEntity.approvedBy", "Подписал"},
             {"specificationEntity.checked", "Проверенно"},
 
+            {"functionEntity.name", "Наименование"},
+            {"functionEntity.description", "Описание"},
+            {"functionEntity.code", "Код"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -170,6 +174,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.editAndExit", "Изменить и выйти"},
             {"button.delete", "Удалить"},
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
+            {"button.delete.confirmation", "Удаление"},
             {"button.login", "Войти"},
             {"button.logout", "Выйти"},
             {"button.upload", "Загрузить"},
@@ -189,6 +194,10 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"table.edit", "-"},
 
+            {"success.delete", "Запись удаленна"},
+            {"success.save", "Запись сохраненна"},
+
+            {"error.data", "Неверные данные"},
             {"error.notNull", "Поле не может быть пустым"},
             {"error.pageNotFound", "Страница не найдена"},
             {"error.entityWasChanged", "Запись была удалена или изменена другим пользователем"},
@@ -199,13 +208,20 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},
             {"menu.header.home", "Вход"},
+            {"menu.header.calculation", "Калькулятор"},
 
             {"menu.admin.user", "Пользователи"},
             {"menu.admin.role", "Роли"},
             {"menu.admin.nomenclature", "Номенклатуры"},
 
             {"menu.graphic.production", "Производство"},
-            {"menu.graphic.specification", "Реестр ТЗ"}
+            {"menu.graphic.specification", "Реестр ТЗ"},
+
+            {"menu.calculation.TNC", "ТНЦ"},
+            {"menu.calculation.work", "Работа"},
+            {"menu.calculation.function", "Функции"},
+            {"menu.calculation.product", "Рассчет"}
 
     };
 }
+

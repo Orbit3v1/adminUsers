@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "calc_function")
-public class Function {
+public class Function extends AbstractVersionedEntity implements Copy<Function>{
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -19,7 +19,7 @@ public class Function {
     @Column(name = "code")
     private String code;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -56,10 +56,14 @@ public class Function {
         copy.name = this.name;
         copy.description = this.description;
         copy.code = this.code;
+        copy.id = this.id;
+        copy.setVersion(this.getVersion());
         return copy;
     }
 
     public void copyData(Function copy){
+        this.id = copy.id;
+        this.setVersion(copy.getVersion());
         this.name = copy.name;
         this.description = copy.description;
         this.code = copy.code;
