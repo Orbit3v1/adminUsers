@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "calc_work")
-public class Work extends AbstractVersionedEntity {
+public class Work extends AbstractVersionedEntity implements Copy<Work>{
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -58,10 +58,14 @@ public class Work extends AbstractVersionedEntity {
         copy.name = this.name;
         copy.description = this.description;
         copy.price = this.price;
+        copy.id = this.id;
+        copy.setVersion(this.getVersion());
         return copy;
     }
 
     public void copyData(Work copy){
+        this.id = copy.id;
+        this.setVersion(copy.getVersion());
         this.name = copy.name;
         this.description = copy.description;
         this.price = copy.price;

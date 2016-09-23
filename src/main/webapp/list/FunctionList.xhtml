@@ -10,7 +10,7 @@
 
 
     <ui:define name="title">
-        <h:outputText value="function"/>
+        <h:outputText value="#{messages.getString('menu.calculation.function')}"/>
     </ui:define>
 
     <ui:define name="body">
@@ -18,6 +18,8 @@
         <h:form id="mainForm">
             <p:growl id="growl" showDetail="true"/>
 
+            <h:outputText value="#{messages.getString('menu.calculation.function')}" styleClass="listTitle"/>
+            <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
                              actionListener="#{functionList.add}"
                              update=":mainForm:popupDetail"
@@ -65,14 +67,14 @@
                       resizeable="true"
                       width="500"
                       height="600"
-                      header="#{messages.getString('nomenclatureScreen.components')}"
+                      header="#{messages.getString('functionEntity')}"
                     >
                 <h:panelGrid columns="1" id="popupDetail">
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.name')}"
                                        for="name"
                                        styleClass="label"/>
-                        <h:inputText id="name"
+                        <p:inputText id="name"
                                      value="#{functionList.editEntity.name}"
                                      styleClass="inputLarge"
                                 />
@@ -82,7 +84,7 @@
                         <h:outputLabel value="#{messages.getString('functionEntity.description')}"
                                        for="description"
                                        styleClass="label"/>
-                        <h:inputTextarea id="description"
+                        <p:inputTextarea id="description"
                                          value="#{functionList.editEntity.description}"
                                          disabled="#{false}"
                                          styleClass="textareaLarge"
@@ -92,7 +94,7 @@
                         <h:outputLabel value="#{messages.getString('functionEntity.code')}"
                                        for="code"
                                        styleClass="label"/>
-                        <h:inputTextarea id="code"
+                        <p:inputTextarea id="code"
                                          value="#{functionList.editEntity.code}"
                                          disabled="#{false}"
                                          styleClass="textareaLarge"

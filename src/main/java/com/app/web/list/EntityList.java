@@ -114,6 +114,7 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
         if(canDelete(entity)){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             entities.remove(entity);
+            filteredEntities.remove(entity);
             addMessage.setMessage(null, "success.delete", FacesMessage.SEVERITY_INFO);
             logger.info("delete success");
         } else {

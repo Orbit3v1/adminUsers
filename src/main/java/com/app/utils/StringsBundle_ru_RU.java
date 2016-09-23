@@ -66,9 +66,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationEntity.approvedBy", "Подписал"},
             {"specificationEntity.checked", "Проверенно"},
 
+            {"functionEntity", "Функция"},
             {"functionEntity.name", "Наименование"},
             {"functionEntity.description", "Описание"},
             {"functionEntity.code", "Код"},
+
+            {"workEntity", "Работа"},
+            {"workEntity.name", "Наименование"},
+            {"workEntity.description", "Описание"},
+            {"workEntity.price", "Цена"},
 
             {"personList.title", "Список пользователей"},
 
@@ -152,10 +158,13 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationScreen.editText", "Редактирование ТЗ"},
             {"specificationScreen.addText", "Добавление ТЗ"},
             {"specificationScreen.error.title", "Неверные данные"},
-            {"specificationScreen.error.nameDuplicate", "Такое же наименование есть у другого ТЗ, созраниете ТЗ еще раз"},
+            {"specificationScreen.error.nameDuplicate", "Такое же наименование есть у другого ТЗ, сохраниете ТЗ еще раз"},
             {"specificationScreen.success.save", "ТЗ успешно создано"},
             {"specificationScreen.success.edit", "ТЗ успешно изменено"},
             {"specificationScreen.error.nameDuplicate", "Такое же имя есть у другого ТЗ"},
+
+            {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
+            {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
 
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},

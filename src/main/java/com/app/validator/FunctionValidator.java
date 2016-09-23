@@ -13,7 +13,7 @@ import java.util.List;
 
 @Named("functionValidator")
 @Scope("request")
-public class FunctionValidator extends AbstractValidator<Function>{
+public class FunctionValidator extends AbstractValidator<Function> {
 
     @Inject
     JSEngine jsEngine;
@@ -24,7 +24,7 @@ public class FunctionValidator extends AbstractValidator<Function>{
         return isValidCode() & isValidName();
     }
 
-    private boolean isValidCode(){
+    private boolean isValidCode() {
         boolean valid = true;
         String err = jsEngine.validate(entity.getCode());
         if (err != null) {
@@ -38,7 +38,7 @@ public class FunctionValidator extends AbstractValidator<Function>{
         boolean valid = true;
         if (getEntityWithSameName().size() != 0) {
             valid = false;
-            addMessage.setMessage("mainForm:name", "roleScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:name", "functionList.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }

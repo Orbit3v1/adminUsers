@@ -6,105 +6,120 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:p="http://primefaces.org/ui">
 
 
     <ui:define name="title">
-        <h:outputText value="work"/>
+        <h:outputText value="#{messages.getString('menu.calculation.work')}"/>
     </ui:define>
 
     <ui:define name="body">
-
-
         <h:form id="mainForm">
+            <p:growl id="growl" showDetail="true"/>
 
-
-            <a4j:commandButton value="#{messages.getString('button.add')}"
-                               styleClass="btn"
-                               action="#{workList.add()}"
-                               render="popupComponents"
-                               execute="@this"
-                               oncomplete="#{rich:component('popupComponents')}.show(); return false;"
+            <h:outputText value="#{messages.getString('menu.calculation.work')}" styleClass="listTitle"/>
+            <br/>
+            <p:commandButton value="#{messages.getString('button.add')}"
+                             actionListener="#{workList.add}"
+                             update=":mainForm:popupDetail"
+                             oncomplete="PF('popup').show()"
                     />
 
-            <rich:dataTable id="works" value="#{workList.works}" var="row"
-                            rowClasses="odd-row, even-row">
-                <rich:column rendered="#{true}">
-                    <f:facet name="header">Наименование</f:facet>
-                    <a4j:commandLink value="#{row.name}"
-                                     action="#{workList.edit(row)}"
-                                     render="popupComponents"
-                                     oncomplete="#{rich:component('popupComponents')}.show(); return false;"/>
-                </rich:column>
-                <rich:column rendered="#{true}">
-                    <f:facet name="header">detail</f:facet>
+            <h:message for="entities" infoClass="info" errorClass="error"/>
+            <p:dataTable id="entities" value="#{workList.entities}" var="row"
+                         filteredValue="#{workList.filteredEntities}"
+                         sortMode="multiple"
+                         resizableColumns="true">
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('workEntity.name')}"
+                          sortBy="#{row.name}"
+                          filterBy="#{row.name}"
+                          filterMatchMode="contains">
+                    <p:commandLink value="#{row.name}"
+                                   actionListener="#{workList.edit(row)}"
+                                   update=":mainForm:popupDetail"
+                                   oncomplete="PF('popup').show()"
+                                   style="display: block;"/>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('workEntity.description')}"
+                          sortBy="#{row.description}">
                     <h:outputText value="#{row.description}"/>
-                </rich:column>
-                <rich:column rendered="#{true}">
-                    <f:facet name="header">price</f:facet>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('workEntity.price')}"
+                          sortBy="#{row.price}">
                     <h:outputText value="#{row.price}"/>
-                </rich:column>
-            </rich:dataTable>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText=""
+                          width="25">
+                    <p:commandLink update=":mainForm:entities, :mainForm:growl"
+                                   title="#{messages.getString('button.delete')}"
+                                   actionListener="#{workList.delete(row)}"
+                                   styleClass="ui-icon delete">
+                        <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                                   message="#{messages.getString('button.delete.message')}"
+                                   icon="ui-icon-alert"/>
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
 
 
-            <rich:popupPanel id="popupComponents"
-                             modal="true"
-                             resizeable="true"
-                             width="500"
-                             height="600">
-                <f:facet name="header">
-                    <h:outputText value="#{messages.getString('nomenclatureScreen.components')}"/>
-                </f:facet>
-                <f:facet name="controls">
-                    <h:outputLink value="#" onclick="#{rich:component('popupComponents')}.hide(); return false;"
-                                  style="color: inherit">
-                        X
-                    </h:outputLink>
-                </f:facet>
-                <h:panelGrid columns="1">
+            <p:dialog widgetVar="popup"
+                      modal="true"
+                      resizeable="true"
+                      width="500"
+                      height="600"
+                      header="#{messages.getString('workEntity')}"
+                    >
+                <h:panelGrid columns="1" id="popupDetail">
                     <h:panelGroup>
-                        <h:outputLabel value="#{messages.getString('componentEntity.name')}"
-                                       for="componentName"
+                        <h:outputLabel value="#{messages.getString('workEntity.name')}"
+                                       for="name"
                                        styleClass="label"/>
-                        <h:inputText id="componentName"
+                        <p:inputText id="name"
                                      value="#{workList.editEntity.name}"
                                      styleClass="inputLarge"
                                 />
+                        <h:message for="name" errorClass="error"/>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <h:outputLabel value="description"
+                        <h:outputLabel value="#{messages.getString('workEntity.description')}"
                                        for="description"
                                        styleClass="label"/>
-                        <h:inputTextarea id="description"
+                        <p:inputTextarea id="description"
                                          value="#{workList.editEntity.description}"
                                          disabled="#{false}"
                                          styleClass="textareaLarge"
-                                         />
+                                />
                     </h:panelGroup>
                     <h:panelGroup>
-                        <h:outputLabel value="price"
+                        <h:outputLabel value="#{messages.getString('workEntity.price')}"
                                        for="price"
                                        styleClass="label"/>
-                        <h:inputText id="price"
-                                     value="#{workList.editEntity.price}"
-                                     styleClass="inputLarge"
-                                     disabled="#{false}"/>
+                        <p:inputNumber id="price"
+                                       value="#{workList.editEntity.price}"
+                                       disabled="#{false}"
+                                       styleClass="inputLarge"
+                                />
+                        <h:message for="price" errorClass="error"/>
                     </h:panelGroup>
                 </h:panelGrid>
 
                 <p>
-                    <h:commandButton value="#{messages.getString('button.save')}"
-                                     action="#{workList.save}"
-                                     execute="componentName"
-                                     render="mainForm"
-                                     styleClass="btn"
-                                     onclick="#{rich:component('popupComponents')}.hide();"/>
-                    <h:commandButton value="#{messages.getString('button.cancel')}"
-                                     onclick="#{rich:component('popupComponents')}.hide(); return false;"
-                                     styleClass="btn"/>
+                    <p:commandButton value="#{messages.getString('button.save')}"
+                                     actionListener="#{workList.save}"
+                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
+                    <p:commandButton value="#{messages.getString('button.cancel')}"
+                                     onclick="PF('popup').hide()"/>
                 </p>
-            </rich:popupPanel>
+            </p:dialog>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
 
         </h:form>
 
