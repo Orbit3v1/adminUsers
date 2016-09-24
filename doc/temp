@@ -5,6 +5,9 @@ parameter to increase allowed load size:
 max_allowed_packet=32M
 
 
+connect ot mssql prod :
+SQLCMD -S (local)
+
 
 MySQL configuration
 url: jdbc:mysql://localhost:3306/appOwner?useSSL=false

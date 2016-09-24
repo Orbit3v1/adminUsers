@@ -31,3 +31,13 @@ where filename = 'SQL/sprint-2/1.specification init.sql';
 update DATABASECHANGELOG
 set md5sum = '7:580a630d1a0093bad5a8e04982cb19f2'
 where filename = 'SQL/sprint-2/4.more priv.sql';
+
+
+
+select n._description as tnc_name,
+  s._description as size,
+  p._fld8268 as price
+from _Reference66 n
+join _Reference46 s on n._fld1029rref = s._IDRRef
+join _InfoRg8264 p on p._fld8266rref = n._IDRRef
+where n._description = 'Гайки М5 клеп.'
