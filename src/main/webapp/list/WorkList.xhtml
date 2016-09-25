@@ -70,14 +70,14 @@
                       modal="true"
                       resizeable="true"
                       width="500"
-                      height="600"
+                      height="300"
                       header="#{messages.getString('workEntity')}"
                     >
                 <h:panelGrid columns="1" id="popupDetail">
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('workEntity.name')}"
                                        for="name"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputText id="name"
                                      value="#{workList.editEntity.name}"
                                      styleClass="inputLarge"
@@ -87,26 +87,26 @@
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('workEntity.description')}"
                                        for="description"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputTextarea id="description"
                                          value="#{workList.editEntity.description}"
                                          disabled="#{false}"
-                                         styleClass="textareaLarge"
+                                         styleClass="textareaLargePF"
                                 />
                     </h:panelGroup>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('workEntity.price')}"
                                        for="price"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputNumber id="price"
                                        value="#{workList.editEntity.price}"
                                        disabled="#{false}"
-                                       styleClass="inputLarge"
+                                       inputStyleClass="inputLarge"
                                 />
                         <h:message for="price" errorClass="error"/>
                     </h:panelGroup>
                 </h:panelGrid>
-
+                <HR/>
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
                                      actionListener="#{workList.save}"

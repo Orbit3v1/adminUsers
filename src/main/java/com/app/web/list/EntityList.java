@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,12 +38,15 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
 
     protected abstract T createEntity();
     protected abstract String getScreenName();
+    protected abstract List<T> getData();
 
     @Loggable
     @PostConstruct
     public void init(){
         userPA = Security.getUserPrivilegeAction(getScreenName());
         editEntity = createEntity();
+        entities = getData();
+        filteredEntities = entities;
     }
 
     public void add(){
@@ -90,7 +94,7 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
 
     private void saveEntity(){
         mergeEntity();
-        entities.add(editEntity);
+        filteredEntities.add(editEntity);
     }
 
     private void editEntity(){

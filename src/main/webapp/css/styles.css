@@ -202,6 +202,10 @@ hr {
 
 .delete {
     background-image: url(/javax.faces.resource/images/delete.png.xhtml) !important;
-    height: 23px !important;
-    width: 23px !important;
+    height: 24px !important;
+    width: 24px !important;
+}
+
+.delete:hover {
+    background-image: url(/javax.faces.resource/images/delete_hover.png.xhtml) !important;
 }

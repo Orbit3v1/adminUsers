@@ -14,7 +14,6 @@
     </ui:define>
 
     <ui:define name="body">
-
         <h:form id="mainForm">
             <p:growl id="growl" showDetail="true"/>
 
@@ -66,14 +65,14 @@
                       modal="true"
                       resizeable="true"
                       width="500"
-                      height="600"
+                      height="330"
                       header="#{messages.getString('functionEntity')}"
                     >
                 <h:panelGrid columns="1" id="popupDetail">
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.name')}"
                                        for="name"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputText id="name"
                                      value="#{functionList.editEntity.name}"
                                      styleClass="inputLarge"
@@ -83,25 +82,27 @@
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.description')}"
                                        for="description"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputTextarea id="description"
                                          value="#{functionList.editEntity.description}"
                                          disabled="#{false}"
-                                         styleClass="textareaLarge"
+                                         styleClass="textareaLargePF"
                                 />
                     </h:panelGroup>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.code')}"
                                        for="code"
-                                       styleClass="label"/>
+                                       styleClass="labelPF"/>
                         <p:inputTextarea id="code"
                                          value="#{functionList.editEntity.code}"
                                          disabled="#{false}"
-                                         styleClass="textareaLarge"
+                                         styleClass="textareaLargePF"
                                 />
                         <h:message for="code" errorClass="error"/>
                     </h:panelGroup>
                 </h:panelGrid>
+
+                <HR/>
 
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"

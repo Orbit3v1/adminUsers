@@ -36,12 +36,10 @@ public class WorkList extends EntityList<Work>{
         return "workList";
     }
 
-    @Loggable
-    @PostConstruct
-    public void init(){
-        super.init();
+    @Override
+    protected List<Work> getData(){
         Query query = em.createQuery("select p from Work p order by p.name");
-        entities = query.getResultList();
+        return  query.getResultList();
     }
 
     public void select(Work work) {
