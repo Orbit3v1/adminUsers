@@ -5,6 +5,7 @@
 create table calc_tnc(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
+  link1C binary(16),
   name varchar(500) not null,
   detailName  varchar(500),
   unitsFrom varchar(50),

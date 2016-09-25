@@ -76,6 +76,14 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"workEntity.description", "Описание"},
             {"workEntity.price", "Цена"},
 
+            {"TNCEntity", "ТНЦ"},
+            {"TNCEntity.name", "Наименование"},
+            {"TNCEntity.description", "Описание"},
+            {"TNCEntity.unitsFrom", "Ед. изм. (1С)"},
+            {"TNCEntity.unitsTo", "Ед. изм."},
+            {"TNCEntity.ratio", "Коэф."},
+            {"TNCEntity.price", "Цена"},
+            
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},

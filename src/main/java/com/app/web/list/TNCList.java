@@ -17,39 +17,21 @@ import java.util.Map;
 
 @Named("TNCList")
 @Scope("view")
-public class TNCList {
+public class TNCList extends EntityList<TNC>{
 
-    @PersistenceContext
-    private EntityManager em;
+    @Override
+    protected TNC createEntity() {
+        return new TNC();
+    }
 
-    private List<TNC> TNCs;
-    private Map<String, Boolean> userPA;
+    @Override
+    protected String getScreenName() {
+        return "TNCList";
+    }
 
-    @Loggable
-    @PostConstruct
-    public void init(){
+    @Override
+    protected List<TNC> getData() {
         Query query = em.createQuery("select p from TNC p order by p.name");
-        TNCs = query.getResultList();
-        userPA = Security.getUserPrivilegeAction("personList");
-    }
-
-    public void select(TNC tnc) {
-        RequestContext.getCurrentInstance().closeDialog(tnc);
-    }
-
-    public List<TNC> getTNCs() {
-        return TNCs;
-    }
-
-    public void setTNCs(List<TNC> TNCs) {
-        this.TNCs = TNCs;
-    }
-
-    public Map<String, Boolean> getUserPA() {
-        return userPA;
-    }
-
-    public void setUserPA(Map<String, Boolean> userPA) {
-        this.userPA = userPA;
+        return query.getResultList();
     }
 }
