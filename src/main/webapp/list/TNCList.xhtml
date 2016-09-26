@@ -99,11 +99,11 @@
                                      styleClass="inputLarge"
                                 />
                         <p:commandButton value="..."
-                                         actionListener="#{productScreen.chooseTNC}"
+                                         actionListener="#{TNCList.chooseTNC}"
                                          disabled="#{TNCList.edit}"
                                          >
                             <p:ajax event="dialogReturn"
-                                    listener="#{productScreen.onTNCChosen}"
+                                    listener="#{TNCList.onTNCChosen}"
                                     update=":mainForm:popupDetail"/>
                         </p:commandButton>
 

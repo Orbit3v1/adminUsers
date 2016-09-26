@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <h:outputText value="ТНЦ"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+    <!--TODO add privs and labels -->
+    <ui:define name="body">
+        <h:form id="mainForm">
+            <h:outputText value="ТНЦ" styleClass="listTitle"/>
+            <br/>
+
+            <p:dataTable id="TNCs" value="#{TNC1CList.entities}" var="row"
+                         rowClasses="odd-row, even-row">
+                <p:column rendered="#{true}">
+                    <f:facet name="header">Наименование</f:facet>
+                    <h:outputText value="#{row.name}"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -3,9 +3,11 @@ package com.app.data.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @Entity
 @Table(name = "calc_tnc")
 public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
+
     @Id
     @GeneratedValue
     @Column(name = "id")
