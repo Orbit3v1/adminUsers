@@ -3,6 +3,7 @@ package com.app.web.list;
 import com.app.data.entity.Person;
 import com.app.data.entity.ProductTNC;
 import com.app.data.entity.TNC;
+import com.app.data.entity.TNC1C;
 import com.app.utils.Security;
 import com.app.web.Loggable;
 import org.primefaces.context.RequestContext;
@@ -15,6 +16,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,9 @@ public class TNCList extends EntityList<TNC>{
 
     @Override
     protected TNC createEntity() {
-        return new TNC();
+        TNC tnc = new TNC();
+        tnc.setRatio(BigDecimal.ONE);
+        return tnc;
     }
 
     @Override
@@ -42,6 +46,8 @@ public class TNCList extends EntityList<TNC>{
     public void chooseTNC() {
         Map<String, Object> options = new HashMap<>();
         options.put("resizable", true);
+        options.put("width", 650);
+        options.put("height", 450);
         options.put("draggable", true);
         options.put("modal", true);
         RequestContext rq = RequestContext.getCurrentInstance();
@@ -50,9 +56,10 @@ public class TNCList extends EntityList<TNC>{
 
     @Transactional
     public void onTNCChosen(SelectEvent event) {
-//        TNC tnc = (TNC) event.getObject();
-//        ProductTNC pTNC = new ProductTNC();
-//        pTNC.setTnc(tnc);
-//        add(selectedNode, pTNC);
+        TNC1C tnc1C = (TNC1C) event.getObject();
+        editEntity.setName(tnc1C.getName());
+        editEntity.setPrice(tnc1C.getPrice());
+        editEntity.setLink1C(tnc1C.getId());
+        editEntity.setUnitsFrom(tnc1C.getUnit());
     }
 }

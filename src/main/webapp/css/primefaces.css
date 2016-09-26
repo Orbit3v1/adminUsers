@@ -17,6 +17,10 @@
     font-family: Arial, Verdana, sans-serif;
 }
 
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled{
+    opacity: 1 !important;
+}
+
 .labelPF{
     display:inline-block; !important;
     width: 100px; !important;
@@ -33,4 +37,9 @@
     margin: 3px !important;
     height: 80px !important;
     width: 280px !important;
+}
+
+.selectBtnPF{
+    padding: 0 8px 0 8px !important;
+    height: 14px !important;
 }

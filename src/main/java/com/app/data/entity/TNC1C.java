@@ -1,9 +1,5 @@
 package com.app.data.entity;
 
-import org.springframework.context.annotation.Scope;
-
-import javax.inject.Named;
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 
@@ -11,17 +7,19 @@ public class TNC1C {
 
     private byte[] id;
     private String name;
-    private String units;
+    private String unit;
     private BigDecimal price;
+    private boolean exist;
 
     public TNC1C() {
     }
 
-    public TNC1C(byte[] id, String name, String units, BigDecimal price) {
+    public TNC1C(byte[] id, String name, String units, BigDecimal price, String exist) {
         this.id = id;
         this.name = name;
-        this.units = units;
+        this.unit = units;
         this.price = price;
+        this.exist = exist.equals("Y");
     }
 
     public byte[] getId() {
@@ -40,12 +38,12 @@ public class TNC1C {
         this.name = name;
     }
 
-    public String getUnits() {
-        return units;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setUnits(String units) {
-        this.units = units;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public BigDecimal getPrice() {
@@ -54,5 +52,13 @@ public class TNC1C {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
     }
 }

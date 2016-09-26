@@ -3,7 +3,16 @@ package com.app.data.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
+@SqlResultSetMapping(
+        name = "TNCMapping",
+        classes = @ConstructorResult(
+                targetClass = TNC1C.class,
+                columns = {
+                        @ColumnResult(name = "id"),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "unit"),
+                        @ColumnResult(name = "price"),
+                        @ColumnResult(name = "exist")}))
 @Entity
 @Table(name = "calc_tnc")
 public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
@@ -25,10 +34,10 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
     @Column(name = "unitsTo")
     private String unitsTo;
 
-    @Column(name = "ratio", precision = 21, scale = 4)
+    @Column(name = "ratio", precision = 21, scale = 2)
     private BigDecimal ratio;
 
-    @Column(name = "price", precision = 21, scale = 4)
+    @Column(name = "price", precision = 21, scale = 2)
     private BigDecimal price;
 
     @Column(name = "link1C")

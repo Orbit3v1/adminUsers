@@ -100,7 +100,7 @@
                                 />
                         <p:commandButton value="..."
                                          actionListener="#{TNCList.chooseTNC}"
-                                         disabled="#{TNCList.edit}"
+                                         rendered="#{!TNCList.edit}"
                                          >
                             <p:ajax event="dialogReturn"
                                     listener="#{TNCList.onTNCChosen}"
@@ -129,7 +129,7 @@
                                      disabled="true"
                                      styleClass="inputLarge"
                                 />
-                        <h:message for="name" errorClass="error"/>
+                        <h:message for="unitsFrom" errorClass="error"/>
                     </h:panelGroup>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('TNCEntity.ratio')}"
@@ -150,7 +150,7 @@
                                      value="#{TNCList.editEntity.unitsTo}"
                                      styleClass="inputLarge"
                                 />
-                        <h:message for="name" errorClass="error"/>
+                        <h:message for="unitsTo" errorClass="error"/>
                     </h:panelGroup>
 
                     <h:panelGroup>

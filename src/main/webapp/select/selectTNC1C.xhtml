@@ -15,14 +15,45 @@
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
-            <h:outputText value="ТНЦ" styleClass="listTitle"/>
-            <br/>
-
-            <p:dataTable id="TNCs" value="#{TNC1CList.entities}" var="row"
-                         rowClasses="odd-row, even-row">
-                <p:column rendered="#{true}">
-                    <f:facet name="header">Наименование</f:facet>
+            <p:dataTable id="TNCs"
+                         value="#{TNC1CList.entities}"
+                         var="row"
+                         filteredValue="#{TNC1CList.filteredEntities}"
+                         sortMode="multiple"
+                         resizableColumns="true"
+                         paginator="true"
+                         rows="10"
+                         style="width: auto"
+                    >
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('TNCEntity.name')}"
+                          sortBy="#{row.name}"
+                          filterBy="#{row.name}"
+                          filterMatchMode="contains"
+                          style="width:260px">
                     <h:outputText value="#{row.name}"/>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('TNCEntity.unitsTo')}"
+                          sortBy="#{row.unit}"
+                          filterBy="#{row.unit}"
+                          filterMatchMode="contains"
+                          style="width:130px">
+                    <h:outputText value="#{row.unit}"/>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('TNCEntity.price')}"
+                          sortBy="#{row.price}"
+                          filterBy="#{row.price}"
+                          style="width:130px"
+                        >
+                    <h:outputText value="#{row.price}"/>
+                </p:column>
+                <p:column style="width:20px">
+                    <h:commandButton value=">"
+                                     action="#{TNC1CList.select(row)}"
+                                     rendered="#{!row.exist}"
+                                     styleClass="selectBtnPF"/>
                 </p:column>
             </p:dataTable>
 

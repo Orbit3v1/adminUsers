@@ -32,13 +32,15 @@ public class TNC1CList {
                 "select n._IDRRef id, " +
                 "  cast(n._description as varchar) as name, " +
                 "  cast(s._description as varchar) as unit, " +
-                "  p._fld8268 as price " +
+                "  p._fld8268 as price, " +
+                "  case when c.id is not null then 'Y' else 'N' end as exist " +
                 "from owner1C.dbo._Reference66 n " +
                 "join owner1C.dbo._Reference46 s on n._fld1029rref = s._IDRRef " +
                 "left join owner1C.dbo._InfoRg8264 p on p._fld8266rref = n._IDRRef " +
-                "where n._description = 'Гайки М5 клеп.'"
+                "left join calc_tnc c on c.link1c = n._IDRRef",
+                "TNCMapping"
         );
-        return (List<TNC1C>) query.getResultList();
+        return query.getResultList();
     }
 
     public void select(TNC1C tnc) {
