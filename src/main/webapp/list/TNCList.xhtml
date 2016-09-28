@@ -14,6 +14,12 @@
     </ui:define>
 
     <ui:define name="body">
+        <style type="text/css">
+            iframe {
+
+                width: 800px !important;
+            }
+        </style>
         <h:form id="mainForm">
             <p:growl id="growl" showDetail="true"/>
 
@@ -34,7 +40,8 @@
                           headerText="#{messages.getString('TNCEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
-                          filterMatchMode="contains">
+                          filterMatchMode="contains"
+                          filterStyle="width: 150px">
                     <p:commandLink value="#{row.name}"
                                    actionListener="#{TNCList.edit(row)}"
                                    update=":mainForm:popupDetail"

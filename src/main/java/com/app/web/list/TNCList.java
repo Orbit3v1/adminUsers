@@ -46,7 +46,7 @@ public class TNCList extends EntityList<TNC>{
     public void chooseTNC() {
         Map<String, Object> options = new HashMap<>();
         options.put("resizable", true);
-        options.put("width", 650);
+        options.put("width", 800);
         options.put("height", 450);
         options.put("draggable", true);
         options.put("modal", true);
@@ -61,5 +61,6 @@ public class TNCList extends EntityList<TNC>{
         editEntity.setPrice(tnc1C.getPrice());
         editEntity.setLink1C(tnc1C.getId());
         editEntity.setUnitsFrom(tnc1C.getUnit());
+        editEntity.setUnitsTo(tnc1C.getUnit());
     }
 }

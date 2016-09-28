@@ -21,6 +21,10 @@
     opacity: 1 !important;
 }
 
+.ui-datatable-resizable thead th, .ui-datatable-resizable tbody td, .ui-datatable-resizable tfoot td {
+    white-space: pre !important;
+}
+
 .labelPF{
     display:inline-block; !important;
     width: 100px; !important;

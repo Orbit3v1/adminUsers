@@ -34,7 +34,8 @@
                           headerText="#{messages.getString('functionEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
-                          filterMatchMode="contains">
+                          filterMatchMode="contains"
+                          filterStyle="width: 150px">
                     <p:commandLink value="#{row.name}"
                                    actionListener="#{functionList.edit(row)}"
                                    update=":mainForm:popupDetail"
@@ -101,9 +102,7 @@
                         <h:message for="code" errorClass="error"/>
                     </h:panelGroup>
                 </h:panelGrid>
-
                 <HR/>
-
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
                                      actionListener="#{functionList.save}"
