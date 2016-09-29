@@ -10,7 +10,7 @@ import java.util.List;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type",discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("PRODUCT")
-public class Product extends AbstractVersionedEntity{
+public class Product extends AbstractVersionedEntity implements Copy<Product>{
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -113,6 +113,20 @@ public class Product extends AbstractVersionedEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Product copy(){
+        Product copy = new Product();
+        copy.name = this.name;
+        copy.id = this.id;
+        copy.setVersion(this.getVersion());
+        return copy;
+    }
+
+    public void copyData(Product copy){
+        this.id = copy.id;
+        this.setVersion(copy.getVersion());
+        this.name = copy.name;
     }
 }
 

@@ -1,9 +1,6 @@
 package com.app.web.list;
 
-import com.app.data.entity.Person;
-import com.app.data.entity.ProductTNC;
-import com.app.data.entity.TNC;
-import com.app.data.entity.TNC1C;
+import com.app.data.entity.*;
 import com.app.utils.Security;
 import com.app.web.Loggable;
 import oracle.net.aso.q;
@@ -44,6 +41,10 @@ public class TNCList extends EntityList<TNC>{
     protected List<TNC> getData() {
         Query query = em.createQuery("select p from TNC p order by p.name");
         return query.getResultList();
+    }
+
+    public void select(TNC tnc) {
+        RequestContext.getCurrentInstance().closeDialog(tnc);
     }
 
     public void chooseTNC() {

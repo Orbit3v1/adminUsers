@@ -9,26 +9,31 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        <h:outputText value="ТНЦ"/>
+        <h:outputText value="#{messages.getString('menu.calculation.work')}"/>
     </ui:define>
     <ui:define name="headerMenu"/>
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
-            <h:outputText value="ТНЦ" styleClass="listTitle"/>
+            <h:outputText value="#{messages.getString('menu.calculation.work')}" styleClass="listTitle"/>
             <br/>
-
-            <p:dataTable id="works" value="#{workList.works}" var="row"
-                         rowClasses="odd-row, even-row">
-                <p:column rendered="#{true}">
-                    <f:facet name="header">Наименование</f:facet>
+            <p:dataTable id="entities" value="#{workList.entities}" var="row"
+                         filteredValue="#{workList.filteredEntities}"
+                         sortMode="multiple"
+                         resizableColumns="true">
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('workEntity.name')}"
+                          sortBy="#{row.name}"
+                          filterBy="#{row.name}"
+                          filterMatchMode="contains">
                     <h:outputText value="#{row.name}"/>
                 </p:column>
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton icon="ui-icon-search" actionListener="#{workList.select(row)}" />
+                <p:column style="width:20px;text-align: center">
+                    <h:commandButton value=">"
+                                     action="#{workList.select(row)}"
+                                     styleClass="selectBtnPF"/>
                 </p:column>
             </p:dataTable>
-
         </h:form>
     </ui:define>
 </ui:composition>

@@ -22,77 +22,22 @@ import java.util.Map;
 
 @Named("productList")
 @Scope("view")
-public class ProductList {
-    @PersistenceContext
-    private EntityManager em;
-    @Inject
-    protected AddMessage addMessage;
-    protected Logger logger = Logger.getLogger(getClass());
+public class ProductList extends EntityList<Product>{
 
-    private List<Product> products;
-    private Map<String, Boolean> userPA;
-    private Product editEntity;
-
-    @Loggable
-    @PostConstruct
-    public void init(){
-
-//        EntityGraph<Product> graph = em.createEntityGraph(Product.class);
-//        graph.addAttributeNodes("name");
-//        Query query = em.createQuery("select p from Product p where p.parent = null order by p.name").setHint(QueryHints.FETCHGRAPH, graph);
-
-        Query query = em.createQuery("select p from Product p where p.parent = null order by p.name");
-        products = query.getResultList();
-        userPA = Security.getUserPrivilegeAction("personList");
-        editEntity = new Product();
+    @Override
+    protected Product createEntity() {
+        return new Product();
     }
 
-    public void add(){
-        editEntity = new Product();
+    @Override
+    protected String getScreenName() {
+        return "productList";
     }
 
-    public void save(){
-        if (validate()) {
-            try {
-                saveAttempt();
-            } catch (OptimisticLockException e){
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
-                logger.error(e.getMessage());
-                e.printStackTrace();
-                addMessage.setMessage("mainForm:panel", "error.exception", FacesMessage.SEVERITY_ERROR);
-            }
-        } else {
-            addMessage.setMessage("mainForm:panel", ".error.title", FacesMessage.SEVERITY_ERROR);
-        }
-    }
-
-    private boolean validate() {
-        return true;
-    }
-
-    @Transactional
-    private void saveAttempt(){
-        editEntity = em.merge(editEntity);
-        products.add(editEntity);
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public Product getEditEntity() {
-        return editEntity;
-    }
-
-    public void setEditEntity(Product editEntity) {
-        this.editEntity = editEntity;
+    @Override
+    protected List<Product> getData(){
+        Query query = em.createQuery("select p from Product p where p.parent = null  order by p.name");
+        return  query.getResultList();
     }
 }
 

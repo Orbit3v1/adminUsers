@@ -83,6 +83,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCEntity.unitsTo", "Ед. изм."},
             {"TNCEntity.ratio", "Коэф."},
             {"TNCEntity.price", "Цена"},
+
+            {"productEntity", "Продукция"},
+            {"productEntity.name", "Наименование"},
             
             {"personList.title", "Список пользователей"},
 
@@ -201,6 +204,12 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.loadFilter", "Загрузить"},
             {"button.export.excel", "Excel"},
             {"button.refresh1C", "Обновить из 1С"},
+
+            {"button.calc.addProduct", "+ деталь"},
+            {"button.calc.addTNC", "+ ТНЦ"},
+            {"button.calc.addWork", "+ работа"},
+            {"button.calc.addFunction", "+ функция"},
+            {"button.calc.calculate", "Рассчитать"},
 
             {"datePattern", "dd.MM.yyyy"},
             {"dateTimePattern", "dd.MM.yyyy HH:mm"},
