@@ -30,8 +30,8 @@ public class TNC1CList {
     protected List<TNC1C> getData(){
         Query query = em.createNativeQuery(
                 "select n._IDRRef id, " +
-                "  cast(n._description as varchar) as name, " +
-                "  cast(s._description as varchar) as unit, " +
+                "  cast(n._description as varchar(500)) as name, " +
+                "  cast(s._description as varchar(500)) as unit, " +
                 "  p._fld8268 as price, " +
                 "  case when c.id is not null then 'Y' else 'N' end as exist " +
                 "from owner1C.dbo._Reference66 n " +

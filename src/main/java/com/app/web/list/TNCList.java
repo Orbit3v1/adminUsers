@@ -6,16 +6,19 @@ import com.app.data.entity.TNC;
 import com.app.data.entity.TNC1C;
 import com.app.utils.Security;
 import com.app.web.Loggable;
+import oracle.net.aso.q;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -62,5 +65,18 @@ public class TNCList extends EntityList<TNC>{
         editEntity.setLink1C(tnc1C.getId());
         editEntity.setUnitsFrom(tnc1C.getUnit());
         editEntity.setUnitsTo(tnc1C.getUnit());
+    }
+
+    public void refresh1C(){
+        try {
+            StoredProcedureQuery query = this.em.createStoredProcedureQuery("refreshTNC");
+            query.execute();
+            super.init();
+            addMessage.setMessage(null, "success.refresh1C", FacesMessage.SEVERITY_INFO);
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            addMessage.setMessage("mainForm:entities", "error.refresh1C", FacesMessage.SEVERITY_ERROR);
+        }
     }
 }

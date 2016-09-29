@@ -29,7 +29,7 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     protected Validator<T> validator;
     protected Logger logger = Logger.getLogger(getClass());
 
-    protected List<T> entities;
+    protected List<T> entities = new ArrayList<>();
     protected List<T> filteredEntities;
     protected Map<String, Boolean> userPA;
     protected T editEntity;
@@ -45,7 +45,8 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     public void init(){
         userPA = Security.getUserPrivilegeAction(getScreenName());
         editEntity = createEntity();
-        entities = getData();
+        entities.clear();
+        entities.addAll(getData());
         filteredEntities = entities;
     }
 

@@ -30,7 +30,10 @@
                              update=":mainForm:popupDetail"
                              oncomplete="PF('popup').show()"
                     />
-
+            <p:commandButton value="#{messages.getString('button.refresh1C')}"
+                             actionListener="#{TNCList.refresh1C}"
+                             update=":mainForm:entities, :mainForm:growl"
+                    />
             <h:message for="entities" infoClass="info" errorClass="error"/>
             <p:dataTable id="entities" value="#{TNCList.entities}" var="row"
                          filteredValue="#{TNCList.filteredEntities}"
