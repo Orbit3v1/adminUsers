@@ -15,10 +15,7 @@
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
-            <h:outputText value="#{messages.getString('menu.calculation.TNC')}" styleClass="listTitle"/>
-            <br/>
-
-            <p:dataTable id="entities" value="#{TNCList.entities}" var="row"
+              <p:dataTable id="entities" value="#{TNCList.entities}" var="row"
                          filteredValue="#{TNCList.filteredEntities}"
                          sortMode="multiple"
                          resizableColumns="true"
@@ -29,11 +26,13 @@
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
                           filterMatchMode="contains"
+                          style="width:350px"
                           filterStyle="width: 150px">
                     <h:outputText value="#{row.name}"/>
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.unitsTo')}"
+                          style="width:100px"
                           sortBy="#{row.unitsTo}">
                     <h:outputText value="#{row.unitsTo}"/>
                 </p:column>
@@ -43,7 +42,6 @@
                                      styleClass="selectBtnPF"/>
                 </p:column>
             </p:dataTable>
-
         </h:form>
     </ui:define>
 </ui:composition>

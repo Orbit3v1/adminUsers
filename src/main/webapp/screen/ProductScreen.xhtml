@@ -25,19 +25,19 @@
                              onclick="this.disabled=true"
                              oncomplete="this.disabled=false"
                              update=":mainForm"
-
-                    />
+                             styleClass="btn"/>
             <h:panelGroup id="buttons">
                 <p:commandButton update=":mainForm:products"
                                  title="Добавить деталь"
-                               action="#{productScreen.addProduct}"
-                               value="#{messages.getString('button.calc.addProduct')}"
-                               disabled="#{productScreen.selectedNode == null}"
-                        />
+                                 action="#{productScreen.addProduct}"
+                                 value="#{messages.getString('button.calc.addProduct')}"
+                                 disabled="#{productScreen.selectedNode == null}"
+                                 styleClass="btn"/>
                 <p:commandButton value="#{messages.getString('button.calc.addTNC')}"
                                  title="Добавить ТНЦ"
                                  actionListener="#{productScreen.chooseTNC}"
-                                 disabled="#{productScreen.selectedNode == null}">
+                                 disabled="#{productScreen.selectedNode == null}"
+                                 styleClass="btn">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onTNCChosen}"
                             update=":mainForm:products"/>
@@ -45,27 +45,28 @@
                 <p:commandButton value="#{messages.getString('button.calc.addWork')}"
                                  title="Добавить работу"
                                  actionListener="#{productScreen.chooseWork}"
-                                 disabled="#{productScreen.selectedNode == null}">
+                                 disabled="#{productScreen.selectedNode == null}"
+                                 styleClass="btn">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onWorkChosen}"
                             update=":mainForm:products"/>
                 </p:commandButton>
                 <p:commandButton update=":mainForm:products, :mainForm:buttons, :mainForm:growl"
-                               action="#{productScreen.delete}"
-                               title="#{messages.getString('button.delete')}"
-                               value="#{messages.getString('button.delete')}"
-                               disabled="#{productScreen.selectedNode.data.parent == null}"
-                               styleClass="btn">
+                                 action="#{productScreen.delete}"
+                                 title="#{messages.getString('button.delete')}"
+                                 value="#{messages.getString('button.delete')}"
+                                 disabled="#{productScreen.selectedNode.data.parent == null}"
+                                 styleClass="btn">
                     <p:confirm header="#{messages.getString('button.delete.confirmation')}"
                                message="#{messages.getString('button.delete.message')}"
                                icon="ui-icon-alert"/>
                 </p:commandButton>
 
                 <p:commandButton update=":mainForm:calcsPG"
-                               action="#{productScreen.calculate}"
-                               title="#{messages.getString('button.calc.calculate')}"
-                               value="#{messages.getString('button.calc.calculate')}"
-                               styleClass="btn">
+                                 action="#{productScreen.calculate}"
+                                 title="#{messages.getString('button.calc.calculate')}"
+                                 value="#{messages.getString('button.calc.calculate')}"
+                                 styleClass="btn">
                 </p:commandButton>
             </h:panelGroup>
             <p:treeTable id="products"
@@ -77,30 +78,34 @@
                          selectionMode="single"
                          resizableColumns="true"
                          selection="#{productScreen.selectedNode}"
-                         style="font-size: 14px !important;">
+                    >
 
                 <p:ajax event="cellEdit" listener="#{productScreen.onCellEdit}" update=":mainForm:growl"/>
                 <p:ajax event="select" update=":mainForm:buttons"/>
 
-                <p:column headerText="Name">
+                <p:column headerText="Name"
+                          style="width:450px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{product.name}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{product.name}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="width">
+                <p:column headerText="width"
+                          style="width:45px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{product.width}"/></f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.width}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="height">
+                <p:column headerText="height"
+                          style="width:45px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{product.height}"/></f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.height}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="length">
+                <p:column headerText="length"
+                          style="width:45px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{product.length}"/></f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.length}" style="width:100%"/></f:facet>
@@ -119,46 +124,46 @@
                     </p:cellEditor>
                 </p:column>
                 <!--<p:column style="width:24px">-->
-                    <!--<p:commandLink update=":mainForm:products"-->
-                                   <!--action="#{productScreen.addNodeTo(node)}"-->
-                                   <!--title="Add element"-->
-                                   <!--value="P"-->
-                            <!-->-->
-                    <!--</p:commandLink>-->
-                    <!--<p:commandButton value="TNC"-->
-                                     <!--icon="ui-icon-extlink"-->
+                <!--<p:commandLink update=":mainForm:products"-->
+                <!--action="#{productScreen.addNodeTo(node)}"-->
+                <!--title="Add element"-->
+                <!--value="P"-->
+                <!-->-->
+                <!--</p:commandLink>-->
+                <!--<p:commandButton value="TNC"-->
+                <!--icon="ui-icon-extlink"-->
 
-                                     <!--actionListener="#{productScreen.chooseTNC}">-->
+                <!--actionListener="#{productScreen.chooseTNC}">-->
 
-                        <!--<p:ajax event="dialogReturn"-->
-                                <!--listener="#{productScreen.onTNCChosen}"-->
-                                <!--update=":mainForm:products"/>-->
-                        <!--<f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}"/>-->
-                    <!--</p:commandButton>-->
-                    <!--<p:commandLink update=":mainForm"-->
-                                   <!--action="#{productScreen.deleteNode(node)}"-->
-                                   <!--title="Delete element"-->
-                                   <!--rendered="#{product.parent != null}"-->
-                                   <!--styleClass="ui-icon ui-icon-cancel">-->
-                    <!--</p:commandLink>-->
+                <!--<p:ajax event="dialogReturn"-->
+                <!--listener="#{productScreen.onTNCChosen}"-->
+                <!--update=":mainForm:products"/>-->
+                <!--<f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}"/>-->
+                <!--</p:commandButton>-->
+                <!--<p:commandLink update=":mainForm"-->
+                <!--action="#{productScreen.deleteNode(node)}"-->
+                <!--title="Delete element"-->
+                <!--rendered="#{product.parent != null}"-->
+                <!--styleClass="ui-icon ui-icon-cancel">-->
+                <!--</p:commandLink>-->
                 <!--</p:column>-->
             </p:treeTable>
             <h:panelGroup id="calcsPG">
-            <p:treeTable id="calcs"
-                         rendered="#{productScreen.rootCalc != null}"
-                         value="#{productScreen.rootCalc}"
-                         var="calc"
-                         style="font-size: 14px !important;">
+                <p:treeTable id="calcs"
+                             rendered="#{productScreen.rootCalc != null}"
+                             value="#{productScreen.rootCalc}"
+                             var="calc"
+                             style="font-size: 14px !important;">
 
 
-                <p:column headerText="Name">
-                    <h:outputText value="#{calc.name}"/>
-                </p:column>
-                <p:column headerText="Name">
-                    <h:outputText value="#{calc.price}"/>
-                </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{calc.name}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{calc.price}"/>
+                    </p:column>
 
-            </p:treeTable>
+                </p:treeTable>
             </h:panelGroup>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

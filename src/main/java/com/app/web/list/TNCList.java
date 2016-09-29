@@ -3,7 +3,6 @@ package com.app.web.list;
 import com.app.data.entity.*;
 import com.app.utils.Security;
 import com.app.web.Loggable;
-import oracle.net.aso.q;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
@@ -45,6 +44,10 @@ public class TNCList extends EntityList<TNC>{
 
     public void select(TNC tnc) {
         RequestContext.getCurrentInstance().closeDialog(tnc);
+    }
+
+    public void cancel(){
+        RequestContext.getCurrentInstance().closeDialog(null);
     }
 
     public void chooseTNC() {

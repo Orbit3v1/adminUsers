@@ -3,6 +3,11 @@ function openPopUp(source, name){
     return popUp;
 }
 
+function openPopUpFull(source, name){
+    var w = screen.width * 0.9;
+    var popUp = window.open(source.replace(/\|\|/g, '&'), name, 'width=' + w + ',height=750,resizable=yes,scrollbars=yes');
+    return popUp;
+}
 
 function clickIn(elementId){
     var element = this.document.getElementById(elementId);

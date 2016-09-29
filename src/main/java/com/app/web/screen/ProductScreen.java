@@ -152,8 +152,8 @@ public class ProductScreen {
         options.put("resizable", true);
         options.put("draggable", true);
         options.put("modal", true);
-        options.put("width", 600);
-        options.put("height", 450);
+        options.put("width", 650);
+        options.put("height", 400);
         RequestContext rq = RequestContext.getCurrentInstance();
         rq.openDialog("/select/selectTNC", options, null);
     }
@@ -171,8 +171,8 @@ public class ProductScreen {
         options.put("resizable", true);
         options.put("draggable", true);
         options.put("modal", true);
-        options.put("width", 600);
-        options.put("height", 450);
+        options.put("width", 650);
+        options.put("height", 400);
         RequestContext rq = RequestContext.getCurrentInstance();
         rq.openDialog("/select/selectWork", options, null);
     }

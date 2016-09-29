@@ -15,17 +15,19 @@
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
-            <h:outputText value="#{messages.getString('menu.calculation.work')}" styleClass="listTitle"/>
-            <br/>
             <p:dataTable id="entities" value="#{workList.entities}" var="row"
                          filteredValue="#{workList.filteredEntities}"
                          sortMode="multiple"
-                         resizableColumns="true">
+                         resizableColumns="true"
+                         paginator="true"
+                         rows="10">
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('workEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
-                          filterMatchMode="contains">
+                          filterMatchMode="contains"
+                          style="width:350px"
+                          filterStyle="width: 150px">
                     <h:outputText value="#{row.name}"/>
                 </p:column>
                 <p:column style="width:20px;text-align: center">

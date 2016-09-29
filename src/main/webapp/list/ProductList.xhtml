@@ -36,7 +36,7 @@
                           filterBy="#{row.name}"
                           filterMatchMode="contains">
                     <p:commandLink value="#{row.name}"
-                                   onclick="openPopUp('/screen/ProductScreen.xhtml?id=#{row.id}', 'ProductScreen#{row.id}')"
+                                   onclick="openPopUpFull('/screen/ProductScreen.xhtml?id=#{row.id}', 'ProductScreen#{row.id}')"
                                    style="display: block;"/>
                 </p:column>
                 <p:column rendered="#{true}"
