@@ -47,6 +47,7 @@ public class ProductScreen {
     private Product entity;
     private TreeNode selectedNode;
     private String includedFunctions;
+    private Map<Product, String> errorProducts;
 
     @PostConstruct
     public void init() {
@@ -57,6 +58,7 @@ public class ProductScreen {
         } else {
             entity = new Product();
         }
+        errorProducts = new HashMap<>();
         initTree();
     }
 
@@ -75,7 +77,7 @@ public class ProductScreen {
         }
     }
 
-    public void addProduct(){
+    public void addProduct() {
         Product product = new Product();
         add(selectedNode, product);
     }
@@ -88,7 +90,7 @@ public class ProductScreen {
         tn.setExpanded(true);
     }
 
-    public void delete(){
+    public void delete() {
         deleteNode(selectedNode);
     }
 
@@ -108,11 +110,11 @@ public class ProductScreen {
             try {
                 saveAttempt();
                 addMessage.setMessage(null, "success.save", FacesMessage.SEVERITY_INFO);
-            } catch (OptimisticLockException e){
+            } catch (OptimisticLockException e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
                 addMessage.setMessage("mainForm:entities", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
+            } catch (Exception e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
                 addMessage.setMessage("mainForm:entities", "error.exception", FacesMessage.SEVERITY_ERROR);
@@ -128,22 +130,15 @@ public class ProductScreen {
         initTree();
     }
 
-    protected boolean validate(){
+    protected boolean validate() {
         return true;
     }
 
     public void chooseTNC() {
-        Map<String, Object> options = new HashMap<>();
-        options.put("resizable", true);
-        options.put("draggable", true);
-        options.put("modal", true);
-        options.put("width", 650);
-        options.put("height", 400);
         RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/selectTNC", options, null);
+        rq.openDialog("/select/selectTNC", getStandardOptions(), null);
     }
 
-    @Transactional
     public void onTNCChosen(SelectEvent event) {
         TNC tnc = (TNC) event.getObject();
         ProductTNC pTNC = new ProductTNC();
@@ -152,17 +147,10 @@ public class ProductScreen {
     }
 
     public void chooseWork() {
-        Map<String, Object> options = new HashMap<>();
-        options.put("resizable", true);
-        options.put("draggable", true);
-        options.put("modal", true);
-        options.put("width", 650);
-        options.put("height", 400);
         RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/selectWork", options, null);
+        rq.openDialog("/select/selectWork", getStandardOptions(), null);
     }
 
-    @Transactional
     public void onWorkChosen(SelectEvent event) {
         Work work = (Work) event.getObject();
         ProductWork pWork = new ProductWork();
@@ -170,66 +158,109 @@ public class ProductScreen {
         add(selectedNode, pWork);
     }
 
-    public void calculate(){
+    public void chooseFunction() {
+        RequestContext rq = RequestContext.getCurrentInstance();
+        rq.openDialog("/select/selectFunction", getStandardOptions(), null);
+    }
+
+    public void onFunctionChosen(SelectEvent event) {
+        Function function = (Function) event.getObject();
+        Product product = (Product) selectedNode.getData();
+        product.setFormula(product.getFormula() + getFunctionName(function));
+    }
+
+    private String getFunctionName(Function f) {
+        String code = f.getCode();
+        code = code.substring(0, code.indexOf("{"));
+        return code.replaceAll("(?i)function", "");
+    }
+
+    private Map<String, Object> getStandardOptions() {
+        Map<String, Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        options.put("width", 650);
+        options.put("height", 400);
+        return options;
+    }
+
+    public void calculate() {
+        errorProducts.clear();
         initFunctions();
         rootCalc = new DefaultTreeNode();
-        generateCalcTree(rootCalc, entity);
+        generateCalcTree(rootCalc, entity, entity.getFormula());
+        if(hasErrors()){
+            addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     @Transactional
-    private void initFunctions(){
+    private void initFunctions() {
         includedFunctions = "";
         Query query = em.createQuery("select p from Function p order by p.name");
         List<Function> functions = query.getResultList();
-        for(Function f : functions){
+        for (Function f : functions) {
             includedFunctions += f.getCode();
         }
     }
 
-    private void generateCalcTree(TreeNode parentNode, Product product){
-        BigDecimal price = getPrice(product);
+    private void generateCalcTree(TreeNode parentNode, Product product, String formula) {
+        BigDecimal price = getPrice(product, formula);
         CalculationDTO calc = new CalculationDTO(product.getName(), price);
         TreeNode tn = new DefaultTreeNode(calc, parentNode);
         tn.setExpanded(true);
 
-        for(Product p : product.getSubordinates()){
-            generateCalcTree(tn, p);
+        for (Product p : product.getSubordinates()) {
+            generateCalcTree(tn, p, formula + "; " + p.getFormula());
         }
 
-        if(parentNode.getData() != null){
+        if (parentNode.getData() != null) {
             CalculationDTO parentCalc = (CalculationDTO) parentNode.getData();
             parentCalc.setPrice(parentCalc.getPrice().add(calc.getPrice()));
         }
     }
 
-    private BigDecimal getPrice(Product product){
-        BigDecimal result = executeCode(product.getFormula());
+    private BigDecimal getPrice(Product product, String formula) {
+        BigDecimal result = BigDecimal.ZERO;
+        if(product.getFormula() == null || product.getFormula().replaceAll(" ", "").equals("")){
+            return result;
+        }
+        try {
+            result = executeCode(formula);
+            if (product instanceof Converted) {
+                BigDecimal ratio = ((Converted) product).getRatio();
+                ratio = ratio == null ? BigDecimal.ONE : ratio;
+                result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+            }
+            if (product instanceof Valuable) {
+                BigDecimal price = ((Valuable) product).getPrice();
+                price = price == null ? BigDecimal.ZERO : price;
+                result = result.multiply(price);
+            }
+        } catch (ScriptException e) {
+            e.printStackTrace();
+            errorProducts.put(product, e.getMessage());
+        }
 
-        if(product instanceof Converted){
-            BigDecimal ratio = ((Converted) product).getRatio();
-            ratio = ratio == null ? BigDecimal.ONE : ratio;
-            result = result.divide(ratio, BigDecimal.ROUND_CEILING);
-        }
-        if(product instanceof Valuable){
-            BigDecimal price = ((Valuable) product).getPrice();
-            price = price == null ? BigDecimal.ZERO : price;
-            result = result.multiply(price);
-        }
-        return  result;
+
+        return result;
     }
 
 
-    private BigDecimal executeCode(String formula){
+    private BigDecimal executeCode(String formula) throws ScriptException {
         String result = "0";
-        if(formula != null) {
-            formula = includedFunctions + " " + formula;
-            try {
-                result = jsEngine.calculate(formula);
-            } catch (ScriptException e) {
-                e.printStackTrace();
-            }
-        }
+        formula = includedFunctions + " " + formula;
+        result = jsEngine.calculate(formula);
         return new BigDecimal(result);
+    }
+
+    public boolean isError(Product product){
+        return errorProducts.containsKey(product);
+    }
+
+    public boolean hasErrors(){
+        return errorProducts.size() != 0;
     }
 
     public TreeNode getRoot() {
@@ -254,5 +285,13 @@ public class ProductScreen {
 
     public void setRootCalc(TreeNode rootCalc) {
         this.rootCalc = rootCalc;
+    }
+
+    public Map<Product, String> getErrorProducts() {
+        return errorProducts;
+    }
+
+    public void setErrorProducts(Map<Product, String> errorProducts) {
+        this.errorProducts = errorProducts;
     }
 }

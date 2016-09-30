@@ -84,7 +84,7 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>{
     }
 
     public String getFormula() {
-        return formula;
+        return formula == null ? "" : formula;
     }
 
     public void setFormula(String formula) {

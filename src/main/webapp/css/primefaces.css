@@ -12,6 +12,10 @@
     background: #ffdaae;
 }
 
+.ui-treetable tr:hover, .ui-treetable-even:hover, .ui-treetable tr.ui-treetable-odd:hover {
+    background: #ffdaae !important;
+}
+
 .ui-dialog-title {
     font-size: 16px !important;
     font-family: Arial, Verdana, sans-serif;

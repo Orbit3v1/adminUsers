@@ -29,7 +29,7 @@
                                  oncomplete="this.disabled=false"
                                  update=":mainForm"
                                  styleClass="btn"/>
-                <p:commandButton update=":mainForm:calcsPG"
+                <p:commandButton update=":mainForm:entities, :mainForm:calcsPG"
                                  action="#{productScreen.calculate}"
                                  title="#{messages.getString('button.calc.calculate')}"
                                  value="#{messages.getString('button.calc.calculate')}"
@@ -59,6 +59,15 @@
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onWorkChosen}"
+                            update=":mainForm:entities"/>
+                </p:commandButton>
+                <p:commandButton value="#{messages.getString('button.calc.addFunction')}"
+                                 title="Добавить функцию"
+                                 actionListener="#{productScreen.chooseFunction}"
+                                 disabled="#{productScreen.selectedNode == null}"
+                                 styleClass="btn">
+                    <p:ajax event="dialogReturn"
+                            listener="#{productScreen.onFunctionChosen}"
                             update=":mainForm:entities"/>
                 </p:commandButton>
                 <p:commandButton update=":mainForm:entities, :mainForm:buttons, :mainForm:growl"
@@ -145,16 +154,23 @@
                         <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="#{messages.getString('productEntity.formula')}">
+                <p:column headerText="#{messages.getString('productEntity.formula')}"
+                          style="#{productScreen.isError(product) ? 'background-color: #ffb3b3; border : 3px solid #d82253' : ''}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <span style="display: inline-block; width: 100%; height: 100%">
                                 &zwnj;
-                                <h:outputText value="#{product.formula}"/>
+                                <h:outputText value="#{product.formula}"
+                                        />
                             </span>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{product.formula}" style="width:100%"/></f:facet>
                     </p:cellEditor>
+                </p:column>
+                <p:column rendered="#{false and productScreen.hasErrors()}">
+
+                    <h:outputText value="#{productScreen.errorProducts[product]}"/>
+
                 </p:column>
             </p:treeTable>
 
