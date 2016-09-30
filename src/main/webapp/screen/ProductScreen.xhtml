@@ -20,14 +20,23 @@
 
             <p:growl id="growl" showDetail="true"/>
 
-            <p:commandButton value="#{messages.getString('button.save')}"
-                             action="#{productScreen.save}"
-                             onclick="this.disabled=true"
-                             oncomplete="this.disabled=false"
-                             update=":mainForm"
-                             styleClass="btn"/>
+
             <h:panelGroup id="buttons">
-                <p:commandButton update=":mainForm:products"
+
+                <p:commandButton value="#{messages.getString('button.save')}"
+                                 action="#{productScreen.save}"
+                                 onclick="this.disabled=true"
+                                 oncomplete="this.disabled=false"
+                                 update=":mainForm"
+                                 styleClass="btn"/>
+                <p:commandButton update=":mainForm:calcsPG"
+                                 action="#{productScreen.calculate}"
+                                 title="#{messages.getString('button.calc.calculate')}"
+                                 value="#{messages.getString('button.calc.calculate')}"
+                                 styleClass="btn">
+                </p:commandButton>
+                <br/>
+                <p:commandButton update=":mainForm:entities"
                                  title="Добавить деталь"
                                  action="#{productScreen.addProduct}"
                                  value="#{messages.getString('button.calc.addProduct')}"
@@ -40,8 +49,9 @@
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onTNCChosen}"
-                            update=":mainForm:products"/>
+                            update=":mainForm:entities"/>
                 </p:commandButton>
+
                 <p:commandButton value="#{messages.getString('button.calc.addWork')}"
                                  title="Добавить работу"
                                  actionListener="#{productScreen.chooseWork}"
@@ -49,9 +59,9 @@
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
                             listener="#{productScreen.onWorkChosen}"
-                            update=":mainForm:products"/>
+                            update=":mainForm:entities"/>
                 </p:commandButton>
-                <p:commandButton update=":mainForm:products, :mainForm:buttons, :mainForm:growl"
+                <p:commandButton update=":mainForm:entities, :mainForm:buttons, :mainForm:growl"
                                  action="#{productScreen.delete}"
                                  title="#{messages.getString('button.delete')}"
                                  value="#{messages.getString('button.delete')}"
@@ -62,14 +72,8 @@
                                icon="ui-icon-alert"/>
                 </p:commandButton>
 
-                <p:commandButton update=":mainForm:calcsPG"
-                                 action="#{productScreen.calculate}"
-                                 title="#{messages.getString('button.calc.calculate')}"
-                                 value="#{messages.getString('button.calc.calculate')}"
-                                 styleClass="btn">
-                </p:commandButton>
             </h:panelGroup>
-            <p:treeTable id="products"
+            <p:treeTable id="entities"
                          value="#{productScreen.root}"
                          var="product"
                          nodeVar="node"
@@ -80,102 +84,97 @@
                          selection="#{productScreen.selectedNode}"
                     >
 
-                <p:ajax event="cellEdit" listener="#{productScreen.onCellEdit}" update=":mainForm:growl"/>
                 <p:ajax event="select" update=":mainForm:buttons"/>
 
-                <p:column headerText="Name"
+                <p:column headerText="#{messages.getString('productEntity.name')}"
                           style="width:450px">
                     <p:cellEditor>
                         <f:facet name="output">
                             <span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.name}"/>
+                                &zwnj;
+                                <h:outputText value="#{product.name}"/>
                             </span>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{product.name}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="width"
-                          style="width:450px">
+                <p:column headerText="#{messages.getString('productEntity.width')}"
+                          style="width:60px">
                     <p:cellEditor>
                         <f:facet name="output">
                             <span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.width}"/>
+                                &zwnj;
+                                <h:outputText value="#{product.width}"/>
                             </span>
                         </f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.width}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="height"
-                          style="width:45px">
+                <p:column headerText="#{messages.getString('productEntity.height')}"
+                          style="width:60px">
                     <p:cellEditor>
-                        <f:facet name="output"><span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.height}"/></span>
+                        <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.height}"/>
+                            </span>
                         </f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.height}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="length"
-                          style="width:45px">
+                <p:column headerText="#{messages.getString('productEntity.length')}"
+                          style="width:60px">
                     <p:cellEditor>
-                        <f:facet name="output"><span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.length}"/></span>
+                        <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.length}"/>
+                            </span>
                         </f:facet>
                         <f:facet name="input"><p:inputNumber value="#{product.length}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="detail">
+                <p:column headerText="#{messages.getString('productEntity.detail')}">
                     <p:cellEditor>
-                        <f:facet name="output"><span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.detail}"/></span>
+                        <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.detail}"/>
+                            </span>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="formula">
+                <p:column headerText="#{messages.getString('productEntity.formula')}">
                     <p:cellEditor>
-                        <f:facet name="output"><span style="display: inline-block; width: 100%; height: 100%">
-                            <h:outputText value="#{product.formula}"/></span>
+                        <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.formula}"/>
+                            </span>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{product.formula}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-                <!--<p:column style="width:24px">-->
-                <!--<p:commandLink update=":mainForm:products"-->
-                <!--action="#{productScreen.addNodeTo(node)}"-->
-                <!--title="Add element"-->
-                <!--value="P"-->
-                <!-->-->
-                <!--</p:commandLink>-->
-                <!--<p:commandButton value="TNC"-->
-                <!--icon="ui-icon-extlink"-->
-
-                <!--actionListener="#{productScreen.chooseTNC}">-->
-
-                <!--<p:ajax event="dialogReturn"-->
-                <!--listener="#{productScreen.onTNCChosen}"-->
-                <!--update=":mainForm:products"/>-->
-                <!--<f:setPropertyActionListener value="#{node}" target="#{productScreen.selectedNode}"/>-->
-                <!--</p:commandButton>-->
-                <!--<p:commandLink update=":mainForm"-->
-                <!--action="#{productScreen.deleteNode(node)}"-->
-                <!--title="Delete element"-->
-                <!--rendered="#{product.parent != null}"-->
-                <!--styleClass="ui-icon ui-icon-cancel">-->
-                <!--</p:commandLink>-->
-                <!--</p:column>-->
             </p:treeTable>
+
             <h:panelGroup id="calcsPG">
+
+                <h:panelGroup rendered="#{productScreen.rootCalc != null}">
+                    <HR/>
+                    <h:outputText value="#{messages.getString('productScreen.calculation')}" styleClass="listTitle"/>
+                </h:panelGroup>
                 <p:treeTable id="calcs"
-                             rendered="#{productScreen.rootCalc != null}"
                              value="#{productScreen.rootCalc}"
                              var="calc"
-                             style="font-size: 14px !important;">
-
-
-                    <p:column headerText="Name">
+                             rendered="#{productScreen.rootCalc != null}"
+                             style="width: 550px">
+                    <p:column headerText="#{messages.getString('productEntity.name')}"
+                              style="width:450px">
                         <h:outputText value="#{calc.name}"/>
                     </p:column>
-                    <p:column headerText="Name">
+                    <p:column headerText="#{messages.getString('productEntity.price')}"
+                              style="width:100px">
                         <h:outputText value="#{calc.price}"/>
                     </p:column>
 

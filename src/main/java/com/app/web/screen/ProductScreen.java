@@ -2,8 +2,11 @@ package com.app.web.screen;
 
 import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.*;
+import com.app.utils.AddMessage;
 import com.app.utils.AppUtil;
+import com.app.utils.JSEngine;
 import com.app.utils.SessionUtil;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.SelectEvent;
@@ -15,17 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.*;
 
 @Named("productScreen")
@@ -34,38 +34,40 @@ public class ProductScreen {
 
     @PersistenceContext
     protected EntityManager em;
+    @Inject
+    private JSEngine jsEngine;
+    @Inject
+    protected ResourceBundle resourceBundle;
+    @Inject
+    protected AddMessage addMessage;
+    protected Logger logger = Logger.getLogger(getClass());
 
     private TreeNode root;
     private TreeNode rootCalc;
     private Product entity;
-    //    private List<Product> deleteProducts;
     private TreeNode selectedNode;
-    //   private Map<Product, TreeNode> connector;
     private String includedFunctions;
 
     @PostConstruct
     public void init() {
         String id = SessionUtil.getParameter("id");
-//        deleteProducts = new ArrayList<>();
         if (id != null && AppUtil.isNumeric(id)) {
             entity = em.find(Product.class, AppUtil.toInteger(id));
             entity.getSubordinates();
         } else {
             entity = new Product();
         }
-        initRoot();
+        initTree();
     }
 
-    private void initRoot() {
+    private void initTree() {
         root = new DefaultTreeNode();
         TreeNode tn = new DefaultTreeNode(entity, root);
         tn.setExpanded(true);
         initSubordinates(entity, tn);
     }
 
-    @Transactional
     private void initSubordinates(Product product, TreeNode parentNode) {
-        // product = em.find(Product.class, product.getId());
         for (Product p : product.getSubordinates()) {
             TreeNode tn = new DefaultTreeNode(p, parentNode);
             tn.setExpanded(true);
@@ -73,22 +75,17 @@ public class ProductScreen {
         }
     }
 
-    public void addNodeTo(TreeNode node) {
-        Product product = new Product();
-        add(node, product);
-    }
-
-    private void add(TreeNode node, Product product) {
-        Product parentProduct = (Product) node.getData();
-        product.setParent(parentProduct);
-        parentProduct.getSubordinates().add(product);
-        TreeNode tn = new DefaultTreeNode(product, node);
-        tn.setExpanded(true);
-    }
-
     public void addProduct(){
         Product product = new Product();
         add(selectedNode, product);
+    }
+
+    private void add(TreeNode parentNode, Product product) {
+        Product parentProduct = (Product) parentNode.getData();
+        product.setParent(parentProduct);
+        parentProduct.getSubordinates().add(product);
+        TreeNode tn = new DefaultTreeNode(product, parentNode);
+        tn.setExpanded(true);
     }
 
     public void delete(){
@@ -104,48 +101,36 @@ public class ProductScreen {
         Product product = (Product) node.getData();
         parentProduct.getSubordinates().remove(product);
         selectedNode = null;
-        //  deleteProducts.add();
-    }
-
-    public void onCellEdit(CellEditEvent event) {
-//        Object oldValue = event.getOldValue();
-//        Object newValue = event.getNewValue();
-//
-//        if(newValue != null && !newValue.equals(oldValue)) {
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//        }
-    }
-    public void onRowSelect(SelectEvent event) {
-
     }
 
     public void save() {
-        saveNode(root);
-//        delete();
-
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saved", "Saved");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (validate()) {
+            try {
+                saveAttempt();
+                addMessage.setMessage(null, "success.save", FacesMessage.SEVERITY_INFO);
+            } catch (OptimisticLockException e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+                addMessage.setMessage("mainForm:entities", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+            } catch (Exception e){
+                logger.error(e.getMessage());
+                e.printStackTrace();
+                addMessage.setMessage("mainForm:entities", "error.exception", FacesMessage.SEVERITY_ERROR);
+            }
+        } else {
+            addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     @Transactional
-    private void saveNode(TreeNode treeNode) {
-//        for (TreeNode tn : treeNode.getChildren()) {
-//            em.merge((Product) tn.getData());
-////            saveNode(tn);
-//        }
+    private void saveAttempt() {
         entity = em.merge(entity);
-
-        initRoot();
+        initTree();
     }
-//    @Transactional
-//    private void delete(){
-//        for(Product p : deleteProducts){
-////            em.remove(em.contains(p) ? p : em.merge(p));
-//            p = em.find(Product.class, p.getId());
-//            em.remove(p);
-//        }
-//    }
+
+    protected boolean validate(){
+        return true;
+    }
 
     public void chooseTNC() {
         Map<String, Object> options = new HashMap<>();
@@ -202,16 +187,11 @@ public class ProductScreen {
     }
 
     private void generateCalcTree(TreeNode parentNode, Product product){
-        BigDecimal price = execute(product.getFormula());
-        if(product instanceof ProductTNC){
-            BigDecimal ratio = ((ProductTNC) product).getTnc().getRatio();
-            ratio = ratio == null ? BigDecimal.ONE : ratio;
-            price = price.divide(ratio, BigDecimal.ROUND_CEILING);
-        }
+        BigDecimal price = getPrice(product);
         CalculationDTO calc = new CalculationDTO(product.getName(), price);
-
         TreeNode tn = new DefaultTreeNode(calc, parentNode);
         tn.setExpanded(true);
+
         for(Product p : product.getSubordinates()){
             generateCalcTree(tn, p);
         }
@@ -220,19 +200,34 @@ public class ProductScreen {
             CalculationDTO parentCalc = (CalculationDTO) parentNode.getData();
             parentCalc.setPrice(parentCalc.getPrice().add(calc.getPrice()));
         }
+    }
 
+    private BigDecimal getPrice(Product product){
+        BigDecimal result = executeCode(product.getFormula());
+
+        if(product instanceof Converted){
+            BigDecimal ratio = ((Converted) product).getRatio();
+            ratio = ratio == null ? BigDecimal.ONE : ratio;
+            result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+        }
+        if(product instanceof Valuable){
+            BigDecimal price = ((Valuable) product).getPrice();
+            price = price == null ? BigDecimal.ZERO : price;
+            result = result.multiply(price);
+        }
+        return  result;
     }
 
 
-    private BigDecimal execute(String formula){
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+    private BigDecimal executeCode(String formula){
         String result = "0";
-        formula = includedFunctions + " " + formula;
-        try {
-            result = engine.eval(formula).toString();
-        } catch (ScriptException e) {
-            e.printStackTrace();
+        if(formula != null) {
+            formula = includedFunctions + " " + formula;
+            try {
+                result = jsEngine.calculate(formula);
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
         }
         return new BigDecimal(result);
     }

@@ -17,15 +17,12 @@
 
     <ui:define name="body">
         <script type="text/javascript">
-
             var init = [];
             window.onload = function () {
                 for (var i in init) {
                     if (typeof( init[i] ) == 'function') init[i]();
                 }
             }
-
-
         </script>
 
 

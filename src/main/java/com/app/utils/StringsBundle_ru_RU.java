@@ -86,7 +86,13 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"productEntity", "Продукция"},
             {"productEntity.name", "Наименование"},
-            
+            {"productEntity.detail", "Описание"},
+            {"productEntity.height", "Высота"},
+            {"productEntity.width", "Ширина"},
+            {"productEntity.length", "Длина"},
+            {"productEntity.formula", "Формула"},
+            {"productEntity.price", "Цена"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -156,6 +162,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderItemScreen.error.title", "Неверные данные"},
             {"orderItemScreen.success.save", "Позиция успешно создана"},
             {"orderItemScreen.success.edit", "Позиция успешно изменена"},
+
+            {"productScreen.calculation", "Стоимость"},
 
             {"order.setEnd", "Сдать"},
 

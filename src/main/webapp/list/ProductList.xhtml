@@ -29,7 +29,7 @@
                          filteredValue="#{productList.filteredEntities}"
                          sortMode="multiple"
                          resizableColumns="true"
-                    style="width: 600px">
+                         style="width: 600px">
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('productEntity.name')}"
                           sortBy="#{row.name}"
@@ -54,9 +54,9 @@
             </p:dataTable>
 
             <p:commandButton id="refresh"
-                               update=":mainForm:entities"
-                               style="display: none"
-                               value="refresh"/>
+                             update=":mainForm:entities"
+                             style="display: none"
+                             value="refresh"/>
 
 
             <p:dialog widgetVar="popup"

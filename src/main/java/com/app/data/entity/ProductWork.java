@@ -1,10 +1,11 @@
 package com.app.data.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("WORK")
-public class ProductWork  extends Product{
+public class ProductWork  extends Product implements Valuable {
     @ManyToOne()
     @JoinColumn(name="calc_work")
     private Work work;
@@ -20,5 +21,10 @@ public class ProductWork  extends Product{
 
     public void setWork(Work work) {
         this.work = work;
+    }
+
+    @Override
+    public BigDecimal getPrice() {
+        return work == null ? null : work.getPrice();
     }
 }
