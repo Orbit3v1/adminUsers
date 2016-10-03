@@ -2,6 +2,7 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @SqlResultSetMapping(
         name = "TNCMapping",
@@ -42,6 +43,9 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
 
     @Column(name = "link1C")
     private byte[] link1C;
+
+    @OneToMany(mappedBy = "tnc")
+    private List<ProductTNC> products;
 
     @Override
     public Integer getId() {
@@ -106,6 +110,14 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
 
     public void setLink1C(byte[] link1C) {
         this.link1C = link1C;
+    }
+
+    public List<ProductTNC> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductTNC> products) {
+        this.products = products;
     }
 
     public TNC copy(){

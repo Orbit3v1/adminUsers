@@ -35,4 +35,11 @@ public class ProductWork  extends Product implements Valuable, Selectable {
         Work work = (Work) event.getObject();
         setWork(work);
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        ProductWork product = (ProductWork) super.clone();
+        product.work = this.work;
+        return product;
+    }
 }

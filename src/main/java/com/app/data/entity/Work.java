@@ -2,6 +2,7 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "calc_work")
@@ -19,6 +20,9 @@ public class Work extends AbstractVersionedEntity implements Copy<Work>{
 
     @Column(name = "price", precision = 21, scale = 4)
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "work")
+    private List<ProductWork> products;
 
     @Override
     public Integer getId() {
@@ -51,6 +55,14 @@ public class Work extends AbstractVersionedEntity implements Copy<Work>{
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<ProductWork> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductWork> products) {
+        this.products = products;
     }
 
     public Work copy(){

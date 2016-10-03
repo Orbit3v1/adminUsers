@@ -2,7 +2,11 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -10,7 +14,7 @@ import java.util.List;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type",discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("PRODUCT")
-public class Product extends AbstractVersionedEntity implements Copy<Product>{
+public class Product extends AbstractVersionedEntity implements Copy<Product>, Cloneable {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -138,6 +142,35 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>{
         this.id = copy.id;
         this.setVersion(copy.getVersion());
         this.name = copy.name;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Product product = (Product) super.clone();
+        if(product.parent == null){
+            product.name = this.name + "_" + getNameSuffix();
+        }
+        product.setId(0);
+        product.setVersion(this.getVersion());
+        product.detail = this.detail;
+        product.height = this.height;
+        product.width = this.width;
+        product.length = this.length;
+        product.formula = this.formula;
+        List<Product> subordinates = new ArrayList<>();
+        for(Product p : this.subordinates){
+            Product subProduct = (Product) p.clone();
+            subProduct.parent = product;
+            subordinates.add(subProduct);
+        }
+        product.subordinates = subordinates;
+        return product;
+    }
+
+    private String getNameSuffix(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date today = Calendar.getInstance().getTime();
+        return df.format(today);
     }
 }
 

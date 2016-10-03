@@ -18,18 +18,34 @@
 
             <h:outputText value="#{messages.getString('productEntity')}" styleClass="listTitle"/>
             <br/>
-            <p:commandButton value="#{messages.getString('button.add')}"
-                             actionListener="#{productList.add}"
-                             update=":mainForm:popupDetail"
-                             oncomplete="PF('popup').show()"
-                    />
+            <h:panelGroup id="buttons">
+                <p:commandButton value="#{messages.getString('button.add')}"
+                                 actionListener="#{productList.add}"
+                                 update=":mainForm:popupDetail"
+                                 oncomplete="PF('popup').show()"
+                                 styleClass="btn"
+                        />
+                <p:commandButton value="#{messages.getString('button.copy')}"
+                                 actionListener="#{productList.copy()}"
+                                 update=":mainForm:entities, :mainForm:buttons, :mainForm:growl"
+                                 disabled="#{productList.selectedProduct == null}"
+                                 styleClass="btn"
+                        />
+            </h:panelGroup>
 
             <h:message for="entities" infoClass="info" errorClass="error"/>
-            <p:dataTable id="entities" value="#{productList.entities}" var="row"
+            <p:dataTable id="entities" value="#{productList.entities}"
+                         var="row"
                          filteredValue="#{productList.filteredEntities}"
                          sortMode="multiple"
                          resizableColumns="true"
+                         selectionMode="single"
+                         selection="#{productList.selectedProduct}"
+                         rowKey="#{row.id}"
                          style="width: 600px">
+
+                <p:ajax event="rowSelect" update=":mainForm:buttons"/>
+
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('productEntity.name')}"
                           sortBy="#{row.name}"

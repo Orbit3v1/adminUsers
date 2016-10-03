@@ -83,4 +83,11 @@ public class TNCList extends EntityList<TNC>{
             addMessage.setMessage("mainForm:entities", "error.refresh1C", FacesMessage.SEVERITY_ERROR);
         }
     }
+
+    @Override
+    protected boolean canDelete(TNC entity){
+        TNC tnc = em.find(TNC.class, entity.getId());
+        return super.canDelete(entity)
+                && tnc.getProducts().size() == 0;
+    }
 }

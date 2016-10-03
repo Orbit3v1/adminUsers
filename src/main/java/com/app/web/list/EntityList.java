@@ -124,12 +124,12 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             logger.info("delete success");
         } else {
             logger.info("delete fail");
-            addMessage.setMessage("mainForm:panel", "error.delete", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel", "error.calc.delete", FacesMessage.SEVERITY_ERROR);
         }
     }
 
 
-    private boolean canDelete(T entity){
+    protected boolean canDelete(T entity){
         return true;
     }
 

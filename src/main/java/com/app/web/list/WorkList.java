@@ -1,6 +1,7 @@
 package com.app.web.list;
 
 import com.app.data.entity.Function;
+import com.app.data.entity.Person;
 import com.app.data.entity.TNC;
 import com.app.data.entity.Work;
 import com.app.utils.AddMessage;
@@ -44,5 +45,12 @@ public class WorkList extends EntityList<Work>{
 
     public void select(Work work) {
         RequestContext.getCurrentInstance().closeDialog(work);
+    }
+
+    @Override
+    protected boolean canDelete(Work entity){
+        Work work = em.find(Work.class, entity.getId());
+        return super.canDelete(entity)
+                && work.getProducts().size() == 0;
     }
 }

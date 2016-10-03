@@ -213,6 +213,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.export.excel", "Excel"},
             {"button.refresh1C", "Обновить из 1С"},
             {"button.change", "Изменить"},
+            {"button.copy", "Копировать"},
 
             {"button.calc.addProduct", "+ деталь"},
             {"button.calc.addTNC", "+ ТНЦ"},
@@ -233,6 +234,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"success.delete", "Запись удаленна"},
             {"success.save", "Запись сохраненна"},
             {"success.refresh1C", "Обновленние успешно завершено"},
+            {"success.copy", "Строка успешно скопирована"},
 
             {"error.data", "Неверные данные"},
             {"error.notNull", "Поле не может быть пустым"},
@@ -241,7 +243,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.exception", "Ошибка приложения"},
             {"error.notNumber", "Поле должно быть числом"},
             {"error.delete", "Сущность используется в заказах или ТЗ. Разорвите все связи перед удалением"},
+            {"error.calc.delete", "Сущность используется в рассчете. Разорвите все связи перед удалением"},
             {"error.refresh1C", "Ошибка при обновлении из 1С"},
+            {"error.copy", "Ошибка при копировании"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},
