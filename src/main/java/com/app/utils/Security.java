@@ -932,6 +932,10 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("adminMenu", "READ")))
                 );
 
+                userPA.put("calcMenuR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("calcMenu", "READ")))
+                );
+
                 userPA.put("adminMenuPersonR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("adminMenuPerson", "READ")))
                 );
