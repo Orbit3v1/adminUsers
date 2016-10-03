@@ -169,7 +169,7 @@
                     </p:cellEditor>
                 </p:column>
                 <p:column headerText="#{messages.getString('productEntity.formula')}"
-                          style="#{productScreen.isError(product) ? 'background-color: #ffb3b3; border : 3px solid #d82253' : ''}">
+                          styleClass="#{productScreen.isError(product) ? 'errorColumn' : ''}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <span style="display: inline-block; width: 100%; height: 100%">
