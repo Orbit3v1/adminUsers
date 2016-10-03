@@ -212,6 +212,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.loadFilter", "Загрузить"},
             {"button.export.excel", "Excel"},
             {"button.refresh1C", "Обновить из 1С"},
+            {"button.change", "Изменить"},
 
             {"button.calc.addProduct", "+ деталь"},
             {"button.calc.addTNC", "+ ТНЦ"},

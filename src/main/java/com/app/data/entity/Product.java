@@ -34,6 +34,9 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>{
     @Column(name = "formula")
     private String formula;
 
+    @Column(name = "type", insertable = false, updatable = false)
+    private String type;
+
     @ManyToOne
     @JoinColumn(name="parentId")
     private Product parent;
@@ -113,6 +116,14 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Product copy(){

@@ -29,7 +29,7 @@
                                  oncomplete="this.disabled=false"
                                  update=":mainForm"
                                  styleClass="btn"/>
-                <p:commandButton update=":mainForm:entities, :mainForm:calcsPG"
+                <p:commandButton update=":mainForm:entities, :mainForm:calcsPG, :mainForm:growl"
                                  action="#{productScreen.calculate}"
                                  title="#{messages.getString('button.calc.calculate')}"
                                  value="#{messages.getString('button.calc.calculate')}"
@@ -44,7 +44,7 @@
                                  styleClass="btn"/>
                 <p:commandButton value="#{messages.getString('button.calc.addTNC')}"
                                  title="Добавить ТНЦ"
-                                 actionListener="#{productScreen.chooseTNC}"
+                                 actionListener="#{productScreen.choose('selectTNC')}"
                                  disabled="#{productScreen.selectedNode == null}"
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
@@ -54,7 +54,7 @@
 
                 <p:commandButton value="#{messages.getString('button.calc.addWork')}"
                                  title="Добавить работу"
-                                 actionListener="#{productScreen.chooseWork}"
+                                 actionListener="#{productScreen.choose('selectWork')}"
                                  disabled="#{productScreen.selectedNode == null}"
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
@@ -63,7 +63,7 @@
                 </p:commandButton>
                 <p:commandButton value="#{messages.getString('button.calc.addFunction')}"
                                  title="Добавить функцию"
-                                 actionListener="#{productScreen.chooseFunction}"
+                                 actionListener="#{productScreen.choose('selectFunction')}"
                                  disabled="#{productScreen.selectedNode == null}"
                                  styleClass="btn">
                     <p:ajax event="dialogReturn"
@@ -79,6 +79,16 @@
                     <p:confirm header="#{messages.getString('button.delete.confirmation')}"
                                message="#{messages.getString('button.delete.message')}"
                                icon="ui-icon-alert"/>
+                </p:commandButton>
+
+                <p:commandButton value="#{messages.getString('button.change')}"
+                                 title="#{messages.getString('button.change')}"
+                                 actionListener="#{productScreen.choose()}"
+                                 rendered="#{productScreen.isSelectable()}"
+                                 styleClass="btn">
+                    <p:ajax event="dialogReturn"
+                            listener="#{productScreen.onChosen}"
+                            update=":mainForm:entities"/>
                 </p:commandButton>
 
             </h:panelGroup>
@@ -104,7 +114,11 @@
                                 <h:outputText value="#{product.name}"/>
                             </span>
                         </f:facet>
-                        <f:facet name="input"><p:inputText value="#{product.name}" style="width:100%"/></f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{product.name}"
+                                         disabled="#{productScreen.isSelectable(product)}"
+                                         style="width:100%"/>
+                        </f:facet>
                     </p:cellEditor>
                 </p:column>
                 <p:column headerText="#{messages.getString('productEntity.width')}"

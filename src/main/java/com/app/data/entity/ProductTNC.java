@@ -1,11 +1,13 @@
 package com.app.data.entity;
 
+import org.primefaces.event.SelectEvent;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("TNC")
-public class ProductTNC extends Product implements Valuable, Converted {
+public class ProductTNC extends Product implements Valuable, Converted, Selectable {
     @ManyToOne()
     @JoinColumn(name="calc_tnc")
     private TNC tnc;
@@ -31,5 +33,11 @@ public class ProductTNC extends Product implements Valuable, Converted {
     @Override
     public BigDecimal getRatio() {
         return tnc == null ? null : tnc.getRatio();
+    }
+
+    @Override
+    public void onSelect(SelectEvent event) {
+        TNC tnc = (TNC) event.getObject();
+        setTnc(tnc);
     }
 }

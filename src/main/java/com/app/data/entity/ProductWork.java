@@ -1,11 +1,13 @@
 package com.app.data.entity;
 
+import org.primefaces.event.SelectEvent;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("WORK")
-public class ProductWork  extends Product implements Valuable {
+public class ProductWork  extends Product implements Valuable, Selectable {
     @ManyToOne()
     @JoinColumn(name="calc_work")
     private Work work;
@@ -26,5 +28,11 @@ public class ProductWork  extends Product implements Valuable {
     @Override
     public BigDecimal getPrice() {
         return work == null ? null : work.getPrice();
+    }
+
+    @Override
+    public void onSelect(SelectEvent event) {
+        Work work = (Work) event.getObject();
+        setWork(work);
     }
 }

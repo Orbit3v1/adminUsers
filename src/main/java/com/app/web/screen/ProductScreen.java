@@ -134,9 +134,31 @@ public class ProductScreen {
         return true;
     }
 
-    public void chooseTNC() {
+    public boolean isSelectable(){
+        return selectedNode != null && selectedNode.getData() instanceof Selectable;
+    }
+
+    public boolean isSelectable(Product product){
+        return product instanceof Selectable;
+    }
+
+    public void choose(){
+        Product product = (Product) selectedNode.getData();
+        if(product instanceof ProductTNC) {
+            choose("selectTNC");
+        } else if(product instanceof ProductWork) {
+            choose("selectWork");
+        }
+    }
+
+    public void onChosen(SelectEvent event){
+        Selectable selectable = (Selectable) selectedNode.getData();
+        selectable.onSelect(event);
+    }
+
+    public void choose(String screenName){
         RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/selectTNC", getStandardOptions(), null);
+        rq.openDialog("/select/" + screenName, getStandardOptions(), null);
     }
 
     public void onTNCChosen(SelectEvent event) {
@@ -146,21 +168,11 @@ public class ProductScreen {
         add(selectedNode, pTNC);
     }
 
-    public void chooseWork() {
-        RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/selectWork", getStandardOptions(), null);
-    }
-
     public void onWorkChosen(SelectEvent event) {
         Work work = (Work) event.getObject();
         ProductWork pWork = new ProductWork();
         pWork.setWork(work);
         add(selectedNode, pWork);
-    }
-
-    public void chooseFunction() {
-        RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/selectFunction", getStandardOptions(), null);
     }
 
     public void onFunctionChosen(SelectEvent event) {
