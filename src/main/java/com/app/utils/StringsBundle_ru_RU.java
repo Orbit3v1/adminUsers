@@ -243,7 +243,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.exception", "Ошибка приложения"},
             {"error.notNumber", "Поле должно быть числом"},
             {"error.delete", "Сущность используется в заказах или ТЗ. Разорвите все связи перед удалением"},
-            {"error.calc.delete", "Сущность используется в рассчете. Разорвите все связи перед удалением"},
+            {"error.calc.delete", "Сущность используется в расчете. Разорвите все связи перед удалением"},
             {"error.refresh1C", "Ошибка при обновлении из 1С"},
             {"error.copy", "Ошибка при копировании"},
 
@@ -262,7 +262,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.calculation.TNC", "ТНЦ"},
             {"menu.calculation.work", "Работа"},
             {"menu.calculation.function", "Функции"},
-            {"menu.calculation.product", "Рассчет"}
+            {"menu.calculation.product", "Расчет"}
 
     };
 }
