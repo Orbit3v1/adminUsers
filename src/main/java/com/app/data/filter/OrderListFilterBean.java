@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import static com.app.utils.AppUtil.endDay;
 import static com.app.utils.AppUtil.notEmpty;
@@ -54,95 +55,88 @@ public class OrderListFilterBean extends FilterBean implements ListFilterBean<Or
                 "left join fetch r.nomenclature " +
                 "left join fetch r.developer ";
 
-        String sqlAccess = "";
+        StringJoiner sqlWhere = new StringJoiner(" AND ");
         if (!Security.hasAccess(userPA, "accessInWork")) {
-            sqlAccess += " AND r.endActual is not null";
+            sqlWhere.add("r.endActual is not null");
         }
         if (!Security.hasAccess(userPA, "accessFinished")) {
-            sqlAccess += " AND r.endActual is null";
+            sqlWhere.add("r.endActual is null");
         }
 
-        String sqlWhere = sqlAccess;
-
-
         if (notEmpty(filterOriginal.getName())) {
-            sqlWhere += " AND concat(r.order.name, '_', r.name) like :name";
+            sqlWhere.add("concat(r.order.name, '_', r.name) like :name");
             parameters.put("name", "%" + filterOriginal.getName() + "%");
         }
         if (notEmpty(filterOriginal.getCustomer())) {
-            sqlWhere += " AND r.order.customer like :customer";
+            sqlWhere.add("r.order.customer like :customer");
             parameters.put("customer", "%" + filterOriginal.getCustomer() + "%");
         }
         if (notEmpty(filterOriginal.getNomenclature())) {
-            sqlWhere += " AND r.nomenclature.name like :nomenclature";
+            sqlWhere.add("r.nomenclature.name like :nomenclature");
             parameters.put("nomenclature", "%" + filterOriginal.getNomenclature() + "%");
         }
         if (notEmpty(filterOriginal.getResponsible())) {
-            sqlWhere += " AND concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible";
+            sqlWhere.add("concat(r.order.responsible.lastName, ' ', r.order.responsible.firstName) like :responsible");
             parameters.put("responsible", "%" + filterOriginal.getResponsible() + "%");
         }
         if (notEmpty(filterOriginal.getDeveloper())) {
-            sqlWhere += " AND concat(r.developer.lastName, ' ', r.developer.firstName) like :developer";
+            sqlWhere.add("concat(r.developer.lastName, ' ', r.developer.firstName) like :developer");
             parameters.put("developer", "%" + filterOriginal.getDeveloper() + "%");
         }
         if (filterOriginal.getStartL() != null) {
-            sqlWhere += " AND r.order.start >= :startL";
+            sqlWhere.add("r.order.start >= :startL");
             parameters.put("startL", filterOriginal.getStartL());
         }
         if (filterOriginal.getStartH() != null) {
-            sqlWhere += " AND r.order.start <= :startH";
+            sqlWhere.add("r.order.start <= :startH");
             parameters.put("startH", endDay(filterOriginal.getStartH()));
         }
         if (filterOriginal.getDocDateL() != null) {
-            sqlWhere += " AND r.docDate >= :docDateL";
+            sqlWhere.add("r.docDate >= :docDateL");
             parameters.put("docDateL", filterOriginal.getDocDateL());
         }
         if (filterOriginal.getDocDateH() != null) {
-            sqlWhere += " AND r.docDate <= :docDateH";
+            sqlWhere.add("r.docDate <= :docDateH");
             parameters.put("docDateH", endDay(filterOriginal.getDocDateH()));
         }
         if (filterOriginal.getEndPlanL() != null) {
-            sqlWhere += " AND r.endPlan >= :endPlanL";
+            sqlWhere.add("r.endPlan >= :endPlanL");
             parameters.put("endPlanL", filterOriginal.getEndPlanL());
         }
         if (filterOriginal.getEndPlanH() != null) {
-            sqlWhere += " AND r.endPlan <= :endPlanH";
+            sqlWhere.add("r.endPlan <= :endPlanH");
             parameters.put("endPlanH", endDay(filterOriginal.getEndPlanH()));
         }
         if (filterOriginal.getEndActualL() != null) {
-            sqlWhere += " AND r.endActual >= :endActualL";
+            sqlWhere.add("r.endActual >= :endActualL");
             parameters.put("endActualL", filterOriginal.getEndActualL());
         }
         if (filterOriginal.getEndActualH() != null) {
-            sqlWhere += " AND r.endActual <= :endActualH";
+            sqlWhere.add("r.endActual <= :endActualH");
             parameters.put("endActualH", endDay(filterOriginal.getEndActualH()));
         }
         switch (filterOriginal.getState()) {
             case IN_WORK:
-                sqlWhere += " AND r.endActual is null";
+                sqlWhere.add("r.endActual is null");
                 break;
             case FINISHED:
-                sqlWhere += " AND r.endActual is not null";
+                sqlWhere.add("r.endActual is not null");
                 break;
             default:
                 break;
         }
 
-        if (!sqlWhere.equals("")) {
-            sqlWhere = "WHERE" + sqlWhere.substring(4);
-        }
-
-        String sqlOrder = "";
+        StringJoiner sqlOrder = new StringJoiner(", ");
         if(filterOriginal.getSort() != null){
-            sqlOrder += filterOriginal.getSort().getSqlOrder();
+            sqlOrder.add(filterOriginal.getSort().getSqlOrder());
         }
         if(!ProductionReportSort.NAME_ASC.equals(filterOriginal.getSort())
                 && !ProductionReportSort.NAME_DESC.equals(filterOriginal.getSort())) {
-            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.order.name, cast(r.name as int)";
+            sqlOrder.add("r.order.name");
+            sqlOrder.add("cast(r.name as int)");
         }
-        sqlOrder = " order by " + sqlOrder;
 
-        String sqlFull = sqlFrom + sqlWhere + sqlOrder;
+        String sqlFull = sqlFrom + " WHERE " + sqlWhere.toString() + " order by " + sqlOrder.toString();
 
         Query query = em.createQuery(sqlFull);
         for (Map.Entry<String, Object> e : parameters.entrySet()) {
