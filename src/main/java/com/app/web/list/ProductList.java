@@ -45,6 +45,7 @@ public class ProductList extends EntityList<Product>{
     @Transactional
     public void copy(){
         try {
+            selectedProduct = em.find(Product.class, selectedProduct.getId());
             Product copyProduct = (Product) selectedProduct.clone();
             copyProduct = em.merge(copyProduct);
             entities.add(copyProduct);

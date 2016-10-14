@@ -95,7 +95,8 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
 
     private void saveEntity(){
         mergeEntity();
-        filteredEntities.add(editEntity);
+        //filteredEntities.add(editEntity);
+        entities.add(editEntity);
     }
 
     private void editEntity(){

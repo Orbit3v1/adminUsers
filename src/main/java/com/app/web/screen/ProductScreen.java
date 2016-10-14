@@ -26,6 +26,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.script.ScriptException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 @Named("productScreen")
@@ -235,28 +236,25 @@ public class ProductScreen {
 
     private BigDecimal getPrice(Product product, String formula) {
         BigDecimal result = BigDecimal.ZERO;
-        if(product.getFormula() == null || product.getFormula().replaceAll(" ", "").equals("")){
-            return result;
-        }
-        try {
-            result = executeCode(formula);
-            if (product instanceof Converted) {
-                BigDecimal ratio = ((Converted) product).getRatio();
-                ratio = ratio == null ? BigDecimal.ONE : ratio;
-                result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+        if(product.getFormula() != null && !product.getFormula().replaceAll(" ", "").equals("")){
+            try {
+                result = executeCode(formula);
+                if (product instanceof Converted) {
+                    BigDecimal ratio = ((Converted) product).getRatio();
+                    ratio = ratio == null ? BigDecimal.ONE : ratio;
+                    result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+                }
+                if (product instanceof Valuable) {
+                    BigDecimal price = ((Valuable) product).getPrice();
+                    price = price == null ? BigDecimal.ZERO : price;
+                    result = result.multiply(price);
+                }
+            } catch (ScriptException e) {
+                e.printStackTrace();
+                errorProducts.put(product, e.getMessage());
             }
-            if (product instanceof Valuable) {
-                BigDecimal price = ((Valuable) product).getPrice();
-                price = price == null ? BigDecimal.ZERO : price;
-                result = result.multiply(price);
-            }
-        } catch (ScriptException e) {
-            e.printStackTrace();
-            errorProducts.put(product, e.getMessage());
         }
-
-
-        return result;
+        return result.setScale(2, RoundingMode.CEILING);
     }
 
 

@@ -8,11 +8,8 @@
     font-family: Arial, Verdana, sans-serif;
 }
 
+.ui-treetable tr:hover, .ui-treetable-even:hover, .ui-treetable tr.ui-treetable-odd:hover
 .ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
-    background: #ffdaae;
-}
-
-.ui-treetable tr:hover, .ui-treetable-even:hover, .ui-treetable tr.ui-treetable-odd:hover {
     background: #ffdaae !important;
     color: #4f4f4f !important;
     text-shadow: none !important;
