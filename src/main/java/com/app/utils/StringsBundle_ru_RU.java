@@ -36,6 +36,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderEntity.responsible", "Ответственный"},
             {"orderEntity.start", "Запуск"},
             {"orderEntity.endPlan", "План сдачи"},
+            {"orderEntity.price", "Сумма заказа"},
+            {"orderEntity.paid", "Оплачено %"},
 
             {"orderItemEntity.name", "#"},
             {"orderItemEntity.nomenclature", "Номенклатура"},
@@ -93,6 +95,11 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"productEntity.formula", "Формула"},
             {"productEntity.price", "Цена"},
 
+            {"paymentEntity", "Платеж"},
+            {"paymentEntity.description", "Описание"},
+            {"paymentEntity.amount", "Сумма"},
+            {"paymentEntity.date", "Дата"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -148,6 +155,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"orderScreen.title", "Заказ"},
             {"orderScreen.table.orderItems", "Позиции"},
+            {"orderScreen.table.payment", "Оплата"},
+            {"orderScreen.payments", "Платежи"},
             {"orderScreen.editText", "Редактирование заказа"},
             {"orderScreen.addText", "Добавление заказа"},
             {"orderScreen.error.title", "Неверные данные"},

@@ -1,19 +1,15 @@
 package com.app.web.screen;
 
-import com.app.data.entity.Nomenclature;
-import com.app.data.entity.Order;
-import com.app.data.entity.OrderItem;
-import com.app.data.entity.Person;
-import com.app.utils.AppUtil;
-import com.app.utils.EntityUtil;
-import com.app.utils.Security;
+import com.app.common.OrderPaymentManager;
+import com.app.data.entity.*;
+import com.app.utils.*;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
-import com.app.utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +18,8 @@ import java.util.List;
 public class OrderScreen extends EntityScreen<Order>  {
 
     private List<Person> developers;
+    private BigDecimal paid;
+    private OrderPaymentManager OPM;
 
     @PostConstruct
     public void init() {
@@ -29,6 +27,7 @@ public class OrderScreen extends EntityScreen<Order>  {
         initEntity();
 
         developers = EntityUtil.getDevelopers(em);
+        OPM = new OrderPaymentManager(entity);
     }
 
     @Override
@@ -42,18 +41,22 @@ public class OrderScreen extends EntityScreen<Order>  {
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(Order.class, AppUtil.toInteger(id));
             entity.getOrderItems().size();
+            entity.getPayments().size();
             edit = true;
         } else {
             entity = new Order();
             entity.setResponsible(Security.getCurrentUser());
             entity.setStart(new Date());
+            entity.setPrice(BigDecimal.ZERO);
         }
+        calculatePaid();
 
     }
 
     @Override
     public void save() {
         saveData();
+        OPM = new OrderPaymentManager(entity);
     }
 
     @Transactional
@@ -93,6 +96,10 @@ public class OrderScreen extends EntityScreen<Order>  {
         };
     }
 
+    public void calculatePaid(){
+        paid = OrderUtil.getPaid(entity);
+    }
+
     public void shareOrder(){
         SessionUtil.addSessionVariable("Order" + entity.getId(), entity);
     }
@@ -103,6 +110,15 @@ public class OrderScreen extends EntityScreen<Order>  {
         super.exit();
     }
 
+    public void deletePayment(Payment payment){
+        OPM.delete(payment);
+        calculatePaid();
+    }
+
+    public void savePayment(){
+        OPM.save();
+        calculatePaid();
+    }
 
     public List<Person> getDevelopers() {
         return developers;
@@ -112,4 +128,19 @@ public class OrderScreen extends EntityScreen<Order>  {
         this.developers = developers;
     }
 
+    public BigDecimal getPaid() {
+        return paid;
+    }
+
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
+    }
+
+    public OrderPaymentManager getOPM() {
+        return OPM;
+    }
+
+    public void setOPM(OrderPaymentManager OPM) {
+        this.OPM = OPM;
+    }
 }

@@ -428,6 +428,16 @@
                                        render="orders"/>
                 </rich:column>
 
+                <rich:column rendered="#{orderList.userPA.paidR}"
+                             style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                    <f:facet name="header">
+                        <h:outputText value="#{messages.getString('orderEntity.paid')}"
+                                       styleClass="headerSort">
+                        </h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{row.paid}"/>
+                </rich:column>
+
             </rich:dataTable>
             <a4j:commandButton id="refresh"
                                render="orders"

@@ -1,6 +1,7 @@
 package com.app.data.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,12 +27,21 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "endPlan")
     private Date endPlan;
 
+    @Column(name = "price", precision = 19, scale = 2)
+    private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "responsible")
     private Person responsible;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "order_payment",
+            joinColumns = @JoinColumn(name = "orders"),
+            inverseJoinColumns = @JoinColumn(name = "payment"))
+    private List<Payment> payments;
 
     public Order() {
     }
@@ -90,5 +100,21 @@ public class Order extends AbstractVersionedEntity {
 
     public void setEndPlan(Date endPlan) {
         this.endPlan = endPlan;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }

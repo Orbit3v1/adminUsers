@@ -112,6 +112,85 @@
 
             </h:panelGrid>
 
+            <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.payment')}"
+                                   switchType="client"
+                                   expanded="false">
+                <h:panelGrid id="panelPayment" columns="1">
+                    <h:panelGroup rendered="#{orderScreen.userPA.priceR}">
+                        <h:outputLabel value="#{messages.getString('orderEntity.price')}" for="price"
+                                       styleClass="label"/>
+                        <h:inputText id="price" value="#{orderScreen.entity.price}"
+                                     styleClass="inputLarge"
+                                     disabled="#{orderScreen.isDisabled('price')}"/>
+                        <h:message for="price" errorClass="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{orderScreen.userPA.paidR}">
+                        <h:outputLabel value="#{messages.getString('orderEntity.paid')}" for="paid"
+                                       styleClass="label"/>
+                        <h:inputText id="paid" value="#{orderScreen.paid}"
+                                     styleClass="inputLarge"
+                                     disabled="true"/>
+                        <h:message for="paid" errorClass="error"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <HR/>
+
+                <a4j:commandButton value="#{messages.getString('button.add')}"
+                                   action="#{orderScreen.OPM.add}"
+                                   styleClass="btn"
+                                   render="popupPayments"
+                                   execute="@this"
+                                   rendered="#{orderScreen.userPA.addPaymentR}"
+                                   disabled="#{!orderScreen.userPA.addPaymentEx}"
+                                   oncomplete="#{rich:component('popupPayments')}.show(); return false;"
+                        />
+
+                <h:message for="payments" infoClass="info" errorClass="error"/>
+                <rich:dataTable id="payments"
+                                value="#{orderScreen.entity.payments}"
+                                var="payment"
+                                binding="#{table}"
+                                rowClasses="odd-row, even-row">
+
+                    <rich:column style="text-align: center">
+                        <a4j:commandButton value="#{table.rowIndex + 1}"
+                                           action="#{orderScreen.OPM.edit(payment)}"
+                                           execute="@this"
+                                           render="popupPayments"
+                                           oncomplete="#{rich:component('popupPayments')}.show(); return false;"/>
+                    </rich:column>
+
+                    <rich:column rendered="#{orderScreen.userPA.paymentDescriptionR}">
+                        <f:facet name="header">#{messages.getString('paymentEntity.description')}</f:facet>
+                        <h:outputText value="#{payment.description}"/>
+                    </rich:column>
+
+                    <rich:column rendered="#{orderScreen.userPA.paymentAmountR}">
+                        <f:facet name="header">#{messages.getString('paymentEntity.amount')}</f:facet>
+                        <h:outputText value="#{payment.amount}"/>
+                    </rich:column>
+
+                    <rich:column rendered="#{orderScreen.userPA.paymentDateR}">
+                        <f:facet name="header">#{messages.getString('paymentEntity.date')}</f:facet>
+                        <h:outputText value="#{payment.date}">
+                            <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                        </h:outputText>
+                    </rich:column>
+
+                    <rich:column rendered="#{orderScreen.userPA.deletePaymentR}">
+                        <h:commandButton value="X"
+                                         action="#{orderScreen.deletePayment(payment)}"
+                                         disabled="#{!orderScreen.userPA.deletePaymentEx}"
+                                         styleClass="btnDelete"
+                                         render="payments, mainForm"
+                                         execute="payment"
+                                         onclick="return confirm('Вы действительно хотите удалить платеж?')"/>
+                    </rich:column>
+
+                </rich:dataTable>
+            </rich:collapsiblePanel>
+
             <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.orderItems')}"
                                    switchType="client"
                                    expanded="true">
@@ -140,7 +219,7 @@
                                            action="#{orderScreen.shareOrder}"
                                            onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
                                            oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?id=#{orderI.id}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.id}')">
-                                </a4j:commandButton>
+                        </a4j:commandButton>
                     </rich:column>
 
                     <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
@@ -222,35 +301,95 @@
 
             <p>
                 <h:commandButton value="#{messages.getString('button.saveAndExit')}"
-                                   action="#{orderScreen.saveAndExit}"
-                                   render="mainForm"
-                                   styleClass="btn"
-                                   rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                   disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
-                                   />
+                                 action="#{orderScreen.saveAndExit}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
+                        />
                 <h:commandButton value="#{messages.getString('button.save')}"
-                                   action="#{orderScreen.saveOnly}"
-                                   render="mainForm"
-                                   styleClass="btn"
-                                   rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
-                                   disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
-                                   />
+                                 action="#{orderScreen.saveOnly}"
+                                 render="mainForm"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
+                                 disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
+                        />
                 <h:commandButton value="#{messages.getString('button.delete')}"
-                                   action="#{orderScreen.delete}"
-                                   styleClass="btn"
-                                   rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
-                                   disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
-                                   onclick="return confirm('Вы действительно хотите удалить заказ?')"
-                                   />
+                                 action="#{orderScreen.delete}"
+                                 styleClass="btn"
+                                 rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
+                                 disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
+                                 onclick="return confirm('Вы действительно хотите удалить заказ?')"
+                        />
                 <h:commandButton value="#{messages.getString('button.cancel')}"
-                                   action="#{orderScreen.exit}"
-                                   styleClass="btn"/>
+                                 action="#{orderScreen.exit}"
+                                 styleClass="btn"/>
             </p>
             <a4j:commandButton id="refresh"
                                render="orderItems"
                                action="#{orderScreen.refresh()}"
                                style="display:none;"
                                value="refresh"/>
+
+
+            <rich:popupPanel id="popupPayments" modal="true" resizeable="true" width="640" height="480">
+                <f:facet name="header">
+                    <h:outputText value="#{messages.getString('orderScreen.payments')}"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('popupPayments')}.hide(); return false;"
+                                  style="color: inherit">
+                        X
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGrid columns="1">
+                    <h:panelGroup rendered="#{orderScreen.userPA.paymentDescriptionR}">
+                        <h:outputLabel value="#{messages.getString('paymentEntity.description')}"
+                                       for="paymentDescription"
+                                       styleClass="label"/>
+                        <h:inputText id="paymentDescription"
+                                     value="#{orderScreen.OPM.tmpPayment.description}"
+                                     styleClass="inputLarge"
+                                     disabled="#{orderScreen.isDisabled('paymentDescription')}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{orderScreen.userPA.paymentAmountR}">
+                        <h:outputLabel value="#{messages.getString('paymentEntity.amount')}"
+                                       for="paymentAmount"
+                                       styleClass="label"/>
+                        <h:inputText id="paymentAmount"
+                                     value="#{orderScreen.OPM.tmpPayment.amount}"
+                                     styleClass="inputLarge"
+                                     disabled="#{orderScreen.isDisabled('paymentAmount')}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{orderScreen.userPA.paymentDateR}">
+                        <h:outputLabel value="#{messages.getString('paymentEntity.date')}"
+                                       for="paymentDate"
+                                       styleClass="label"/>
+                        <rich:calendar id="paymentDate" value="#{orderScreen.OPM.tmpPayment.date}" locale="#{locale}"
+                                       popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                                       showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                                       disabled="#{orderScreen.isDisabled('paymentDate')}"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <HR/>
+
+                <p>
+                    <h:commandButton value="#{messages.getString('button.save')}"
+                                     action="#{orderScreen.savePayment}"
+                                     execute="componentName"
+                                     render="mainForm"
+                                     styleClass="btn"
+
+                                     onclick="#{rich:component('popupPayments')}.hide();"/>
+                    <h:commandButton value="#{messages.getString('button.cancel')}"
+                                     onclick="#{rich:component('popupPayments')}.hide(); return false;"
+                                     styleClass="btn"/>
+                </p>
+            </rich:popupPanel>
+
         </h:form>
     </ui:define>
 </ui:composition>

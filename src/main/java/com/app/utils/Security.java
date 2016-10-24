@@ -474,6 +474,20 @@ public class Security {
                                 new PrivilegeAction(new PrivilegeActionId("orderItemEndActual", "WRITE")))
                 );
 
+                userPA.put("priceR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPrice", "READ")))
+                );
+                userPA.put("priceW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPrice", "WRITE")))
+                );
+                userPA.put("priceE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPrice", "EDIT")))
+                );
+
+                userPA.put("paidR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaid", "READ")))
+                );
+
                 userPA.put("addItemR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemAdd", "READ")))
                 );
@@ -491,6 +505,58 @@ public class Security {
                 userPA.put("deleteItemEx", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemDelete", "EXECUTE")))
                 );
+
+                userPA.put("addPaymentR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentAdd", "READ")))
+                );
+                userPA.put("addPaymentEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentAdd", "EXECUTE")))
+                );
+
+                userPA.put("deletePaymentR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDelete", "READ")))
+                );
+                userPA.put("deletePaymentEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDelete", "EXECUTE")))
+                );
+
+                userPA.put("editPaymentR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentEdit", "READ")))
+                );
+                userPA.put("editPaymentEx", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentEdit", "EXECUTE")))
+                );
+
+                userPA.put("paymentDescriptionR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDescription", "READ")))
+                );
+                userPA.put("paymentDescriptionW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDescription", "WRITE")))
+                );
+                userPA.put("paymentDescriptionE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDescription", "EDIT")))
+                );
+
+                userPA.put("paymentAmountR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentAmount", "READ")))
+                );
+                userPA.put("paymentAmountW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentAmount", "WRITE")))
+                );
+                userPA.put("paymentAmountE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentAmount", "EDIT")))
+                );
+
+                userPA.put("paymentDateR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDate", "READ")))
+                );
+                userPA.put("paymentDateW", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDate", "WRITE")))
+                );
+                userPA.put("paymentDateE", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaymentDate", "EDIT")))
+                );
+
 
                 userPA.put("accessInWork", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("orderItemInWork", "READ")))
@@ -567,6 +633,10 @@ public class Security {
 
                 userPA.put("gibR", hasAnyPrivilegeAction(
                                 new PrivilegeAction(new PrivilegeActionId("nomenclatureGib", "READ")))
+                );
+
+                userPA.put("paidR", hasAnyPrivilegeAction(
+                                new PrivilegeAction(new PrivilegeActionId("orderPaid", "READ")))
                 );
 
                 userPA.put("accessInWork", hasAnyPrivilegeAction(

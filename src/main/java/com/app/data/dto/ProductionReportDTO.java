@@ -4,7 +4,9 @@ import com.app.data.entity.Nomenclature;
 import com.app.data.entity.Order;
 import com.app.data.entity.OrderItem;
 import com.app.data.entity.Person;
+import com.app.utils.OrderUtil;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ProductionReportDTO {
@@ -22,6 +24,7 @@ public class ProductionReportDTO {
     private Date docDate;
     private Date endPlan;
     private Date endActual;
+    private BigDecimal paid;
     private Order order;
     private OrderItem orderItem;
     private Nomenclature nomenclature;
@@ -48,6 +51,7 @@ public class ProductionReportDTO {
         endPlan = orderItem.getEndPlan();
         endActual = orderItem.getEndActual();
         this.fromNewOrder = fromNewOrder;
+        paid = OrderUtil.getPaid(order);
     }
 
     public boolean isFromNewOrder() {
@@ -184,5 +188,13 @@ public class ProductionReportDTO {
 
     public void setDeveloperEntity(Person developerEntity) {
         this.developerEntity = developerEntity;
+    }
+
+    public BigDecimal getPaid() {
+        return paid;
+    }
+
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
     }
 }
