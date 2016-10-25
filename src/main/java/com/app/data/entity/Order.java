@@ -30,6 +30,9 @@ public class Order extends AbstractVersionedEntity {
     @Column(name = "price", precision = 19, scale = 2)
     private BigDecimal price;
 
+    @Column(name = "paid", precision = 19, scale = 2)
+    private BigDecimal paid;
+
     @ManyToOne
     @JoinColumn(name = "responsible")
     private Person responsible;
@@ -37,7 +40,7 @@ public class Order extends AbstractVersionedEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "order_payment",
             joinColumns = @JoinColumn(name = "orders"),
             inverseJoinColumns = @JoinColumn(name = "payment"))
@@ -116,5 +119,13 @@ public class Order extends AbstractVersionedEntity {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public BigDecimal getPaid() {
+        return paid;
+    }
+
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
     }
 }

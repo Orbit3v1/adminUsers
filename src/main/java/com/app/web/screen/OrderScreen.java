@@ -19,7 +19,6 @@ import java.util.List;
 public class OrderScreen extends EntityScreen<Order>  {
 
     private List<Person> developers;
-    private BigDecimal paid;
     private OrderPaymentManager OPM;
 
     @PostConstruct
@@ -98,7 +97,7 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     public void calculatePaid(){
-        paid = OrderUtil.getPaid(entity);
+        entity.setPaid( OrderUtil.getPaid(entity));
     }
 
     public void shareOrder(){
@@ -127,14 +126,6 @@ public class OrderScreen extends EntityScreen<Order>  {
 
     public void setDevelopers(List<Person> developers) {
         this.developers = developers;
-    }
-
-    public BigDecimal getPaid() {
-        return paid;
-    }
-
-    public void setPaid(BigDecimal paid) {
-        this.paid = paid;
     }
 
     public OrderPaymentManager getOPM() {

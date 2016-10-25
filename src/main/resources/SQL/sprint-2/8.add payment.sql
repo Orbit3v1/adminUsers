@@ -20,3 +20,7 @@ create table order_payment(
 alter table orders
 add price numeric(19, 2)
 ;
+
+alter table orders
+add paid numeric(19, 2)
+;

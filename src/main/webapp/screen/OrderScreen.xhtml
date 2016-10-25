@@ -127,7 +127,7 @@
                     <h:panelGroup rendered="#{orderScreen.userPA.paidR}">
                         <h:outputLabel value="#{messages.getString('orderEntity.paid')}" for="paid"
                                        styleClass="label"/>
-                        <h:inputText id="paid" value="#{orderScreen.paid}"
+                        <h:inputText id="paid" value="#{orderScreen.entity.paid}"
                                      styleClass="inputLarge"
                                      disabled="true"/>
                         <h:message for="paid" errorClass="error"/>

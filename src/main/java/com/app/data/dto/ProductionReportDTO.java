@@ -51,7 +51,7 @@ public class ProductionReportDTO {
         endPlan = orderItem.getEndPlan();
         endActual = orderItem.getEndActual();
         this.fromNewOrder = fromNewOrder;
-        paid = OrderUtil.getPaid(order);
+        paid = order.getPaid();
     }
 
     public boolean isFromNewOrder() {
