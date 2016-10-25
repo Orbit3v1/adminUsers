@@ -28,6 +28,8 @@ public enum ProductionReportSort implements Sort{
     END_PLAN_DESC("r.endPlan desc"),
     END_ACTUAL_ASC("r.endActual"),
     END_ACTUAL_DESC("r.endActual desc"),
+    PAID_ASC("r.order.paid"),
+    PAID_DESC("r.order.paid desc")
     ;
 
     private String sqlOrder;
