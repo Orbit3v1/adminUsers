@@ -1,0 +1,55 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:rich="http://richfaces.org/rich"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:p="http://primefaces.org/ui">
+    <h:panelGrid columns="1">
+        <h:panelGroup rendered="#{orderScreen.userPA.paymentDescriptionR}">
+            <h:outputLabel value="#{messages.getString('paymentEntity.description')}"
+                           for="paymentDescription"
+                           styleClass="label"/>
+            <h:inputText id="paymentDescription"
+                         value="#{orderScreen.OPM.tmpPayment.description}"
+                         styleClass="inputLarge"
+                         disabled="#{orderScreen.isDisabled('paymentDescription')}"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.paymentAmountR}">
+            <h:outputLabel value="#{messages.getString('paymentEntity.amount')}"
+                           for="paymentAmount"
+                           styleClass="label"/>
+            <p:inputNumber id="paymentAmount"
+                         value="#{orderScreen.OPM.tmpPayment.amount}"
+                         inputStyleClass="inputLarge"
+                         disabled="#{orderScreen.isDisabled('paymentAmount')}"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.paymentDateR}">
+            <h:outputLabel value="#{messages.getString('paymentEntity.date')}"
+                           for="paymentDate"
+                           styleClass="label"/>
+            <rich:calendar id="paymentDate" value="#{orderScreen.OPM.tmpPayment.date}" locale="#{locale}"
+                           popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                           showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                           disabled="#{orderScreen.isDisabled('paymentDate')}"/>
+        </h:panelGroup>
+    </h:panelGrid>
+
+    <HR/>
+
+    <p>
+        <h:commandButton value="#{messages.getString('button.save')}"
+                         action="#{orderScreen.OPM.save}"
+                         execute="componentName"
+                         render="mainForm"
+                         styleClass="btn"
+
+                         onclick="#{rich:component('popupPayments')}.hide();"/>
+        <h:commandButton value="#{messages.getString('button.cancel')}"
+                         onclick="#{rich:component('popupPayments')}.hide(); return false;"
+                         styleClass="btn"/>
+    </p>
+</ui:composition>

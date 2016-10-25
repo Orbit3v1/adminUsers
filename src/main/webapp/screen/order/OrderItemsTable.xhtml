@@ -1,0 +1,113 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:rich="http://richfaces.org/rich"
+        xmlns:a4j="http://richfaces.org/a4j">
+
+    <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.orderItems')}"
+                           switchType="client"
+                           expanded="true">
+
+        <a4j:commandButton value="#{messages.getString('button.add')}"
+                           styleClass="btn"
+                           action="#{orderScreen.shareOrder}"
+                           rendered="#{orderScreen.userPA.addItemR}"
+                           disabled="#{!orderScreen.userPA.addItemEx}"
+                           onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
+                           oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?orderId=#{orderScreen.entity.id}', 'OrderItemScreen')"/>
+
+        <h:message for="orderItems" infoClass="info" errorClass="error"/>
+        <rich:dataTable id="orderItems"
+                        value="#{orderScreen.entity.orderItems}"
+                        var="orderI"
+                        rowClasses="odd-row, even-row">
+
+            <rich:column rendered="#{orderScreen.userPA.itemNameR}"
+                         filter="#{orderScreen.orderItemAccess}"
+                         filterType="custom">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.name')}
+                </f:facet>
+                <a4j:commandButton value="#{orderI.name}"
+                                   action="#{orderScreen.shareOrder}"
+                                   onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
+                                   oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?id=#{orderI.id}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.id}')">
+                </a4j:commandButton>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.nomenclatureR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.nomenclature')}
+                </f:facet>
+
+                <a4j:commandLink value="#{orderI.nomenclature.name}"
+                                 onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{orderI.nomenclature.id}', 'NomenclatureScreen#{orderI.nomenclature.id}')"
+                                 styleClass="link"
+                                 style="display: block;"/>
+
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.countR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.count')}
+                </f:facet>
+                <h:outputText value="#{orderI.count}"/>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.docDateR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.docDate')}
+                </f:facet>
+                <h:outputText value="#{orderI.docDate}">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                </h:outputText>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.developerR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.developer')}
+                </f:facet>
+                <h:outputText value="#{orderI.developer}"/>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.endPlanItemR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.endPlan')}
+                </f:facet>
+                <h:outputText value="#{orderI.endPlan}">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                </h:outputText>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.endActualR}">
+                <f:facet name="header">
+                    #{messages.getString('orderItemEntity.endActual')}
+                </f:facet>
+                <h:outputText value="#{orderI.endActual}">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+                </h:outputText>
+
+                <h:commandButton value="#{messages.getString('order.setEnd')}"
+                                 action="#{orderScreen.setEndActual(orderI)}"
+                                 disabled="#{!orderScreen.userPA.endActualW}"
+                                 styleClass="btn"
+                                 rendered="#{orderI.endActual == null}"
+                                 render="endActualPG"/>
+            </rich:column>
+
+            <rich:column rendered="#{orderScreen.userPA.deleteItemR}">
+
+                <h:commandButton value="X"
+                                 action="#{orderScreen.delete(orderI)}"
+                                 disabled="#{!orderScreen.userPA.deleteItemEx}"
+                                 styleClass="btnDelete"
+                                 render="orderItems"
+                                 onclick="return confirm('Вы действительно хотите удалить позицию заказа?')"/>
+            </rich:column>
+
+        </rich:dataTable>
+
+    </rich:collapsiblePanel>
+</ui:composition>

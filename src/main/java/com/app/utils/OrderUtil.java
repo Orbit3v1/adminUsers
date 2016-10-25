@@ -11,8 +11,12 @@ public class OrderUtil {
         BigDecimal paid = null;
         if(entity.getPrice() != null) {
             BigDecimal paidAmount = entity.getPayments().stream().map(Payment::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
-            paid = paidAmount.multiply(new BigDecimal("100")).divide(entity.getPrice(), BigDecimal.ROUND_CEILING);
+            paid = paidAmount.multiply(new BigDecimal("100")).divide(entity.getPrice(), BigDecimal.ROUND_DOWN);
         }
         return paid;
+    }
+
+    public static void reCalculatePaid(Order entity){
+        entity.setPaid(getPaid(entity));
     }
 }

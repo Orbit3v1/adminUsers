@@ -1,0 +1,75 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:rich="http://richfaces.org/rich"
+        xmlns:a4j="http://richfaces.org/a4j">
+
+    <h:outputText style="font-size: 18px; font-weight: bold"
+                  value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>
+
+    <HR/>
+
+    <h:message for="panel" infoClass="info" errorClass="error"/>
+    <h:panelGrid id="panel" columns="1">
+        <h:panelGroup rendered="#{orderScreen.userPA.nameR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.name')}" for="name"
+                           styleClass="label"/>
+            <h:inputText id="name" value="#{orderScreen.entity.name}"
+                         styleClass="inputLarge"
+                         disabled="#{orderScreen.isDisabled('name')}"/>
+            <h:message for="name" errorClass="error"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.customerR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.customer')}" for="customer"
+                           styleClass="label"/>
+            <h:inputText id="customer" value="#{orderScreen.entity.customer}"
+                         styleClass="inputLarge"
+                         disabled="#{orderScreen.isDisabled('customer')}"/>
+            <h:message for="customer" errorClass="error"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.responsibleR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.responsible')}" for="responsible"
+                           styleClass="label"/>
+            <rich:select id="responsible"
+                         value="#{orderScreen.entity.responsible}"
+                         converter="#{personConverter}"
+                         enableManualInput="true"
+                         defaultLabel=""
+                         listWidth="280"
+                         listHeight="200"
+                         disabled="#{orderScreen.isDisabled('responsible')}">
+                <f:selectItem itemLabel="" itemValue="#{null}"/>
+                <f:selectItems value="#{orderScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </rich:select>
+            <h:message for="responsible" errorClass="error"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.startR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.start')}" for="start"
+                           styleClass="label"/>
+            <rich:calendar id="start" value="#{orderScreen.entity.start}" locale="#{locale}"
+                           popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                           showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                           disabled="#{orderScreen.isDisabled('start')}"/>
+            <h:message for="start" errorClass="error"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{orderScreen.userPA.endPlanR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.endPlan')}" for="endPlan"
+                           styleClass="label"/>
+            <rich:calendar id="endPlan" value="#{orderScreen.entity.endPlan}" locale="#{locale}"
+                           popup="true" datePattern="#{messages.getString('dateTimePattern')}"
+                           showApplyButton="true" cellWidth="24px" cellHeight="22px"
+                           disabled="#{orderScreen.isDisabled('endPlan')}"/>
+            <h:message for="endPlan" errorClass="error"/>
+        </h:panelGroup>
+
+    </h:panelGrid>
+</ui:composition>

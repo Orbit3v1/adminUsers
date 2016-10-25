@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -49,12 +50,13 @@ public class OrderScreen extends EntityScreen<Order>  {
             entity.setStart(new Date());
             entity.setPrice(BigDecimal.ZERO);
         }
-        calculatePaid();
+        OrderUtil.reCalculatePaid(entity);
 
     }
 
     @Override
     public void save() {
+        OrderUtil.reCalculatePaid(entity);
         saveData();
         OPM = new OrderPaymentManager(entity);
     }
@@ -96,8 +98,9 @@ public class OrderScreen extends EntityScreen<Order>  {
         };
     }
 
-    public void calculatePaid(){
-        entity.setPaid( OrderUtil.getPaid(entity));
+    public void onPriceChange(ValueChangeEvent e){
+        entity.setPrice((BigDecimal) e.getNewValue());
+        OrderUtil.reCalculatePaid(entity);
     }
 
     public void shareOrder(){
@@ -108,16 +111,6 @@ public class OrderScreen extends EntityScreen<Order>  {
     public void exit() {
         SessionUtil.removeSessionVariable("Order" + entity.getId());
         super.exit();
-    }
-
-    public void deletePayment(Payment payment){
-        OPM.delete(payment);
-        calculatePaid();
-    }
-
-    public void savePayment(){
-        OPM.save();
-        calculatePaid();
     }
 
     public List<Person> getDevelopers() {

@@ -5,6 +5,7 @@ import com.app.data.entity.Component;
 import com.app.data.entity.Nomenclature;
 import com.app.data.entity.Order;
 import com.app.data.entity.Payment;
+import com.app.utils.OrderUtil;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
@@ -40,6 +41,7 @@ public class OrderPaymentManager {
 
     public void delete(Payment payment){
         order.getPayments().remove(payment);
+        OrderUtil.reCalculatePaid(order);
     }
 
     public void save(){
@@ -51,6 +53,7 @@ public class OrderPaymentManager {
             order.getPayments().add(tmpPayment);
             edit = true;
         }
+        OrderUtil.reCalculatePaid(order);
     }
 
     public Payment getTmpPayment() {
