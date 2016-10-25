@@ -1,7 +1,7 @@
 package com.app.web.menu;
 
 import org.springframework.context.annotation.Scope;
-import com.app.utils.Security;
+import com.app.security.Security;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;

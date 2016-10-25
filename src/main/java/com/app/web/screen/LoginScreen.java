@@ -2,7 +2,7 @@ package com.app.web.screen;
 
 import com.app.data.entity.Person;
 import com.app.utils.AddMessage;
-import com.app.utils.Security;
+import com.app.security.Security;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;

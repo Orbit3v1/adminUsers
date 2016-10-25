@@ -3,7 +3,7 @@ package com.app.data.filter;
 import com.app.data.dictionary.Sort;
 import com.app.data.entity.filter.Filter;
 import com.app.utils.AddMessage;
-import com.app.utils.Security;
+import com.app.security.Security;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 

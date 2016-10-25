@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
-import com.app.utils.Security;
+import com.app.security.Security;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

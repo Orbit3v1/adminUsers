@@ -4,7 +4,7 @@ import com.app.data.dictionary.OrderItemState;
 import com.app.data.dictionary.ProductionReportSort;
 import com.app.data.entity.OrderItem;
 import com.app.data.entity.filter.OrderListFilter;
-import com.app.utils.Security;
+import com.app.security.Security;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;

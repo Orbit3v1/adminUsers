@@ -9,7 +9,7 @@ import com.app.data.dto.SpecificationDTO;
 import com.app.data.entity.filter.SpecificationListFilter;
 import com.app.msOffice.SpecificationXLS;
 import com.app.utils.AddMessage;
-import com.app.utils.Security;
+import com.app.security.Security;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

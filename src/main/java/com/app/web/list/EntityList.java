@@ -3,7 +3,7 @@ package com.app.web.list;
 import com.app.data.entity.Unique;
 import com.app.data.entity.Copy;
 import com.app.utils.AddMessage;
-import com.app.utils.Security;
+import com.app.security.Security;
 import com.app.validator.Validator;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
