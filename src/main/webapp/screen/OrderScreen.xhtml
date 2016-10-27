@@ -6,44 +6,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:p="http://primefaces.org/ui">
 
+    <ui:param name="screen" value="#{orderScreen}"/>
     <ui:define name="title">
         <h:outputText value="#{messages.getString('orderScreen.title')}"/>
     </ui:define>
+
     <ui:define name="headerMenu"/>
 
-
     <ui:define name="body">
-        <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
-        <script type="text/javascript">
-            var init = [];
-            window.onload = function () {
-                for (var i in init) {
-                    if (typeof( init[i] ) == 'function') init[i]();
-                }
-            }
-        </script>
 
-        <p:panelGrid id="script">
-        <ui:fragment rendered="#{!orderScreen.saved and orderScreen.closed}">
-            <script type="text/javascript">
-                init.push(exit());
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{orderScreen.saved and !orderScreen.closed}">
-            <script type="text/javascript">
-                init.push(save);
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{orderScreen.saved and orderScreen.closed}">
-            <script type="text/javascript">
-                init.push(saveExit());
-            </script>
-        </ui:fragment>
-        </p:panelGrid>
+        <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
+        <ui:include src="../template/PopUpJS.xhtml"/>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
 
@@ -57,7 +32,7 @@
             <p:accordionPanel id="panel"
                               multiple="true"
                               activeIndex="0,2">
-                <p:tab title="#{messages.getString('orderScreen.title')}" >
+                <p:tab title="#{messages.getString('orderScreen.title')}">
                     <ui:include src="order/OrderData.xhtml"/>
                 </p:tab>
                 <p:tab title="#{messages.getString('orderScreen.table.payment')}"
@@ -71,13 +46,13 @@
 
             <HR/>
 
-            <ui:include src="order/EditButtons.xhtml"/>
+            <ui:include src="../template/ScreenEditButtons.xhtml"/>
 
             <p:commandButton id="refresh"
-                               update=":mainForm:panel:orderItems"
-                               actionListener="#{orderScreen.refresh()}"
-                               style="display:none;"
-                               value="refresh"/>
+                             update=":mainForm:panel:orderItems"
+                             actionListener="#{orderScreen.refresh()}"
+                             style="display:none;"
+                             value="refresh"/>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>

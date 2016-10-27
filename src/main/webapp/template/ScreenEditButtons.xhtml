@@ -1,0 +1,38 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <p>
+        <p:commandButton value="#{messages.getString('button.saveAndExit')}"
+                         actionListener="#{screen.saveAndExit}"
+                         update=":mainForm, :script"
+                         styleClass="buttonPF"
+                         rendered="#{screen.edit ? screen.userPA.editR : screen.userPA.addR}"
+                         disabled="#{!(screen.edit ? screen.userPA.editEx : screen.userPA.addEx)}"
+                />
+        <p:commandButton value="#{messages.getString('button.save')}"
+                         actionListener="#{screen.saveOnly}"
+                         update=":mainForm, :script"
+                         styleClass="buttonPF"
+                         rendered="#{screen.edit ? screen.userPA.editR : screen.userPA.addR}"
+                         disabled="#{!(screen.edit ? screen.userPA.editEx : screen.userPA.addEx)}"
+                />
+        <p:commandButton value="#{messages.getString('button.delete')}"
+                         actionListener="#{screen.delete}"
+                         styleClass="buttonPF"
+                         update=":script"
+                         rendered="#{screen.edit and screen.userPA.deleteR}"
+                         disabled="#{!screen.edit or !screen.userPA.deleteEx}"
+                >
+            <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                       message="#{messages.getString('button.delete.message')}"
+                       icon="ui-icon-alert"/>
+        </p:commandButton>
+        <p:commandButton value="#{messages.getString('button.cancel')}"
+                         actionListener="#{screen.exit}"
+                         update=":script"
+                         styleClass="buttonPF"/>
+    </p>
+</ui:composition>

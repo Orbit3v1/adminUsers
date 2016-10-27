@@ -1,0 +1,35 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <script type="text/javascript">
+        var init = [];
+        window.onload = function () {
+            for (var i in init) {
+                if (typeof( init[i] ) == 'function') init[i]();
+            }
+        }
+    </script>
+    
+    <p:panelGrid id="script">
+        <ui:fragment rendered="#{!screen.saved and screen.closed}">
+            <script type="text/javascript">
+                init.push(exit());
+            </script>
+        </ui:fragment>\
+        <ui:fragment rendered="#{screen.saved and !screen.closed}">
+            <script type="text/javascript">
+                init.push(save);
+            </script>
+        </ui:fragment>
+        <ui:fragment rendered="#{screen.saved and screen.closed}">
+            <script type="text/javascript">
+                init.push(saveExit());
+            </script>
+        </ui:fragment>
+    </p:panelGrid>
+
+</ui:composition>
