@@ -119,6 +119,10 @@ public abstract class EntityScreen<T extends Unique> {
     }
 
     public boolean isDisabled(String privilege){
+        return  isDisabled(privilege, this.edit);
+    }
+
+    public boolean isDisabled(String privilege, boolean edit){
         Boolean res = edit ? userPA.get(privilege + "E") : userPA.get(privilege + "W");
         return  res == null || !res;
     }

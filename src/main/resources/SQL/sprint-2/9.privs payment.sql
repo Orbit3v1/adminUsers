@@ -14,28 +14,33 @@ values('orderPaid', 'READ');
 
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentAdd', 'Оплата заказа - добавить', '', 5500);
+values('orderPayment', 'Оплата заказа', '', 5500);
+insert into privilege_action(privilege, action)
+values('orderPayment', 'READ');
+
+insert into privilege(id, name, description, pos)
+values('orderPaymentAdd', 'Оплата заказа - добавить', '', 5501);
 insert into privilege_action(privilege, action)
 values('orderPaymentAdd', 'READ');
 insert into privilege_action(privilege, action)
 values('orderPaymentAdd', 'EXECUTE');
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentEdit', 'Оплата заказа - редактировать', '', 5501);
+values('orderPaymentEdit', 'Оплата заказа - редактировать', '', 5502);
 insert into privilege_action(privilege, action)
 values('orderPaymentEdit', 'READ');
 insert into privilege_action(privilege, action)
 values('orderPaymentEdit', 'EXECUTE');
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentDelete', 'Оплата заказа - удалить', '', 5502);
+values('orderPaymentDelete', 'Оплата заказа - удалить', '', 5503);
 insert into privilege_action(privilege, action)
 values('orderPaymentDelete', 'READ');
 insert into privilege_action(privilege, action)
 values('orderPaymentDelete', 'EXECUTE');
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentDescription', 'Оплата заказа - Поле - Описание', '', 5503);
+values('orderPaymentDescription', 'Оплата заказа - Поле - Описание', '', 5504);
 insert into privilege_action(privilege, action)
 values('orderPaymentDescription', 'READ');
 insert into privilege_action(privilege, action)
@@ -44,7 +49,7 @@ insert into privilege_action(privilege, action)
 values('orderPaymentDescription', 'EDIT');
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentAmount', 'Оплата заказа - Поле - Сумма', '', 5504);
+values('orderPaymentAmount', 'Оплата заказа - Поле - Сумма', '', 5505);
 insert into privilege_action(privilege, action)
 values('orderPaymentAmount', 'READ');
 insert into privilege_action(privilege, action)
@@ -53,7 +58,7 @@ insert into privilege_action(privilege, action)
 values('orderPaymentAmount', 'EDIT');
 
 insert into privilege(id, name, description, pos)
-values('orderPaymentDate', 'Оплата заказа - Поле - Дата', '', 5505);
+values('orderPaymentDate', 'Оплата заказа - Поле - Дата', '', 5506);
 insert into privilege_action(privilege, action)
 values('orderPaymentDate', 'READ');
 insert into privilege_action(privilege, action)

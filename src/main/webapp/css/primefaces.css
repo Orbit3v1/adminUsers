@@ -7,12 +7,54 @@
     font-size: 16px !important;
     font-family: Arial, Verdana, sans-serif;
 }
+/*disable borders*/
+.ui-panelgrid .ui-panelgrid-cell{
+    padding: 0 !important;
+    border: none !important;
+}
 
-.ui-treetable tr:hover, .ui-treetable-even:hover, .ui-treetable tr.ui-treetable-odd:hover
-.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+tr.ui-widget-content{
+    border: none !important;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0 !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger{
+    width: 22px !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon{
+    margin-top: 5px !important;
+    margin-left: 3px !important;
+}
+
+/*calendar button*/
+.ui-button-icon-only{
+    width: 30px !important;
+}
+/*for calendar input, but affect all elemnts*/
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+    width: 250px
+}
+
+.ui-treetable tr:hover,
+.ui-treetable-even:hover,
+.ui-treetable tr.ui-treetable-odd:hover,
+.ui-datatable tr.ui-datatable-even:hover,
+.ui-datatable tr.ui-datatable-odd:hover {
     background: #ffdaae !important;
     color: #4f4f4f !important;
     text-shadow: none !important;
+}
+
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td,
+.ui-datatable tfoot th {
+    border: 1px solid #a8a8a8 !important;
+    padding: 4px 5px 4px 5px !important;
 }
 
 .ui-dialog-title {
@@ -46,6 +88,18 @@
     width: 280px !important;
 }
 
+.selectOneMenuLargePF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 260px !important;
+}
+
+.calendarPF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 260px !important;
+}
+
 .selectBtnPF{
     padding: 0 8px 0 8px !important;
     height: 14px !important;
@@ -56,4 +110,14 @@
     border : 3px solid #d82253 !important;
     color: #4f4f4f !important;
     text-shadow: none !important;
+}
+
+.buttonPF{
+    margin: 3px 3px 3px 0px !important;
+}
+
+.buttonPF:disabled{
+    background-image: none !important;
+    background-color: #F8F8F8 !important;
+    color: #B1ADA7 !important;
 }

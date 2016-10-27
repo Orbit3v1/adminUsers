@@ -25,10 +25,10 @@ public class OrderValidator extends AbstractValidator<Order> {
         boolean valid = true;
         if (entity.getName() == null || entity.getName().equals("")) {
             valid = false;
-            addMessage.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
         } else if (getOrderWithSameName().size() != 0) {
             valid = false;
-            addMessage.setMessage("mainForm:name", "orderScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel:name", "orderScreen.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
 
         }
         return valid;
@@ -45,7 +45,7 @@ public class OrderValidator extends AbstractValidator<Order> {
         boolean valid = true;
         if (entity.getOrderItems() == null || entity.getOrderItems().size() == 0) {
             valid = false;
-            addMessage.setMessage("mainForm:orderItems", "orderScreen.error.emptyItems", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel:orderItems", "orderScreen.error.emptyItems", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }

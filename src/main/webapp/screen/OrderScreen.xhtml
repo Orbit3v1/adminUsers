@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         <h:outputText value="#{messages.getString('orderScreen.title')}"/>
@@ -26,6 +27,7 @@
             }
         </script>
 
+        <p:panelGrid id="script">
         <ui:fragment rendered="#{!orderScreen.saved and orderScreen.closed}">
             <script type="text/javascript">
                 init.push(exit());
@@ -41,22 +43,46 @@
                 init.push(saveExit());
             </script>
         </ui:fragment>
+        </p:panelGrid>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
 
-            <ui:include src="order/OrderData.xhtml"/>
-            <ui:include src="order/OrderPayments.xhtml"/>
-            <ui:include src="order/OrderItemsTable.xhtml"/>
+            <p:growl id="growl" showDetail="true"/>
+
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{orderScreen.edit ? messages.getString('orderScreen.editText') : messages.getString('orderScreen.addText')}"/>
+            <HR/>
+
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <p:accordionPanel id="panel"
+                              multiple="true"
+                              activeIndex="0,2">
+                <p:tab title="#{messages.getString('orderScreen.title')}" >
+                    <ui:include src="order/OrderData.xhtml"/>
+                </p:tab>
+                <p:tab title="#{messages.getString('orderScreen.table.payment')}"
+                       rendered="#{orderScreen.userPA.paymentR}">
+                    <ui:include src="order/OrderPayments.xhtml"/>
+                </p:tab>
+                <p:tab title="#{messages.getString('orderScreen.table.orderItems')}">
+                    <ui:include src="order/OrderItemsTable.xhtml"/>
+                </p:tab>
+            </p:accordionPanel>
 
             <HR/>
 
             <ui:include src="order/EditButtons.xhtml"/>
 
-            <a4j:commandButton id="refresh"
-                               render="orderItems"
-                               action="#{orderScreen.refresh()}"
+            <p:commandButton id="refresh"
+                               update=":mainForm:panel:orderItems"
+                               actionListener="#{orderScreen.refresh()}"
                                style="display:none;"
                                value="refresh"/>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 </ui:composition>

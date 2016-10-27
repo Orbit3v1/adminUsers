@@ -3,32 +3,33 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:rich="http://richfaces.org/rich"
-        xmlns:a4j="http://richfaces.org/a4j">
+        xmlns:p="http://primefaces.org/ui">
     <p>
-        <h:commandButton value="#{messages.getString('button.saveAndExit')}"
-                         action="#{orderScreen.saveAndExit}"
-                         render="mainForm"
-                         styleClass="btn"
+        <p:commandButton value="#{messages.getString('button.saveAndExit')}"
+                         actionListener="#{orderScreen.saveAndExit}"
+                         update=":mainForm, :script"
+                         styleClass="buttonPF"
                          rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
                          disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
                 />
-        <h:commandButton value="#{messages.getString('button.save')}"
-                         action="#{orderScreen.saveOnly}"
-                         render="mainForm"
-                         styleClass="btn"
+        <p:commandButton value="#{messages.getString('button.save')}"
+                         actionListener="#{orderScreen.saveOnly}"
+                         update=":mainForm, :script"
+                         styleClass="buttonPF"
                          rendered="#{orderScreen.edit ? orderScreen.userPA.editR : orderScreen.userPA.addR}"
                          disabled="#{!(orderScreen.edit ? orderScreen.userPA.editEx : orderScreen.userPA.addEx)}"
                 />
-        <h:commandButton value="#{messages.getString('button.delete')}"
-                         action="#{orderScreen.delete}"
-                         styleClass="btn"
+        <p:commandButton value="#{messages.getString('button.delete')}"
+                         actionListener="#{orderScreen.delete}"
+                         styleClass="buttonPF"
+                         update=":script"
                          rendered="#{orderScreen.edit and orderScreen.userPA.deleteR}"
                          disabled="#{!orderScreen.edit or !orderScreen.userPA.deleteEx}"
                          onclick="return confirm('Вы действительно хотите удалить заказ?')"
                 />
-        <h:commandButton value="#{messages.getString('button.cancel')}"
-                         action="#{orderScreen.exit}"
-                         styleClass="btn"/>
+        <p:commandButton value="#{messages.getString('button.cancel')}"
+                         actionListener="#{orderScreen.exit}"
+                         update=":script"
+                         styleClass="buttonPF"/>
     </p>
 </ui:composition>

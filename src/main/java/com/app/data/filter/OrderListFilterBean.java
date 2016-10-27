@@ -56,6 +56,7 @@ public class OrderListFilterBean extends FilterBean implements ListFilterBean<Or
                 "left join fetch r.developer ";
 
         StringJoiner sqlWhere = new StringJoiner(" AND ");
+        sqlWhere.add("1 = 1");
         if (!Security.hasAccess(userPA, "accessInWork")) {
             sqlWhere.add("r.endActual is not null");
         }

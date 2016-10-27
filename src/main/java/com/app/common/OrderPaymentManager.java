@@ -7,7 +7,9 @@ import com.app.data.entity.Order;
 import com.app.data.entity.Payment;
 import com.app.utils.OrderUtil;
 import org.apache.log4j.Logger;
+import org.primefaces.context.RequestContext;
 
+import javax.faces.application.FacesMessage;
 import java.util.Date;
 
 public class OrderPaymentManager {
@@ -54,6 +56,12 @@ public class OrderPaymentManager {
             edit = true;
         }
         OrderUtil.reCalculatePaid(order);
+        closeDialog();
+    }
+
+    private void closeDialog(){
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('popupPayments').hide();");
     }
 
     public Payment getTmpPayment() {

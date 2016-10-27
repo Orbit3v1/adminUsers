@@ -45,7 +45,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderItemEntity.docDate", "Документация"},
             {"orderItemEntity.developer", "Разработка"},
             {"orderItemEntity.endPlan", "План сдачи"},
-            {"orderItemEntity.endActual", "Продукция сдана"},
+            {"orderItemEntity.endActual", "Сдано"},
 
             {"componentEntity.name", "Наименование"},
 
@@ -239,6 +239,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"pickList.removeControlLabel", "Удалить"},
 
             {"table.edit", "-"},
+            {"table.emptyMessage", "Нет данных"},
 
             {"success.delete", "Запись удаленна"},
             {"success.save", "Запись сохраненна"},

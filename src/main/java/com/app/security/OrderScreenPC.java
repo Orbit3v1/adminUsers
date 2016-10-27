@@ -142,6 +142,10 @@ public class OrderScreenPC implements PrivilegeChecker {
                         new PrivilegeAction("orderItemDelete", "EXECUTE"))
         );
 
+        userPA.put("paymentR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("orderPayment", "READ"))
+        );
+
         userPA.put("addPaymentR", hasAnyPrivilegeAction(
                         new PrivilegeAction("orderPaymentAdd", "READ"))
         );

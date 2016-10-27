@@ -3,103 +3,108 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:rich="http://richfaces.org/rich"
-        xmlns:a4j="http://richfaces.org/a4j"
         xmlns:p="http://primefaces.org/ui">
 
-    <rich:collapsiblePanel header="#{messages.getString('orderScreen.table.payment')}"
-                           switchType="client"
-                           expanded="false">
-        <h:panelGrid id="panelPayment" columns="1">
-            <h:panelGroup rendered="#{orderScreen.userPA.priceR}">
-                <h:outputLabel value="#{messages.getString('orderEntity.price')}" for="price"
-                               styleClass="label"/>
-                <p:inputNumber id="price" value="#{orderScreen.entity.price}"
-                               inputStyleClass="inputLarge"
-                               disabled="#{orderScreen.isDisabled('price')}"
-                               valueChangeListener="#{orderScreen.onPriceChange}"
-                               >
-                    <p:ajax update=":mainForm:paid"/>
-                </p:inputNumber>
-                <h:message for="price" errorClass="error"/>
-            </h:panelGroup>
-            <h:panelGroup rendered="#{orderScreen.userPA.paidR}">
-                <h:outputLabel value="#{messages.getString('orderEntity.paid')}" for="paid"
-                               styleClass="label"/>
-                <p:inputText id="paid" value="#{orderScreen.entity.paid}"
-                             styleClass="inputLarge"
-                             disabled="true"/>
-                <h:message for="paid" errorClass="error"/>
-            </h:panelGroup>
-        </h:panelGrid>
+    <p:panelGrid columns="1">
+        <p:panelGrid columns="3" rendered="#{orderScreen.userPA.priceR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.price')}"
+                           for="price"
+                           styleClass="labelPF"/>
+            <p:inputNumber id="price" value="#{orderScreen.entity.price}"
+                           inputStyleClass="inputLarge"
+                           disabled="#{orderScreen.isDisabled('price')}"
+                           valueChangeListener="#{orderScreen.onPriceChange}"
+                    >
+                <p:ajax update=":mainForm:panel:paid"/>
+            </p:inputNumber>
+            <h:message for="price" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{orderScreen.userPA.paidR}">
+            <h:outputLabel value="#{messages.getString('orderEntity.paid')}"
+                           for="paid"
+                           styleClass="labelPF"/>
+            <p:inputText id="paid" value="#{orderScreen.entity.paid}"
+                         styleClass="inputLarge"
+                         disabled="true"/>
+            <h:message for="paid" errorClass="error"/>
+        </p:panelGrid>
+    </p:panelGrid>
 
-        <HR/>
+    <HR/>
 
-        <a4j:commandButton value="#{messages.getString('button.add')}"
-                           action="#{orderScreen.OPM.add}"
-                           styleClass="btn"
-                           render="popupPayments"
-                           execute="@this"
-                           rendered="#{orderScreen.userPA.addPaymentR}"
-                           disabled="#{!orderScreen.userPA.addPaymentEx}"
-                           oncomplete="#{rich:component('popupPayments')}.show(); return false;"
-                />
+    <p:commandButton value="#{messages.getString('button.add')}"
+                     actionListener="#{orderScreen.OPM.add}"
+                     update=":mainForm:panel:popupPaymentsData"
+                     oncomplete="PF('popupPayments').show()"
+                     rendered="#{orderScreen.userPA.addPaymentR}"
+                     disabled="#{!orderScreen.userPA.addPaymentEx}"
+                     styleClass="buttonPF"
+            />
 
-        <h:message for="payments" infoClass="info" errorClass="error"/>
-        <rich:dataTable id="payments"
-                        value="#{orderScreen.entity.payments}"
-                        var="payment"
-                        binding="#{table}"
-                        rowClasses="odd-row, even-row">
+    <h:message for="payments" infoClass="info" errorClass="error"/>
+    <p:dataTable id="payments"
+                 value="#{orderScreen.entity.payments}"
+                 emptyMessage="#{messages.getString('table.emptyMessage')}"
+                 var="payment"
+                 binding="#{table}"
+                 sortMode="multiple"
+                 resizableColumns="true"
+                 tableStyle="width:auto"
+            >
 
-            <rich:column style="text-align: center">
-                <a4j:commandButton value="#{table.rowIndex + 1}"
-                                   action="#{orderScreen.OPM.edit(payment)}"
-                                   execute="@this"
-                                   render="popupPayments"
-                                   oncomplete="#{rich:component('popupPayments')}.show(); return false;"/>
-            </rich:column>
+        <p:column style="text-align: center"
+                  headerText=""
+                  width="40">
+            <p:commandButton value="#{table.rowIndex + 1}"
+                             actionListener="#{orderScreen.OPM.edit(payment)}"
+                             update=":mainForm:panel:popupPaymentsData"
+                             oncomplete="PF('popupPayments').show()"/>
+        </p:column>
 
-            <rich:column rendered="#{orderScreen.userPA.paymentDescriptionR}">
-                <f:facet name="header">#{messages.getString('paymentEntity.description')}</f:facet>
-                <h:outputText value="#{payment.description}"/>
-            </rich:column>
+        <p:column rendered="#{orderScreen.userPA.paymentDescriptionR}"
+                  headerText="#{messages.getString('paymentEntity.description')}"
+                  sortBy="#{payment.description}">
+            <h:outputText value="#{payment.description}"/>
+        </p:column>
 
-            <rich:column rendered="#{orderScreen.userPA.paymentAmountR}">
-                <f:facet name="header">#{messages.getString('paymentEntity.amount')}</f:facet>
-                <h:outputText value="#{payment.amount}"/>
-            </rich:column>
+        <p:column rendered="#{orderScreen.userPA.paymentAmountR}"
+                  headerText="#{messages.getString('paymentEntity.amount')}"
+                  width="150"
+                  sortBy="#{payment.amount}">
+            <h:outputText value="#{payment.amount}"/>
+        </p:column>
 
-            <rich:column rendered="#{orderScreen.userPA.paymentDateR}">
-                <f:facet name="header">#{messages.getString('paymentEntity.date')}</f:facet>
-                <h:outputText value="#{payment.date}">
-                    <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
-                </h:outputText>
-            </rich:column>
+        <p:column rendered="#{orderScreen.userPA.paymentDateR}"
+                  headerText="#{messages.getString('paymentEntity.date')}"
+                  width="100"
+                  sortBy="#{payment.date}">
+            <h:outputText value="#{payment.date}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
 
-            <rich:column rendered="#{orderScreen.userPA.deletePaymentR}">
-                <h:commandButton value="X"
-                                 action="#{orderScreen.OPM.delete(payment)}"
-                                 disabled="#{!orderScreen.userPA.deletePaymentEx}"
-                                 styleClass="btnDelete"
-                                 render="payments, mainForm"
-                                 execute="payment"
-                                 onclick="return confirm('Вы действительно хотите удалить платеж?')"/>
-            </rich:column>
+        <p:column rendered="#{orderScreen.userPA.deletePaymentR}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:panel:payments, :mainForm:panel:paid, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{orderScreen.OPM.delete(payment)}"
+                           disabled="#{!orderScreen.userPA.deletePaymentEx}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+    </p:dataTable>
 
-        </rich:dataTable>
-    </rich:collapsiblePanel>
-
-    <rich:popupPanel id="popupPayments" modal="true" resizeable="true" width="640" height="480">
-        <f:facet name="header">
-            <h:outputText value="#{messages.getString('orderScreen.payments')}"/>
-        </f:facet>
-        <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('popupPayments')}.hide(); return false;"
-                          style="color: inherit">
-                X
-            </h:outputLink>
-        </f:facet>
+    <p:dialog widgetVar="popupPayments"
+              modal="true"
+              resizeable="true"
+              width="640"
+              height="480"
+              header="#{messages.getString('orderScreen.payments')}"
+            >
         <ui:include src="PaymentScreen.xhtml"/>
-    </rich:popupPanel>
+    </p:dialog>
 </ui:composition>
