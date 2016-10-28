@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('orderList.title')}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <script type="text/javascript">
+
+            function find() {
+                if(event.keyCode == 13) {
+                    clickIn('mainForm:findBtn')
+                }
+            }
+        </script>
+
+        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+
+            <f:event type="preRenderView" listener="#{orderList.updateList}"/>
+            <p:growl id="growl" showDetail="true"/>
+
+            <h:outputText value="#{messages.getString('orderList.header')}" styleClass="listTitle"/>
+            <br/>
+            <ui:include src="order/Buttons.xhtml"/>
+            <ui:include src="order/DataTable.xhtml"/>
+
+
+
+            <p:commandButton id="refresh"
+                               update=":mainForm:orders"
+                               style="display: none"
+                               value="refresh"/>
+
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

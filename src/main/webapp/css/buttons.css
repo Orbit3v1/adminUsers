@@ -1,0 +1,83 @@
+.buttonPF{
+    margin: 3px 3px 3px 0 !important;
+}
+
+.buttonPF:disabled{
+    background-image: none !important;
+    background-color: #F8F8F8 !important;
+    color: #B1ADA7 !important;
+}
+
+.selectBtnPF{
+    padding: 0 8px 0 8px !important;
+    height: 14px !important;
+}
+
+
+.delete {
+    background-image: url(/javax.faces.resource/images/delete.png.xhtml) !important;
+    height: 24px !important;
+    width: 24px !important;
+}
+
+.delete:hover {
+    background-image: url(/javax.faces.resource/images/delete_hover.png.xhtml) !important;
+}
+
+.btn {
+    display: inline-block !important;
+    background-color: #e3e3e3 !important;
+    font-size: 14px !important;
+    padding: 1px 6px !important;
+    border: 1px solid #C4C0B9 !important;
+    background-image: none !important;
+    margin: 3px !important;
+    font-family: Arial, Verdana, sans-serif !important;
+}
+
+.btn:hover {
+    background-color: #D4CFC7 !important;
+    color: black;
+}
+
+.btn:active:enabled {
+    background-color: #e3e3e3 !important;
+    color: black !important;
+}
+
+.btn:disabled{
+    background-color: #F8F8F8 !important;
+    color: lightgray; !important;
+}
+
+.btnDelete {
+    display: inline-block !important;
+    background-color: red !important;
+    padding: 1px 4px !important;
+    border: 1px solid #C4C0B9 !important;
+    background-image: none !important;
+    margin: 3px !important;
+    font-family: Arial, Verdana, sans-serif !important;
+}
+
+.btnDelete:hover {
+    background-color: #cc0000 !important;
+    color: black;
+}
+
+.btnDelete:active:enabled {
+    background-color: red !important;
+    color: black !important;
+}
+
+.btnDelete:disabled{
+    background-color: #ff9999 !important;
+    color: lightgray !important;
+}
+
+.findBtn{
+    vertical-align: middle !important;
+    height: 20px !important;
+    margin: 0 2px 2px 0 !important;
+    padding: 1px 3px !important;
+}

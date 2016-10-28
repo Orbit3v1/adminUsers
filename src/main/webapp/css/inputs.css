@@ -1,0 +1,81 @@
+
+.inputSmall{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 100px !important;
+}
+
+.inputMedium{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 180px !important;
+}
+
+.inputLarge{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 280px !important;
+}
+
+.inputMedium:disabled, .inputLarge:disabled{
+    color: black !important;
+    background: #e9e9e9 !important;
+}
+
+.textareaMedium{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 176px !important;
+}
+
+.textareaLarge{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 276px !important;
+}
+
+textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled]{
+    color: black !important;
+    background: #e9e9e9 !important;
+}
+
+.textareaLargePF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 280px !important;
+}
+
+.selectOneMenuLargePF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 260px !important;
+}
+
+.calendarPF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 260px !important;
+}
+
+.calendarPF input{
+    width: 250px !important;
+}
+
+.calendarSmallPF{
+    font-size: 14px !important;
+    margin: 0 !important;
+}
+
+.calendarSmallPF input{
+    margin: 0 !important;
+    width: 85px !important;
+}
+
+.selectOneMenuSmallPF{
+    font-size: 14px !important;
+    margin: 0 !important;
+    width: 150px !important;
+}

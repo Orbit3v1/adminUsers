@@ -1,0 +1,27 @@
+.rf-dt-shdr-c {
+    font-size: 16px !important;
+}
+
+.rf-dt-sftr-c {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    text-align: left !important;
+}
+
+.rf-dt-c {
+    font-size: 14px !important;
+    cursor: text !important;
+    white-space: nowrap !important;
+}
+
+.rf-pick-opt {
+    font-size: 14px !important;
+}
+
+.rf-dt {
+    margin: 3px !important;
+}
+
+.rf-cp-lbl-exp, .rf-cp-lbl-colps, .rf-sel-opt{
+    font-size: 14px !important;
+}
