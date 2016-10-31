@@ -431,9 +431,11 @@
                 <rich:column rendered="#{orderList.userPA.paidR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
-                        <h:commandLink value="#{messages.getString('orderEntity.paid')}"
+                        <h:commandLink value="#{messages.getString('orderList.paid')}"
                                        action="#{orderListFilterBean.setSort('PAID_ASC')}"
                                        styleClass="headerSort">
+                            <br/>
+                            %
                             <h:graphicImage
                                     value="/javax.faces.resource/images/#{orderList.getImage('PAID')}.png.xhtml"
                                     styleClass="headerSortImg"/>

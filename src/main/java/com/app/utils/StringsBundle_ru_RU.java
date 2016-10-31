@@ -149,6 +149,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"orderList.title", "Производство"},
             {"orderList.header", "График производства"},
+            {"orderList.paid", "Опл."},
 
             {"orderListFilter.saveSuccess", "Фильтр сохранен"},
             {"orderListFilter.loadSuccess", "Фильтр загружен"},
