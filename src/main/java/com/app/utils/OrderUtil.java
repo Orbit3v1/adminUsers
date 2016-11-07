@@ -12,7 +12,7 @@ public class OrderUtil {
         if(entity.getPrice() != null) {
             BigDecimal paidAmount = BigDecimal.ZERO;
             if(entity.getPayments() != null){
-                paidAmount = entity.getPayments().stream().map(Payment::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+                paidAmount = entity.getPayments().stream().filter(x -> x.getAmount() != null).map(Payment::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
             }
             paid = paidAmount.multiply(new BigDecimal("100")).divide(entity.getPrice(), BigDecimal.ROUND_DOWN);
         }
