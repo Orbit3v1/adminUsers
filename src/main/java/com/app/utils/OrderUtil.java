@@ -9,12 +9,13 @@ import java.math.BigDecimal;
 public class OrderUtil {
     public static BigDecimal getPaid(Order entity){
         BigDecimal paid = null;
-        if(entity.getPrice() != null) {
+        BigDecimal price = entity.getPrice();
+        if(price != null && price.compareTo(BigDecimal.ZERO) == 1) {
             BigDecimal paidAmount = BigDecimal.ZERO;
             if(entity.getPayments() != null){
                 paidAmount = entity.getPayments().stream().filter(x -> x.getAmount() != null).map(Payment::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
             }
-            paid = paidAmount.multiply(new BigDecimal("100")).divide(entity.getPrice(), BigDecimal.ROUND_DOWN);
+            paid = paidAmount.multiply(new BigDecimal("100")).divide(price, BigDecimal.ROUND_DOWN);
         }
         return paid;
     }

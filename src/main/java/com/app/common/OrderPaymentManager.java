@@ -6,6 +6,7 @@ import com.app.data.entity.Nomenclature;
 import com.app.data.entity.Order;
 import com.app.data.entity.Payment;
 import com.app.utils.OrderUtil;
+import com.app.web.Loggable;
 import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
@@ -26,26 +27,28 @@ public class OrderPaymentManager {
         tmpPayment = new Payment();
     }
 
+    @Loggable
     public void add(){
-        logger.info("add component");
         tmpPayment = new Payment();
         tmpPayment.setDate(new Date());
         edit = false;
     }
 
+    @Loggable
     public void edit(Payment payment){
-        logger.info("edit component");
         originalPayment = payment;
         tmpPayment = new Payment();
         tmpPayment.copyData(payment);
         edit = true;
     }
 
+    @Loggable
     public void delete(Payment payment){
         order.getPayments().remove(payment);
         OrderUtil.reCalculatePaid(order);
     }
 
+    @Loggable
     public void save(){
         if(edit){
             logger.info("save existing component");
@@ -59,6 +62,7 @@ public class OrderPaymentManager {
         closeDialog();
     }
 
+    @Loggable
     private void closeDialog(){
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('popupPayments').hide();");

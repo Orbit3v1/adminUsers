@@ -4,6 +4,7 @@ import com.app.common.OrderPaymentManager;
 import com.app.data.entity.*;
 import com.app.security.Security;
 import com.app.utils.*;
+import com.app.web.Loggable;
 import org.richfaces.model.Filter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +72,7 @@ public class OrderScreen extends EntityScreen<Order>  {
         orderItem.setEndActual(date);
     }
 
+    @Loggable
     @Transactional
     public void refresh() {
         logger.info("refresh");
@@ -97,6 +99,7 @@ public class OrderScreen extends EntityScreen<Order>  {
         };
     }
 
+    @Loggable
     public void onPriceChange(ValueChangeEvent e){
         entity.setPrice((BigDecimal) e.getNewValue());
         OrderUtil.reCalculatePaid(entity);
