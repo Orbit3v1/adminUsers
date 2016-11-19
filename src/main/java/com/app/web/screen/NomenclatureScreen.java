@@ -52,6 +52,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             graph.addAttributeNodes("nomenclatureAttachments");
             graph.addAttributeNodes("components");
             graph.addAttributeNodes("orderItems");
+            graph.addAttributeNodes("specifications");
             Map<String, Object> hints = new HashMap<>();
             hints.put("javax.persistence.loadgraph", graph);
 
@@ -81,6 +82,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             }
         }
         entity = em.merge(entity);
+        entity.getSpecifications().size();
     }
 
     @Override
@@ -156,7 +158,11 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     @Transactional
     public void refresh() {
         logger.info("refresh");
-        entity.setSpecification(em.find(Specification.class, entity.getSpecification().getId()));
+        List<Specification> specifications = new ArrayList<>();
+        for (Specification specification : entity.getSpecifications()) {
+            specifications.add(em.find(Specification.class, specification.getId()));
+        }
+        entity.setSpecifications(specifications);
     }
 
     public NAType getFileType() {

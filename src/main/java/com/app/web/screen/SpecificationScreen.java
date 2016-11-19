@@ -50,6 +50,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
         if(id != null && AppUtil.isNumeric(id)){
             EntityGraph<Specification> graph = em.createEntityGraph(Specification.class);
             graph.addAttributeNodes("specificationAttachments");
+            graph.addAttributeNodes("nomenclature");
             Map<String, Object> hints = new HashMap<>();
             hints.put("javax.persistence.loadgraph", graph);
 
