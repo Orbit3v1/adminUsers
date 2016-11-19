@@ -204,6 +204,16 @@ public class SpecificationScreenPC implements PrivilegeChecker {
                         new PrivilegeAction("specificationChecked", "EDIT"))
         );
 
+        userPA.put("materialR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationMaterial", "READ"))
+        );
+        userPA.put("materialW", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationMaterial", "WRITE"))
+        );
+        userPA.put("materialE", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationMaterial", "EDIT"))
+        );
+
         userPA.put("approveR", hasAnyPrivilegeAction(
                         new PrivilegeAction("specificationApprove", "READ"))
         );

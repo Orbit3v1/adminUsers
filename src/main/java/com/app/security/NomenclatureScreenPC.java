@@ -137,6 +137,10 @@ public class NomenclatureScreenPC implements PrivilegeChecker {
                         new PrivilegeAction("componentName", "EDIT"))
         );
 
+        userPA.put("specificationR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("nomenclatureSpecification", "READ"))
+        );
+
         return userPA;
     }
 }

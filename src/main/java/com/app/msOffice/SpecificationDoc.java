@@ -53,7 +53,7 @@ public class SpecificationDoc {
         replaceText("$:nomenclature", specification.getNomenclature() == null ? "" : specification.getNomenclature().getName());
         replaceText("$:responsible", specification.getResponsible() == null ? "" : specification.getResponsible().toString());
         replaceText("$:start", specification.getStart() == null ? "" : df.format(specification.getStart()));
-        replaceText("$:material", specification.getNomenclature() == null ? "" : specification.getNomenclature().getMaterial());
+        replaceText("$:material", specification.getMaterial() == null ? "" : specification.getMaterial());
         replaceText("$:mainSize", specification.getMainSize() == null ? "" : specification.getMainSize());
         replaceText("$:detailSize", specification.getDetailSize() == null ? "" : specification.getDetailSize());
         replaceText("$:pressure", specification.getPressure() == null ? "" : specification.getPressure());

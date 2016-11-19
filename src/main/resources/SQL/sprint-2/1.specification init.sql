@@ -19,7 +19,8 @@ create table specification(
   workDays int,
   approved datetime,
   approvedBy int,
-  checked varchar(1)
+  checked varchar(1),
+  material varchar(500),
 
   CONSTRAINT specification_FK1 FOREIGN KEY (nomenclature) REFERENCES nomenclature(id),
   CONSTRAINT specification_FK2 FOREIGN KEY (responsible) REFERENCES person(id),

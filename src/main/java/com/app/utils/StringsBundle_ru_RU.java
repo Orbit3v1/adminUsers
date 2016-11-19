@@ -30,6 +30,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"nomenclatureEntity.material", "Матер."},
             {"nomenclatureEntity.gib", "Гиб"},
             {"nomenclatureEntity.ready", "Готово"},
+            {"nomenclatureEntity.specification", "ТЗ"},
 
             {"orderEntity.name", "#"},
             {"orderEntity.customer", "Заказчик"},
@@ -67,6 +68,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationEntity.approved", "Дата подписи"},
             {"specificationEntity.approvedBy", "Подписал"},
             {"specificationEntity.checked", "Проверенно"},
+            {"specificationEntity.material", "Матер."},
 
             {"functionEntity", "Функция"},
             {"functionEntity.name", "Наименование"},
@@ -191,6 +193,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationScreen.success.save", "ТЗ успешно создано"},
             {"specificationScreen.success.edit", "ТЗ успешно изменено"},
             {"specificationScreen.error.nameDuplicate", "Такое же имя есть у другого ТЗ"},
+            {"specificationScreen.error.nomenclatureDuplicate", "Для номенклатуры уже есть другое ТЗ"},
 
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},

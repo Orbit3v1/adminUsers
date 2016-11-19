@@ -37,6 +37,9 @@ function refreshOpener() {
     if (!opener)
         return;
     var refreshButton = opener.document.getElementById("mainForm:refresh");
+    if (refreshButton == null) {
+        refreshButton = opener.document.getElementById("closeForm:refresh");
+    }
     if (refreshButton != null) {
         refreshButton.click();
     }

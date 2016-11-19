@@ -61,7 +61,10 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
     @Type(type = "yes_no")
     private Boolean checked;
 
-    @ManyToOne
+    @Column(name = "material")
+    private String material;
+
+    @OneToOne
     @JoinColumn(name="nomenclature")
     private Nomenclature nomenclature;
 
@@ -254,5 +257,13 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
     }
 }

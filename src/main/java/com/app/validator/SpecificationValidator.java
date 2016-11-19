@@ -21,7 +21,7 @@ public class SpecificationValidator extends AbstractValidator<Specification> {
         this.entity = specification;
         edit = args.length > 0 ? (Boolean) args[0] : false;
         workDays = args.length > 1 ? (String) args[1] : "";
-        return isValidName() & isValidDiscount() & isValidWorkDays();
+        return isValidName() & isValidDiscount() & isValidWorkDays() & isValidNomenclature();
     }
 
     protected boolean isValidName() {
@@ -57,5 +57,21 @@ public class SpecificationValidator extends AbstractValidator<Specification> {
             addMessage.setMessage("mainForm:workDays", "error.notNumber", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
+    }
+
+    protected boolean isValidNomenclature(){
+        boolean valid = true;
+        if (getEntityWithSameNomenclature().size() != 0) {
+            valid = false;
+            addMessage.setMessage("mainForm:nomenclature", "specificationScreen.error.nomenclatureDuplicate", FacesMessage.SEVERITY_ERROR);
+        }
+        return valid;
+    }
+
+    protected List<Specification> getEntityWithSameNomenclature() {
+        Query query = em.createQuery("select r from Specification r where r.nomenclature.id = :nomenclatureId and r.id != :id")
+                .setParameter("nomenclatureId", entity.getNomenclature().getId())
+                .setParameter("id", edit ? entity.getId() : "");
+        return query.getResultList();
     }
 }

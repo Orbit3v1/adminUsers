@@ -158,6 +158,15 @@ insert into privilege_action(privilege, action)
 values('specificationChecked', 'EDIT');
 
 insert into privilege(id, name, description, pos)
+values('specificationMaterial', 'ТЗ - Поле - Материал', '', 7018);
+insert into privilege_action(privilege, action)
+values('specificationMaterial', 'READ');
+insert into privilege_action(privilege, action)
+values('specificationMaterial', 'WRITE');
+insert into privilege_action(privilege, action)
+values('specificationMaterial', 'EDIT');
+
+insert into privilege(id, name, description, pos)
 values('specificationApprove', 'ТЗ - Подписать', '', 7050);
 insert into privilege_action(privilege, action)
 values('specificationApprove', 'READ');
@@ -168,3 +177,8 @@ insert into privilege(id, name, description, pos)
 values('graphicMenuSpecification', 'Графики меню - ТЗ', '', 201);
 insert into privilege_action(privilege, action)
 values('graphicMenuSpecification', 'READ');
+
+insert into privilege(id, name, description, pos)
+values('nomenclatureSpecification', 'Номенклатура - Поле - ТЗ', '', 3009);
+insert into privilege_action(privilege, action)
+values('nomenclatureSpecification', 'READ');

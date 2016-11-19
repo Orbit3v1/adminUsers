@@ -1,6 +1,7 @@
 package com.app.web.list;
 
 import com.app.data.entity.Nomenclature;
+import com.app.web.Loggable;
 import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
@@ -23,6 +24,7 @@ public class NomenclatureList {
     private Map<String, Boolean> userPA;
     private String nameFilter;
 
+    @Loggable
     @PostConstruct
     public void init(){
         Query query = em.createQuery("select p from Nomenclature p order by p.name");

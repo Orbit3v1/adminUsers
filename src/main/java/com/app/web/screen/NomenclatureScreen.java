@@ -2,12 +2,10 @@ package com.app.web.screen;
 
 import com.app.common.NomenclatureComponentManager;
 import com.app.data.dictionary.NAType;
-import com.app.data.entity.Attachment;
-import com.app.data.entity.AttachmentContent;
-import com.app.data.entity.Nomenclature;
-import com.app.data.entity.NomenclatureAttachment;
+import com.app.data.entity.*;
 import com.app.utils.Download;
 import com.app.utils.SessionUtil;
+import com.app.web.Loggable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.AppUtil;
@@ -118,7 +116,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         Nomenclature nomenclature = em.find(Nomenclature.class, entity.getId());
         return super.canDelete()
                 && nomenclature.getOrderItems().size() == 0
-                && nomenclature.getSpecifications().size() == 0;
+                && nomenclature.getSpecification() == null;
     }
 
 
@@ -152,6 +150,13 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
                 .filter(s -> s != NAType.SKETCH)
                 .sorted((NAType o1, NAType o2) -> o1.getDescription().compareTo(o2.getDescription()))
                 .collect(Collectors.toList());
+    }
+
+    @Loggable
+    @Transactional
+    public void refresh() {
+        logger.info("refresh");
+        entity.setSpecification(em.find(Specification.class, entity.getSpecification().getId()));
     }
 
     public NAType getFileType() {

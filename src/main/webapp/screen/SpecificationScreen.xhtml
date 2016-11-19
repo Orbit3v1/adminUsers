@@ -104,6 +104,15 @@
 
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{specificationScreen.userPA.materialR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.material')}" for="material"
+                                   styleClass="labelLarge"/>
+                    <h:inputText id="material" value="#{specificationScreen.entity.material}"
+                                 styleClass="inputLarge"
+                                 disabled="#{specificationScreen.isDisabled('material')}"/>
+                    <h:message for="material" errorClass="error"/>
+                </h:panelGroup>
+
                 <h:panelGroup rendered="#{specificationScreen.userPA.startR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.start')}" for="start"
                                    styleClass="labelLarge"/>
@@ -212,6 +221,15 @@
                     <h:message for="responseDate" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{specificationScreen.userPA.additionalR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.additional')}" for="additional"
+                                   styleClass="labelLarge"/>
+                    <h:inputTextarea id="additional" value="#{specificationScreen.entity.additional}"
+                                     styleClass="textareaLarge"
+                                     disabled="#{specificationScreen.isDisabled('additional')}"/>
+                    <h:message for="additional" errorClass="error"/>
+                </h:panelGroup>
+
                 <h:panelGroup rendered="#{specificationScreen.userPA.descriptionR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.description')}" for="description"
                                    styleClass="labelLarge"/>
@@ -246,15 +264,6 @@
                                      styleClass="textareaLarge"
                                      disabled="#{specificationScreen.isDisabled('pressure')}"/>
                     <h:message for="pressure" errorClass="error"/>
-                </h:panelGroup>
-
-                <h:panelGroup rendered="#{specificationScreen.userPA.additionalR}">
-                    <h:outputLabel value="#{messages.getString('specificationEntity.additional')}" for="additional"
-                                   styleClass="labelLarge"/>
-                    <h:inputTextarea id="additional" value="#{specificationScreen.entity.additional}"
-                                     styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('additional')}"/>
-                    <h:message for="additional" errorClass="error"/>
                 </h:panelGroup>
 
                 <h:panelGroup rendered="#{specificationScreen.userPA.workDaysR}">
