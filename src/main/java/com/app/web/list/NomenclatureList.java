@@ -27,7 +27,9 @@ public class NomenclatureList {
     @Loggable
     @PostConstruct
     public void init(){
-        Query query = em.createQuery("select p from Nomenclature p order by p.name");
+        Query query = em.createQuery("select p from Nomenclature p " +
+                "left join fetch p.specification " +
+                "order by p.name");
         nomenclatures = query.getResultList();
         userPA = Security.getUserPrivilegeAction("nomenclatureList");
     }

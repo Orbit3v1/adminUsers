@@ -42,7 +42,7 @@ public class ProductionReportDTO {
         customer = order.getCustomer();
         nomenclatureName = nomenclature.getName();
         count = orderItem.getCount();
-        material = nomenclature.getMaterial();
+        material = nomenclature.getSpecification() == null ? nomenclature.getMaterial() : nomenclature.getSpecification().getMaterial();
         gib = nomenclature.getGib();
         responsible = order.getResponsible() == null ? null : order.getResponsible().toString();
         developer = orderItem.getDeveloper() == null ? null : orderItem.getDeveloper().toString();

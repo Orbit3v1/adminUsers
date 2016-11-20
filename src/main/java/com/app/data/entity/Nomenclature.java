@@ -39,8 +39,8 @@ public class Nomenclature extends AbstractVersionedEntity {
     @OneToMany(mappedBy = "nomenclature")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "nomenclature")
-    private List<Specification> specifications = new ArrayList<>();
+    @OneToOne(mappedBy = "nomenclature")
+    private Specification specification;
 
     public Nomenclature() {
     }
@@ -126,15 +126,11 @@ public class Nomenclature extends AbstractVersionedEntity {
         this.orderItems = orderItems;
     }
 
-    public List<Specification> getSpecifications() {
-        return specifications;
+    public Specification getSpecification() {
+        return specification;
     }
 
-    public void setSpecifications(List<Specification> specifications) {
-        this.specifications = specifications;
-    }
-
-    public Specification getSpecification(){
-        return specifications.get(0);
+    public void setSpecification(Specification specification) {
+        this.specification = specification;
     }
 }

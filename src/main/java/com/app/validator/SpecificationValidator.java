@@ -61,7 +61,7 @@ public class SpecificationValidator extends AbstractValidator<Specification> {
 
     protected boolean isValidNomenclature(){
         boolean valid = true;
-        if (getEntityWithSameNomenclature().size() != 0) {
+        if (entity.getNomenclature() != null && getEntityWithSameNomenclature().size() != 0) {
             valid = false;
             addMessage.setMessage("mainForm:nomenclature", "specificationScreen.error.nomenclatureDuplicate", FacesMessage.SEVERITY_ERROR);
         }
@@ -71,7 +71,7 @@ public class SpecificationValidator extends AbstractValidator<Specification> {
     protected List<Specification> getEntityWithSameNomenclature() {
         Query query = em.createQuery("select r from Specification r where r.nomenclature.id = :nomenclatureId and r.id != :id")
                 .setParameter("nomenclatureId", entity.getNomenclature().getId())
-                .setParameter("id", edit ? entity.getId() : "");
+                .setParameter("id", edit ? entity.getId() : -1);
         return query.getResultList();
     }
 }
