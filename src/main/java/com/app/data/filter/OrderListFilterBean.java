@@ -54,7 +54,7 @@ public class OrderListFilterBean extends FilterBean implements ListFilterBean<Or
                 "left join fetch r.order " +
                 "left join fetch r.nomenclature n " +
                 "left join fetch r.developer " +
-                "left join fetch n.specification";
+                "left join fetch n.specifications";
 
         StringJoiner sqlWhere = new StringJoiner(" AND ");
         sqlWhere.add("1 = 1");

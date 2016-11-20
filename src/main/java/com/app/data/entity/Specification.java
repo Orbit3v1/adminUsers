@@ -73,7 +73,7 @@ public class Specification extends AbstractVersionedEntity implements SetNomencl
     @Column(name = "material")
     private String material;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name="nomenclature")
     private Nomenclature nomenclature;
 
