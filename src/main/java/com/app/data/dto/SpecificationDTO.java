@@ -1,5 +1,6 @@
 package com.app.data.dto;
 
+import com.app.data.dictionary.SpecificationState;
 import com.app.data.entity.Specification;
 
 import java.util.Date;
@@ -21,6 +22,7 @@ public class SpecificationDTO {
     private Date start;
     private Date responseDate;
     private Specification specification;
+    private SpecificationState state;
 
     public SpecificationDTO(Specification sp) {
         this.id = sp.getId();
@@ -34,6 +36,17 @@ public class SpecificationDTO {
         this.developer = sp.getDeveloper() == null ? null : sp.getDeveloper().toString();
         this.start = sp.getStart();
         this.responseDate = sp.getResponseDate();
+        this.state = calculateState(sp);
+    }
+
+    private SpecificationState calculateState(Specification sp){
+        SpecificationState state = SpecificationState.IN_PROCESS;
+        if(sp.getNomenclature() != null && sp.getNomenclature().getOrderItems().size() > 0){
+            state = SpecificationState.IN_WORK;
+        } else if(sp.getPrice() != null && !sp.getPrice().equals("")){
+            state = SpecificationState.CALCULATED;
+        }
+        return state;
     }
 
     public String getName() {
@@ -130,5 +143,13 @@ public class SpecificationDTO {
 
     public void setNomenclatureId(Integer nomenclatureId) {
         this.nomenclatureId = nomenclatureId;
+    }
+
+    public SpecificationState getState() {
+        return state;
+    }
+
+    public void setState(SpecificationState state) {
+        this.state = state;
     }
 }

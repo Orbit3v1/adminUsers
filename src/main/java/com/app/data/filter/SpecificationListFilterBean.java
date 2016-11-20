@@ -6,7 +6,7 @@ import com.app.data.entity.filter.SpecificationListFilter;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +37,12 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
         SpecificationListFilter filterOriginal = getFilterOriginal();
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from Specification r " +
-                "left join fetch r.nomenclature " +
-                "left join fetch r.developer ";
+                "left join fetch r.nomenclature n " +
+                "left join fetch r.developer " +
+                "left join fetch r.approvedBy " +
+                "left join fetch r.responsible " +
+                "left join fetch n.orderItems oi " +
+                "left join fetch oi.order";
 
         String sqlWhere = "";
 
@@ -104,7 +108,10 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
 
         String sqlFull = sqlFrom + sqlWhere + sqlOrder;
 
-        Query query = em.createQuery(sqlFull);
+        EntityGraph graph = this.em.getEntityGraph("graph.specificationScreen");
+
+        Query query = em.createQuery(sqlFull).setHint("javax.persistence.loadgraph", graph);
+//        Query query = em.createQuery(sqlFull);
         for (Map.Entry<String, Object> e : parameters.entrySet()) {
             query.setParameter(e.getKey(), e.getValue());
         }

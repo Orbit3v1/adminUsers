@@ -81,7 +81,8 @@
                             var="row"
                             rowClasses="odd-row, even-row"
                             binding="#{table}">
-                <rich:column rendered="#{specificationList.userPA.nameR}">
+                <rich:column rendered="#{specificationList.userPA.nameR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.name')}"
                                        action="#{specificationListFilterBean.setSort('NAME_ASC')}"
@@ -99,7 +100,8 @@
                                      style="display: block; text-decoration: none;"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.startR}">
+                <rich:column rendered="#{specificationList.userPA.startR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.start')}"
                                        action="#{specificationListFilterBean.setSort('START_ASC')}"
@@ -130,7 +132,8 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.typeR}">
+                <rich:column rendered="#{specificationList.userPA.typeR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.type')}"
                                        action="#{specificationListFilterBean.setSort('TYPE_ASC')}"
@@ -146,7 +149,8 @@
                     <h:outputText value="#{row.type}"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.nomenclatureR}">
+                <rich:column rendered="#{specificationList.userPA.nomenclatureR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.nomenclature')}"
                                        action="#{specificationListFilterBean.setSort('NOMENCLATURE_ASC')}"
@@ -165,7 +169,8 @@
                                      style="display: block;"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.priceR}">
+                <rich:column rendered="#{specificationList.userPA.priceR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.price')}"
                                        action="#{specificationListFilterBean.setSort('PRICE_ASC')}"
@@ -181,7 +186,8 @@
                     <h:outputText value="#{row.price}"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.discountR}">
+                <rich:column rendered="#{specificationList.userPA.discountR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.discount')}"
                                        action="#{specificationListFilterBean.setSort('DISCOUNT_ASC')}"
@@ -197,7 +203,8 @@
                     <h:outputText value="#{row.discount}"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.responseDateR}">
+                <rich:column rendered="#{specificationList.userPA.responseDateR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.responseDate')}"
                                        action="#{specificationListFilterBean.setSort('RESPONSE_DATE_ASC')}"
@@ -228,7 +235,8 @@
                     </h:outputText>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.developerR}">
+                <rich:column rendered="#{specificationList.userPA.developerR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.developer')}"
                                        action="#{specificationListFilterBean.setSort('DEVELOPER_ASC')}"
@@ -244,7 +252,8 @@
                     <h:outputText value="#{row.developer}"/>
                 </rich:column>
 
-                <rich:column rendered="#{specificationList.userPA.responsibleR}">
+                <rich:column rendered="#{specificationList.userPA.responsibleR}"
+                             styleClass="#{row.state.style}">
                     <f:facet name="header">
                         <h:commandLink value="#{messages.getString('specificationEntity.responsible')}"
                                        action="#{specificationListFilterBean.setSort('RESPONSIBLE_ASC')}"

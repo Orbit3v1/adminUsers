@@ -92,4 +92,10 @@ hr{
     width: 99% !important;
 }
 
+.inWork{
+    background-color: #b5f7b5 !important;
+}
 
+.calculated{
+    background-color: #ffb960 !important;
+}

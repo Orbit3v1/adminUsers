@@ -116,7 +116,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         Nomenclature nomenclature = em.find(Nomenclature.class, entity.getId());
         return super.canDelete()
                 && nomenclature.getOrderItems().size() == 0
-                && nomenclature.getSpecification() == null;
+                && nomenclature.getSpecification() == null
+                ;
     }
 
 
