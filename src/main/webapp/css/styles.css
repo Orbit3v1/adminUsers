@@ -99,3 +99,7 @@ hr{
 .calculated{
     background-color: #ffb960 !important;
 }
+
+tr:hover td{
+    background-color: #FFEBDA !important;
+}
