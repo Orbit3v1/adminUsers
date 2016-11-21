@@ -12,6 +12,7 @@ import com.app.data.filter.OrderListCDI;
 import com.app.data.filter.OrderListFilterBean;
 import com.app.utils.AddMessage;
 import com.app.utils.EntityUtil;
+import com.app.web.Loggable;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -61,6 +62,7 @@ public class OrderList {
         initList();
     }
 
+    @Loggable
     private void initList() {
         logger.info("initList");
 

@@ -47,21 +47,31 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     @Transactional
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
-        if(id != null && AppUtil.isNumeric(id)){
-            EntityGraph<Nomenclature> graph = em.createEntityGraph(Nomenclature.class);
-            graph.addAttributeNodes("nomenclatureAttachments");
-            graph.addAttributeNodes("components");
-            graph.addAttributeNodes("orderItems");
-            graph.addAttributeNodes("specifications");
-            Map<String, Object> hints = new HashMap<>();
-            hints.put("javax.persistence.loadgraph", graph);
+        String type = SessionUtil.getParameter("type");
 
-            entity = em.find(Nomenclature.class, AppUtil.toInteger(id), hints);
+        if(id != null && AppUtil.isNumeric(id)){
+            entity = loadEntity(AppUtil.toInteger(id));
             gib = AppUtil.toString(entity.getGib());
-            edit = true;
+            if(type != null && type.equals("copy")){
+                entity = new Nomenclature(entity);
+            } else {
+                edit = true;
+            }
         } else{
             entity = new Nomenclature();
         }
+    }
+
+    private Nomenclature loadEntity(int id){
+        EntityGraph<Nomenclature> graph = em.createEntityGraph(Nomenclature.class);
+        graph.addAttributeNodes("nomenclatureAttachments");
+        graph.addAttributeNodes("components");
+        graph.addAttributeNodes("orderItems");
+        graph.addAttributeNodes("specifications");
+        Map<String, Object> hints = new HashMap<>();
+        hints.put("javax.persistence.loadgraph", graph);
+
+        return  em.find(Nomenclature.class, id, hints);
     }
 
     public void save() {

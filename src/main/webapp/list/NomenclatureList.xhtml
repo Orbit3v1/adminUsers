@@ -44,6 +44,11 @@
                             styleClass="link"
                             style="display: block;"/>
                 </rich:column>
+                <rich:column rendered="#{nomenclatureList.userPA.addR}">
+                    <a4j:commandButton value="C"
+                                       onclick="openPopUp('/screen/NomenclatureScreen.xhtml?id=#{row.id}&amp;type=copy', 'NomenclatureScreen#{row.id}_copy')"
+                                       />
+                </rich:column>
             </rich:dataTable>
 
             <a4j:commandButton id="refresh"

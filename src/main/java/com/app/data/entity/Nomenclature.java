@@ -49,6 +49,13 @@ public class Nomenclature extends AbstractVersionedEntity {
         this.name = name;
     }
 
+    public Nomenclature(Nomenclature nomenclature){
+        this.name = nomenclature.name;
+        this.description = nomenclature.description;
+        this.material = nomenclature.description;
+        this.gib = nomenclature.gib;
+    }
+
     @Override
     public String toString() {
         return name;
