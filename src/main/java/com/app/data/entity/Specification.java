@@ -9,15 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "specification")
-@NamedEntityGraph(name = "graph.specificationScreen",
-        attributeNodes = {
-                @NamedAttributeNode(value = "nomenclature", subgraph = "nomenclature"),
-                @NamedAttributeNode("nomenclature"),
-                @NamedAttributeNode("responsible"),
-                @NamedAttributeNode("developer"),
-                @NamedAttributeNode("approvedBy"),
-        },
-        subgraphs = @NamedSubgraph(name = "nomenclature", attributeNodes = @NamedAttributeNode("orderItems")))
 public class Specification extends AbstractVersionedEntity implements SetNomenclature{
     @Id
     @GeneratedValue
