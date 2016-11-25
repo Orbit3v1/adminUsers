@@ -44,7 +44,7 @@ public class Order extends AbstractVersionedEntity {
     @JoinTable(name = "order_payment",
             joinColumns = @JoinColumn(name = "orders"),
             inverseJoinColumns = @JoinColumn(name = "payment"))
-    private List<Payment> payments;
+    private List<Payment> payments  = new ArrayList<>();
 
     public Order() {
     }
