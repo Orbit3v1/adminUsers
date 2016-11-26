@@ -51,10 +51,13 @@ public class OrderListFilterBean extends FilterBean implements ListFilterBean<Or
         OrderListFilter filterOriginal = getFilterOriginal();
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select r from OrderItem r " +
-                "left join fetch r.order " +
+                "left join fetch r.order o " +
                 "left join fetch r.nomenclature n " +
                 "left join fetch r.developer " +
-                "left join fetch n.specifications";
+                "left join fetch o.responsible " +
+                "left join fetch n.specifications s " +
+                "left join fetch s.responsible " +
+                "left join fetch s.approvedBy ";
 
         StringJoiner sqlWhere = new StringJoiner(" AND ");
         sqlWhere.add("1 = 1");

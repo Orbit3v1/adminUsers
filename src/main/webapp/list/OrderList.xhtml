@@ -19,7 +19,9 @@
         <script type="text/javascript">
             function postSave(saveError) {
                 if (saveError) {
-                    #{rich:component('savePanel')}.show();
+                    #{rich:component('savePanel')}
+                .
+                    show();
                 }
             }
         </script>
@@ -90,7 +92,11 @@
             <rich:dataTable id="orders" value="#{orderList.listRows}"
                             var="row"
                             rowClasses="odd-row, even-row"
-                            binding="#{table}">
+                            binding="#{table}"
+                            rows="100">
+                <f:facet name="header">
+                    <rich:dataScroller fastControls="hide"/>
+                </f:facet>
                 <rich:column rendered="#{orderList.userPA.nameR}"
                              style="#{row.fromNewOrder ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">
@@ -443,7 +449,9 @@
                     </f:facet>
                     <h:outputText value="#{row.paid}"/>
                 </rich:column>
-
+                <f:facet name="footer">
+                    <rich:dataScroller fastControls="hide"/>
+                </f:facet>
             </rich:dataTable>
             <a4j:commandButton id="refresh"
                                render="orders"

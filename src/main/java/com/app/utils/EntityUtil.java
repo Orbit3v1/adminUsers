@@ -11,9 +11,17 @@ import java.util.List;
  */
 public class EntityUtil {
 
+    private static List<Person> persons;
+
     static public List<Person> getDevelopers(EntityManager em){
+        if(persons == null){
+            refreshPersons(em);
+        }
+        return persons;
+    }
+
+    public static void refreshPersons(EntityManager em){
         Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
-        List<Person> developers = query.getResultList();
-        return developers;
+        persons = query.getResultList();
     }
 }
