@@ -106,12 +106,17 @@ public abstract class EntityScreen<T extends Unique> {
         if(canDelete()){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             saved = true;
+            postDelete();
             logger.info("delete success");
             exit();
         } else {
             logger.info("delete fail");
             addMessage.setMessage("mainForm:panel", "error.delete", FacesMessage.SEVERITY_ERROR);
         }
+    }
+
+    protected void postDelete(){
+
     }
 
     protected boolean canDelete(){

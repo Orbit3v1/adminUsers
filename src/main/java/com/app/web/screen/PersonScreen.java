@@ -3,6 +3,7 @@ package com.app.web.screen;
 import com.app.data.entity.Person;
 import com.app.data.entity.Role;
 import com.app.utils.AppUtil;
+import com.app.utils.EntityUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +51,7 @@ public class PersonScreen extends EntityScreen<Person>{
     public void save(){
         passwordCode();
         saveData();
+        EntityUtil.refreshPersons(em);
     }
 
     @Transactional
@@ -61,6 +63,10 @@ public class PersonScreen extends EntityScreen<Person>{
                 && person.getSpResponsible().size() == 0
                 && person.getSpDeveloped().size() == 0
                 && person.getSpApproved().size() == 0;
+    }
+
+    protected void postDelete(){
+        EntityUtil.refreshPersons(em);
     }
 
     @Transactional
