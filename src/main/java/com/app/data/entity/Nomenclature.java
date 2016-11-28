@@ -145,4 +145,14 @@ public class Nomenclature extends AbstractVersionedEntity {
         return specifications != null && specifications.size() > 0 ? specifications.get(0) : null;
     }
 
+    public String getPreviewDescription(){
+        final int PREVIEW_SIZE = 50;
+        final String PREVIEW_END = "...";
+        String value = description;
+        if(description.length() > PREVIEW_SIZE){
+            value = description.substring(0, PREVIEW_SIZE - PREVIEW_END.length()) + PREVIEW_END;
+        }
+        return value;
+    }
+
 }

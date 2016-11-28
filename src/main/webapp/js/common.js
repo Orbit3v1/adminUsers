@@ -1,5 +1,5 @@
 function openPopUp(source, name){
-    var popUp = window.open(source.replace(/\|\|/g, '&'), name, 'width=840,height=750,resizable=yes,scrollbars=yes');
+    var popUp = window.open(source.replace(/\|\|/g, '&'), name, 'width=940,height=750,resizable=yes,scrollbars=yes');
     return popUp;
 }
 
