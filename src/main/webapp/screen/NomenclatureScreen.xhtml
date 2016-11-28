@@ -74,14 +74,21 @@
 
                 <h:panelGrid columns="1">
 
-                    <h:panelGroup rendered="#{nomenclatureScreen.userPA.specificationR}">
-                        <h:outputLabel value="#{messages.getString('nomenclatureEntity.specification')}" for="specification"
+                    <h:panelGroup id="specificationPG" rendered="#{nomenclatureScreen.userPA.specificationR}">
+                        <h:outputLabel value="#{messages.getString('nomenclatureEntity.specification')}"
+                                       for="specification"
                                        styleClass="label"/>
                         <h:commandLink id="specification"
-                                         value="#{nomenclatureScreen.entity.specification.fullName}"
-                                         onclick="openPopUp('/screen/SpecificationScreen.xhtml?id=#{nomenclatureScreen.entity.specification.id}', 'SpecificationScreen#{nomenclatureScreen.entity.specification.id}')"
-                                         styleClass="link"
-                                         style="text-decoration: none; margin-left: 9px !important"/>
+                                       value="#{nomenclatureScreen.entity.specification.fullName}"
+                                       onclick="openPopUp('/screen/SpecificationScreen.xhtml?id=#{nomenclatureScreen.entity.specification.id}', 'SpecificationScreen#{nomenclatureScreen.entity.specification.id}')"
+                                       styleClass="link"
+                                       style="text-decoration: none; margin-left: 9px !important"/>
+                        <h:commandButton value="X"
+                                         action="#{nomenclatureScreen.clearSpecification}"
+                                         rendered="#{nomenclatureScreen.entity.specification != null}"
+                                         styleClass="btnDelete"
+                                         render="specificationPG"
+                                />
                         <h:message for="specification" errorClass="error"/>
                     </h:panelGroup>
 

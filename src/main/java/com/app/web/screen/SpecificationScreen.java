@@ -188,6 +188,10 @@ public class SpecificationScreen extends EntityScreen<Specification>{
         }
     }
 
+    public void clearNomenclature(){
+        entity.setNomenclature(null);
+    }
+
 
     public List<Person> getDevelopers() {
         return developers;

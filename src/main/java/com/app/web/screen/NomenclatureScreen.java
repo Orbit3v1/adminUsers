@@ -29,6 +29,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private Part file;
     private NAType fileType;
     private NomenclatureComponentManager NCM;
+    private Specification spToSave;
 
     @PostConstruct
     public void init() {
@@ -90,6 +91,10 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
                 attachment.setId(attachmentContent.getId());
                 attachment.setContent(attachmentContent);
             }
+        }
+        if(spToSave != null) {
+            em.merge(spToSave);
+            spToSave = null;
         }
         entity = em.merge(entity);
         entity.getSpecifications().size();
@@ -174,7 +179,12 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             specifications.add(em.find(Specification.class, sp.getId()));
         }
         entity.setSpecifications(specifications);
-//        entity.setSpecification(em.find(Specification.class, entity.getSpecification().getId()));
+    }
+
+    public void clearSpecification(){
+        spToSave = entity.getSpecification();
+        spToSave.setNomenclature(null);
+        entity.setSpecifications(new ArrayList<>());
     }
 
     public NAType getFileType() {
