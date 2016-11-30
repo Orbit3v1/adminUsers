@@ -81,12 +81,16 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"workEntity.price", "Цена"},
 
             {"TNCEntity", "ТНЦ"},
-            {"TNCEntity.name", "Наименование"},
+            {"TNCEntity.name", "Наименование 1C"},
             {"TNCEntity.description", "Описание"},
             {"TNCEntity.unitsFrom", "Ед. изм. (1С)"},
             {"TNCEntity.unitsTo", "Ед. изм."},
             {"TNCEntity.ratio", "Коэф."},
             {"TNCEntity.price", "Цена"},
+            {"TNCEntity.nameInner", "Вн. наименование"},
+            {"TNCEntity.limitLow", "Лимит нижний"},
+            {"TNCEntity.limitHigh", "Лимит верхний"},
+            {"TNCEntity.balance", "Остаток"},
 
             {"productEntity", "Продукция"},
             {"productEntity.name", "Наименование"},
@@ -197,6 +201,12 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
+            {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"},
+
+            {"TNCList.column.consumption", "Расход материала"},
+            {"TNCList.column.consumptionStart", "Период от"},
+            {"TNCList.column.consumptionEnd", "Период до"},
+            {"TNCList.column.consumptionResult", "Средний расход"},
 
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},

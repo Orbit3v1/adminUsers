@@ -6,15 +6,20 @@ create table calc_tnc(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
   link1C binary(16),
-  name varchar(500) not null,
+  name varchar(500),
   detailName  varchar(500),
   unitsFrom varchar(50),
   unitsTo varchar(50),
   ratio numeric(19, 4),
-  price numeric(19, 2)
+  price numeric(19, 2),
+  name_inner varchar(500),
+  limit_low int,
+  limit_high int,
+  balance int
 );
 
-create unique index calc_tnc_U1 on calc_tnc(name);
+create index calc_tnc_I1 on calc_tnc(name);
+create index calc_tnc_I2 on calc_tnc(name_inner);
 
 create table calc_work(
   id int IDENTITY(1,1) not null primary key,

@@ -26,6 +26,9 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
     @Column(name = "name")
     private String name;
 
+    @Column(name = "name_inner")
+    private String nameInner;
+
     @Column(name = "detailName")
     private String description;
 
@@ -43,6 +46,15 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
 
     @Column(name = "link1C")
     private byte[] link1C;
+
+    @Column(name = "limit_low")
+    private Integer limitLow;
+
+    @Column(name = "limit_high")
+    private Integer limitHigh;
+
+    @Column(name = "balance")
+    private Integer balance;
 
     @OneToMany(mappedBy = "tnc")
     private List<ProductTNC> products;
@@ -120,6 +132,38 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         this.products = products;
     }
 
+    public String getNameInner() {
+        return nameInner;
+    }
+
+    public void setNameInner(String nameInner) {
+        this.nameInner = nameInner;
+    }
+
+    public Integer getLimitLow() {
+        return limitLow;
+    }
+
+    public void setLimitLow(Integer limitLow) {
+        this.limitLow = limitLow;
+    }
+
+    public Integer getLimitHigh() {
+        return limitHigh;
+    }
+
+    public void setLimitHigh(Integer limitHigh) {
+        this.limitHigh = limitHigh;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
     public TNC copy(){
         TNC copy = new TNC();
         copy.name = this.name;
@@ -131,6 +175,10 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         copy.link1C = this.link1C;
         copy.id = this.id;
         copy.setVersion(this.getVersion());
+        copy.nameInner = this.nameInner;
+        copy.limitLow = this.limitLow;
+        copy.limitHigh = this.limitHigh;
+        copy.balance = this.balance;
         return copy;
     }
 
@@ -144,5 +192,9 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         this.unitsTo = copy.unitsTo;
         this.ratio = copy.ratio;
         this.link1C = copy.link1C;
+        this.nameInner = copy.nameInner;
+        this.limitLow = copy.limitLow;
+        this.limitHigh = copy.limitHigh;
+        this.balance = copy.balance;
     }
 }

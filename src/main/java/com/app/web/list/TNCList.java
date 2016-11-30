@@ -1,23 +1,28 @@
 package com.app.web.list;
 
 import com.app.data.entity.*;
+import com.app.security.Security;
+import com.app.web.Loggable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named("TNCList")
 @Scope("view")
 public class TNCList extends EntityList<TNC>{
+
+    private Date consumptionStart;
+    private Date consumptionEnd;
+    private BigDecimal consumptionResult;
 
     @Override
     protected TNC createEntity() {
@@ -30,6 +35,25 @@ public class TNCList extends EntityList<TNC>{
     protected String getScreenName() {
         return "TNCList";
     }
+
+    @Loggable
+    @PostConstruct
+    public void init(){
+        super.init();
+        initConsumption();
+    }
+
+    private void initConsumption(){
+        Date referenceDate = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(referenceDate);
+        consumptionEnd = c.getTime();
+
+        c.add(Calendar.MONTH, -3);
+        consumptionStart = c.getTime();
+    }
+
+
 
     @Override
     protected List<TNC> getData() {
@@ -79,10 +103,39 @@ public class TNCList extends EntityList<TNC>{
         }
     }
 
+    //todo make calculation
+    public void consumptionCalculate(){
+        consumptionResult = BigDecimal.ZERO;
+    }
+
     @Override
     protected boolean canDelete(TNC entity){
         TNC tnc = em.find(TNC.class, entity.getId());
         return super.canDelete(entity)
                 && tnc.getProducts().size() == 0;
+    }
+
+    public Date getConsumptionStart() {
+        return consumptionStart;
+    }
+
+    public void setConsumptionStart(Date consumptionStart) {
+        this.consumptionStart = consumptionStart;
+    }
+
+    public Date getConsumptionEnd() {
+        return consumptionEnd;
+    }
+
+    public void setConsumptionEnd(Date consumptionEnd) {
+        this.consumptionEnd = consumptionEnd;
+    }
+
+    public BigDecimal getConsumptionResult() {
+        return consumptionResult;
+    }
+
+    public void setConsumptionResult(BigDecimal consumptionResult) {
+        this.consumptionResult = consumptionResult;
     }
 }

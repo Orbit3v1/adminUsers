@@ -40,17 +40,26 @@
                          sortMode="multiple"
                          resizableColumns="true">
                 <p:column rendered="#{true}"
+                          headerText="#{messages.getString('TNCEntity.nameInner')}"
+                          sortBy="#{row.nameInner}"
+                          filterBy="#{row.nameInner}"
+                          filterMatchMode="contains"
+                          style="width:350px"
+                          filterStyle="width: 150px">
+                    <p:commandLink value="#{row.nameInner}"
+                                   actionListener="#{TNCList.edit(row)}"
+                                   update=":mainForm:popupDetail"
+                                   oncomplete="PF('popup').show()"
+                                   style="display: block;"/>
+                </p:column>
+                <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
                           filterMatchMode="contains"
                           style="width:350px"
                           filterStyle="width: 150px">
-                    <p:commandLink value="#{row.name}"
-                                   actionListener="#{TNCList.edit(row)}"
-                                   update=":mainForm:popupDetail"
-                                   oncomplete="PF('popup').show()"
-                                   style="display: block;"/>
+                    <h:outputText value="#{row.name}"/>
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.description')}"
@@ -95,11 +104,22 @@
             <p:dialog widgetVar="popup"
                       modal="true"
                       resizeable="true"
-                      width="500"
-                      height="400"
+                      width="550"
+                      height="700"
                       header="#{messages.getString('TNCEntity')}"
                     >
                 <h:panelGrid columns="1" id="popupDetail">
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCEntity.nameInner')}"
+                                       for="nameInner"
+                                       styleClass="labelPF"/>
+                        <p:inputText id="nameInner"
+                                     value="#{TNCList.editEntity.nameInner}"
+                                     disabled="#{false}"
+                                     styleClass="inputLarge"
+                                />
+                        <h:message for="nameInner" errorClass="error"/>
+                    </h:panelGroup>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('TNCEntity.name')}"
                                        for="name"
@@ -112,7 +132,7 @@
                         <p:commandButton value="..."
                                          actionListener="#{TNCList.chooseTNC}"
                                          rendered="#{!TNCList.edit}"
-                                         >
+                                >
                             <p:ajax event="dialogReturn"
                                     listener="#{TNCList.onTNCChosen}"
                                     update=":mainForm:popupDetail"/>
@@ -130,7 +150,7 @@
                                          styleClass="textareaLargePF"
                                 />
                     </h:panelGroup>
-
+                    <HR/>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('TNCEntity.unitsFrom')}"
                                        for="unitsFrom"
@@ -163,7 +183,81 @@
                                 />
                         <h:message for="unitsTo" errorClass="error"/>
                     </h:panelGroup>
-
+                    <HR/>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCEntity.limitLow')}"
+                                       for="limitLow"
+                                       styleClass="labelPF"/>
+                        <p:inputNumber id="limitLow"
+                                       value="#{TNCList.editEntity.limitLow}"
+                                       disabled="#{false}"
+                                       inputStyleClass="inputLarge"
+                                />
+                        <h:message for="balance" errorClass="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCEntity.limitHigh')}"
+                                       for="limitHigh"
+                                       styleClass="labelPF"/>
+                        <p:inputNumber id="limitHigh"
+                                       value="#{TNCList.editEntity.limitHigh}"
+                                       disabled="#{false}"
+                                       inputStyleClass="inputLarge"
+                                />
+                        <h:message for="balance" errorClass="error"/>
+                    </h:panelGroup>
+                    <HR/>
+                    <h:panelGroup>
+                        <h:outputLabel for="consumption"
+                                       value="#{messages.getString('TNCList.column.consumption')}"
+                                       styleClass="labelPF"
+                                />
+                        <p:commandButton id="consumption"
+                                         value="#{messages.getString('button.calc.calculate')}"
+                                         actionListener="#{TNCList.consumptionCalculate}"
+                                         update=":mainForm:consumptionResult"
+                                         style="margin-left: 3px"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCList.column.consumptionStart')}"
+                                       for="consumptionStart"
+                                       styleClass="labelPF"/>
+                        <p:calendar id="consumptionStart"
+                                    value="#{TNCList.consumptionStart}"
+                                    locale="ru"
+                                    readonlyInput="true"
+                                    pattern="#{messages.getString('datePattern')}"
+                                    showOn="button"
+                                    styleClass="calendarPF"
+                                />
+                        <h:message for="consumptionStart" errorClass="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCList.column.consumptionEnd')}"
+                                       for="consumptionEnd"
+                                       styleClass="labelPF"/>
+                        <p:calendar id="consumptionEnd"
+                                    value="#{TNCList.consumptionEnd}"
+                                    locale="ru"
+                                    readonlyInput="true"
+                                    pattern="#{messages.getString('datePattern')}"
+                                    showOn="button"
+                                    styleClass="calendarPF"
+                                />
+                        <h:message for="consumptionStart" errorClass="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCList.column.consumptionResult')}"
+                                       for="consumptionResult"
+                                       styleClass="labelPF"/>
+                        <p:inputNumber id="consumptionResult"
+                                       value="#{TNCList.consumptionResult}"
+                                       disabled="#{true}"
+                                       inputStyleClass="inputLarge"
+                                />
+                        <h:message for="price" errorClass="error"/>
+                    </h:panelGroup>
+                    <HR/>
                     <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('TNCEntity.price')}"
                                        for="price"
@@ -175,12 +269,24 @@
                                 />
                         <h:message for="price" errorClass="error"/>
                     </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('TNCEntity.balance')}"
+                                       for="balance"
+                                       styleClass="labelPF"/>
+                        <p:inputNumber id="balance"
+                                       value="#{TNCList.editEntity.balance}"
+                                       disabled="#{false}"
+                                       inputStyleClass="inputLarge"
+                                />
+                        <h:message for="balance" errorClass="error"/>
+                    </h:panelGroup>
+                    <HR/>
                 </h:panelGrid>
-                <HR/>
+
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
                                      actionListener="#{TNCList.save}"
-                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
+                                     update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl, :mainForm:nameInner"/>
                     <p:commandButton value="#{messages.getString('button.cancel')}"
                                      onclick="PF('popup').hide()"/>
                 </p>
