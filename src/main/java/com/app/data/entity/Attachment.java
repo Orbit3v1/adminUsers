@@ -16,7 +16,7 @@ public class Attachment extends AbstractVersionedEntity {
     @Column(name = "size")
     private Long size;
 
-    @OneToOne(optional = false, fetch=FetchType.LAZY, mappedBy="attachment", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(optional = false, fetch = FetchType.LAZY, mappedBy = "attachment", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private AttachmentContent content;
 
     @Column(name = "type")
@@ -27,13 +27,15 @@ public class Attachment extends AbstractVersionedEntity {
 
     @Override
     public int hashCode() {
-        return (getClass().hashCode() + Integer.valueOf(id).hashCode());
+        return (getClass().hashCode() + Integer.valueOf(id).hashCode() + name.hashCode() + size.hashCode());
     }
 
     @Override
     public boolean equals(Object obj) {
         return (obj != null && getClass() == obj.getClass())
-                ? (id == ((Attachment) obj).id)
+                ? (id == ((Attachment) obj).id
+                && name.equals(((Attachment) obj).name)
+                && size.equals(((Attachment) obj).size))
                 : (obj == this);
     }
 

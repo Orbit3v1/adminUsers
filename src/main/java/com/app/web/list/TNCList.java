@@ -1,18 +1,27 @@
 package com.app.web.list;
 
 import com.app.data.entity.*;
-import com.app.security.Security;
+import com.app.utils.AppUtil;
+import com.app.utils.SessionUtil;
 import com.app.web.Loggable;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -23,6 +32,7 @@ public class TNCList extends EntityList<TNC>{
     private Date consumptionStart;
     private Date consumptionEnd;
     private BigDecimal consumptionResult;
+    private TNCLink editLink;
 
     @Override
     protected TNC createEntity() {
@@ -41,6 +51,16 @@ public class TNCList extends EntityList<TNC>{
     public void init(){
         super.init();
         initConsumption();
+        editLink = new TNCLink();
+    }
+
+    @Override
+    @Transactional
+    public void edit(TNC entity){
+        entity = em.find(TNC.class, entity.getId());
+        entity.getTNCAttachments().size();
+        entity.getTncLinks().size();
+        super.edit(entity);
     }
 
     private void initConsumption(){
@@ -54,10 +74,10 @@ public class TNCList extends EntityList<TNC>{
     }
 
 
-
     @Override
     protected List<TNC> getData() {
-        Query query = em.createQuery("select p from TNC p order by p.name");
+        Query query = em.createQuery("select p from TNC p " +
+                "order by p.name");
         return query.getResultList();
     }
 
@@ -103,6 +123,42 @@ public class TNCList extends EntityList<TNC>{
         }
     }
 
+    @Transactional
+    protected void mergeEntity(){
+        for(TNCAttachment tncAttachment : editEntity.getTNCAttachments()){
+            Attachment attachment = tncAttachment.getAttachment();
+            if(attachment.getId() == 0) {
+                AttachmentContent attachmentContent = attachment.getContent();
+                attachmentContent = em.merge(attachmentContent);
+
+                attachment.setId(attachmentContent.getId());
+                attachment.setContent(attachmentContent);
+            }
+        }
+        editEntity = em.merge(editEntity);
+    }
+
+    public void uploadFile(FileUploadEvent event) {
+        Attachment attachment = AppUtil.getAttachment(event.getFile());
+        TNCAttachment tncAttachment = new TNCAttachment();
+        tncAttachment.setAttachment(attachment);
+        tncAttachment.setTnc(editEntity);
+        editEntity.getTNCAttachments().add(tncAttachment);
+        SessionUtil.addSessionVariable(String.valueOf(attachment.hashCode()), attachment);
+    }
+
+    public void deleteAttachment(TNCAttachment tncAttachment){
+        editEntity.getTNCAttachments().remove(tncAttachment);
+        SessionUtil.removeSessionVariable(String.valueOf(tncAttachment.getAttachment().hashCode()));
+    }
+
+    @Override
+    protected void clearCash(){
+        for(TNCAttachment tncAttachment : editEntity.getTNCAttachments()){
+            SessionUtil.removeSessionVariable(String.valueOf(tncAttachment.getAttachment().hashCode()));
+        }
+    }
+
     //todo make calculation
     public void consumptionCalculate(){
         consumptionResult = BigDecimal.ZERO;
@@ -113,6 +169,21 @@ public class TNCList extends EntityList<TNC>{
         TNC tnc = em.find(TNC.class, entity.getId());
         return super.canDelete(entity)
                 && tnc.getProducts().size() == 0;
+    }
+
+    public void deleteLink(TNCLink tncLink){
+        editEntity.getTncLinks().remove(tncLink);
+    }
+
+    public void addLink(){
+        editLink = new TNCLink();
+        editLink.setTnc(editEntity);
+    }
+
+    public void saveLink(){
+        editEntity.getTncLinks().add(editLink);
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('popupLink').hide();");
     }
 
     public Date getConsumptionStart() {
@@ -137,5 +208,13 @@ public class TNCList extends EntityList<TNC>{
 
     public void setConsumptionResult(BigDecimal consumptionResult) {
         this.consumptionResult = consumptionResult;
+    }
+
+    public TNCLink getEditLink() {
+        return editLink;
+    }
+
+    public void setEditLink(TNCLink editLink) {
+        this.editLink = editLink;
     }
 }

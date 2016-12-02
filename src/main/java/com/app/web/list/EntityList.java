@@ -105,13 +105,18 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     }
 
     @Transactional
-    private void mergeEntity(){
+    protected void mergeEntity(){
         editEntity = em.merge(editEntity);
     }
 
     private void closeDialog(){
         RequestContext context = RequestContext.getCurrentInstance();
+        clearCash();
         context.execute("PF('popup').hide();");
+    }
+
+    protected void clearCash(){
+
     }
 
     @Transactional

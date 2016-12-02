@@ -1,0 +1,30 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGrid columns="1" id="popupLink">
+        <h:panelGroup>
+            <h:outputLabel value="#{messages.getString('TNCLinkEntity.link')}"
+                           for="link"
+                           styleClass="labelPF"/>
+            <p:inputText id="link"
+                         value="#{TNCList.editLink.link}"
+                         disabled="#{false}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="link" errorClass="error"/>
+        </h:panelGroup>
+        <HR/>
+    </h:panelGrid>
+
+    <p>
+        <p:commandButton value="#{messages.getString('button.save')}"
+                         actionListener="#{TNCList.saveLink}"
+                         update=":mainForm:panelImages:links, :mainForm:growl"/>
+        <p:commandButton value="#{messages.getString('button.cancel')}"
+                         onclick="PF('popupLink').hide()"/>
+    </p>
+</ui:composition>

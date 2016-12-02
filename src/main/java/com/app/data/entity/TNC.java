@@ -2,6 +2,7 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @SqlResultSetMapping(
@@ -58,6 +59,12 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
 
     @OneToMany(mappedBy = "tnc")
     private List<ProductTNC> products;
+
+    @OneToMany(mappedBy = "tnc", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<TNCAttachment> TNCAttachments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tnc", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<TNCLink> tncLinks = new ArrayList<>();
 
     @Override
     public Integer getId() {
@@ -164,6 +171,22 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         this.balance = balance;
     }
 
+    public List<TNCAttachment> getTNCAttachments() {
+        return TNCAttachments;
+    }
+
+    public List<TNCLink> getTncLinks() {
+        return tncLinks;
+    }
+
+    public void setTncLinks(List<TNCLink> tncLinks) {
+        this.tncLinks = tncLinks;
+    }
+
+    public void setTNCAttachments(List<TNCAttachment> TNCAttachments) {
+        this.TNCAttachments = TNCAttachments;
+    }
+
     public TNC copy(){
         TNC copy = new TNC();
         copy.name = this.name;
@@ -179,6 +202,8 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         copy.limitLow = this.limitLow;
         copy.limitHigh = this.limitHigh;
         copy.balance = this.balance;
+        copy.TNCAttachments = this.TNCAttachments;
+        copy.tncLinks = this.tncLinks;
         return copy;
     }
 
@@ -196,5 +221,7 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
         this.limitLow = copy.limitLow;
         this.limitHigh = copy.limitHigh;
         this.balance = copy.balance;
+        this.TNCAttachments = copy.TNCAttachments;
+        this.tncLinks = copy.tncLinks;
     }
 }

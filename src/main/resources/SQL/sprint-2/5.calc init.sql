@@ -21,6 +21,27 @@ create table calc_tnc(
 create index calc_tnc_I1 on calc_tnc(name);
 create index calc_tnc_I2 on calc_tnc(name_inner);
 
+create table tnc_attachment(
+  id int IDENTITY(1,1) not null primary key,
+  calc_tnc int not null,
+  attachment int not null,
+  type varchar(100),
+  CONSTRAINT tnc_attachment_FK1 FOREIGN KEY (calc_tnc) REFERENCES calc_tnc(id) ON DELETE CASCADE,
+  CONSTRAINT tnc_attachment_FK2 FOREIGN KEY (attachment) REFERENCES attachment(id) ON DELETE CASCADE
+);
+
+create unique index tnc_attachment_u1 on tnc_attachment(calc_tnc, attachment);
+
+create table tnc_link(
+  id int IDENTITY(1,1) not null primary key,
+  version int default 0,
+  calc_tnc int not null,
+  link varchar(500) not null,
+  CONSTRAINT tnc_link_FK1 FOREIGN KEY (calc_tnc) REFERENCES calc_tnc(id) ON DELETE CASCADE,
+);
+
+create index tnc_link_u1 on tnc_link(calc_tnc);
+
 create table calc_work(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,

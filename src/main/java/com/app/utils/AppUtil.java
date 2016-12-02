@@ -3,6 +3,7 @@ package com.app.utils;
 
 import com.app.data.entity.Attachment;
 import com.app.data.entity.AttachmentContent;
+import org.primefaces.model.UploadedFile;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -23,6 +24,27 @@ public class AppUtil {
             attachmentContent.setContent(content);
 
             attachment.setName(getFilename(file));
+            attachment.setSize(file.getSize());
+            attachment.setContent(attachmentContent);
+            attachment.setType(file.getContentType());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return attachment;
+    }
+
+    public static Attachment getAttachment(UploadedFile file){
+        Attachment attachment = new Attachment();
+        try {
+            InputStream input = file.getInputstream();
+            byte[] content = new byte[(int) file.getSize()];
+            input.read(content);
+
+            AttachmentContent attachmentContent = new AttachmentContent();
+            attachmentContent.setContent(content);
+
+            attachment.setName(file.getFileName());
             attachment.setSize(file.getSize());
             attachment.setContent(attachmentContent);
             attachment.setType(file.getContentType());

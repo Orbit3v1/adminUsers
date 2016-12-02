@@ -92,6 +92,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCEntity.limitHigh", "Лимит верхний"},
             {"TNCEntity.balance", "Остаток"},
 
+            {"TNCLinkEntity", "Ссылка"},
+            {"TNCLinkEntity.link", "Ссылка"},
+
             {"productEntity", "Продукция"},
             {"productEntity.name", "Наименование"},
             {"productEntity.detail", "Описание"},
@@ -207,6 +210,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCList.column.consumptionStart", "Период от"},
             {"TNCList.column.consumptionEnd", "Период до"},
             {"TNCList.column.consumptionResult", "Средний расход"},
+            {"TNCList.panel.images", "Изображения"},
+            {"TNCList.panel.links", "Где купить"},
 
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},
