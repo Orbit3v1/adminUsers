@@ -47,7 +47,7 @@
                              styleClass="textareaLargePF"
                     />
         </h:panelGroup>
-        <p:accordionPanel id="panelImages"
+        <p:accordionPanel id="panelDetails"
                           multiple="true"
                           activeIndex="3">
             <p:tab title="#{messages.getString('TNCList.panel.images')}">
@@ -55,7 +55,7 @@
                               fileUploadListener="#{TNCList.uploadFile}"
                               auto="true"
                               skinSimple="true"
-                              update=":mainForm:panelImages:images"
+                              update=":mainForm:panelDetails:images"
                               label="#{messages.getString('button.upload')}"/>
                 <p:dataTable id="images"
                              value="#{TNCList.editEntity.TNCAttachments}"
@@ -70,7 +70,7 @@
                     <p:column rendered="#{true}"
                               headerText=""
                               width="25">
-                        <p:commandLink update=":mainForm:panelImages:images, :mainForm:growl"
+                        <p:commandLink update=":mainForm:panelDetails:images, :mainForm:growl"
                                        title="#{messages.getString('button.delete')}"
                                        actionListener="#{TNCList.deleteAttachment(img)}"
                                        styleClass="ui-icon delete">
@@ -84,10 +84,12 @@
             <p:tab title="#{messages.getString('TNCList.panel.links')}">
                 <p:commandButton value="#{messages.getString('button.add')}"
                                  actionListener="#{TNCList.addLink}"
-                                 update=":mainForm:popupLink"
-                                 oncomplete="PF('popupLink').show()"
                                  styleClass="buttonPF"
-                        />
+                        >
+                    <p:ajax event="dialogReturn"
+                            listener="#{TNCList.onLinkAdded}"
+                            update=":mainForm:panelDetails:links"/>
+                </p:commandButton>
                 <p:dataTable id="links"
                              value="#{TNCList.editEntity.tncLinks}"
                              var="link"
@@ -100,7 +102,7 @@
                     <p:column rendered="#{true}"
                               headerText=""
                               width="25">
-                        <p:commandLink update=":mainForm:panelImages:links, :mainForm:growl"
+                        <p:commandLink update=":mainForm:panelDetails:links, :mainForm:growl"
                                        title="#{messages.getString('button.delete')}"
                                        actionListener="#{TNCList.deleteLink(link)}"
                                        styleClass="ui-icon delete">

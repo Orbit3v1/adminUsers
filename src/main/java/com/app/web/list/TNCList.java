@@ -32,7 +32,7 @@ public class TNCList extends EntityList<TNC>{
     private Date consumptionStart;
     private Date consumptionEnd;
     private BigDecimal consumptionResult;
-    private TNCLink editLink;
+
 
     @Override
     protected TNC createEntity() {
@@ -51,7 +51,6 @@ public class TNCList extends EntityList<TNC>{
     public void init(){
         super.init();
         initConsumption();
-        editLink = new TNCLink();
     }
 
     @Override
@@ -176,14 +175,23 @@ public class TNCList extends EntityList<TNC>{
     }
 
     public void addLink(){
-        editLink = new TNCLink();
-        editLink.setTnc(editEntity);
+        Map<String, Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("width", 650);
+        options.put("height", 150);
+        options.put("draggable", true);
+        options.put("modal", true);
+        RequestContext rq = RequestContext.getCurrentInstance();
+        rq.openDialog("/screen/TNCListScreen", options, null);
     }
 
-    public void saveLink(){
-        editEntity.getTncLinks().add(editLink);
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('popupLink').hide();");
+    public void onLinkAdded(SelectEvent event) {
+        Object obj = event.getObject();
+        if(obj != null){
+            TNCLink link = (TNCLink) obj;
+            link.setTnc(editEntity);
+            editEntity.getTncLinks().add(link);
+        }
     }
 
     public Date getConsumptionStart() {
@@ -208,13 +216,5 @@ public class TNCList extends EntityList<TNC>{
 
     public void setConsumptionResult(BigDecimal consumptionResult) {
         this.consumptionResult = consumptionResult;
-    }
-
-    public TNCLink getEditLink() {
-        return editLink;
-    }
-
-    public void setEditLink(TNCLink editLink) {
-        this.editLink = editLink;
     }
 }
