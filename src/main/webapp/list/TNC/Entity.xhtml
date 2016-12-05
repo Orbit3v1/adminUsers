@@ -91,9 +91,20 @@
                             update=":mainForm:panelDetails:links"/>
                 </p:commandButton>
                 <p:dataTable id="links"
+                             binding="#{links}"
                              value="#{TNCList.editEntity.tncLinks}"
                              var="link"
                              tableStyle="width:auto">
+                    <p:column style="text-align: center"
+                              width="40"
+                             >
+                        <p:commandButton value="#{links.rowIndex+1}"
+                                         actionListener="#{TNCList.editLink(link)}"
+                                         >
+                            <p:ajax event="dialogReturn"
+                                    update=":mainForm:panelDetails:links"/>
+                        </p:commandButton>
+                    </p:column>
                     <p:column>
                         <h:outputLink value="#{link.link}">
                             <h:outputText value="#{link.link}" />

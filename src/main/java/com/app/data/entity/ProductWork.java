@@ -1,5 +1,7 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Selectable;
+import com.app.data.entity.interfaces.Valuable;
 import org.primefaces.event.SelectEvent;
 
 import javax.persistence.*;

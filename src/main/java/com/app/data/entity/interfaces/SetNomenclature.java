@@ -1,4 +1,6 @@
-package com.app.data.entity;
+package com.app.data.entity.interfaces;
+
+import com.app.data.entity.Nomenclature;
 
 /**
  * Created by ayaroslavtsev on 29.08.2016.

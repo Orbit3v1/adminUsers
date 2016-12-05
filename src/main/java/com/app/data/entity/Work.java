@@ -1,12 +1,14 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Copy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "calc_work")
-public class Work extends AbstractVersionedEntity implements Copy<Work>{
+public class Work extends AbstractVersionedEntity implements Copy<Work> {
     @Id
     @GeneratedValue
     @Column(name = "id")

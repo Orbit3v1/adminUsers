@@ -175,14 +175,27 @@ public class TNCList extends EntityList<TNC>{
     }
 
     public void addLink(){
-        Map<String, Object> options = new HashMap<>();
+        openDialog("/screen/TNCListScreen", new HashMap<>(), null);
+    }
+
+    public void editLink(TNCLink link){
+        String linkKey = "TNCLink_" + link.hashCode();
+        SessionUtil.addSessionVariable(linkKey, link);
+        Map<String,List<String>> params = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        list.add(linkKey);
+        params.put("link", list);
+        openDialog("/screen/TNCListScreen", new HashMap<>(), params);
+    }
+
+    private void openDialog(String path, Map<String, Object> options, Map<String,List<String>> params){
         options.put("resizable", true);
         options.put("width", 650);
         options.put("height", 150);
         options.put("draggable", true);
         options.put("modal", true);
         RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/screen/TNCListScreen", options, null);
+        rq.openDialog(path, options, params);
     }
 
     public void onLinkAdded(SelectEvent event) {

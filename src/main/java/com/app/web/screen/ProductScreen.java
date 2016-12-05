@@ -2,13 +2,15 @@ package com.app.web.screen;
 
 import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.*;
+import com.app.data.entity.interfaces.Converted;
+import com.app.data.entity.interfaces.Selectable;
+import com.app.data.entity.interfaces.Valuable;
 import com.app.utils.AddMessage;
 import com.app.utils.AppUtil;
 import com.app.utils.JSEngine;
 import com.app.utils.SessionUtil;
 import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -17,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;

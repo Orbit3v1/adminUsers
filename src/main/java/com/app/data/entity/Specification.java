@@ -1,5 +1,6 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.SetNomenclature;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "specification")
-public class Specification extends AbstractVersionedEntity implements SetNomenclature{
+public class Specification extends AbstractVersionedEntity implements SetNomenclature {
     @Id
     @GeneratedValue
     @Column(name = "id")

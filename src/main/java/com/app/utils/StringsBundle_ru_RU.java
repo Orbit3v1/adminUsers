@@ -109,6 +109,22 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"paymentEntity.amount", "Сумма"},
             {"paymentEntity.date", "Дата"},
 
+            {"tncOrderEntity", "Заявка ТНЦ"},
+            {"tncOrderEntity.name", "#"},
+            {"tncOrderEntity.creator", "Затребовал"},
+            {"tncOrderEntity.responsible", "Ответственный"},
+            {"tncOrderEntity.start", "Дата заявки"},
+            {"tncOrderEntity.endPlan", "План поставки"},
+
+            {"tncOrderItemEntity", "Позиция заявки ТНЦ"},
+            {"tncOrderItemEntity.name", "#"},
+            {"tncOrderItemEntity.tnc", "ТНЦ"},
+            {"tncOrderItemEntity.count", "Кол-во"},
+            {"tncOrderItemEntity.reason", "Причина"},
+            {"tncOrderItemEntity.endPlan", "План поставки"},
+            {"tncOrderItemEntity.endActual", "Поставка"},
+            {"tncOrderItemEntity.status", "Статус"},
+
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},

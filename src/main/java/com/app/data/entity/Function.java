@@ -1,10 +1,12 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Copy;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "calc_function")
-public class Function extends AbstractVersionedEntity implements Copy<Function>{
+public class Function extends AbstractVersionedEntity implements Copy<Function> {
     @Id
     @GeneratedValue
     @Column(name = "id")

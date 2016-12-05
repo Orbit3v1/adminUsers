@@ -1,4 +1,4 @@
-package com.app.data.entity;
+package com.app.data.entity.interfaces;
 
 /**
  * Created by ayaroslavtsev on 17.06.2016.

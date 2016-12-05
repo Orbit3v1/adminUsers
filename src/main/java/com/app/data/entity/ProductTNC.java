@@ -1,11 +1,12 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Converted;
+import com.app.data.entity.interfaces.Selectable;
+import com.app.data.entity.interfaces.Valuable;
 import org.primefaces.event.SelectEvent;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("TNC")

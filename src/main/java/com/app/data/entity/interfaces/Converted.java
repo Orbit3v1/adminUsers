@@ -1,4 +1,4 @@
-package com.app.data.entity;
+package com.app.data.entity.interfaces;
 
 import java.math.BigDecimal;
 

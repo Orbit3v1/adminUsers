@@ -1,7 +1,7 @@
 package com.app.web.list;
 
 import com.app.data.entity.Nomenclature;
-import com.app.data.entity.SetNomenclature;
+import com.app.data.entity.interfaces.SetNomenclature;
 import com.app.utils.SessionUtil;
 import org.springframework.context.annotation.Scope;
 

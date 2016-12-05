@@ -1,11 +1,13 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.SetNomenclature;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "orderItem")
-public class OrderItem extends AbstractVersionedEntity implements SetNomenclature{
+public class OrderItem extends AbstractVersionedEntity implements SetNomenclature {
 
     @Id
     @GeneratedValue

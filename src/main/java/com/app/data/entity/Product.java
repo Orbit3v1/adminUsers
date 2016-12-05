@@ -1,7 +1,8 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Copy;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

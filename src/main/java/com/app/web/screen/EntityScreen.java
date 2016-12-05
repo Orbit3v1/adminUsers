@@ -1,6 +1,6 @@
 package com.app.web.screen;
 
-import com.app.data.entity.Unique;
+import com.app.data.entity.interfaces.Unique;
 import com.app.utils.AddMessage;
 import com.app.security.Security;
 import com.app.validator.Validator;

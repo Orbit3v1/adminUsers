@@ -1,5 +1,7 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Copy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.List;
                         @ColumnResult(name = "exist")}))
 @Entity
 @Table(name = "calc_tnc")
-public class TNC extends AbstractVersionedEntity implements Copy<TNC>{
+public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
 
     @Id
     @GeneratedValue
