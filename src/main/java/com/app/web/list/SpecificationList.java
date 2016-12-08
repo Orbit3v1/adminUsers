@@ -31,14 +31,11 @@ public class SpecificationList {
     private EntityManager em;
     private Logger logger = Logger.getLogger(getClass());
 
-    @Inject
-    private AddMessage addMessage;
     @SpecificationCDI
     @Autowired
     ListFilterBean listFilterBean;
 
     private Map<String, Boolean> userPA;
-    private SpecificationListFilter filter;
     private List<SpecificationDTO> listRows;
     private boolean saveError;
     private String textError;
@@ -47,7 +44,6 @@ public class SpecificationList {
     @PostConstruct
     public void init(){
         userPA = Security.getUserPrivilegeAction("specificationList");
-        filter = ((SpecificationListFilterBean) listFilterBean).getFilterOriginal();
     }
 
     public void updateList() {
@@ -67,18 +63,6 @@ public class SpecificationList {
             listRows.add(new SpecificationDTO(sp));
         }
 
-    }
-
-    public String getImage(String name){
-        String image = "sort_neutral";
-        if(filter.getSort() != null){
-            if(filter.getSort().equals(SpecificationSort.valueOf(name + "_ASC"))){
-                image = "sort_asc";
-            } else if(filter.getSort().equals(SpecificationSort.valueOf(name + "_DESC"))){
-                image = "sort_desc";
-            }
-        }
-        return image;
     }
 
     public void exportExcel(){

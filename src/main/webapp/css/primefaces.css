@@ -62,7 +62,7 @@ tr.ui-widget-content{
     opacity: 1 !important;
 }
 
-.ui-datatable-resizable thead th, .ui-datatable-resizable tbody td, .ui-datatable-resizable tfoot td {
+.ui-datatable-resizable tbody td {
     white-space: pre !important;
 }
 

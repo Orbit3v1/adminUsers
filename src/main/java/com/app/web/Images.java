@@ -24,7 +24,12 @@ public class Images {
     @PersistenceContext
     private EntityManager em;
 
-    public StreamedContent getImage() throws IOException {
+    public StreamedContent getImage(){
+        PhaseId phase = FacesContext.getCurrentInstance().getCurrentPhaseId();
+        String name = null;
+        if(phase != null){
+            name = phase.getName();
+        }
         String attachmentId = SessionUtil.getParameter("attachmentId");
         String attachmentHash = SessionUtil.getParameter("attachmentHash");
         StreamedContent streamedContent;

@@ -7,8 +7,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.org/ui">
 
+    <ui:param name="screen" value="#{orderItemScreen}"/>
     <ui:define name="title">
         <h:outputText value="#{messages.getString('orderItemScreen.title')}"/>
     </ui:define>
@@ -17,33 +19,6 @@
 
     <ui:define name="body">
         <link rel="stylesheet" type="text/css" href="../css/richLarge.css"/>
-        <script type="text/javascript">
-
-            var init = [];
-            window.onload = function () {
-                for (var i in init) {
-                    if (typeof( init[i] ) == 'function') init[i]();
-                }
-            }
-
-
-        </script>
-
-        <ui:fragment rendered="#{!orderItemScreen.saved and orderItemScreen.closed}">
-            <script type="text/javascript">
-                init.push(exit());
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{orderItemScreen.saved and !orderItemScreen.closed}">
-            <script type="text/javascript">
-                init.push(save);
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{orderItemScreen.saved and orderItemScreen.closed}">
-            <script type="text/javascript">
-                init.push(saveExit());
-            </script>
-        </ui:fragment>
 
         <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
@@ -170,33 +145,12 @@
 
             <HR/>
 
-            <p>
-                <h:commandButton value="#{messages.getString('button.editAndExit')}"
-                                 action="#{orderItemScreen.saveAndExit}"
-                                 render="mainForm"
-                                 styleClass="btn"
-                                 rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"
-                                 />
-                <h:commandButton value="#{messages.getString('button.edit')}"
-                                 action="#{orderItemScreen.saveOnly}"
-                                 render="mainForm"
-                                 styleClass="btn"
-                                 rendered="#{orderItemScreen.edit ? orderItemScreen.userPA.editR : orderItemScreen.userPA.addR}"
-                                 disabled="#{!(orderItemScreen.edit ? orderItemScreen.userPA.editEx : orderItemScreen.userPA.addEx)}"
-                                 />
-                <h:commandButton value="#{messages.getString('button.delete')}"
-                                 action="#{orderItemScreen.delete}"
-                                 styleClass="btn"
-                                 rendered="#{orderItemScreen.edit and orderItemScreen.userPA.deleteR}"
-                                 disabled="#{!orderItemScreen.edit or !orderItemScreen.userPA.deleteEx}"
-                                 onclick="return confirm('Вы действительно хотите удалить запись?')"
-                                 />
-                <h:commandButton value="#{messages.getString('button.cancel')}"
-                                   action="#{orderItemScreen.exit}"
+            <ui:include src="../template/ScreenEditButtons.xhtml"/>
 
-                                 styleClass="btn"/>
-            </p>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
 
             <a4j:commandButton id="refresh" render="nomenclatureP" action="#{orderItemScreen.refresh()}"
                                style="display:none;" value="refresh"/>

@@ -25,7 +25,6 @@ public class ProductionXLS {
 
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
-    private OrderListFilter filter;
     private Workbook wb;
     private Sheet sheet;
     private CellStyle cellStyle;
@@ -33,10 +32,9 @@ public class ProductionXLS {
 
     private static final String FILE_NAME = "производство";
 
-    public ProductionXLS(List<ProductionReportDTO> listRows, Map<String, Boolean> userPA, OrderListFilter filter) {
+    public ProductionXLS(List<ProductionReportDTO> listRows, Map<String, Boolean> userPA) {
         this.listRows = listRows;
         this.userPA = userPA;
-        this.filter = filter;
         init();
     }
 
@@ -52,7 +50,6 @@ public class ProductionXLS {
 
     public void renderExcel() {
         generateTitle();
-        generateFilter();
         generateHeader();
         generateBody();
 
@@ -114,10 +111,6 @@ public class ProductionXLS {
         cell.setCellStyle(cellStyle);
 
         row = sheet.createRow(lastRow++);
-    }
-
-    private void generateFilter() {
-
     }
 
     private void generateHeader() {

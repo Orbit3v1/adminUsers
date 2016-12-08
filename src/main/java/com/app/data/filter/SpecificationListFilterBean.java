@@ -42,7 +42,7 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
                 "left join fetch r.approvedBy " +
                 "left join fetch r.responsible " +
                 "left join fetch n.orderItems oi " +
-                "left join fetch oi.order"
+                "left join fetch oi.order "
                 ;
 
         String sqlWhere = "";
@@ -117,7 +117,6 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
         List<Specification> specifications = query.getResultList();
         return specifications;
     }
-
 
     public SpecificationListFilter getFilter() {
         return (SpecificationListFilter) filter;

@@ -109,22 +109,22 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"paymentEntity.amount", "Сумма"},
             {"paymentEntity.date", "Дата"},
 
-            {"tncOrderEntity", "Заявка ТНЦ"},
-            {"tncOrderEntity.name", "#"},
-            {"tncOrderEntity.creator", "Затребовал"},
-            {"tncOrderEntity.responsible", "Ответственный"},
-            {"tncOrderEntity.start", "Дата заявки"},
-            {"tncOrderEntity.endPlan", "План поставки"},
+            {"tncRequestEntity", "Заявка ТНЦ"},
+            {"tncRequestEntity.name", "#"},
+            {"tncRequestEntity.creator", "Затребовал"},
+            {"tncRequestEntity.responsible", "Ответственный"},
+            {"tncRequestEntity.start", "Дата заявки"},
+            {"tncRequestEntity.endPlan", "План поставки"},
 
-            {"tncOrderItemEntity", "Позиция заявки ТНЦ"},
-            {"tncOrderItemEntity.name", "#"},
-            {"tncOrderItemEntity.tnc", "ТНЦ"},
-            {"tncOrderItemEntity.count", "Кол-во"},
-            {"tncOrderItemEntity.reason", "Причина"},
-            {"tncOrderItemEntity.endPlan", "План поставки"},
-            {"tncOrderItemEntity.endActual", "Поставка"},
-            {"tncOrderItemEntity.status", "Статус"},
-
+            {"tncRequestItemEntity", "Позиция заявки ТНЦ"},
+            {"tncRequestItemEntity.name", "#"},
+            {"tncRequestItemEntity.tnc", "ТНЦ"},
+            {"tncRequestItemEntity.count", "Кол-во"},
+            {"tncRequestItemEntity.reason", "Причина"},
+            {"tncRequestItemEntity.endPlan", "План поставки"},
+            {"tncRequestItemEntity.endActual", "Поставка"},
+            {"tncRequestItemEntity.status", "Статус"},
+            
             {"personList.title", "Список пользователей"},
 
             {"personScreen.title", "Пользователь"},
@@ -218,16 +218,22 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationScreen.error.nameDuplicate", "Такое же имя есть у другого ТЗ"},
             {"specificationScreen.error.nomenclatureDuplicate", "Для номенклатуры уже есть другое ТЗ"},
 
+            {"TNCScreen.title", "ТНЦ"},
+            {"TNCScreen.editText", "Редактирование ТНЦ"},
+            {"TNCScreen.addText", "Добавление ТНЦ"},
+            {"TNCScreen.panel.images", "Изображения"},
+            {"TNCScreen.panel.links", "Где купить"},
+            {"TNCScreen.column.consumption", "Расход материала"},
+            {"TNCScreen.column.consumptionStart", "Период от"},
+            {"TNCScreen.column.consumptionEnd", "Период до"},
+            {"TNCScreen.column.consumptionResult", "Средний расход"},
+
+            {"TNCList.success.save", "ТНЦ успешно создана"},
+            {"TNCList.success.edit", "ТНЦ успешно изменена"},
+
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
             {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"},
-
-            {"TNCList.column.consumption", "Расход материала"},
-            {"TNCList.column.consumptionStart", "Период от"},
-            {"TNCList.column.consumptionEnd", "Период до"},
-            {"TNCList.column.consumptionResult", "Средний расход"},
-            {"TNCList.panel.images", "Изображения"},
-            {"TNCList.panel.links", "Где купить"},
 
             {"loginScreen.title", "Вход"},
             {"loginScreen.login", "Логин"},
@@ -303,6 +309,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"menu.graphic.production", "Производство"},
             {"menu.graphic.specification", "Реестр ТЗ"},
+            {"menu.graphic.tncRequest", "Заявки ТНЦ"},
 
             {"menu.calculation.TNC", "ТНЦ"},
             {"menu.calculation.work", "Работа"},

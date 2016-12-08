@@ -1,4 +1,4 @@
-create table tnc_order(
+create table tnc_request(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
   name varchar(100) not null,
@@ -6,19 +6,21 @@ create table tnc_order(
   responsible int,
   start datetime,
   endPlan datetime,
-
-  CONSTRAINT tnc_order_FK1 FOREIGN KEY (creator) REFERENCES person(id),
-  CONSTRAINT tnc_order_FK2 FOREIGN KEY (responsible) REFERENCES person(id)
+  
+  CONSTRAINT tnc_request_FK1 FOREIGN KEY (creator) REFERENCES person(id),
+  CONSTRAINT tnc_request_FK2 FOREIGN KEY (responsible) REFERENCES person(id)
 );
 
-create index tnc_order_I1 on tnc_order(creator);
-create index tnc_order_I2 on tnc_order(responsible);
-create index tnc_order_I3 on tnc_order(name);
+create index tnc_request_I1 on tnc_request(creator);
+create index tnc_request_I2 on tnc_request(responsible);
+create index tnc_request_I3 on tnc_request(name);
 
 
-create table tnc_order_item(
+
+create table tnc_request_item(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
+  tnc_request int not null,
   name varchar(100) not null,
   calc_tnc int not null,
   cnt int,
@@ -27,20 +29,21 @@ create table tnc_order_item(
   endActual datetime,
   status varchar(100),
 
-  CONSTRAINT tnc_order_item_FK1 FOREIGN KEY (calc_tnc) REFERENCES calc_tnc(id)
+  CONSTRAINT tnc_request_item_FK1 FOREIGN KEY (calc_tnc) REFERENCES calc_tnc(id)
 );
 
-create index tnc_order_item_I1 on tnc_order_item(calc_tnc);
-create index tnc_order_item_I2 on tnc_order_item(name);
-create index tnc_order_item_U1 on tnc_order_item(calc_tnc, name);
+create index tnc_request_item_I1 on tnc_request_item(calc_tnc);
+create index tnc_request_item_I2 on tnc_request_item(name);
+create index tnc_request_item_I3 on tnc_request_item(tnc_request);
+create index tnc_request_item_U1 on tnc_request_item(tnc_request, name);
 
-create table tncOrderListFilter(
+create table tncRequestListFilter(
   id int not null primary key,
   version int default 0,
   name varchar(500),
   tnc varchar(500),
   creator varchar(500),
-  developer varchar(500),
+  responsible varchar(500),
 
   startL date,
   startH date,
@@ -52,5 +55,5 @@ create table tncOrderListFilter(
   state varchar(500),
   sort varchar(500),
 
-  CONSTRAINT tncOrderListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+  CONSTRAINT tncRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
 );

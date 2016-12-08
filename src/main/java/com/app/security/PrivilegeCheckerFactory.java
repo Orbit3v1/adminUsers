@@ -53,6 +53,14 @@ public class PrivilegeCheckerFactory {
                 privilegeChecker = new SpecificationScreenPC();
                 break;
             }
+            case ("tncRequestListPC"): {
+                privilegeChecker = new TNCRequestListPC();
+                break;
+            }
+            case ("TNCList"):{
+                privilegeChecker = new TNCListPC();
+                break;
+            }
             case ("menu"): {
                 privilegeChecker = new MenuPC();
                 break;

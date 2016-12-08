@@ -51,7 +51,6 @@ public class OrderScreen extends EntityScreen<Order>  {
             entity.setStart(new Date());
         }
         OrderUtil.reCalculatePaid(entity);
-
     }
 
     @Override

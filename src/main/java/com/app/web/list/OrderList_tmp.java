@@ -147,7 +147,7 @@ public class OrderList_tmp {
     }
 
     public void exportExcel(){
-        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
+        ProductionXLS pXLS = new ProductionXLS(listRows, userPA);
         pXLS.renderExcel();
     }
 

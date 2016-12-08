@@ -18,30 +18,7 @@
 
     <ui:define name="body">
 
-        <script type="text/javascript">
 
-            function closePopup() {
-                window.document.getElementById("closeForm:close").click();
-            }
-
-            var init = [];
-            window.onload = function () {
-                for (var i in init) {
-                    if (typeof( init[i] ) == 'function') init[i]();
-                }
-            }
-
-        </script>
-        <ui:fragment rendered="#{nomenclatureScreen.saved}">
-            <script type="text/javascript">
-                init.push(refreshOpener);
-            </script>
-        </ui:fragment>
-        <ui:fragment rendered="#{nomenclatureScreen.closed}">
-            <script type="text/javascript">
-                init.push(closePopup);
-            </script>
-        </ui:fragment>
 
         <h:form id="mainForm" enctype="multipart/form-data">
             <!--Invisible button to catch enter press-->
@@ -325,10 +302,6 @@
         </h:form>
 
         <h:form id="closeForm">
-            <a4j:commandButton value="close" id="close"
-                               action="#{nomenclatureScreen.exit}"
-                               oncomplete="window.close();"
-                               style="display: none"/>
             <p:commandButton id="refresh"
                              action="#{nomenclatureScreen.refresh()}"
                              style="display: none"

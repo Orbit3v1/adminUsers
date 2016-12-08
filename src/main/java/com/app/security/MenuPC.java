@@ -42,6 +42,9 @@ public class MenuPC implements PrivilegeChecker {
         userPA.put("graphicMenuSpecificationR", hasAnyPrivilegeAction(
                         new PrivilegeAction("graphicMenuSpecification", "READ"))
         );
+        userPA.put("graphicMenuTNCRequestR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("graphicMenuTNCRequest", "READ"))
+        );
 
         return userPA;
     }

@@ -1,6 +1,7 @@
 package com.app.data.filter;
 
 import com.app.data.dictionary.Sort;
+import com.app.data.dictionary.SpecificationSort;
 import com.app.data.entity.filter.Filter;
 import com.app.utils.AddMessage;
 import com.app.security.Security;
@@ -94,6 +95,18 @@ public abstract class FilterBean {
             e.printStackTrace();
             addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
+    }
+
+    public String getImage(String name){
+        String image = "sort_neutral";
+        if(filter.getSort() != null){
+            if(filter.getSort().name().equals(name + "_ASC")){
+                image = "sort_asc";
+            } else if(filter.getSort().name().equals(name + "_DESC")){
+                image = "sort_desc";
+            }
+        }
+        return image;
     }
 
     @Transactional

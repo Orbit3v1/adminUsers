@@ -5,24 +5,26 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
     <p>
-        <p:commandButton value="#{messages.getString('button.saveAndExit')}"
+        <p:commandButton id="btnSaveAndExit"
+                         value="#{messages.getString('button.saveAndExit')}"
                          actionListener="#{screen.saveAndExit}"
-                         update=":mainForm, :script"
+                         update=":mainForm"
                          styleClass="buttonPF"
                          rendered="#{screen.edit ? screen.userPA.editR : screen.userPA.addR}"
                          disabled="#{!(screen.edit ? screen.userPA.editEx : screen.userPA.addEx)}"
                 />
-        <p:commandButton value="#{messages.getString('button.save')}"
+        <p:commandButton id="btnSave"
+                         value="#{messages.getString('button.save')}"
                          actionListener="#{screen.saveOnly}"
-                         update=":mainForm, :script"
+                         update=":mainForm"
                          styleClass="buttonPF"
                          rendered="#{screen.edit ? screen.userPA.editR : screen.userPA.addR}"
                          disabled="#{!(screen.edit ? screen.userPA.editEx : screen.userPA.addEx)}"
                 />
-        <p:commandButton value="#{messages.getString('button.delete')}"
+        <p:commandButton id="btnDelete"
+                         value="#{messages.getString('button.delete')}"
                          actionListener="#{screen.delete}"
                          styleClass="buttonPF"
-                         update=":script"
                          rendered="#{screen.edit and screen.userPA.deleteR}"
                          disabled="#{!screen.edit or !screen.userPA.deleteEx}"
                 >
@@ -30,9 +32,9 @@
                        message="#{messages.getString('button.delete.message')}"
                        icon="ui-icon-alert"/>
         </p:commandButton>
-        <p:commandButton value="#{messages.getString('button.cancel')}"
+        <p:commandButton id="btnCancel"
+                         value="#{messages.getString('button.cancel')}"
                          actionListener="#{screen.exit}"
-                         update=":script"
                          styleClass="buttonPF"/>
     </p>
 </ui:composition>

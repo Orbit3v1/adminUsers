@@ -46,14 +46,12 @@ public class OrderList {
     private boolean saveError;
     private String textError;
 
-    private OrderListFilter filter;
     private int gibTotal;
 
     @PostConstruct
     public void init() {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
-        filter = ((OrderListFilterBean) listFilterBean).getFilterOriginal();
 
         developers = EntityUtil.getDevelopers(em);
     }
@@ -82,18 +80,6 @@ public class OrderList {
                 lastOrderId = orderItems.get(i).getOrder().getId();
             }
         }
-    }
-
-    public String getImage(String name){
-        String image = "sort_neutral";
-        if(filter.getSort() != null){
-            if(filter.getSort().equals(ProductionReportSort.valueOf(name + "_ASC"))){
-                image = "sort_asc";
-            } else if(filter.getSort().equals(ProductionReportSort.valueOf(name + "_DESC"))){
-                image = "sort_desc";
-            }
-        }
-        return image;
     }
 
     public void setEndActual(OrderItem orderItem) {
@@ -125,7 +111,7 @@ public class OrderList {
     }
 
     public void exportExcel(){
-        ProductionXLS pXLS = new ProductionXLS(listRows, userPA, filter);
+        ProductionXLS pXLS = new ProductionXLS(listRows, userPA);
         pXLS.renderExcel();
     }
 

@@ -10,6 +10,8 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" xmlns:H="http://java.sun.com/jsf/html">
 
+    <ui:param name="filterBean" value="#{specificationListFilterBean}"/>
+
     <ui:define name="title">
         <h:outputText value="#{messages.getString('specificationList.title')}"/>
     </ui:define>
@@ -44,37 +46,14 @@
                                rendered="#{specificationList.userPA.addR}"
                                disabled="#{!specificationList.userPA.addEx}"/>
 
-            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
-            <h:panelGroup id="filterPG">
-                <h:commandButton id="findBtn"
-                                 action="#{specificationListFilterBean.find}"
-                                 value="#{messages.getString('button.find')}"
-                                 render="specifications"
-                                 styleClass="btn"/>
+            <ui:include src="../template/ListFilterButtons.xhtml"/>
 
-                <h:commandButton value="#{messages.getString('button.clearFilter')}"
-                                 render="orders"
-                                 action="#{specificationListFilterBean.clear}"
-                                 styleClass="btn"/>
-
-                <h:commandButton value="#{messages.getString('button.saveFilter')}"
-                                 action="#{specificationListFilterBean.save}"
-                                 render="orders"
-                                 styleClass="btn"/>
-
-                <h:commandButton value="#{messages.getString('button.loadFilter')}"
-                                 render="orders"
-                                 action="#{specificationListFilterBean.load}"
-                                 styleClass="btn"/>
-            </h:panelGroup>
-
-            <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
-            <h:commandButton value="#{messages.getString('button.export.excel')}"
+            <h:outputLabel for="exportExcel" value="|" style="display: inline-block"/>
+            <h:commandButton id="exportExcel"
+                            value="#{messages.getString('button.export.excel')}"
                              render="orders"
                              action="#{specificationList.exportExcel}"
                              styleClass="btn"/>
-
-            <h:message for="filterPG" infoClass="info" errorClass="error"/>
 
             <h:message for="specifications" infoClass="info" errorClass="error"/>
             <rich:dataTable id="specifications" value="#{specificationList.listRows}"
@@ -87,7 +66,7 @@
                         <h:commandLink value="#{messages.getString('specificationEntity.name')}"
                                        action="#{specificationListFilterBean.setSort('NAME_ASC')}"
                                        styleClass="headerSort">
-                            <h:graphicImage value="/javax.faces.resource/images/#{specificationList.getImage('NAME')}.png.xhtml"
+                            <h:graphicImage value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('NAME')}.png.xhtml"
                                             styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.name}"
@@ -107,7 +86,7 @@
                                        action="#{specificationListFilterBean.setSort('START_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('START')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('START')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
@@ -139,7 +118,7 @@
                                        action="#{specificationListFilterBean.setSort('TYPE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('TYPE')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('TYPE')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.type}"
@@ -156,7 +135,7 @@
                                        action="#{specificationListFilterBean.setSort('NOMENCLATURE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('NOMENCLATURE')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('NOMENCLATURE')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.nomenclature}"
@@ -176,7 +155,7 @@
                                        action="#{specificationListFilterBean.setSort('PRICE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('PRICE')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('PRICE')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.price}"
@@ -193,7 +172,7 @@
                                        action="#{specificationListFilterBean.setSort('DISCOUNT_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('DISCOUNT')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('DISCOUNT')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.discount}"
@@ -210,7 +189,7 @@
                                        action="#{specificationListFilterBean.setSort('RESPONSE_DATE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('RESPONSE_DATE')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('RESPONSE_DATE')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:panelGroup>
@@ -242,7 +221,7 @@
                                        action="#{specificationListFilterBean.setSort('DEVELOPER_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('DEVELOPER')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('DEVELOPER')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.developer}"
@@ -259,7 +238,7 @@
                                        action="#{specificationListFilterBean.setSort('RESPONSIBLE_ASC')}"
                                        styleClass="headerSort">
                             <h:graphicImage
-                                    value="/javax.faces.resource/images/#{specificationList.getImage('RESPONSIBLE')}.png.xhtml"
+                                    value="/javax.faces.resource/images/#{specificationListFilterBean.getImage('RESPONSIBLE')}.png.xhtml"
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <h:inputText value="#{specificationListFilterBean.filter.responsible}"

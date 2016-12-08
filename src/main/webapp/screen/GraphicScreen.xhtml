@@ -27,6 +27,12 @@
                         outcome="/list/SpecificationList"
                         rendered="#{menu.userPA.graphicMenuSpecificationR}"/>
             </li>
+            <li>
+                <h:link id="tncRequest"
+                        value="#{messages.getString('menu.graphic.tncRequest')}"
+                        outcome="/list/TNCRequestList"
+                        rendered="#{menu.userPA.graphicMenuTNCRequestR}"/>
+            </li>
 
         </ul>
     </ui:define>

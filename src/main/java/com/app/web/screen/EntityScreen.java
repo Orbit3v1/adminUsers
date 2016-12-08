@@ -6,6 +6,7 @@ import com.app.security.Security;
 import com.app.validator.Validator;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
+import org.primefaces.context.RequestContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
@@ -35,9 +36,6 @@ public abstract class EntityScreen<T extends Unique> {
     private Map<String, Boolean> userPA;
     protected Logger logger = Logger.getLogger(getClass());
 
-    protected boolean closed;
-    protected boolean saved;
-
     @Loggable
     @PostConstruct
     protected void initSecurity() {
@@ -50,24 +48,29 @@ public abstract class EntityScreen<T extends Unique> {
     public void saveOnly() {
         logger.info("save entity"  + entity.getId());
         if (saveAttempt()) {
-            saved = true;
+            executeJS("save();");
         }
     }
 
     public void saveAndExit() {
         logger.info("save entity and exit. "  + entity.getId());
         if (saveAttempt()) {
-            saved = true;
+            executeJS("save();");
             exit();
         }
     }
 
-    public void  exit() {
+    public void exit() {
         logger.info("exit");
-        closed = true;
+        executeJS("exit();");
     }
 
-    private boolean saveAttempt(){
+    protected void executeJS(String script){
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute(script);
+    }
+
+    protected boolean saveAttempt(){
         boolean success = false;
         if (validate()) {
             try {
@@ -105,9 +108,9 @@ public abstract class EntityScreen<T extends Unique> {
         logger.info("delete. id = " + entity.getId());
         if(canDelete()){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
-            saved = true;
             postDelete();
             logger.info("delete success");
+            executeJS("save();");
             exit();
         } else {
             logger.info("delete fail");
@@ -156,19 +159,4 @@ public abstract class EntityScreen<T extends Unique> {
         this.userPA = userPA;
     }
 
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
-    public boolean isSaved() {
-        return saved;
-    }
-
-    public void setSaved(boolean saved) {
-        this.saved = saved;
-    }
 }

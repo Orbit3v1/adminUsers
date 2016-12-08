@@ -45,9 +45,13 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     public void init(){
         userPA = Security.getUserPrivilegeAction(getScreenName());
         editEntity = createEntity();
+        initList();
+        filteredEntities = entities;
+    }
+
+    public void initList(){
         entities.clear();
         entities.addAll(getData());
-        filteredEntities = entities;
     }
 
     public void add(){
@@ -111,12 +115,7 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
 
     private void closeDialog(){
         RequestContext context = RequestContext.getCurrentInstance();
-        clearCash();
         context.execute("PF('popup').hide();");
-    }
-
-    protected void clearCash(){
-
     }
 
     @Transactional

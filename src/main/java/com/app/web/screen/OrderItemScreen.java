@@ -117,7 +117,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     public void delete(){
         logger.info("delete");
         source.getOrderItems().remove(originalOrderItem);
-        saved = true;
+        executeJS("save();");
         exit();
     }
 

@@ -6,4 +6,5 @@ package com.app.data.dictionary;
 public interface Sort {
     public Sort getReverse();
     public String getSqlOrder();
+    public String name();
 }

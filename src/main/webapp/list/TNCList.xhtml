@@ -14,21 +14,17 @@
     </ui:define>
 
     <ui:define name="body">
-        <style type="text/css">
-            iframe {
 
-                width: 800px !important;
-            }
-        </style>
-        <h:form id="mainForm" enctype="multipart/form-data">
+        <h:form id="mainForm">
             <p:growl id="growl" showDetail="true"/>
 
             <h:outputText value="#{messages.getString('menu.calculation.TNC')}" styleClass="listTitle"/>
             <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
-                             actionListener="#{TNCList.add}"
-                             update=":mainForm:popupDetail"
-                             oncomplete="PF('popup').show()"
+                             onclick="openPopUp('/screen/TNCScreen.xhtml', 'TNCScreen')"
+                             rendered="#{TNCList.userPA.addR}"
+                             disabled="#{!TNCList.userPA.addEx}"
+                             styleClass="buttonPF"
                     />
             <p:commandButton value="#{messages.getString('button.refresh1C')}"
                              actionListener="#{TNCList.refresh1C}"
@@ -47,10 +43,9 @@
                           style="width:350px"
                           filterStyle="width: 150px">
                     <p:commandLink value="#{row.nameInner}"
-                                   actionListener="#{TNCList.edit(row)}"
-                                   update=":mainForm:popupDetail"
-                                   oncomplete="PF('popup').show()"
-                                   style="display: block;"/>
+                                   onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{row.id}', 'TNCScreen#{row.id}')"
+                                   styleClass="link"
+                                   style="display: block; text-decoration: none;"/>
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.name')}"
@@ -100,24 +95,17 @@
                 </p:column>
             </p:dataTable>
 
-
-            <p:dialog widgetVar="popup"
-                      modal="true"
-                      resizeable="true"
-                      width="650"
-                      height="780"
-                      header="#{messages.getString('TNCEntity')}"
-                    >
-                <ui:include src="TNC/Entity.xhtml"/>
-            </p:dialog>
-
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
             </p:confirmDialog>
 
+            <p:commandButton id="refresh"
+                             update=":mainForm:entities"
+                             actionListener="#{TNCList.initList}"
+                             style="display: none"
+                             value="refresh"/>
+
         </h:form>
-
-
     </ui:define>
 </ui:composition>
