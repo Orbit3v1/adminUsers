@@ -1,19 +1,17 @@
 package com.app.data.filter;
 
-import com.app.data.dictionary.ProductionReportSort;
-import com.app.data.dictionary.TNCRequestSort;
+import com.app.data.dictionary.*;
 import com.app.data.entity.OrderItem;
 import com.app.data.entity.TNCRequestItem;
 import com.app.data.entity.filter.OrderListFilter;
 import com.app.data.entity.filter.TNCRequestListFilter;
+import com.app.security.Security;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
 import javax.persistence.Query;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.app.utils.AppUtil.endDay;
 import static com.app.utils.AppUtil.notEmpty;
@@ -36,6 +34,10 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
         return (TNCRequestListFilter) filterOriginal;
     }
 
+    public void setSort(TNCRequestSort sort){
+        super.setSort(sort);
+    }
+
     @Override
     public List<TNCRequestItem> getList() {
         TNCRequestListFilter filterOriginal = getFilterOriginal();
@@ -43,8 +45,8 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
         String sqlFrom = "select r from TNCRequestItem r " +
                 "left join fetch r.tncRequest o " +
                 "left join fetch r.tnc n " +
-                "left join fetch o.responsible " +
-                "left join fetch o.creator ";
+                "left join fetch o.responsible resp " +
+                "left join fetch o.creator cr ";
 
         StringJoiner sqlWhere = new StringJoiner(" AND ");
         sqlWhere.add("1 = 1");
@@ -54,7 +56,7 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
             parameters.put("name", "%" + filterOriginal.getName() + "%");
         }
         if (notEmpty(filterOriginal.getTnc())) {
-            sqlWhere.add("r.tnc like :tnc");
+            sqlWhere.add("r.tnc.name like :tnc");
             parameters.put("tnc", "%" + filterOriginal.getTnc() + "%");
         }
         if (notEmpty(filterOriginal.getResponsible())) {
@@ -66,11 +68,11 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
             parameters.put("developer", "%" + filterOriginal.getCreator() + "%");
         }
         if (filterOriginal.getStartL() != null) {
-            sqlWhere.add("r.order.start >= :startL");
+            sqlWhere.add("r.tncRequest.start >= :startL");
             parameters.put("startL", filterOriginal.getStartL());
         }
         if (filterOriginal.getStartH() != null) {
-            sqlWhere.add("r.order.start <= :startH");
+            sqlWhere.add("r.tncRequest.start <= :startH");
             parameters.put("startH", endDay(filterOriginal.getStartH()));
         }
         if (filterOriginal.getEndPlanL() != null) {
@@ -102,7 +104,7 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
         if(!TNCRequestSort.NAME_ASC.equals(filterOriginal.getSort())
                 && !TNCRequestSort.NAME_DESC.equals(filterOriginal.getSort())) {
             sqlOrder.add("r.tncRequest.name");
-            sqlOrder.add("cast(r.name as int)");
+            sqlOrder.add("r.name)");
         }
 
         String sqlFull = sqlFrom + " WHERE " + sqlWhere.toString() + " order by " + sqlOrder.toString();
@@ -118,5 +120,9 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
 
     public TNCRequestListFilter getFilter() {
         return (TNCRequestListFilter) filter;
+    }
+
+    public List<TNCRequestState> getFilterStates() {
+        return Arrays.asList(TNCRequestState.values());
     }
 }

@@ -38,7 +38,7 @@ public class TNCRequestItem extends AbstractVersionedEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private TNCRequestState status;
+    private TNCRequestState state;
 
     @Override
     public Integer getId() {
@@ -105,11 +105,11 @@ public class TNCRequestItem extends AbstractVersionedEntity {
         this.tncRequest = tncRequest;
     }
 
-    public TNCRequestState getStatus() {
-        return status;
+    public TNCRequestState getState() {
+        return state;
     }
 
-    public void setStatus(TNCRequestState status) {
-        this.status = status;
+    public void setState(TNCRequestState status) {
+        this.state = status;
     }
 }

@@ -1,0 +1,33 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:outputLabel for="findBtn" value="|" style="display: inline-block"/>
+    <h:panelGroup id="filterPG">
+        <p:commandButton id="findBtn"
+                         actionListener="#{filterBean.find}"
+                         value="#{messages.getString('button.find')}"
+                         update=":mainForm:entities, :mainForm:growl, :mainForm:filterPG"
+                         styleClass="btn"/>
+
+        <p:commandButton value="#{messages.getString('button.clearFilter')}"
+                         update=":mainForm:entities, :mainForm:growl, :mainForm:filterPG"
+                         actionListener="#{filterBean.clear}"
+                         styleClass="btn"/>
+
+        <p:commandButton value="#{messages.getString('button.saveFilter')}"
+                         actionListener="#{filterBean.save}"
+                         update=":mainForm:entities, :mainForm:growl, :mainForm:filterPG"
+                         styleClass="btn"/>
+
+        <p:commandButton value="#{messages.getString('button.loadFilter')}"
+                         update=":mainForm:entities, :mainForm:growl, :mainForm:filterPG"
+                         actionListener="#{filterBean.load}"
+                         styleClass="btn"/>
+        <ui:insert name="specific"/>
+        <h:message for="filterPG" infoClass="info" errorClass="error"/>
+    </h:panelGroup>
+</ui:composition>

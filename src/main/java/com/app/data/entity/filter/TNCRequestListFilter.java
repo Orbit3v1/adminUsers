@@ -10,7 +10,6 @@ import java.util.Date;
 @Table(name = "tncRequestListFilter")
 public class TNCRequestListFilter extends AbstractVersionedEntity implements Filter<TNCRequestListFilter>{
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private Integer id;
 

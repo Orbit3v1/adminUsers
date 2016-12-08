@@ -77,5 +77,5 @@ textarea[disabled], input[type="text"][disabled], input[type="password"][disable
 .selectOneMenuSmallPF{
     font-size: 14px !important;
     margin: 0 !important;
-    width: 150px !important;
+    width: 100px !important;
 }

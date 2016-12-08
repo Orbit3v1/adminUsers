@@ -123,7 +123,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncRequestItemEntity.reason", "Причина"},
             {"tncRequestItemEntity.endPlan", "План поставки"},
             {"tncRequestItemEntity.endActual", "Поставка"},
-            {"tncRequestItemEntity.status", "Статус"},
+            {"tncRequestItemEntity.state", "Статус"},
             
             {"personList.title", "Список пользователей"},
 
@@ -176,8 +176,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderList.header", "График производства"},
             {"orderList.paid", "Опл."},
 
-            {"orderListFilter.saveSuccess", "Фильтр сохранен"},
-            {"orderListFilter.loadSuccess", "Фильтр загружен"},
+            {"listFilter.saveSuccess", "Фильтр сохранен"},
+            {"listFilter.loadSuccess", "Фильтр загружен"},
+            {"listFilter.findSuccess", "Поиск закончен"},
 
             {"orderScreen.title", "Заказ"},
             {"orderScreen.table.orderItems", "Позиции"},

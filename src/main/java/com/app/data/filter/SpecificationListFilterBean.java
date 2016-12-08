@@ -103,7 +103,7 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
         }
         if(!SpecificationSort.NAME_ASC.equals(filterOriginal.getSort())
                 && !SpecificationSort.NAME_DESC.equals(filterOriginal.getSort())) {
-            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.name, cast(r.subName as int)";
+            sqlOrder += (sqlOrder.equals("") ? "" : ", ") + "r.name, r.subName";
         }
         sqlOrder = " order by " + sqlOrder;
 

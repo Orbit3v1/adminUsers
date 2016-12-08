@@ -65,12 +65,12 @@
             <h:outputLabel for="exportExcel" value="|" style="display: inline-block"/>
             <h:commandButton id="exportExcel"
                              value="#{messages.getString('button.export.excel')}"
-                             render="orders"
+                             render="entities"
                              action="#{orderList.exportExcel}"
                              styleClass="btn"/>
 
-            <h:message for="orders" infoClass="info" errorClass="error"/>
-            <rich:dataTable id="orders" value="#{orderList.listRows}"
+            <h:message for="entities" infoClass="info" errorClass="error"/>
+            <rich:dataTable id="entities" value="#{orderList.listRows}"
                             var="row"
                             rowClasses="odd-row, even-row"
                             binding="#{table}"
@@ -265,7 +265,7 @@
                                        locale="#{locale}"
                                        popup="true"
                                        datePattern="#{messages.getString('datePattern')}"
-                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SDD')"
+                                       onchange="clickIn('mainForm:entities:#{table.rowIndex}:SDD')"
                                 />
 
                         <a4j:commandButton value="SDD"
@@ -305,7 +305,7 @@
                                      defaultLabel=""
                                      listWidth="280"
                                      listHeight="200"
-                                     onchange="clickIn('mainForm:orders:#{table.rowIndex}:SD')">
+                                     onchange="clickIn('mainForm:entities:#{table.rowIndex}:SD')">
                             <f:selectItem itemLabel="" itemValue="#{null}"/>
                             <f:selectItems value="#{orderList.developers}"
                                            var="row"
@@ -359,7 +359,7 @@
                                        locale="#{locale}"
                                        popup="true"
                                        datePattern="#{messages.getString('datePattern')}"
-                                       onchange="clickIn('mainForm:orders:#{table.rowIndex}:SEP')"
+                                       onchange="clickIn('mainForm:entities:#{table.rowIndex}:SEP')"
                                 />
 
                         <a4j:commandButton value="SEP"
@@ -414,7 +414,7 @@
                                        disabled="#{!orderList.userPA.endActualW}"
                                        styleClass="btn"
                                        rendered="#{row.endActual == null}"
-                                       render="orders"/>
+                                       render="entities"/>
                 </rich:column>
 
                 <rich:column rendered="#{orderList.userPA.paidR}"
@@ -437,7 +437,7 @@
                 </f:facet>
             </rich:dataTable>
             <a4j:commandButton id="refresh"
-                               render="orders"
+                               render="entities"
                                style="display: none"
                                value="refresh"/>
 

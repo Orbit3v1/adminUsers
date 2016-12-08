@@ -41,6 +41,10 @@ public class TNCRequestListPC implements PrivilegeChecker {
                         new PrivilegeAction("TNCRequestItemTNC", "READ"))
         );
 
+        userPA.put("countR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("TNCRequestItemCount", "READ"))
+        );
+
         userPA.put("tncLimitLowR", hasAnyPrivilegeAction(
                         new PrivilegeAction("TNCRequestItemTNC", "READ"))
         );

@@ -3,7 +3,6 @@ package com.app.data.dto;
 import com.app.data.dictionary.TNCRequestState;
 import com.app.data.entity.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -28,7 +27,7 @@ public class TNCRequestDTO {
     public TNCRequestDTO(TNCRequestItem tncRequestItem, boolean fromNewRequest) {
         this.fromNewRequest = fromNewRequest;
         this.name = tncRequestItem.getTncRequest().getName() + "_" + tncRequestItem.getName();
-        this.tncName = tncRequestItem.getTnc().getName();
+        this.tncName = tncRequestItem.getTnc().getNameInner();
         this.count = tncRequestItem.getCount();
         this.limitLow = tncRequestItem.getTnc().getLimitLow();
         this.limitHigh = tncRequestItem.getTnc().getLimitHigh();
@@ -36,7 +35,7 @@ public class TNCRequestDTO {
         this.start = tncRequestItem.getTncRequest().getStart();
         this.endPlan = tncRequestItem.getEndPlan();
         this.endActual = tncRequestItem.getEndActual();
-        this.state = tncRequestItem.getStatus();
+        this.state = tncRequestItem.getState();
         this.tncRequest = tncRequestItem.getTncRequest();
         this.tncRequestItem = tncRequestItem;
         this.tnc = tncRequestItem.getTnc();

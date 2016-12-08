@@ -64,12 +64,13 @@ public abstract class FilterBean {
     public void load(){
         logger.info("Load order list filter");
         loadFilter();
-        addMessage.setMessage("mainForm:orders", "orderListFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
+        addMessage.setMessage("mainForm:entities", "listFilter.loadSuccess", FacesMessage.SEVERITY_INFO);
     }
 
     public void find() {
         logger.info("find");
         filterOriginal.copyFrom(filter);
+        addMessage.setMessage("mainForm:entities", "listFilter.findSuccess", FacesMessage.SEVERITY_INFO);
     }
 
     public void setSort(Sort sort){
@@ -84,16 +85,16 @@ public abstract class FilterBean {
         logger.info("Save order list filter");
         try {
             saveData();
-            addMessage.setMessage("mainForm:orders", "orderListFilter.saveSuccess", FacesMessage.SEVERITY_INFO);
+            addMessage.setMessage("mainForm:entities", "listFilter.saveSuccess", FacesMessage.SEVERITY_INFO);
             filterOriginal.copyFrom(filter);
         } catch (OptimisticLockException e) {
             logger.error(e.getMessage());
             e.printStackTrace();
-            addMessage.setMessage("mainForm:orders", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:entities", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
-            addMessage.setMessage("mainForm:orders", "error.exception", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:entities", "error.exception", FacesMessage.SEVERITY_ERROR);
         }
     }
 

@@ -55,8 +55,8 @@
                              action="#{specificationList.exportExcel}"
                              styleClass="btn"/>
 
-            <h:message for="specifications" infoClass="info" errorClass="error"/>
-            <rich:dataTable id="specifications" value="#{specificationList.listRows}"
+            <h:message for="entities" infoClass="info" errorClass="error"/>
+            <rich:dataTable id="entities" value="#{specificationList.listRows}"
                             var="row"
                             rowClasses="odd-row, even-row"
                             binding="#{table}">
@@ -249,7 +249,7 @@
                 </rich:column>
             </rich:dataTable>
             <a4j:commandButton id="refresh"
-                               render="specifications"
+                               render="entities"
                                style="display: none"
                                value="refresh"/>
 

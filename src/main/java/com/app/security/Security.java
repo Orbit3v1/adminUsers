@@ -33,15 +33,9 @@ public class Security {
     }
 
     public static Map<String, Boolean> getUserPrivilegeAction(String screenName) {
-//        long startTime = System.currentTimeMillis();
-
         PrivilegeCheckerFactory pcFactory = PrivilegeCheckerFactory.getFactory();
         PrivilegeChecker pc = pcFactory.getChecker(screenName);
         return pc.getPrivileges();
-
-//        long stopTime = System.currentTimeMillis();
-//        long elapsedTime = stopTime - startTime;
-//        System.out.println("Security Time: " + elapsedTime);
     }
 
 }
