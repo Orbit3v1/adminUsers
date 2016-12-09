@@ -232,6 +232,10 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCList.success.save", "ТНЦ успешно создана"},
             {"TNCList.success.edit", "ТНЦ успешно изменена"},
 
+            {"TNCRequestScreen.title", "Заявка ТНЦ"},
+            {"TNCRequestScreen.editText", "Редактирование заявки ТНЦ"},
+            {"TNCRequestScreen.addText", "Добавление заявки ТНЦ"},
+
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
             {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"},

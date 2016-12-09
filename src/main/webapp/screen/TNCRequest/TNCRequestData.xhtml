@@ -1,0 +1,95 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="1">
+        <p:panelGrid columns="3" rendered="#{TNCRequestScreen.userPA.nameR}">
+            <h:outputLabel value="#{messages.getString('tncRequestEntity.name')}"
+                           for="name"
+                           styleClass="labelPF"/>
+            <p:inputText id="name"
+                         value="#{TNCRequestScreen.entity.name}"
+                         readonly="#{TNCRequestScreen.isDisabled('name') or !TNCRequestScreen.edit}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="name" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{TNCRequestScreen.userPA.creatorR}">
+            <h:outputLabel value="#{messages.getString('tncRequestEntity.creator')}"
+                           for="creator"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="creator"
+                             value="#{TNCRequestScreen.entity.creator}"
+                             converter="#{personConverter}"
+                             rendered="#{!TNCRequestScreen.isDisabled('creator')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{TNCRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="creatorRO"
+                         value="#{TNCRequestScreen.entity.creator}"
+                         styleClass="inputLarge"
+                         rendered="#{TNCRequestScreen.isDisabled('creator')}"
+                         readonly="#{TNCRequestScreen.isDisabled('creator')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{TNCRequestScreen.userPA.responsibleR}">
+            <h:outputLabel value="#{messages.getString('tncRequestEntity.responsible')}"
+                           for="responsible"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="responsible"
+                             value="#{TNCRequestScreen.entity.responsible}"
+                             converter="#{personConverter}"
+                             rendered="#{!TNCRequestScreen.isDisabled('responsible')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{TNCRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="responsibleRO"
+                         value="#{TNCRequestScreen.entity.responsible}"
+                         styleClass="inputLarge"
+                         rendered="#{TNCRequestScreen.isDisabled('responsible')}"
+                         readonly="#{TNCRequestScreen.isDisabled('responsible')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{TNCRequestScreen.userPA.startR}">
+            <h:outputLabel value="#{messages.getString('tncRequestEntity.start')}" for="start"
+                           styleClass="labelPF"/>
+            <p:calendar id="start"
+                        value="#{TNCRequestScreen.entity.start}"
+                        locale="ru"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        disabled="#{TNCRequestScreen.isDisabled('start')}"
+                        styleClass="calendarPF"
+                    />
+            <h:message for="start" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{TNCRequestScreen.userPA.endPlanR}">
+            <h:outputLabel value="#{messages.getString('tncRequestEntity.endPlan')}" for="endPlan"
+                           styleClass="labelPF"/>
+            <p:calendar id="endPlan"
+                        value="#{TNCRequestScreen.entity.endPlan}"
+                        locale="ru"
+                        disabled="#{TNCRequestScreen.isDisabled('endPlan')}"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        styleClass="calendarPF"/>
+            <h:message for="endPlan" errorClass="error"/>
+        </p:panelGrid>
+        <HR/>
+    </p:panelGrid>
+</ui:composition>

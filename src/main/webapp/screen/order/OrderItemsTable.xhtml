@@ -31,8 +31,8 @@
                   filterType="custom">
             <p:commandButton value="#{orderI.name}"
                              actionListener="#{orderScreen.shareOrder}"
-                             onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
-                             oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?id=#{orderI.id}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.id}')">
+                             onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.hashCode()}')"
+                             oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?hash=#{orderI.hashCode()}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.hashCode()}')">
             </p:commandButton>
         </p:column>
 
@@ -84,6 +84,7 @@
                              disabled="#{!orderScreen.userPA.endActualW}"
                              rendered="#{orderI.endActual == null}"
                              styleClass="buttonPF"
+                             update=":mainForm:panel:orderItems"
                     />
         </p:column>
 

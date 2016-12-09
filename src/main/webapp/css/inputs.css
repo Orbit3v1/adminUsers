@@ -41,8 +41,6 @@
 
 textarea[disabled],
 textarea[readonly],
-input[type="text"][disabled],
-input[type="text"][readonly],
 input[type="password"][disabled],
 input[type="password"][readonly],
 select[disabled],

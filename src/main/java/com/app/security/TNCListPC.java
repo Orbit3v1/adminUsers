@@ -7,9 +7,6 @@ import java.util.Map;
 
 import static com.app.security.Security.hasAnyPrivilegeAction;
 
-/**
- * Created by ayaroslavtsev on 07.12.2016.
- */
 public class TNCListPC implements PrivilegeChecker {
     @Override
     public Map<String, Boolean> getPrivileges() {

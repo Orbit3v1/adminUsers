@@ -46,9 +46,9 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     public void initEntity() {
-        String id = SessionUtil.getParameter("id");
-        if(id != null && AppUtil.isNumeric(id)){
-            entity = getOrderItemById(source, AppUtil.toInteger(id));
+        String hash = SessionUtil.getParameter("hash");
+        if(hash != null && AppUtil.isNumeric(hash)){
+            entity = getOrderItemByHash(source, AppUtil.toInteger(hash));
             originalOrderItem = entity;
             count = AppUtil.toString(entity.getCount());
             entity = new OrderItem();
@@ -63,10 +63,10 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         }
     }
 
-    private OrderItem getOrderItemById(Order order, Integer orderItemId){
+    private OrderItem getOrderItemByHash(Order order, Integer orderItemHash){
         OrderItem orderItem = null;
         for(OrderItem oi : order.getOrderItems()){
-            if(oi.getId().equals(orderItemId)){
+            if(oi.hashCode() == orderItemHash){
                 orderItem = oi;
                 break;
             }
