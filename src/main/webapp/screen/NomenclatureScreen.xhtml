@@ -38,7 +38,7 @@
                     <h:inputText id="name" value="#{nomenclatureScreen.entity.name}"
                                  styleClass="inputLarge"
                                  style="margin-left: 20px !important"
-                                 disabled="#{nomenclatureScreen.isDisabled('name')}">
+                                 readonly="#{nomenclatureScreen.isDisabled('name')}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="name" errorClass="error"/>
@@ -75,7 +75,7 @@
                         <h:inputText id="material" value="#{nomenclatureScreen.entity.material}"
                                      styleClass="inputLarge"
                                      style="margin-left: 9px !important"
-                                     disabled="#{nomenclatureScreen.isDisabled('material')}"/>
+                                     readonly="#{nomenclatureScreen.isDisabled('material')}"/>
                         <h:message for="material" errorClass="error"/>
                     </h:panelGroup>
 
@@ -83,7 +83,7 @@
                         <h:outputLabel value="#{messages.getString('nomenclatureEntity.description')}" for="description"
                                        styleClass="label"/>
                         <h:inputTextarea id="description" value="#{nomenclatureScreen.entity.description}"
-                                         disabled="#{nomenclatureScreen.isDisabled('description')}"
+                                         readonly="#{nomenclatureScreen.isDisabled('description')}"
                                          styleClass="textareaLarge"
                                          style="margin-left: 9px !important">
                             <f:ajax process="@this" partialSubmit="true"/>
@@ -178,7 +178,7 @@
                         <h:inputText id="gib" value="#{nomenclatureScreen.gib}"
                                      styleClass="inputLarge"
                                      style="margin-left: 9px !important"
-                                     disabled="#{nomenclatureScreen.isDisabled('gib')}"/>
+                                     readonly="#{nomenclatureScreen.isDisabled('gib')}"/>
 
                         <h:message for="gib" errorClass="error"/>
                     </h:panelGroup>
@@ -261,7 +261,7 @@
                 <h:inputText id="componentName"
                              value="#{nomenclatureScreen.NCM.tmpComponent.name}"
                              styleClass="inputLarge"
-                             disabled="#{nomenclatureScreen.isDisabled('name')}"/>
+                             readonly="#{nomenclatureScreen.isDisabled('name')}"/>
 
                 <p>
                     <h:commandButton value="#{messages.getString('button.save')}"

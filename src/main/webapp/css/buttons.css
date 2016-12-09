@@ -24,7 +24,8 @@
     background-image: url(/javax.faces.resource/images/delete_hover.png.xhtml) !important;
 }
 
-.delete.ui-state-disabled {
+.delete.ui-state-disabled, .delete.ui-state-disabled:hover {
+    background-image: url(/javax.faces.resource/images/delete.png.xhtml) !important;
     opacity: 0.2 !important
 }
 

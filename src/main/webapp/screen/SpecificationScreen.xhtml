@@ -37,14 +37,14 @@
                     <h:inputText id="name" value="#{specificationScreen.entity.name}"
                                  styleClass="inputLarge"
                                  style="width: 218px !important"
-                                 disabled="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
+                                 readonly="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:outputText value="-"/>
                     <h:inputText id="subName" value="#{specificationScreen.entity.subName}"
                                  styleClass="inputLarge"
                                  style="width: 50px !important"
-                                 disabled="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
+                                 readonly="#{specificationScreen.isDisabled('name') or !specificationScreen.edit}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="name" errorClass="error"/>
@@ -57,7 +57,7 @@
                                  value="#{specificationScreen.entity.nomenclature}"
                                  styleClass="inputLarge"
                                  style="width: 260px !important;"
-                                 disabled="true">
+                                 readonly="true">
                     </h:inputText>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
@@ -91,7 +91,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputText id="material" value="#{specificationScreen.entity.material}"
                                  styleClass="inputLarge"
-                                 disabled="#{specificationScreen.isDisabled('material')}"/>
+                                 readonly="#{specificationScreen.isDisabled('material')}"/>
                     <h:message for="material" errorClass="error"/>
                 </h:panelGroup>
 
@@ -136,7 +136,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputText id="type" value="#{specificationScreen.entity.type}"
                                  styleClass="inputLarge"
-                                 disabled="#{specificationScreen.isDisabled('type')}">
+                                 readonly="#{specificationScreen.isDisabled('type')}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="type" errorClass="error"/>
@@ -148,7 +148,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputText id="price" value="#{specificationScreen.entity.price}"
                                  styleClass="inputLarge"
-                                 disabled="#{specificationScreen.isDisabled('price')}">
+                                 readonly="#{specificationScreen.isDisabled('price')}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="price" errorClass="error"/>
@@ -160,7 +160,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputText id="discount" value="#{specificationScreen.entity.discount}"
                                  styleClass="inputLarge"
-                                 disabled="#{specificationScreen.isDisabled('discount')}">
+                                 readonly="#{specificationScreen.isDisabled('discount')}">
                         <f:ajax process="@this" partialSubmit="true"/>
                     </h:inputText>
                     <h:message for="discount" errorClass="error"/>
@@ -208,7 +208,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputTextarea id="additional" value="#{specificationScreen.entity.additional}"
                                      styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('additional')}"/>
+                                     readonly="#{specificationScreen.isDisabled('additional')}"/>
                     <h:message for="additional" errorClass="error"/>
                 </h:panelGroup>
 
@@ -217,7 +217,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputTextarea id="description" value="#{specificationScreen.entity.description}"
                                      styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('description')}"/>
+                                     readonly="#{specificationScreen.isDisabled('description')}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>
 
@@ -226,7 +226,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputTextarea id="mainSize" value="#{specificationScreen.entity.mainSize}"
                                      styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('mainSize')}"/>
+                                     readonly="#{specificationScreen.isDisabled('mainSize')}"/>
                     <h:message for="mainSize" errorClass="error"/>
                 </h:panelGroup>
 
@@ -235,7 +235,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputTextarea id="detailSize" value="#{specificationScreen.entity.detailSize}"
                                      styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('detailSize')}"/>
+                                     readonly="#{specificationScreen.isDisabled('detailSize')}"/>
                     <h:message for="detailSize" errorClass="error"/>
                 </h:panelGroup>
 
@@ -244,7 +244,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputTextarea id="pressure" value="#{specificationScreen.entity.pressure}"
                                      styleClass="textareaLarge"
-                                     disabled="#{specificationScreen.isDisabled('pressure')}"/>
+                                     readonly="#{specificationScreen.isDisabled('pressure')}"/>
                     <h:message for="pressure" errorClass="error"/>
                 </h:panelGroup>
 
@@ -253,7 +253,7 @@
                                    styleClass="labelLarge"/>
                     <h:inputText id="workDays" value="#{specificationScreen.workDays}"
                                  styleClass="inputLarge"
-                                 disabled="#{specificationScreen.isDisabled('workDays')}"/>
+                                 readonly="#{specificationScreen.isDisabled('workDays')}"/>
                     <h:message for="workDays" errorClass="error"/>
                 </h:panelGroup>
             </h:panelGrid>
@@ -305,7 +305,7 @@
                     <h:panelGroup id="approve">
                         <h:inputText id="approved"
                                      value="#{specificationScreen.approved}"
-                                     disabled="true"
+                                     readonly="true"
                                      styleClass="inputLarge"
                                      rendered="#{specificationScreen.entity.approved != null}">
                         </h:inputText>

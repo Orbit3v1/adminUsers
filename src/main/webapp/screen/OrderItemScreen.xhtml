@@ -35,7 +35,7 @@
                                  value="#{orderItemScreen.entity.nomenclature}"
                                  styleClass="inputLarge"
                                  style="width: 260px !important;"
-                                 disabled="true">
+                                 readonly="true">
                     </h:inputText>
                     <h:panelGroup id="nomenclatureInfo">
                         <a4j:commandButton
@@ -63,7 +63,7 @@
                                    styleClass="label"/>
                     <h:inputText id="count" value="#{orderItemScreen.count}"
                                  styleClass="inputLarge"
-                                 disabled="#{orderItemScreen.isDisabled('count')}">
+                                 readonly="#{orderItemScreen.isDisabled('count')}">
                         <f:validateBean disabled="true"/>
                     </h:inputText>
                     <h:message for="count" errorClass="error"/>
@@ -117,7 +117,7 @@
                     <h:panelGroup id="endActualSet" rendered="#{orderItemScreen.entity.endActual != null}">
                         <h:inputText id="endActual"
                                      value="#{orderItemScreen.entity.endActual}"
-                                     disabled="true"
+                                     readonly="true"
                                      styleClass="inputLarge">
                             <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
                         </h:inputText>

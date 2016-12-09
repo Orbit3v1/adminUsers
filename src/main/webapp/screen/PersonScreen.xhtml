@@ -32,7 +32,7 @@
                                    styleClass="label"/>
                     <h:inputText id="lastName" value="#{personScreen.entity.lastName}"
                                  styleClass="inputMedium"
-                                 disabled="#{personScreen.isDisabled('lastName')}"/>
+                                 readonly="#{personScreen.isDisabled('lastName')}"/>
                     <h:message for="lastName" errorClass="error"/>
                 </h:panelGroup>
 
@@ -41,7 +41,7 @@
                                    styleClass="label"/>
                     <h:inputText id="firstName" value="#{personScreen.entity.firstName}"
                                  styleClass="inputMedium"
-                                 disabled="#{personScreen.isDisabled('firstName')}"/>
+                                 readonly="#{personScreen.isDisabled('firstName')}"/>
                     <h:message for="firstName" errorClass="error"/>
                 </h:panelGroup>
 
@@ -50,7 +50,7 @@
                                    styleClass="label"/>
                     <h:inputText id="email" value="#{personScreen.entity.email}"
                                  styleClass="inputMedium"
-                                 disabled="#{personScreen.isDisabled('email')}"/>
+                                 readonly="#{personScreen.isDisabled('email')}"/>
                     <h:message for="email" errorClass="error"/>
                 </h:panelGroup>
 
@@ -59,7 +59,7 @@
                                    styleClass="label"/>
                     <h:inputText id="login" value="#{personScreen.entity.login}"
                                  styleClass="inputMedium"
-                                 disabled="#{personScreen.isDisabled('login')}"/>
+                                 readonly="#{personScreen.isDisabled('login')}"/>
                     <h:message for="login" errorClass="error"/>
                 </h:panelGroup>
 

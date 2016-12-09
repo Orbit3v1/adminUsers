@@ -11,7 +11,7 @@
             <p:inputText id="paymentDescription"
                          value="#{orderScreen.OPM.tmpPayment.description}"
                          styleClass="inputLarge"
-                         disabled="#{orderScreen.isDisabled('paymentDescription', orderScreen.OPM.edit)}"/>
+                         readonly="#{orderScreen.isDisabled('paymentDescription', orderScreen.OPM.edit)}"/>
             <h:message for="paymentDescription" errorClass="error"/>
         </p:panelGrid>
 
@@ -22,7 +22,7 @@
             <p:inputNumber id="paymentAmount"
                            value="#{orderScreen.OPM.tmpPayment.amount}"
                            inputStyleClass="inputLarge"
-                           disabled="#{orderScreen.isDisabled('paymentAmount', orderScreen.OPM.edit)}"/>
+                           readonly="#{orderScreen.isDisabled('paymentAmount', orderScreen.OPM.edit)}"/>
             <h:message for="paymentAmount" errorClass="error"/>
         </p:panelGrid>
 

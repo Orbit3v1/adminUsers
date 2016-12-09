@@ -17,7 +17,10 @@
     width: 280px !important;
 }
 
-.inputMedium:disabled, .inputLarge:disabled{
+.inputMedium:disabled,
+.inputLarge:disabled,
+.inputMedium:read-only,
+.inputLarge:read-only{
     color: black !important;
     background: #e9e9e9 !important;
 }
@@ -36,7 +39,14 @@
     width: 276px !important;
 }
 
-textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled]{
+textarea[disabled],
+textarea[readonly],
+input[type="text"][disabled],
+input[type="text"][readonly],
+input[type="password"][disabled],
+input[type="password"][readonly],
+select[disabled],
+select[readonly]{
     color: black !important;
     background: #e9e9e9 !important;
 }

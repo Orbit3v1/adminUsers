@@ -32,7 +32,7 @@
                     <h:outputLabel value="#{messages.getString('roleEntity.id')}" for="id" styleClass="label"/>
                     <h:inputText id="id" value="#{roleScreen.entity.id}"
                                  styleClass="inputMedium"
-                                 disabled="#{roleScreen.isDisabled('id')}"/>
+                                 readonly="#{roleScreen.isDisabled('id')}"/>
                     <h:message for="id" errorClass="error"/>
                 </h:panelGroup>
 
@@ -41,7 +41,7 @@
                                    styleClass="label"/>
                     <h:inputText id="name" value="#{roleScreen.entity.name}"
                                  styleClass="inputMedium"
-                                 disabled="#{roleScreen.isDisabled('name')}"/>
+                                 readonly="#{roleScreen.isDisabled('name')}"/>
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
 
@@ -50,7 +50,7 @@
                                    styleClass="label"/>
                     <h:inputTextarea id="description" value="#{roleScreen.entity.description}"
                                      styleClass="textareaMedium"
-                                     disabled="#{roleScreen.isDisabled('description')}"/>
+                                     readonly="#{roleScreen.isDisabled('description')}"/>
                     <h:message for="description" errorClass="error"/>
                 </h:panelGroup>
 

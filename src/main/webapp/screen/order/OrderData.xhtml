@@ -13,7 +13,7 @@
             <p:inputText id="name"
                          value="#{orderScreen.entity.name}"
                          styleClass="inputLarge"
-                         disabled="#{orderScreen.isDisabled('name')}"/>
+                         readonly="#{orderScreen.isDisabled('name')}"/>
             <h:message for="name" errorClass="error"/>
         </p:panelGrid>
 
@@ -24,7 +24,7 @@
             <p:inputText id="customer"
                          value="#{orderScreen.entity.customer}"
                          styleClass="inputLarge"
-                         disabled="#{orderScreen.isDisabled('customer')}"/>
+                         readonly="#{orderScreen.isDisabled('customer')}"/>
             <h:message for="customer" errorClass="error"/>
         </p:panelGrid>
 
@@ -48,7 +48,7 @@
                          value="#{orderScreen.entity.responsible}"
                          styleClass="inputLarge"
                          rendered="#{orderScreen.isDisabled('responsible')}"
-                         disabled="#{orderScreen.isDisabled('responsible')}"/>
+                         readonly="#{orderScreen.isDisabled('responsible')}"/>
             <h:message for="responsible" errorClass="error"/>
         </p:panelGrid>
 

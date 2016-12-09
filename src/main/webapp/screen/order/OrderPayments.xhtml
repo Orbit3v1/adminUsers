@@ -12,7 +12,7 @@
                            styleClass="labelPF"/>
             <p:inputNumber id="price" value="#{orderScreen.entity.price}"
                            inputStyleClass="inputLarge"
-                           disabled="#{orderScreen.isDisabled('price')}"
+                           readonly="#{orderScreen.isDisabled('price')}"
                            valueChangeListener="#{orderScreen.onPriceChange}"
                     >
                 <p:ajax update=":mainForm:panel:paid"/>
@@ -25,7 +25,7 @@
                            styleClass="labelPF"/>
             <p:inputText id="paid" value="#{orderScreen.entity.paid}"
                          styleClass="inputLarge"
-                         disabled="true"/>
+                         readonly="true"/>
             <h:message for="paid" errorClass="error"/>
         </p:panelGrid>
     </p:panelGrid>
