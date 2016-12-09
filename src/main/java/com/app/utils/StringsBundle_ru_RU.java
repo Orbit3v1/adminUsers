@@ -298,6 +298,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.calc.delete", "Сущность используется в расчете. Разорвите все связи перед удалением"},
             {"error.refresh1C", "Ошибка при обновлении из 1С"},
             {"error.copy", "Ошибка при копировании"},
+            {"error.dateFormat", "Неверная дата"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},

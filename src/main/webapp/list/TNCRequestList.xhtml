@@ -23,7 +23,7 @@
             <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
                              onclick="openPopUp('/screen/TNCRequestScreen.xhtml', 'TNCRequestScreen')"
-                             styleClass="btn"
+                             styleClass="buttonPF"
                              rendered="#{tncRequestList.userPA.addR}"
                              disabled="#{!tncRequestList.userPA.addEx}"/>
 
@@ -48,7 +48,7 @@
                         </h:commandLink>
                         <p:inputText value="#{tncRequestListFilterBean.filter.name}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
-                                     style="width: 100px"/>
+                                     styleClass="inputSmall"/>
                     </f:facet>
                     <p:commandLink value="#{row.name}"
                                    style="display: block;"/>
@@ -65,7 +65,7 @@
                         </h:commandLink>
                         <p:inputText value="#{tncRequestListFilterBean.filter.tnc}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
-                                     style="width: 100px"/>
+                                     styleClass="inputSmall"/>
                     </f:facet>
                     <p:commandLink value="#{row.tncName}"
                                    onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{row.tnc.id}', 'TNCScreen#{row.tnc.id}')"
@@ -123,7 +123,7 @@
                         </h:commandLink>
                         <p:inputText value="#{tncRequestListFilterBean.filter.creator}"
                                      onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
-                                     style="width: 100px"/>
+                                     styleClass="inputSmall"/>
                     </f:facet>
                     <h:outputText value="#{row.creator}"/>
                 </p:column>
@@ -138,7 +138,8 @@
                                     styleClass="headerSortImg"/>
                         </h:commandLink>
                         <p:selectOneMenu value="#{tncRequestListFilterBean.filter.state}"
-                                         styleClass="selectOneMenuSmallPF">
+                                         styleClass="selectOneMenuSmallPF"
+                                         style="margin: 4px 0px 0px 0px !important">
                             <f:selectItem itemLabel=""
                                           itemValue="#{null}"/>
                             <f:selectItems value="#{tncRequestListFilterBean.filterStates}"
@@ -166,11 +167,12 @@
                             <p:calendar id="startL"
                                         value="#{tncRequestListFilterBean.filter.startL}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="startL" infoClass="info" errorClass="error"/>
                         </div>
                         <div>
                             <h:outputLabel value="≤" for="startH"
@@ -178,11 +180,12 @@
                             <p:calendar id="startH"
                                         value="#{tncRequestListFilterBean.filter.startH}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="startH" infoClass="info" errorClass="error"/>
                         </div>
                     </f:facet>
                     <h:outputText value="#{row.start}">
@@ -207,11 +210,13 @@
                             <p:calendar id="endPlanL"
                                         value="#{tncRequestListFilterBean.filter.endPlanL}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="endPlanL" infoClass="info" errorClass="error"/>
+
                         </div>
                         <div>
                             <h:outputLabel value="≤" for="endPlanH"
@@ -219,11 +224,12 @@
                             <p:calendar id="endPlanH"
                                         value="#{tncRequestListFilterBean.filter.endPlanH}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="endPlanH" infoClass="info" errorClass="error"/>
                         </div>
                     </f:facet>
                     <h:outputText value="#{row.endPlan}">
@@ -248,11 +254,12 @@
                             <p:calendar id="endActualL"
                                         value="#{tncRequestListFilterBean.filter.endActualL}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="endActualL" infoClass="info" errorClass="error"/>
                         </div>
                         <div>
                             <h:outputLabel value="≤" for="endActualH"
@@ -260,11 +267,12 @@
                             <p:calendar id="endActualH"
                                         value="#{tncRequestListFilterBean.filter.endActualH}"
                                         locale="ru"
-                                        readonlyInput="true"
+                                        converterMessage="#{messages.getString('error.dateFormat')}"
                                         pattern="#{messages.getString('datePattern')}"
                                         showOn="button"
                                         styleClass="calendarSmallPF"
                                     />
+                            <h:message for="endActualH" infoClass="info" errorClass="error"/>
                         </div>
                     </f:facet>
                     <h:outputText value="#{row.endActual}">
