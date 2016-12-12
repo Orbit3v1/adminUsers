@@ -48,15 +48,15 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     public void initEntity() {
         String hash = SessionUtil.getParameter("hash");
         if(hash != null && AppUtil.isNumeric(hash)){
-            entity = getOrderItemByHash(source, AppUtil.toInteger(hash));
-            originalOrderItem = entity;
-            count = AppUtil.toString(entity.getCount());
+            originalOrderItem = getOrderItemByHash(source, AppUtil.toInteger(hash));
+            count = AppUtil.toString(originalOrderItem.getCount());
             entity = new OrderItem();
             entity.copyForm(originalOrderItem);
             edit = true;
         } else {
             count = null;
 
+            originalOrderItem = new OrderItem();
             entity = new OrderItem();
             entity.setOrder(source);
             entity.setEndPlan(source.getEndPlan());
@@ -80,9 +80,8 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
     }
 
     @Override
-    public void exit() {
-        SessionUtil.removeSessionVariable("EntityNomenclature" + entity.getId());
-        super.exit();
+    protected void clearCash(){
+        SessionUtil.removeSessionVariable("EntityNomenclature");
     }
 
     @Override
@@ -104,11 +103,8 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
             originalOrderItem.copyForm(entity);
         } else {
             entity.setName(getItemName(source));
-
-            source.getOrderItems().add(entity);
-            originalOrderItem = entity;
-            entity = new OrderItem();
-            entity.copyForm(originalOrderItem);
+            originalOrderItem.copyForm(entity);
+            source.getOrderItems().add(originalOrderItem);
             edit = true;
         }
     }

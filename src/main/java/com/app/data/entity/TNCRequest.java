@@ -12,7 +12,7 @@ public class TNCRequest extends AbstractVersionedEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @Column(name = "name")
     private String name;

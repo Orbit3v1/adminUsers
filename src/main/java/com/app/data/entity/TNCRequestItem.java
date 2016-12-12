@@ -11,7 +11,7 @@ public class TNCRequestItem extends AbstractVersionedEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -39,6 +39,17 @@ public class TNCRequestItem extends AbstractVersionedEntity {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private TNCRequestState state;
+
+    public void copyForm(TNCRequestItem item){
+        this.name = item.name;
+        this.count = item.count;
+        this.tnc = item.tnc;
+        this.endPlan = item.endPlan;
+        this.endActual = item.endActual;
+        this.reason = item.reason;
+        this.tncRequest = item.tncRequest;
+        this.state = item.state;
+    }
 
     @Override
     public Integer getId() {

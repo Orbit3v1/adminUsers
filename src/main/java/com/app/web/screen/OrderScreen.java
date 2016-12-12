@@ -74,7 +74,6 @@ public class OrderScreen extends EntityScreen<Order>  {
     @Loggable
     @Transactional
     public void refresh() {
-        logger.info("refresh");
         for (OrderItem orderItem : entity.getOrderItems()) {
             orderItem.setNomenclature(em.find(Nomenclature.class, orderItem.getNomenclature().getId()));
         }
@@ -109,9 +108,8 @@ public class OrderScreen extends EntityScreen<Order>  {
     }
 
     @Override
-    public void exit() {
+    protected void clearCash(){
         SessionUtil.removeSessionVariable("Order" + entity.getId());
-        super.exit();
     }
 
     public List<Person> getDevelopers() {

@@ -12,7 +12,7 @@
                            styleClass="labelPF"/>
             <p:inputText id="name"
                          value="#{TNCRequestScreen.entity.name}"
-                         readonly="#{TNCRequestScreen.isDisabled('name') or !TNCRequestScreen.edit}"
+                         readonly="#{TNCRequestScreen.isDisabled('name')}"
                          styleClass="inputLarge"
                     />
             <h:message for="name" errorClass="error"/>

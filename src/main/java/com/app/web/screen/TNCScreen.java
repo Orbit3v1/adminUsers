@@ -78,13 +78,9 @@ public class TNCScreen extends EntityScreen<TNC>{
         entity = em.merge(entity);
     }
 
-    @Override
-    public void exit(){
-        super.exit();
-        clearCash();
-    }
 
-    private void clearCash(){
+    @Override
+    protected void clearCash(){
         for(TNCAttachment tncAttachment : entity.getTNCAttachments()){
             SessionUtil.removeSessionVariable(String.valueOf(tncAttachment.getAttachment().hashCode()));
         }

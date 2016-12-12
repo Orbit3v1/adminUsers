@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/application.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="screen" value="#{TNCRequestItemScreen}"/>
+    <ui:define name="title">
+        <h:outputText value="#{messages.getString('TNCRequestItemScreen.title')}"/>
+    </ui:define>
+    <ui:define name="headerMenu"/>
+
+
+    <ui:define name="body">
+        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+            <h:outputText style="font-size: 18px; font-weight: bold"
+                          value="#{TNCRequestItemScreen.edit ? messages.getString('TNCRequestItemScreen.editText') : messages.getString('TNCRequestItemScreen.addText')}"/>
+
+            <HR/>
+
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <h:panelGrid id="panel" columns="1">
+                <p:panelGrid columns="3" rendered="#{TNCRequestItemScreen.userPA.nameR}">
+                    <h:outputLabel value="#{messages.getString('tncRequestItemEntity.name')}"
+                                   for="name"
+                                   styleClass="labelPF"/>
+                    <p:inputText id="name"
+                                 value="#{TNCRequestItemScreen.entity.name}"
+                                 readonly="#{TNCRequestItemScreen.isDisabled('name')  or !TNCRequestItemScreen.edit}"
+                                 styleClass="inputLarge"
+                            />
+                    <h:message for="name" errorClass="error"/>
+                </p:panelGrid>
+
+                <h:panelGroup id="tncP" rendered="#{TNCRequestItemScreen.userPA.tncR}">
+                    <h:outputLabel value="#{messages.getString('tncRequestItemEntity.tnc')}" for="tnc"
+                                   styleClass="labelPF"/>
+                    <p:inputText id="tnc"
+                                 value="#{TNCRequestItemScreen.entity.tnc.nameInner}"
+                                 styleClass="inputFindPF"
+                                 readonly="true"/>
+                    <h:panelGroup id="tncInfo">
+                        <p:commandButton value="..."
+                                         title="Добавить ТНЦ"
+                                         actionListener="#{TNCRequestItemScreen.choose('selectTNC')}"
+                                         rendered="#{!TNCRequestItemScreen.isDisabled('tnc')}"
+                                         styleClass="findBtnPF">
+                            <p:ajax event="dialogReturn"
+                                    listener="#{TNCRequestItemScreen.onTNCChosen}"
+                                    update=":mainForm:tncP"/>
+                        </p:commandButton>
+                        <p:commandButton
+                                rendered="#{TNCRequestItemScreen.entity.tnc != null}"
+                                onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{TNCRequestItemScreen.entity.tnc.id}', 'TNCScreen#{TNCRequestItemScreen.entity.id}')"
+                                icon="ui-icon-search"/>
+                        <h:message for="tnc" errorClass="error" infoClass="info"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{TNCRequestItemScreen.userPA.countR}">
+                    <h:outputLabel value="#{messages.getString('tncRequestItemEntity.count')}" for="count"
+                                   styleClass="labelPF"/>
+                    <p:inputNumber id="count" value="#{TNCRequestItemScreen.entity.count}"
+                                   inputStyleClass="inputLarge"
+                                   readonly="#{TNCRequestItemScreen.isDisabled('count')}"/>
+                    <h:message for="count" errorClass="error"/>
+                </h:panelGroup>
+
+                <p:panelGrid columns="3" rendered="#{TNCRequestItemScreen.userPA.reasonR}">
+                    <h:outputLabel value="#{messages.getString('tncRequestItemEntity.reason')}" for="reason"
+                                   styleClass="labelPF"/>
+                    <p:inputTextarea id="reason"
+                                value="#{TNCRequestItemScreen.entity.reason}"
+                                readonly="#{TNCRequestItemScreen.isDisabled('reason')}"
+                                styleClass="textareaLargePF"/>
+                    <h:message for="reason" errorClass="error"/>
+                </p:panelGrid>
+
+                <p:panelGrid columns="3" rendered="#{TNCRequestItemScreen.userPA.endPlanR}">
+                    <h:outputLabel value="#{messages.getString('tncRequestItemEntity.endPlan')}" for="endPlan"
+                                   styleClass="labelPF"/>
+                    <p:calendar id="endPlan"
+                                value="#{TNCRequestItemScreen.entity.endPlan}"
+                                locale="ru"
+                                disabled="#{TNCRequestItemScreen.isDisabled('endPlan')}"
+                                readonlyInput="true"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarPF"/>
+                    <h:message for="endPlan" errorClass="error"/>
+                </p:panelGrid>
+            </h:panelGrid>
+
+            <HR/>
+
+            <ui:include src="../template/ScreenEditButtons.xhtml"/>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+
+            <p:commandButton id="refresh"
+                             update=":mainForm:tncP"
+                             actionListener="#{TNCRequestItemScreen.refresh}"
+                             style="display: none"
+                             value="refresh"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

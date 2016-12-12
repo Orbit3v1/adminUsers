@@ -33,6 +33,9 @@
                 <p:tab title="#{messages.getString('TNCRequestScreen.title')}">
                     <ui:include src="TNCRequest/TNCRequestData.xhtml"/>
                 </p:tab>
+                <p:tab title="#{messages.getString('TNCRequestScreen.table.orderItems')}">
+                    <ui:include src="TNCRequest/ItemsTable.xhtml"/>
+                </p:tab>
             </p:accordionPanel>
 
             <ui:include src="../template/ScreenEditButtons.xhtml"/>
@@ -41,6 +44,13 @@
                 <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
             </p:confirmDialog>
+
+            <p:commandButton id="refresh"
+                             update=":mainForm:panel:items"
+                             actionListener="#{TNCRequestScreen.refresh}"
+                             style="display: none"
+                             value="refresh"/>
+
         </h:form>
     </ui:define>
 </ui:composition>

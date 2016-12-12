@@ -62,7 +62,12 @@ public abstract class EntityScreen<T extends Unique> {
 
     public void exit() {
         logger.info("exit");
+        clearCash();
         executeJS("exit();");
+    }
+
+    protected void clearCash(){
+
     }
 
     protected void executeJS(String script){

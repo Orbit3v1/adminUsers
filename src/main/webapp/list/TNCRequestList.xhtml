@@ -149,7 +149,7 @@
                                            itemLabel="#{state.description}"/>
                         </p:selectOneMenu>
                     </f:facet>
-                    <h:outputText value="#{row.state}"/>
+                    <h:outputText value="#{row.state.description}"/>
                 </p:column>
                 <p:column rendered="#{tncRequestList.userPA.startR}"
                           style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">

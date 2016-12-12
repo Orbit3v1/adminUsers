@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @Scope("view")
 public class TNCRequestScreen extends EntityScreen<TNCRequest>{
 
+    private static final String NAME_PREFIX = "ТНЦ";
     private List<Person> developers;
 
     @Loggable
@@ -40,7 +43,27 @@ public class TNCRequestScreen extends EntityScreen<TNCRequest>{
             entity.setCreator(Security.getCurrentUser());
             entity.setResponsible(Security.getCurrentUser());
             entity.setStart(new Date());
+            generateName();
         }
+    }
+
+    private void generateName(){
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String name = NAME_PREFIX + df.format(new Date());
+        entity.setName(name);
+    }
+
+    public void delete(TNCRequestItem item) {
+        entity.getTncRequestItems().remove(item);
+    }
+
+    public void shareEntity(){
+        SessionUtil.addSessionVariable("TNCRequest" + entity.getId(), entity);
+    }
+
+    @Override
+    protected void clearCash(){
+        SessionUtil.removeSessionVariable("TNCRequest" + entity.getId());
     }
 
     @Override
@@ -52,6 +75,14 @@ public class TNCRequestScreen extends EntityScreen<TNCRequest>{
     @Transactional
     protected void save() {
         entity = em.merge(entity);
+    }
+
+    @Loggable
+    @Transactional
+    public void refresh() {
+        for (TNCRequestItem item : entity.getTncRequestItems()) {
+            item.setTnc(em.find(TNC.class, item.getTnc().getId()));
+        }
     }
 
     public List<Person> getDevelopers() {

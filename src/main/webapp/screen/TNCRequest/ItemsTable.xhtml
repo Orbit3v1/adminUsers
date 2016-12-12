@@ -1,0 +1,84 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <p:commandButton value="#{messages.getString('button.add')}"
+                     actionListener="#{TNCRequestScreen.shareEntity}"
+                     rendered="#{TNCRequestScreen.userPA.addItemR}"
+                     disabled="#{!TNCRequestScreen.userPA.addItemEx}"
+                     onclick="openPopUp('about:blank', 'TNCRequestItemScreen#{orderI.id}')"
+                     oncomplete="openPopUp('/screen/TNCRequestItemScreen.xhtml?sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen')"
+                     styleClass="buttonPF"
+            />
+
+    <h:message for="items" infoClass="info" errorClass="error"/>
+    <p:dataTable id="items"
+                 value="#{TNCRequestScreen.entity.tncRequestItems}"
+                 emptyMessage="#{messages.getString('table.emptyMessage')}"
+                 var="item"
+                 tableStyle="width:auto"
+                 resizableColumns="true">
+
+        <p:column rendered="#{TNCRequestScreen.userPA.TNCRequestItemName}"
+                  style="text-align: center"
+                  width="40"
+                  headerText="#{messages.getString('tncRequestItemEntity.name')}"
+                  >
+            <p:commandButton value="#{item.name}"
+                             actionListener="#{TNCRequestScreen.shareEntity}"
+                             onclick="openPopUp('about:blank', 'TNCRequestItemScreen#{item.hashCode()}')"
+                             oncomplete="openPopUp('/screen/TNCRequestItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen#{item.hashCode()}')">
+            </p:commandButton>
+        </p:column>
+
+        <p:column rendered="#{TNCRequestScreen.userPA.itemTncR}"
+                  headerText="#{messages.getString('tncRequestItemEntity.tnc')}">
+            <p:commandLink value="#{item.tnc.nameInner}"
+                           onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{item.tnc.id}', 'TNCScreen#{item.tnc.id}')"
+                           styleClass="link"
+                           style="display: block;"/>
+        </p:column>
+
+        <p:column rendered="#{TNCRequestScreen.userPA.itemCountR}"
+                  width="55"
+                  headerText="#{messages.getString('tncRequestItemEntity.count')}">
+            <h:outputText value="#{item.count}"/>
+        </p:column>
+
+        <p:column rendered="#{TNCRequestScreen.userPA.itemEndPlanR}"
+                  width="90"
+                  headerText="#{messages.getString('tncRequestItemEntity.endPlan')}">
+            <h:outputText value="#{item.endPlan}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{TNCRequestScreen.userPA.itemEndActualR}"
+                  width="90"
+                  headerText="#{messages.getString('tncRequestItemEntity.endActual')}">
+            <h:outputText value="#{item.endActual}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{TNCRequestScreen.userPA.deleteItemR}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:panel:items, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{TNCRequestScreen.delete(item)}"
+                           disabled="#{!TNCRequestScreen.userPA.deleteItemEx}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+
+    </p:dataTable>
+
+</ui:composition>

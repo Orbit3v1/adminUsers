@@ -66,3 +66,7 @@ tr.ui-widget-content{
     white-space: pre !important;
 }
 
+.ui-button-text-only .ui-button-text{
+    padding: 4px 8px !important;
+}
+

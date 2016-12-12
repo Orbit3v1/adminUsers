@@ -99,7 +99,7 @@ public class TNCRequestScreenPC implements PrivilegeChecker {
         );
 
         userPA.put("TNCRequestItemName", hasAnyPrivilegeAction(
-                        new PrivilegeAction("orderItemName", "READ"))
+                        new PrivilegeAction("TNCRequestItemName", "READ"))
         );
 
         userPA.put("itemTncR", hasAnyPrivilegeAction(
@@ -124,6 +124,10 @@ public class TNCRequestScreenPC implements PrivilegeChecker {
 
         userPA.put("itemEndPlanR", hasAnyPrivilegeAction(
                         new PrivilegeAction("TNCRequestItemEndPlan", "READ"))
+        );
+
+        userPA.put("itemEndActualR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("TNCRequestItemEndActual", "READ"))
         );
 
         userPA.put("itemReasonR", hasAnyPrivilegeAction(

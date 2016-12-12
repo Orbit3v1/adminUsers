@@ -17,14 +17,6 @@
     width: 280px !important;
 }
 
-.inputMedium:disabled,
-.inputLarge:disabled,
-.inputMedium:read-only,
-.inputLarge:read-only{
-    color: black !important;
-    background: #e9e9e9 !important;
-}
-
 .textareaMedium{
     font-size: 14px !important;
     margin: 3px !important;
@@ -44,7 +36,14 @@ textarea[readonly],
 input[type="password"][disabled],
 input[type="password"][readonly],
 select[disabled],
-select[readonly]{
+select[readonly],
+.calendarPF input:disabled,
+.calendarSmallPF input:disabled,
+.inputMedium:disabled,
+.inputLarge:disabled,
+.inputMedium:read-only,
+.inputLarge:read-only,
+.textareaLargePF:read-only{
     color: black !important;
     background: #e9e9e9 !important;
 }
@@ -86,4 +85,17 @@ select[readonly]{
     font-size: 14px !important;
     margin: 0 !important;
     width: 100px !important;
+}
+
+.inputFindPF{
+   margin: 3px 0 3px 3px !important;
+   width: 249px !important;
+   font-size: 14px !important;
+}
+
+.textareaLargePF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 80px !important;
+    width: 280px !important;
 }
