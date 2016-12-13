@@ -15,6 +15,12 @@
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
+            <p:commandButton value="#{messages.getString('button.add')}"
+                             onclick="openPopUp('/screen/TNCScreen.xhtml', 'TNCScreen')"
+                             rendered="#{TNCList.userPA.addR}"
+                             disabled="#{!TNCList.userPA.addEx}"
+                             styleClass="buttonPF"
+                    />
               <p:dataTable id="entities" value="#{TNCList.entities}" var="row"
                          filteredValue="#{TNCList.filteredEntities}"
                          sortMode="multiple"
@@ -22,13 +28,16 @@
                          paginator="true"
                          rows="10">
                 <p:column rendered="#{true}"
-                          headerText="#{messages.getString('TNCEntity.name')}"
+                          headerText="#{messages.getString('TNCEntity.nameInner')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
                           filterMatchMode="contains"
                           style="width:350px"
                           filterStyle="width: 150px">
-                    <h:outputText value="#{row.name}"/>
+                    <p:commandLink value="#{row.nameInner}"
+                                   onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{row.id}', 'TNCScreen#{row.id}')"
+                                   styleClass="link"
+                                   style="display: block; text-decoration: none;"/>
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.unitsTo')}"
@@ -42,6 +51,11 @@
                                      styleClass="selectBtnPF"/>
                 </p:column>
             </p:dataTable>
+            <p:commandButton id="refresh"
+                             update=":mainForm"
+                             actionListener="#{TNCList.initList}"
+                             style="display: none"
+                             value="refresh"/>
         </h:form>
     </ui:define>
 </ui:composition>
