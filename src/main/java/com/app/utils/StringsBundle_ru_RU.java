@@ -238,10 +238,15 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCRequestScreen.table.orderItems", "Позиции"},
             {"TNCRequestScreen.success.save", "Заявка ТНЦ успешно создана"},
             {"TNCRequestScreen.success.edit", "Заявка ТНЦ успешно изменена"},
+            {"TNCRequestScreen.error.emptyItems", "Добавте позиции"},
+            {"TNCRequestScreen.error.title", "Неверные данные"},
 
             {"TNCRequestItemScreen.title", "Позиция заявки ТНЦ"},
             {"TNCRequestItemScreen.editText", "Редактирование позиции заявки ТНЦ"},
             {"TNCRequestItemScreen.addText", "Добавление позиции заявки ТНЦ"},
+            {"TNCRequestItemScreen.error.title", "Неверные данные"},
+            {"TNCRequestItemScreen.success.save", "Позиция заявки ТНЦ успешно создана"},
+            {"TNCRequestItemScreen.success.edit", "Позиция заявки ТНЦ успешно изменена"},
 
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},

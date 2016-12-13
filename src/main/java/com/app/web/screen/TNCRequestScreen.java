@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
+import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Named("TNCRequestScreen")
 @Scope("view")
@@ -74,7 +76,22 @@ public class TNCRequestScreen extends EntityScreen<TNCRequest>{
     @Override
     @Transactional
     protected void save() {
+        generateItemsNames();
         entity = em.merge(entity);
+    }
+
+    private void generateItemsNames(){
+        AtomicInteger maxName = new AtomicInteger(getMaxItemName() + 1);
+        entity.getTncRequestItems().stream().filter(x -> x.getId().equals(0)).forEach(x -> x.setName(String.valueOf(maxName.getAndIncrement())));
+    }
+
+    private int getMaxItemName(){
+        Query query = em.createQuery("select max(cast(ri.name as int)) " +
+                "from TNCRequestItem ri " +
+                "where ri.tncRequest.name = :name "
+        );
+        Integer result = (Integer) query.setParameter("name", entity.getName()).getSingleResult();
+        return result == null ? 0 : result;
     }
 
     @Loggable

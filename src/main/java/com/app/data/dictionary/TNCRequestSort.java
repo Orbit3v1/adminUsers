@@ -1,8 +1,8 @@
 package com.app.data.dictionary;
 
 public enum TNCRequestSort implements Sort {
-    NAME_ASC("r.tncRequest.name, r.name"),
-    NAME_DESC("r.tncRequest.name desc, r.name desc"),
+    NAME_ASC("r.tncRequest.name, cast(r.name as int)"),
+    NAME_DESC("r.tncRequest.name desc, cast(r.name as int) desc"),
     TNC_ASC("r.tnc.name"),
     TNC_DESC("r.tnc.name desc"),
     COUNT_ASC("r.count"),

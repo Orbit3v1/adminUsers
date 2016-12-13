@@ -22,7 +22,7 @@ public class TNCRequestItemScreen extends EntityScreen<TNCRequestItem> {
     private TNCRequestItem originalItem;
     private TNCRequest source;
 
-    private static final String INITIAL_NAME = "?";
+    private static final String INITIAL_NAME = "0";
 
     @Override
     protected String getScreenName() {

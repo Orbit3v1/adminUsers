@@ -35,7 +35,7 @@ create table tnc_request_item(
 create index tnc_request_item_I1 on tnc_request_item(calc_tnc);
 create index tnc_request_item_I2 on tnc_request_item(name);
 create index tnc_request_item_I3 on tnc_request_item(tnc_request);
-create index tnc_request_item_U1 on tnc_request_item(tnc_request, name);
+create unique index tnc_request_item_U1 on tnc_request_item(tnc_request, name);
 
 create table tncRequestListFilter(
   id int not null primary key,
