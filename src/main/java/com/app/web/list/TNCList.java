@@ -79,7 +79,9 @@ public class TNCList extends EntityList<TNC>{
     protected boolean canDelete(TNC entity){
         TNC tnc = em.find(TNC.class, entity.getId());
         return super.canDelete(entity)
-                && tnc.getProducts().size() == 0;
+                && tnc.getProducts().size() == 0
+                && tnc.getTncRequestItems().size() == 0
+                && tnc.getTncSupplyItems().size() == 0;
     }
 
 }

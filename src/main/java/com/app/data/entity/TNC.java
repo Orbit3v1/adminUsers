@@ -68,6 +68,12 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
     @OneToMany(mappedBy = "tnc", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TNCLink> tncLinks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tnc")
+    private List<TNCRequestItem> tncRequestItems;
+
+    @OneToMany(mappedBy = "tnc")
+    private List<TNCSupplyItem> tncSupplyItems;
+
     @Override
     public Integer getId() {
         return id;
@@ -189,6 +195,22 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
         this.TNCAttachments = TNCAttachments;
     }
 
+    public List<TNCRequestItem> getTncRequestItems() {
+        return tncRequestItems;
+    }
+
+    public void setTncRequestItems(List<TNCRequestItem> tncRequestItems) {
+        this.tncRequestItems = tncRequestItems;
+    }
+
+    public List<TNCSupplyItem> getTncSupplyItems() {
+        return tncSupplyItems;
+    }
+
+    public void setTncSupplyItems(List<TNCSupplyItem> tncSupplyItems) {
+        this.tncSupplyItems = tncSupplyItems;
+    }
+
     public TNC copy(){
         TNC copy = new TNC();
         copy.name = this.name;
@@ -206,6 +228,8 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
         copy.balance = this.balance;
         copy.TNCAttachments = this.TNCAttachments;
         copy.tncLinks = this.tncLinks;
+        copy.tncRequestItems = this.tncRequestItems;
+        copy.tncSupplyItems = this.tncSupplyItems;
         return copy;
     }
 
@@ -225,5 +249,7 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
         this.balance = copy.balance;
         this.TNCAttachments = copy.TNCAttachments;
         this.tncLinks = copy.tncLinks;
+        this.tncRequestItems = copy.tncRequestItems;
+        this.tncSupplyItems = copy.tncSupplyItems;
     }
 }

@@ -25,6 +25,7 @@
                          value="#{messages.getString('button.delete')}"
                          actionListener="#{screen.delete}"
                          styleClass="buttonPF"
+                         update=":mainForm"
                          rendered="#{screen.edit and screen.userPA.deleteR}"
                          disabled="#{!screen.edit or !screen.userPA.deleteEx}"
                 >

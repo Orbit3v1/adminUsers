@@ -21,9 +21,7 @@
         <script type="text/javascript">
             function postSave(saveError) {
                 if (saveError) {
-                    #{rich:component('savePanel')}
-                .
-                    show();
+                    #{rich:component('savePanel')}.show();
                 }
             }
         </script>
@@ -51,8 +49,7 @@
             <ui:decorate template="../template/ListFilterButtons.xhtml">
                 <ui:define name="specific">
                     <h:selectOneMenu value="#{orderListFilterBean.filter.state}"
-                                     styleClass="inputMedium"
-                                     style="width: 100px!important;">
+                                     styleClass="inputSmall">
                         <f:selectItems value="#{orderList.filterStates}"
                                        var="type"
                                        itemValue="#{type}"

@@ -128,7 +128,9 @@ public class TNCScreen extends EntityScreen<TNC>{
     
     protected boolean canDelete(){
         TNC tnc = em.find(TNC.class, entity.getId());
-        return tnc.getProducts().size() == 0;
+        return tnc.getProducts().size() == 0
+                && tnc.getTncRequestItems().size() == 0
+                && tnc.getTncSupplyItems().size() == 0;
     }
 
     public void deleteLink(TNCLink tncLink){

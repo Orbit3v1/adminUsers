@@ -32,7 +32,8 @@
                           value="#{TNCScreen.edit ? messages.getString('TNCScreen.editText') : messages.getString('TNCScreen.addText')}"/>
             <HR/>
 
-            <h:panelGrid columns="1" id="popupDetail">
+            <h:message for="panel" infoClass="info" errorClass="error"/>
+            <h:panelGrid columns="1" id="panel">
                 <h:panelGroup>
                     <h:outputLabel value="#{messages.getString('TNCEntity.nameInner')}"
                                    for="nameInner"
@@ -59,7 +60,7 @@
                             >
                         <p:ajax event="dialogReturn"
                                 listener="#{TNCScreen.onTNCChosen}"
-                                update=":mainForm:popupDetail"/>
+                                update=":mainForm:panel"/>
                     </p:commandButton>
 
                     <h:message for="name" errorClass="error"/>
