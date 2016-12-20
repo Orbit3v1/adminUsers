@@ -104,7 +104,7 @@ public class TNCRequestListFilterBean extends FilterBean implements ListFilterBe
         if(!TNCRequestSort.NAME_ASC.equals(filterOriginal.getSort())
                 && !TNCRequestSort.NAME_DESC.equals(filterOriginal.getSort())) {
             sqlOrder.add("r.tncRequest.name");
-            sqlOrder.add("r.name)");
+            sqlOrder.add("r.name");
         }
 
         String sqlFull = sqlFrom + " WHERE " + sqlWhere.toString() + " order by " + sqlOrder.toString();

@@ -1,7 +1,9 @@
 package com.app.data.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tnc_supply")
@@ -34,6 +36,9 @@ public class TNCSupply extends AbstractVersionedEntity {
 
     @Column(name = "endActual")
     private Date endActual;
+
+    @OneToMany(mappedBy = "tncSupply", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TNCSupplyItem> tncSupplyItems = new ArrayList<>();
 
     @Override
     public Integer getId() {
@@ -106,5 +111,13 @@ public class TNCSupply extends AbstractVersionedEntity {
 
     public void setEndActual(Date endActual) {
         this.endActual = endActual;
+    }
+
+    public List<TNCSupplyItem> getTncSupplyItems() {
+        return tncSupplyItems;
+    }
+
+    public void setTncSupplyItems(List<TNCSupplyItem> tncSupplyItems) {
+        this.tncSupplyItems = tncSupplyItems;
     }
 }

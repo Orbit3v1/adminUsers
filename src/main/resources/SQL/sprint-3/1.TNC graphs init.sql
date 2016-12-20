@@ -102,3 +102,27 @@ create table tnc_supply_request_item(
 
 create index tnc_supply_request_item_U1 on tnc_supply_request_item(tnc_supply_item, tnc_request_item);
 create index tnc_supply_request_item_I1 on tnc_supply_request_item(tnc_request_item);
+
+
+create table tncSupplyListFilter(
+  id int not null primary key,
+  version int default 0,
+  name varchar(500),
+  provider varchar(500),
+  account_number varchar(500),
+  tnc varchar(500),
+  deliveryType varchar(500),
+
+  startL date,
+  startH date,
+  endPlanL date,
+  endPlanH date,
+  endActualL date,
+  endActualH date,
+  paymentDateL date,
+  paymentDateH date,
+
+  sort varchar(500),
+
+  CONSTRAINT tncSupplyListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+);

@@ -124,6 +124,21 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncRequestItemEntity.endPlan", "План поставки"},
             {"tncRequestItemEntity.endActual", "Поставка"},
             {"tncRequestItemEntity.state", "Статус"},
+
+            {"tncSupplyEntity", "Заявка на поставку ТНЦ"},
+            {"tncSupplyEntity.name", "#"},
+            {"tncSupplyEntity.provider", "Поставщик"},
+            {"tncSupplyEntity.accountNumber", "№ счета"},
+            {"tncSupplyEntity.deliveryType", "Вид доставки"},
+            {"tncSupplyEntity.start", "Дата взятия счета"},
+            {"tncSupplyEntity.paymentDate", "Дата оплаты"},
+            {"tncSupplyEntity.endPlan", "Планируемая доставка"},
+            {"tncSupplyEntity.endActual", "Получение кладовщика"},
+
+            {"tncSupplyItemEntity", "Позиция заявки на поставку ТНЦ"},
+            {"tncSupplyItemEntity.tnc", "ТНЦ"},
+            {"tncSupplyItemEntity.count", "Кол-во"},
+            {"tncSupplyItemEntity.units", "Ед. изм."},
             
             {"personList.title", "Список пользователей"},
 
@@ -248,6 +263,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCRequestItemScreen.success.save", "Позиция заявки ТНЦ успешно создана"},
             {"TNCRequestItemScreen.success.edit", "Позиция заявки ТНЦ успешно изменена"},
 
+            {"tncSupplyList.title", "Заявки на поставку ТНЦ"},
+
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
             {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"},
@@ -328,6 +345,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"menu.graphic.production", "Производство"},
             {"menu.graphic.specification", "Реестр ТЗ"},
             {"menu.graphic.tncRequest", "Заявки ТНЦ"},
+            {"menu.graphic.tncSupply", "Заявки на поставку ТНЦ"},
 
             {"menu.calculation.TNC", "ТНЦ"},
             {"menu.calculation.work", "Работа"},

@@ -36,7 +36,7 @@ public class SpecificationListFilterBean extends FilterBean implements ListFilte
     public List<Specification> getList() {
         SpecificationListFilter filterOriginal = getFilterOriginal();
         Map<String, Object> parameters = new HashMap<>();
-        String sqlFrom = "select r from Specification r " +
+        String sqlFrom = "select distinct r from Specification r " +
                 "left join fetch r.nomenclature n " +
                 "left join fetch r.developer " +
                 "left join fetch r.approvedBy " +
