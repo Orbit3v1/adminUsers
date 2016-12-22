@@ -29,7 +29,7 @@ public class TNCRequestValidator extends AbstractValidator<TNCRequest> {
         boolean valid = true;
         if (entity.getTncRequestItems() == null || entity.getTncRequestItems().size() == 0) {
             valid = false;
-            addMessage.setMessage("mainForm:panel:items", "TNCRequestScreen.error.emptyItems", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel:items", "error.emptyItems", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }

@@ -1,0 +1,128 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="1">
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.nameR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.name')}"
+                           for="name"
+                           styleClass="labelPF"/>
+            <p:inputText id="name"
+                         value="#{tncSupplyScreen.entity.name}"
+                         readonly="#{tncSupplyScreen.isDisabled('name')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="name" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.providerR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.provider')}"
+                           for="provider"
+                           styleClass="labelPF"/>
+            <p:inputText id="provider"
+                         value="#{tncSupplyScreen.entity.provider}"
+                         readonly="#{tncSupplyScreen.isDisabled('provider')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="provider" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.accountNumberR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.accountNumber')}"
+                           for="accountNumber"
+                           styleClass="labelPF"/>
+            <p:inputText id="accountNumber"
+                         value="#{tncSupplyScreen.entity.accountNumber}"
+                         readonly="#{tncSupplyScreen.isDisabled('accountNumber')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="accountNumber" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.startR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.start')}" for="start"
+                           styleClass="labelPF"/>
+            <p:calendar id="start"
+                        value="#{tncSupplyScreen.entity.start}"
+                        locale="ru"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        disabled="#{tncSupplyScreen.isDisabled('start')}"
+                        styleClass="calendarPF"
+                    />
+            <h:message for="start" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.deliveryTypeR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.deliveryType')}"
+                           for="deliveryType"
+                           styleClass="labelPF"/>
+            <p:inputText id="deliveryType"
+                         value="#{tncSupplyScreen.entity.deliveryType}"
+                         readonly="#{tncSupplyScreen.isDisabled('deliveryType')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="deliveryType" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.paymentDateR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.paymentDate')}" for="paymentDate"
+                           styleClass="labelPF"/>
+            <p:calendar id="paymentDate"
+                        value="#{tncSupplyScreen.entity.paymentDate}"
+                        locale="ru"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        disabled="#{tncSupplyScreen.isDisabled('paymentDate')}"
+                        styleClass="calendarPF"
+                    />
+            <h:message for="paymentDate" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.endPlanR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.endPlan')}" for="endPlan"
+                           styleClass="labelPF"/>
+            <p:calendar id="endPlan"
+                        value="#{tncSupplyScreen.entity.endPlan}"
+                        locale="ru"
+                        disabled="#{tncSupplyScreen.isDisabled('endPlan')}"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        styleClass="calendarPF"/>
+            <h:message for="endPlan" errorClass="error"/>
+        </p:panelGrid>
+        <h:panelGroup id="endActualPG" rendered="#{tncSupplyScreen.userPA.endActualR}">
+            <h:outputLabel value="#{messages.getString('tncSupplyEntity.endActual')}" for="endActual"
+                           styleClass="labelPF"/>
+
+            <h:panelGroup id="endActualSet" rendered="#{tncSupplyScreen.entity.endActual != null}">
+                <p:inputText id="endActual"
+                             value="#{tncSupplyScreen.entity.endActual}"
+                             readonly="true"
+                             styleClass="inputLarge">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                </p:inputText>
+                <p:commandLink id="endActualRevert"
+                               update=":mainForm:panel:endActualPG"
+                               title="#{messages.getString('button.delete')}"
+                               actionListener="#{tncSupplyScreen.cancelEndActual}"
+                               rendered="#{tncSupplyScreen.userPA.endActualE}"
+                               styleClass="ui-icon delete resetPF">
+                    <p:confirm header="#{messages.getString('button.revert.confirmation')}"
+                               message="#{messages.getString('button.revert.message')}"
+                               icon="ui-icon-alert"/>
+                </p:commandLink>
+            </h:panelGroup>
+
+            <p:commandButton id="endActualB"
+                             value="#{messages.getString('order.setEnd')}"
+                             actionListener="#{tncSupplyScreen.setEndActual}"
+                             disabled="#{!tncSupplyScreen.userPA.endActualW}"
+                             styleClass="btnPF"
+                             rendered="#{tncSupplyScreen.entity.endActual == null}"
+                             update=":mainForm:panel:endActualPG"/>
+            <h:message for="endActual" errorClass="error"/>
+        </h:panelGroup>
+        <HR/>
+    </p:panelGrid>
+</ui:composition>

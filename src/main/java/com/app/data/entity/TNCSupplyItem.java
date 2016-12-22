@@ -1,12 +1,14 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.TNCOwner;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "tnc_supply_item")
-public class TNCSupplyItem extends AbstractVersionedEntity{
+public class TNCSupplyItem extends AbstractVersionedEntity implements TNCOwner {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -28,6 +30,13 @@ public class TNCSupplyItem extends AbstractVersionedEntity{
             joinColumns = @JoinColumn(name = "tnc_supply_item"),
             inverseJoinColumns = @JoinColumn(name = "tnc_request_item"))
     private List<TNCRequestItem> tncRequestItems = new ArrayList<>();
+
+    public void copyForm(TNCSupplyItem item){
+        this.count = item.count;
+        this.tnc = item.tnc;
+        this.tncSupply = item.tncSupply;
+        this.tncRequestItems = item.tncRequestItems;
+    }
 
     @Override
     public Integer getId() {

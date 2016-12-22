@@ -45,7 +45,7 @@ public class OrderValidator extends AbstractValidator<Order> {
         boolean valid = true;
         if (entity.getOrderItems() == null || entity.getOrderItems().size() == 0) {
             valid = false;
-            addMessage.setMessage("mainForm:panel:orderItems", "orderScreen.error.emptyItems", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage("mainForm:panel:orderItems", "error.emptyItems", FacesMessage.SEVERITY_ERROR);
         }
         return valid;
     }

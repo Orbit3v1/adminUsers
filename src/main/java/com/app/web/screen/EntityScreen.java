@@ -1,5 +1,6 @@
 package com.app.web.screen;
 
+import com.app.data.entity.TNCSupplyItem;
 import com.app.data.entity.interfaces.Unique;
 import com.app.utils.AddMessage;
 import com.app.security.Security;

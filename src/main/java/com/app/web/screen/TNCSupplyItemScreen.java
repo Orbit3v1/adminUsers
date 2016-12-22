@@ -3,32 +3,24 @@ package com.app.web.screen;
 import com.app.data.dictionary.TNCRequestState;
 import com.app.data.entity.*;
 import com.app.utils.AppUtil;
-import com.app.utils.EntityUtil;
 import com.app.utils.SessionUtil;
 import com.app.utils.TNCChooser;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import java.util.HashMap;
-import java.util.Map;
 
-@Named("TNCRequestItemScreen")
+@Named("tncSupplyItemScreen")
 @Scope("view")
-public class TNCRequestItemScreen extends EntityScreen<TNCRequestItem> {
-
-    private TNCRequestItem originalItem;
-    private TNCRequest source;
+public class TNCSupplyItemScreen extends EntityScreen<TNCSupplyItem> {
+    private TNCSupplyItem originalItem;
+    private TNCSupply source;
     private TNCChooser tncChooser;
-
-    private static final String INITIAL_NAME = "0";
 
     @Override
     protected String getScreenName() {
-        return "TNCRequestItemScreen";
+        return "tncSupplyItemScreen";
     }
 
     @PostConstruct
@@ -42,24 +34,21 @@ public class TNCRequestItemScreen extends EntityScreen<TNCRequestItem> {
     public void initSource(){
         String id = SessionUtil.getParameter("sourceId");
         if(id != null && AppUtil.isNumeric(id)){
-            source = (TNCRequest) SessionUtil.getSessionVariable("TNCRequest" + id);
+            source = (TNCSupply) SessionUtil.getSessionVariable("TNCSupply" + id);
         }
     }
 
     public void initEntity() {
         String hash = SessionUtil.getParameter("hash");
         if(hash != null && AppUtil.isNumeric(hash)){
-            originalItem = AppUtil.findByHashCode(source.getTncRequestItems(), AppUtil.toInteger(hash));
-            entity = new TNCRequestItem();
+            originalItem = AppUtil.findByHashCode(source.getTncSupplyItems(), AppUtil.toInteger(hash));
+            entity = new TNCSupplyItem();
             entity.copyForm(originalItem);
             edit = true;
         } else {
-            originalItem = new TNCRequestItem();
-            entity = new TNCRequestItem();
-            entity.setTncRequest(source);
-            entity.setEndPlan(source.getEndPlan());
-            entity.setName(INITIAL_NAME);
-            entity.setState(TNCRequestState.IN_WORK);
+            originalItem = new TNCSupplyItem();
+            entity = new TNCSupplyItem();
+            entity.setTncSupply(source);
         }
     }
 
@@ -67,7 +56,7 @@ public class TNCRequestItemScreen extends EntityScreen<TNCRequestItem> {
     protected void save() {
         originalItem.copyForm(entity);
         if (!edit) {
-            source.getTncRequestItems().add(originalItem);
+            source.getTncSupplyItems().add(originalItem);
             edit = true;
         }
     }
@@ -75,7 +64,7 @@ public class TNCRequestItemScreen extends EntityScreen<TNCRequestItem> {
     @Override
     public void delete(){
         logger.info("delete");
-        source.getTncRequestItems().remove(originalItem);
+        source.getTncSupplyItems().remove(originalItem);
         executeJS("save();");
         exit();
     }

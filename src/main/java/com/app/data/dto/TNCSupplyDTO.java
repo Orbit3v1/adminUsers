@@ -28,7 +28,7 @@ public class TNCSupplyDTO {
         this.deliveryType = tncSupply.getDeliveryType();
         this.start = tncSupply.getStart();
         this.paymentDate = tncSupply.getPaymentDate();
-        this.endPlan = tncSupply.getPaymentDate();
+        this.endPlan = tncSupply.getEndPlan();
         this.endActual = tncSupply.getEndActual();
         items = new ArrayList<>();
         items.addAll(tncSupply.getTncSupplyItems().stream().map(TNCSupplyItemDTO::new).collect(Collectors.toList()));

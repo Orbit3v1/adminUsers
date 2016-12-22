@@ -1,13 +1,14 @@
 package com.app.data.entity;
 
 import com.app.data.dictionary.TNCRequestState;
+import com.app.data.entity.interfaces.TNCOwner;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "tnc_request_item")
-public class TNCRequestItem extends AbstractVersionedEntity {
+public class TNCRequestItem extends AbstractVersionedEntity implements TNCOwner {
     @Id
     @GeneratedValue
     @Column(name = "id")

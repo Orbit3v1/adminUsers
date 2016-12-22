@@ -136,6 +136,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncSupplyEntity.endActual", "Получение кладовщика"},
 
             {"tncSupplyItemEntity", "Позиция заявки на поставку ТНЦ"},
+            {"tncSupplyItemEntity.name", "#"},
             {"tncSupplyItemEntity.tnc", "ТНЦ"},
             {"tncSupplyItemEntity.count", "Кол-во"},
             {"tncSupplyItemEntity.units", "Ед. изм."},
@@ -205,7 +206,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"orderScreen.success.save", "Заказ успешно создан"},
             {"orderScreen.success.edit", "Заказ успешно изменен"},
             {"orderScreen.error.nameDuplicate", "Такое же имя есть у другого заказа"},
-            {"orderScreen.error.emptyItems", "Добавте позиции"},
 
             {"orderItemScreen.title", "Позиция заказа"},
             {"orderItemScreen.editText", "Редактирование позиции"},
@@ -231,7 +231,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"specificationScreen.error.nameDuplicate", "Такое же наименование есть у другого ТЗ, сохраниете ТЗ еще раз"},
             {"specificationScreen.success.save", "ТЗ успешно создано"},
             {"specificationScreen.success.edit", "ТЗ успешно изменено"},
-            {"specificationScreen.error.nameDuplicate", "Такое же имя есть у другого ТЗ"},
             {"specificationScreen.error.nomenclatureDuplicate", "Для номенклатуры уже есть другое ТЗ"},
 
             {"TNCScreen.title", "ТНЦ"},
@@ -253,7 +252,6 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCRequestScreen.table.orderItems", "Позиции"},
             {"TNCRequestScreen.success.save", "Заявка ТНЦ успешно создана"},
             {"TNCRequestScreen.success.edit", "Заявка ТНЦ успешно изменена"},
-            {"TNCRequestScreen.error.emptyItems", "Добавте позиции"},
             {"TNCRequestScreen.error.title", "Неверные данные"},
 
             {"TNCRequestItemScreen.title", "Позиция заявки ТНЦ"},
@@ -265,6 +263,22 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
 
             {"tncSupplyList.title", "Заявки на поставку ТНЦ"},
 
+            {"tncSupplyScreen.title", "Заявка на поставку ТНЦ"},
+            {"tncSupplyScreen.editText", "Редактирование заявки на поставку ТНЦ"},
+            {"tncSupplyScreen.addText", "Добавление заявки на поставку ТНЦ"},
+            {"tncSupplyScreen.table.items", "Позиции"},
+            {"tncSupplyScreen.success.save", "Заявка на поставку ТНЦ успешно создана"},
+            {"tncSupplyScreen.success.edit", "Заявка на поставку ТНЦ успешно изменена"},
+            {"tncSupplyScreen.error.title", "Неверные данные"},
+
+            {"tncSupplyItemScreen.title", "Позиция заявки на поставку ТНЦ"},
+            {"tncSupplyItemScreen.editText", "Редактирование позиции заявки на поставку ТНЦ"},
+            {"tncSupplyItemScreen.addText", "Добавление позиции заявки на поставку ТНЦ"},
+            {"tncSupplyItemScreen.error.title", "Неверные данные"},
+            {"tncSupplyItemScreen.success.save", "Позиция заявки на поставку ТНЦ успешно создана"},
+            {"tncSupplyItemScreen.success.edit", "Позиция заявки на поставку ТНЦ успешно изменена"},
+            
+            
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"},
             {"workList.error.nameDuplicate", "Такое же имя есть у другой работы"},
             {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"},
@@ -286,6 +300,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.editAndExit", "Изменить и выйти"},
             {"button.delete", "Удалить"},
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
+            {"button.revert.confirmation", "Отменить"},
+            {"button.revert.message", "Вы действительно хотите отменить сдачу?"},
             {"button.delete.confirmation", "Удаление"},
             {"button.login", "Войти"},
             {"button.logout", "Выйти"},
@@ -332,6 +348,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"error.refresh1C", "Ошибка при обновлении из 1С"},
             {"error.copy", "Ошибка при копировании"},
             {"error.dateFormat", "Неверная дата"},
+            {"error.emptyItems", "Добавте позиции"},
+            {"error.nameDuplicate", "Такое же имя есть у другой записи"},
 
             {"menu.header.admin", "Администрирование"},
             {"menu.header.graphic", "Графики"},

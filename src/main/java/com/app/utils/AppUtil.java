@@ -3,12 +3,14 @@ package com.app.utils;
 
 import com.app.data.entity.Attachment;
 import com.app.data.entity.AttachmentContent;
+import com.app.data.entity.TNCRequestItem;
 import org.primefaces.model.UploadedFile;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 public class AppUtil {
@@ -138,6 +140,17 @@ public class AppUtil {
 
     public static boolean notEmpty(String str){
         return str != null && !str.equals("");
+    }
+
+    public static <T> T findByHashCode(Collection<T> collection, Integer hashCode){
+        T item = null;
+        for(T i : collection){
+            if(i.hashCode() == hashCode){
+                item = i;
+                break;
+            }
+        }
+        return item;
     }
 
 }

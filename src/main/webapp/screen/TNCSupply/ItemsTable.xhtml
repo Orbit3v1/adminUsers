@@ -1,0 +1,74 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <p:commandButton value="#{messages.getString('button.add')}"
+                     actionListener="#{tncSupplyScreen.shareEntity}"
+                     rendered="#{tncSupplyScreen.userPA.addItemR}"
+                     disabled="#{!tncSupplyScreen.userPA.addItemEx}"
+                     onclick="openPopUp('about:blank', 'TNCSupplyItemScreen#{orderI.id}')"
+                     oncomplete="openPopUp('/screen/TNCSupplyItemScreen.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen')"
+                     styleClass="buttonPF"
+            />
+
+    <h:message for="items" infoClass="info" errorClass="error"/>
+    <p:dataTable id="items"
+                 value="#{tncSupplyScreen.entity.tncSupplyItems}"
+                 emptyMessage="#{messages.getString('table.emptyMessage')}"
+                 var="item"
+                 tableStyle="width:auto"
+                 resizableColumns="true"
+                 binding="#{table}">
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  style="text-align: center"
+                  width="40"
+                  headerText="#{messages.getString('tncSupplyItemEntity.name')}"
+                >
+            <p:commandButton value="#{table.rowIndex + 1}"
+                             actionListener="#{tncSupplyScreen.shareEntity}"
+                             onclick="openPopUp('about:blank', 'TNCSupplyItemScreen#{item.hashCode()}')"
+                             oncomplete="openPopUp('/screen/TNCSupplyItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen#{item.hashCode()}')"
+            />
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.tnc')}">
+            <p:commandLink value="#{item.tnc.nameInner}"
+                           onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{item.tnc.id}', 'TNCScreen#{item.tnc.id}')"
+                           styleClass="link"
+                           style="display: block;"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.count')}">
+            <h:outputText value="#{item.count}"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.units')}">
+            <h:outputText value="#{item.tnc.unitsTo}"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.deleteItemR}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:panel:items, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{tncSupplyScreen.delete(item)}"
+                           disabled="#{!tncSupplyScreen.userPA.deleteItemEx}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+
+
+    </p:dataTable>
+
+</ui:composition>

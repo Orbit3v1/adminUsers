@@ -46,11 +46,11 @@
                     <h:panelGroup id="tncInfo">
                         <p:commandButton value="..."
                                          title="Добавить ТНЦ"
-                                         actionListener="#{TNCRequestItemScreen.choose('selectTNC')}"
+                                         actionListener="#{TNCRequestItemScreen.tncChooser.choose('selectTNC')}"
                                          rendered="#{!TNCRequestItemScreen.isDisabled('tnc')}"
                                          styleClass="findBtnPF">
                             <p:ajax event="dialogReturn"
-                                    listener="#{TNCRequestItemScreen.onTNCChosen}"
+                                    listener="#{TNCRequestItemScreen.tncChooser.onTNCChosen}"
                                     update=":mainForm:tncP"/>
                         </p:commandButton>
                         <p:commandButton
