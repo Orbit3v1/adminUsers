@@ -55,10 +55,14 @@
                   headerText=""
                   width="25">
             <p:commandLink id="delete"
+                           update=":mainForm:panel:requests, :mainForm:growl"
                            title="#{messages.getString('button.delete')}"
                            actionListener="#{tncSupplyScreen.delete(request)}"
                            disabled="#{!tncSupplyScreen.userPA.deleteItemEx}"
                            styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
             </p:commandLink>
         </p:column>
 
