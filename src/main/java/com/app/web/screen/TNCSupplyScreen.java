@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import java.util.Date;
+import javax.persistence.EntityGraph;
+import java.util.*;
 
 @Named("tncSupplyScreen")
 @Scope("view")
@@ -34,6 +35,9 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(TNCSupply.class, AppUtil.toInteger(id));
             entity.getTncSupplyItems().size();
+            for(TNCSupplyItem item : entity.getTncSupplyItems()){
+                item.getTncRequestItems().size();
+            }
             edit = true;
         } else {
             entity = new TNCSupply();
@@ -60,6 +64,14 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
         entity.getTncSupplyItems().remove(item);
     }
 
+    public void delete(TNCRequestItem item){
+        for(TNCSupplyItem supplyItem : entity.getTncSupplyItems()){
+            if(supplyItem.getTncRequestItems().remove(item)){
+                break;
+            }
+        }
+    }
+
     public void shareEntity(){
         SessionUtil.addSessionVariable("TNCSupply" + entity.getId(), entity);
     }
@@ -76,4 +88,17 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
             item.setTnc(em.find(TNC.class, item.getTnc().getId()));
         }
     }
+
+    public List<TNCRequestItem> getTncRequestItems(){
+        List<TNCRequestItem>  requestItems = new ArrayList<>();
+        for(TNCSupplyItem item : entity.getTncSupplyItems()){
+            requestItems.addAll(item.getTncRequestItems());
+        }
+        return requestItems;
+    }
+
+    public void setTncRequestItems(List<TNCRequestItem> tncRequestItems) {
+    }
+
+
 }

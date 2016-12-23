@@ -123,7 +123,7 @@ public class TNCSupplyDTO {
         public TNCSupplyItemDTO(TNCSupplyItem tncSupplyItem){
             this.tncName = tncSupplyItem.getTnc().getNameInner();
             this.count = tncSupplyItem.getCount();
-            this.units = tncSupplyItem.getTnc().getUnitsTo();
+            this.units = tncSupplyItem.getTnc().getUnitsTo() == null || tncSupplyItem.getTnc().getUnitsTo().equals("") ? "-" : tncSupplyItem.getTnc().getUnitsTo();
             this.tncId = tncSupplyItem.getTnc().getId();
         }
 

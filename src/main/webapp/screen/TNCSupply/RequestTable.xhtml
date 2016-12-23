@@ -1,0 +1,68 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <p:commandButton value="#{messages.getString('button.add')}"
+                     actionListener="#{tncSupplyScreen.shareEntity}"
+                     rendered="#{tncSupplyScreen.userPA.addItemR}"
+                     disabled="#{!tncSupplyScreen.userPA.addItemEx}"
+                     onclick="openPopUp('about:blank', 'TNCSupplyItemScreen#{orderI.id}')"
+                     oncomplete="openPopUp('/screen/TNCSupplyItemScreen.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen')"
+                     styleClass="buttonPF"
+            />
+
+    <h:message for="requests" infoClass="info" errorClass="error"/>
+    <p:dataTable id="requests"
+                 value="#{tncSupplyScreen.tncRequestItems}"
+                 emptyMessage="#{messages.getString('table.emptyMessage')}"
+                 var="request"
+                 tableStyle="width:auto"
+                 resizableColumns="true"
+                 binding="#{table}">
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  style="text-align: center"
+                  width="40"
+                  headerText="#{messages.getString('tncSupplyItemEntity.name')}"
+                >
+            <h:outputText value="#{request.name}"
+                    />
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.tnc')}">
+            <p:commandLink value="#{request.tnc.nameInner}"
+                           onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{request.tnc.id}', 'TNCScreen#{request.tnc.id}')"
+                           styleClass="link"
+                           style="display: block;"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.count')}">
+            <h:outputText value="#{request.count}"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.itemR}"
+                  headerText="#{messages.getString('tncSupplyItemEntity.units')}">
+            <h:outputText value="#{request.tnc.unitsTo}"/>
+        </p:column>
+
+        <p:column rendered="#{tncSupplyScreen.userPA.deleteItemR}"
+                  headerText=""
+                  width="25">
+            <p:commandLink id="delete"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{tncSupplyScreen.delete(request)}"
+                           disabled="#{!tncSupplyScreen.userPA.deleteItemEx}"
+                           styleClass="ui-icon delete">
+            </p:commandLink>
+        </p:column>
+
+
+    </p:dataTable>
+
+</ui:composition>
