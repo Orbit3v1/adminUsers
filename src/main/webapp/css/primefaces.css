@@ -45,6 +45,10 @@ tr.ui-widget-content{
     text-shadow: none !important;
 }
 
+.ui-widget-content .ui-state-highlight a {
+    color: inherit !important;
+}
+
 .ui-datatable thead th,
 .ui-datatable tbody td,
 .ui-datatable tfoot td,

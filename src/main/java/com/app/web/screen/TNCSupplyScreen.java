@@ -31,6 +31,28 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
 
     @Transactional
     public void initEntity() {
+        String type = SessionUtil.getParameter("type");
+        switch (type){
+            case "EDIT":{
+                initEdit();
+                break;
+            }
+            case "NEW":{
+                initNew();
+                break;
+            }
+            case "CREATED":{
+                initCreated();
+                break;
+            }
+            default:{
+                initNew();
+                break;
+            }
+        }
+    }
+
+    private void initEdit(){
         String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
             entity = em.find(TNCSupply.class, AppUtil.toInteger(id));
@@ -39,10 +61,16 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
                 item.getTncRequestItems().size();
             }
             edit = true;
-        } else {
-            entity = new TNCSupply();
-            entity.setStart(new Date());
         }
+    }
+
+    private void initNew(){
+        entity = new TNCSupply();
+        entity.setStart(new Date());
+    }
+
+    private void initCreated(){
+        entity = (TNCSupply) SessionUtil.getSessionVariable("TNCSupplyCreated");
     }
 
     @Override
@@ -86,6 +114,12 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
     public void refresh() {
         for (TNCSupplyItem item : entity.getTncSupplyItems()) {
             item.setTnc(em.find(TNC.class, item.getTnc().getId()));
+
+            List<TNCRequestItem> list = item.getTncRequestItems();
+            item.setTncRequestItems(new ArrayList<>());
+            for(TNCRequestItem requestItem : list){
+                item.getTncRequestItems().add(em.find(TNCRequestItem.class, requestItem.getId()));
+            }
         }
     }
 

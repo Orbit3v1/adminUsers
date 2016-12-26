@@ -22,7 +22,7 @@
             <h:outputText value="#{messages.getString('menu.graphic.tncSupply')}" styleClass="listTitle"/>
             <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
-                             onclick="openPopUp('/screen/TNCSupplyScreen.xhtml', 'TNCSupplyScreen')"
+                             onclick="openPopUp('/screen/TNCSupplyScreen.xhtml?type=NEW', 'TNCSupplyScreen')"
                              styleClass="buttonPF"
                              rendered="#{tncSupplyList.userPA.addR}"
                              disabled="#{!tncSupplyList.userPA.addEx}"/>
@@ -51,7 +51,7 @@
                                      styleClass="inputSmall"/>
                     </f:facet>
                     <p:commandLink value="#{row.name}"
-                                   onclick="openPopUp('/screen/TNCSupplyScreen.xhtml?id=#{row.id}', 'TNCSupplyScreen#{row.id}')"
+                                   onclick="openPopUp('/screen/TNCSupplyScreen.xhtml?type=EDIT&amp;id=#{row.id}', 'TNCSupplyScreen#{row.id}')"
                                    style="display: block;"/>
                 </p:column>
 

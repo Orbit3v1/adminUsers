@@ -57,7 +57,7 @@
         <p:column rendered="#{tncSupplyScreen.userPA.deleteItemR}"
                   headerText=""
                   width="25">
-            <p:commandLink update=":mainForm:panel:items, :mainForm:growl"
+            <p:commandLink update=":mainForm:panel:items, :mainForm:growl, :mainForm:panel:requests"
                            title="#{messages.getString('button.delete')}"
                            actionListener="#{tncSupplyScreen.delete(item)}"
                            disabled="#{!tncSupplyScreen.userPA.deleteItemEx}"

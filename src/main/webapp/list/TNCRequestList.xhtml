@@ -29,10 +29,21 @@
 
             <ui:decorate template="../template/ListFilterButtonsPF.xhtml"/>
 
+            <p:commandButton value="#{messages.getString('button.create')}"
+                             onclick="openPopUp('/screen/TNCSupplyScreen.xhtml', 'TNCSupplyScreen')"
+                             oncomplete="openPopUp('/screen/TNCSupplyScreen.xhtml?type=CREATED', 'TNCSupplyScreen')"
+                             styleClass="buttonPF"
+                             actionListener="#{tncRequestList.createSupply}"
+                             rendered="#{tncRequestList.userPA.supplyAddR}"
+                             disabled="#{!tncRequestList.userPA.supplyAddEx}"/>
+
             <h:message for="entities" infoClass="info" errorClass="error"/>
             <p:dataTable id="entities"
                          value="#{tncRequestList.listRows}"
                          var="row"
+                         selection="#{tncRequestList.selectedRows}"
+                         rowKey="#{row.id}"
+                         rowSelectMode="checkbox"
                          resizableColumns="true"
                          tableStyle="width:auto">
 
@@ -86,6 +97,9 @@
                     </f:facet>
                     <h:outputText value="#{row.count}"/>
                 </p:column>
+
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
                 <p:column rendered="#{tncRequestList.userPA.tncLimitLowR}"
                           style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
                     <f:facet name="header">

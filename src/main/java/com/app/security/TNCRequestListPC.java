@@ -73,6 +73,13 @@ public class TNCRequestListPC implements PrivilegeChecker {
                         new PrivilegeAction("TNCRequestItemEndActual", "READ"))
         );
 
+        userPA.put("supplyAddR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("TNCSupplyAdd", "READ"))
+        );
+        userPA.put("supplyAddEx", hasAnyPrivilegeAction(
+                        new PrivilegeAction("TNCSupplyAdd", "EXECUTE"))
+        );
+
         return userPA;
     }
 }

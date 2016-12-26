@@ -315,6 +315,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.refresh1C", "Обновить из 1С"},
             {"button.change", "Изменить"},
             {"button.copy", "Копировать"},
+            {"button.create", "Сформировать"},
 
             {"button.calc.addProduct", "+ деталь"},
             {"button.calc.addTNC", "+ ТНЦ"},

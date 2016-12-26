@@ -3,14 +3,13 @@ package com.app.web.list;
 import com.app.data.dto.ProductionReportDTO;
 import com.app.data.dto.SpecificationDTO;
 import com.app.data.dto.TNCRequestDTO;
-import com.app.data.entity.OrderItem;
-import com.app.data.entity.Specification;
-import com.app.data.entity.TNCRequestItem;
+import com.app.data.entity.*;
 import com.app.data.filter.ListFilterBean;
 import com.app.data.filter.SpecificationCDI;
 import com.app.data.filter.TNCRequestCDI;
 import com.app.security.Security;
 import com.app.utils.AddMessage;
+import com.app.utils.SessionUtil;
 import com.app.web.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +20,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +36,7 @@ public class TNCRequestList {
 
     private Map<String, Boolean> userPA;
     private List<TNCRequestDTO> listRows;
+    private List<TNCRequestDTO> selectedRows;
 
     @Loggable
     @PostConstruct
@@ -51,6 +52,7 @@ public class TNCRequestList {
     private void initList() {
         List<TNCRequestItem> tncRequestItems = listFilterBean.getList();
         initListRows(tncRequestItems);
+        selectedRows = new ArrayList<>();
     }
 
     private void initListRows(List<TNCRequestItem> tncRequestItems){
@@ -64,6 +66,28 @@ public class TNCRequestList {
                 lastTNCRequestId = tncRequestItems.get(i).getTncRequest().getId();
             }
         }
+    }
+
+    public void createSupply(){
+        TNCSupply tncSupply = new TNCSupply();
+        Map<TNC, TNCSupplyItem> map = new HashMap<>();
+        for(TNCRequestDTO row : selectedRows){
+            TNC tnc = row.getTnc();
+            TNCSupplyItem tncSupplyItem = new TNCSupplyItem();
+            if(map.containsKey(tnc)){
+                tncSupplyItem = map.get(tnc);
+                tncSupplyItem.setCount(tncSupplyItem.getCount() + row.getCount());
+                tncSupplyItem.getTncRequestItems().add(row.getTncRequestItem());
+            } else {
+                tncSupplyItem.setTncSupply(tncSupply);
+                tncSupplyItem.setTnc(tnc);
+                tncSupplyItem.setCount(row.getCount());
+                tncSupplyItem.getTncRequestItems().add(row.getTncRequestItem());
+                map.put(tnc, tncSupplyItem);
+            }
+        }
+        tncSupply.getTncSupplyItems().addAll(map.values());
+        SessionUtil.addSessionVariable("TNCSupplyCreated", tncSupply);
     }
 
     public Map<String, Boolean> getUserPA() {
@@ -80,5 +104,13 @@ public class TNCRequestList {
 
     public void setListRows(List<TNCRequestDTO> listRows) {
         this.listRows = listRows;
+    }
+
+    public List<TNCRequestDTO> getSelectedRows() {
+        return selectedRows;
+    }
+
+    public void setSelectedRows(List<TNCRequestDTO> selectedRows) {
+        this.selectedRows = selectedRows;
     }
 }

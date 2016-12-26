@@ -7,6 +7,7 @@ import java.util.Date;
 
 
 public class TNCRequestDTO {
+    private Integer id;
     private boolean fromNewRequest;
     private String name;
     private String tncName;
@@ -25,6 +26,7 @@ public class TNCRequestDTO {
     private Person creatorEntity;
 
     public TNCRequestDTO(TNCRequestItem tncRequestItem, boolean fromNewRequest) {
+        this.id = tncRequestItem.getId();
         this.fromNewRequest = fromNewRequest;
         this.name = tncRequestItem.getTncRequest().getName() + "_" + tncRequestItem.getName();
         this.tncName = tncRequestItem.getTnc().getNameInner();
@@ -40,6 +42,14 @@ public class TNCRequestDTO {
         this.tncRequestItem = tncRequestItem;
         this.tnc = tncRequestItem.getTnc();
         this.creatorEntity = tncRequestItem.getTncRequest().getCreator();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean isFromNewRequest() {
