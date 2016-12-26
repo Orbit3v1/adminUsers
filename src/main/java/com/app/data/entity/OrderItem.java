@@ -1,6 +1,7 @@
 package com.app.data.entity;
 
 import com.app.data.entity.interfaces.SetNomenclature;
+import com.app.utils.AppUtil;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -125,6 +126,10 @@ public class OrderItem extends AbstractVersionedEntity implements SetNomenclatur
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Integer getNameAsInt(){
+        return AppUtil.isNumeric(name) ? AppUtil.toInteger(name) : 0;
     }
 
 }

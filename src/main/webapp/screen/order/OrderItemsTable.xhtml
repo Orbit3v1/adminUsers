@@ -21,6 +21,7 @@
                  emptyMessage="#{messages.getString('table.emptyMessage')}"
                  var="orderI"
                  tableStyle="width:auto"
+                 sortBy="#{orderI.nameAsInt}"
                  resizableColumns="true">
 
         <p:column rendered="#{orderScreen.userPA.itemNameR}"
