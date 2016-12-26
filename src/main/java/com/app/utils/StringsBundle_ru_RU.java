@@ -267,6 +267,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncSupplyScreen.editText", "Редактирование заявки на поставку ТНЦ"},
             {"tncSupplyScreen.addText", "Добавление заявки на поставку ТНЦ"},
             {"tncSupplyScreen.table.items", "Позиции"},
+            {"tncSupplyScreen.table.requests", "Связанные заявки"},
             {"tncSupplyScreen.success.save", "Заявка на поставку ТНЦ успешно создана"},
             {"tncSupplyScreen.success.edit", "Заявка на поставку ТНЦ успешно изменена"},
             {"tncSupplyScreen.error.title", "Неверные данные"},
