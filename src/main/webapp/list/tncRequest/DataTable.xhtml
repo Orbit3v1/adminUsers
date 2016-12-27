@@ -1,0 +1,266 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:message for="entities" infoClass="info" errorClass="error"/>
+    <p:dataTable id="entities"
+                 value="#{tncRequestList.listRows}"
+                 var="row"
+                 selection="#{tncRequestList.selectedRows}"
+                 rowKey="#{row.id}"
+                 rowSelectMode="checkbox"
+                 resizableColumns="true"
+                 tableStyle="width:auto">
+
+        <p:column rendered="#{tncRequestList.userPA.nameR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestEntity.name')}"
+                               action="#{tncRequestListFilterBean.setSort('NAME_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('NAME')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{tncRequestListFilterBean.filter.name}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <p:commandLink value="#{row.name}"
+                           onclick="openPopUp('/screen/TNCRequestScreen.xhtml?id=#{row.tncRequest.id}', 'TNCRequestScreen#{row.tncRequest.id}')"
+                           style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.tncR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestItemEntity.tnc')}"
+                               action="#{tncRequestListFilterBean.setSort('TNC_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('TNC')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{tncRequestListFilterBean.filter.tnc}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <p:commandLink value="#{row.tncName}"
+                           onclick="openPopUp('/screen/TNCScreen.xhtml?id=#{row.tnc.id}', 'TNCScreen#{row.tnc.id}')"
+                           styleClass="link"
+                           style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.countR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestItemEntity.count')}"
+                               action="#{tncRequestListFilterBean.setSort('COUNT_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('COUNT')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+            </f:facet>
+            <h:outputText value="#{row.count}"/>
+        </p:column>
+
+        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+        <p:column rendered="#{tncRequestList.userPA.tncLimitLowR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('TNCEntity.limitLow')}"
+                               action="#{tncRequestListFilterBean.setSort('LIMIT_LOW_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('LIMIT_LOW')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+            </f:facet>
+            <h:outputText value="#{row.limitLow}"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.tncLimitHighR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('TNCEntity.limitHigh')}"
+                               action="#{tncRequestListFilterBean.setSort('LIMIT_HIGH_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('LIMIT_HIGH')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+            </f:facet>
+            <h:outputText value="#{row.limitHigh}"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.creatorR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestEntity.creator')}"
+                               action="#{tncRequestListFilterBean.setSort('CREATOR_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('CREATOR')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{tncRequestListFilterBean.filter.creator}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.creator}"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.stateR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestItemEntity.state')}"
+                               action="#{tncRequestListFilterBean.setSort('STATE_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('STATE')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:selectOneMenu value="#{tncRequestListFilterBean.filter.state}"
+                                 styleClass="selectOneMenuSmallPF"
+                                 style="margin: 4px 0px 0px 0px !important">
+                    <f:selectItem itemLabel=""
+                                  itemValue="#{null}"/>
+                    <f:selectItems value="#{tncRequestListFilterBean.filterStates}"
+                                   var="state"
+                                   itemValue="#{state}"
+                                   itemLabel="#{state.description}"/>
+                </p:selectOneMenu>
+            </f:facet>
+            <h:outputText value="#{row.state.description}"/>
+        </p:column>
+        <p:column rendered="#{tncRequestList.userPA.startR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestEntity.start')}"
+                               action="#{tncRequestListFilterBean.setSort('START_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('START')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+
+                <div>
+                    <h:outputLabel value="≥" for="startL"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="startL"
+                                value="#{tncRequestListFilterBean.filter.startL}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="startL" infoClass="info" errorClass="error"/>
+                </div>
+                <div>
+                    <h:outputLabel value="≤" for="startH"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="startH"
+                                value="#{tncRequestListFilterBean.filter.startH}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="startH" infoClass="info" errorClass="error"/>
+                </div>
+            </f:facet>
+            <h:outputText value="#{row.start}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{tncRequestList.userPA.endPlanR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestItemEntity.endPlan')}"
+                               action="#{tncRequestListFilterBean.setSort('END_PLAN_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('END_PLAN')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+
+                <div>
+                    <h:outputLabel value="≥" for="endPlanL"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endPlanL"
+                                value="#{tncRequestListFilterBean.filter.endPlanL}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endPlanL" infoClass="info" errorClass="error"/>
+
+                </div>
+                <div>
+                    <h:outputLabel value="≤" for="endPlanH"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endPlanH"
+                                value="#{tncRequestListFilterBean.filter.endPlanH}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endPlanH" infoClass="info" errorClass="error"/>
+                </div>
+            </f:facet>
+            <h:outputText value="#{row.endPlan}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{tncRequestList.userPA.endActualR}"
+                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('tncRequestItemEntity.endActual')}"
+                               action="#{tncRequestListFilterBean.setSort('END_ACTUAL_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('END_ACTUAL')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+
+                <div>
+                    <h:outputLabel value="≥" for="endActualL"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endActualL"
+                                value="#{tncRequestListFilterBean.filter.endActualL}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endActualL" infoClass="info" errorClass="error"/>
+                </div>
+                <div>
+                    <h:outputLabel value="≤" for="endActualH"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endActualH"
+                                value="#{tncRequestListFilterBean.filter.endActualH}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endActualH" infoClass="info" errorClass="error"/>
+                </div>
+            </f:facet>
+            <h:outputText value="#{row.endActual}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+    </p:dataTable>
+
+</ui:composition>

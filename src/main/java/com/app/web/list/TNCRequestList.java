@@ -9,6 +9,7 @@ import com.app.data.filter.SpecificationCDI;
 import com.app.data.filter.TNCRequestCDI;
 import com.app.security.Security;
 import com.app.utils.AddMessage;
+import com.app.utils.AppUtil;
 import com.app.utils.SessionUtil;
 import com.app.web.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class TNCRequestList {
     private Map<String, Boolean> userPA;
     private List<TNCRequestDTO> listRows;
     private List<TNCRequestDTO> selectedRows;
+    private TNCSupply tncSupply;
 
     @Loggable
     @PostConstruct
@@ -53,6 +55,7 @@ public class TNCRequestList {
         List<TNCRequestItem> tncRequestItems = listFilterBean.getList();
         initListRows(tncRequestItems);
         selectedRows = new ArrayList<>();
+        tncSupply = getTNCSupply();
     }
 
     private void initListRows(List<TNCRequestItem> tncRequestItems){
@@ -69,8 +72,10 @@ public class TNCRequestList {
     }
 
     public void createSupply(){
-        TNCSupply tncSupply = new TNCSupply();
         Map<TNC, TNCSupplyItem> map = new HashMap<>();
+        for(TNCSupplyItem supplyItem : tncSupply.getTncSupplyItems()){
+            map.put(supplyItem.getTnc(), supplyItem);
+        }
         for(TNCRequestDTO row : selectedRows){
             TNC tnc = row.getTnc();
             TNCSupplyItem tncSupplyItem = new TNCSupplyItem();
@@ -83,11 +88,20 @@ public class TNCRequestList {
                 tncSupplyItem.setTnc(tnc);
                 tncSupplyItem.setCount(row.getCount());
                 tncSupplyItem.getTncRequestItems().add(row.getTncRequestItem());
+                tncSupply.getTncSupplyItems().add(tncSupplyItem);
                 map.put(tnc, tncSupplyItem);
             }
         }
-        tncSupply.getTncSupplyItems().addAll(map.values());
         SessionUtil.addSessionVariable("TNCSupplyCreated", tncSupply);
+    }
+
+    private TNCSupply getTNCSupply(){
+        TNCSupply tncSupply = new TNCSupply();
+        String id = SessionUtil.getParameter("sourceId");
+        if(id != null && AppUtil.isNumeric(id)){
+            tncSupply = (TNCSupply) SessionUtil.getSessionVariable("TNCSupply" + id);
+        }
+        return tncSupply;
     }
 
     public Map<String, Boolean> getUserPA() {

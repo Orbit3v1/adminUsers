@@ -9,8 +9,8 @@
                      actionListener="#{tncSupplyScreen.shareEntity}"
                      rendered="#{tncSupplyScreen.userPA.addItemR}"
                      disabled="#{!tncSupplyScreen.userPA.addItemEx}"
-                     onclick="openPopUp('about:blank', 'TNCSupplyItemScreen#{orderI.id}')"
-                     oncomplete="openPopUp('/screen/TNCRequestScreen.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen')"
+                     onclick="openPopUp('about:blank', 'selectTNCRequest')"
+                     oncomplete="openPopUp('../select/selectTNCRequest.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'selectTNCRequest')"
                      styleClass="buttonPF"
             />
 

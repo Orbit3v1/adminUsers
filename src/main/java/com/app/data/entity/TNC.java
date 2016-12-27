@@ -252,4 +252,16 @@ public class TNC extends AbstractVersionedEntity implements Copy<TNC> {
         this.tncRequestItems = copy.tncRequestItems;
         this.tncSupplyItems = copy.tncSupplyItems;
     }
+
+    @Override
+    public int hashCode() {
+        return (getClass().hashCode() + Integer.valueOf(id).hashCode());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass())
+                ? (id == ((TNC) obj).id)
+                : (obj == this);
+    }
 }
