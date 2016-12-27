@@ -71,6 +71,7 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
 
     private void initCreated(){
         entity = (TNCSupply) SessionUtil.getSessionVariable("TNCSupplyCreated");
+        entity.setStart(new Date());
     }
 
     @Override
@@ -81,6 +82,15 @@ public class TNCSupplyScreen extends EntityScreen<TNCSupply>{
 
     public void setEndActual(){
         entity.setEndActual(new Date());
+    }
+
+    public void setPaymentDate(){
+        entity.setPaymentDate(new Date());
+    }
+
+    @Loggable
+    public void cancelPaymentDate(){
+        entity.setPaymentDate(null);
     }
 
     @Loggable

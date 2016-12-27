@@ -64,20 +64,38 @@
                     />
             <h:message for="deliveryType" errorClass="error"/>
         </p:panelGrid>
-        <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.paymentDateR}">
+        <h:panelGroup id="paymentDatePG" rendered="#{tncSupplyScreen.userPA.paymentDateR}">
             <h:outputLabel value="#{messages.getString('tncSupplyEntity.paymentDate')}" for="paymentDate"
                            styleClass="labelPF"/>
-            <p:calendar id="paymentDate"
-                        value="#{tncSupplyScreen.entity.paymentDate}"
-                        locale="ru"
-                        readonlyInput="true"
-                        pattern="#{messages.getString('datePattern')}"
-                        showOn="button"
-                        disabled="#{tncSupplyScreen.isDisabled('paymentDate')}"
-                        styleClass="calendarPF"
-                    />
+
+            <h:panelGroup id="paymentDateSet" rendered="#{tncSupplyScreen.entity.paymentDate != null}">
+                <p:inputText id="paymentDate"
+                             value="#{tncSupplyScreen.entity.paymentDate}"
+                             readonly="true"
+                             styleClass="inputLarge">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                </p:inputText>
+                <p:commandLink id="paymentDateRevert"
+                               update=":mainForm:panel:paymentDatePG"
+                               title="#{messages.getString('button.delete')}"
+                               actionListener="#{tncSupplyScreen.cancelPaymentDate}"
+                               rendered="#{tncSupplyScreen.userPA.paymentDateE}"
+                               styleClass="ui-icon delete resetPF">
+                    <p:confirm header="#{messages.getString('button.revert.confirmation')}"
+                               message="#{messages.getString('button.revert.message')}"
+                               icon="ui-icon-alert"/>
+                </p:commandLink>
+            </h:panelGroup>
+
+            <p:commandButton id="paymentDateB"
+                             value="#{messages.getString('order.setEnd')}"
+                             actionListener="#{tncSupplyScreen.setPaymentDate}"
+                             disabled="#{!tncSupplyScreen.userPA.paymentDateW}"
+                             styleClass="buttonPF"
+                             rendered="#{tncSupplyScreen.entity.paymentDate == null}"
+                             update=":mainForm:panel:paymentDatePG"/>
             <h:message for="paymentDate" errorClass="error"/>
-        </p:panelGrid>
+        </h:panelGroup>
         <p:panelGrid columns="3" rendered="#{tncSupplyScreen.userPA.endPlanR}">
             <h:outputLabel value="#{messages.getString('tncSupplyEntity.endPlan')}" for="endPlan"
                            styleClass="labelPF"/>
@@ -118,7 +136,7 @@
                              value="#{messages.getString('order.setEnd')}"
                              actionListener="#{tncSupplyScreen.setEndActual}"
                              disabled="#{!tncSupplyScreen.userPA.endActualW}"
-                             styleClass="btnPF"
+                             styleClass="buttonPF"
                              rendered="#{tncSupplyScreen.entity.endActual == null}"
                              update=":mainForm:panel:endActualPG"/>
             <h:message for="endActual" errorClass="error"/>

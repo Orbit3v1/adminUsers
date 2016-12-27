@@ -29,13 +29,14 @@
 
             <ui:decorate template="../template/ListFilterButtonsPF.xhtml"/>
 
-            <p:commandButton value="#{messages.getString('button.create')}"
+            <p:commandButton id="btnCreate"
+                             value="#{messages.getString('button.create')}"
                              onclick="openPopUp('/screen/TNCSupplyScreen.xhtml', 'TNCSupplyScreen')"
                              oncomplete="openPopUp('/screen/TNCSupplyScreen.xhtml?type=CREATED', 'TNCSupplyScreen')"
                              styleClass="buttonPF"
                              actionListener="#{tncRequestList.createSupply}"
                              rendered="#{tncRequestList.userPA.supplyAddR}"
-                             disabled="#{!tncRequestList.userPA.supplyAddEx}"/>
+                             disabled="#{!tncRequestList.userPA.supplyAddEx or tncRequestList.selectedRows.size() == 0}"/>
 
             <h:message for="entities" infoClass="info" errorClass="error"/>
             <p:dataTable id="entities"

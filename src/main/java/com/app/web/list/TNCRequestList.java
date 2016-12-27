@@ -113,4 +113,5 @@ public class TNCRequestList {
     public void setSelectedRows(List<TNCRequestDTO> selectedRows) {
         this.selectedRows = selectedRows;
     }
+
 }

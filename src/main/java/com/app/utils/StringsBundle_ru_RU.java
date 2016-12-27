@@ -302,7 +302,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"button.delete", "Удалить"},
             {"button.delete.message", "Вы действительно хотите удалить запись?"},
             {"button.revert.confirmation", "Отменить"},
-            {"button.revert.message", "Вы действительно хотите отменить сдачу?"},
+            {"button.revert.message", "Вы действительно хотите отменить операцию?"},
             {"button.delete.confirmation", "Удаление"},
             {"button.login", "Войти"},
             {"button.logout", "Выйти"},
