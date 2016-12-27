@@ -36,7 +36,7 @@
                              styleClass="buttonPF"
                              actionListener="#{tncRequestList.createSupply}"
                              rendered="#{tncRequestList.userPA.supplyAddR}"
-                             disabled="#{!tncRequestList.userPA.supplyAddEx or tncRequestList.selectedRows.size() == 0}"/>
+                             disabled="#{!tncRequestList.userPA.supplyAddEx}"/>
 
             <h:message for="entities" infoClass="info" errorClass="error"/>
             <p:dataTable id="entities"
