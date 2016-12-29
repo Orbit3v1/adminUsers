@@ -50,7 +50,7 @@
                 <rich:column>
                     <f:facet name="header">#{messages.getString('nomenclatureEntity.description')}
                     </f:facet>
-                    <h:outputText value="#{row.previewDescription}"/>
+                    <h:outputText value="#{row.description}" converter="cutStringConverter"/>
                     <rich:tooltip layout="block">
                         <h:outputText value="#{row.description}"/>
                     </rich:tooltip>
