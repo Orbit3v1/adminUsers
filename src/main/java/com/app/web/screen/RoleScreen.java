@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Query;
 import java.util.*;
@@ -23,11 +24,11 @@ import java.util.stream.Collectors;
 @Scope("view")
 public class RoleScreen extends EntityScreen<Role>{
 
-    @Autowired
+    @Inject
     private RoleDao roleDao;
-    @Autowired
+    @Inject
     private PrivilegeDao privilegeDao;
-    @Autowired
+    @Inject
     private PrivilegeActionDao privilegeActionDao;
 
     private List<PrivilegeRow> privilegeRows;
@@ -48,7 +49,7 @@ public class RoleScreen extends EntityScreen<Role>{
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
         if(id != null){
-            entity = roleDao.getById(id);
+            entity = roleDao.getByIdWithResources(id, EnumSet.of(RoleDao.Resource.PRIVILEGES));
             edit = true;
         } else{
             entity = new Role();

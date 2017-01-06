@@ -2,7 +2,9 @@ package com.app.data.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -17,14 +19,14 @@ public class Role extends AbstractVersionedEntity<String> {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "role_privilege_action",
             joinColumns = @JoinColumn(name = "role"),
             inverseJoinColumns = {
                     @JoinColumn(name = "privilege", referencedColumnName = "privilege"),
                     @JoinColumn(name = "action", referencedColumnName = "action")
             })
-    private List<PrivilegeAction> privilegeAction = new ArrayList<>();
+    private Set<PrivilegeAction> privilegeAction = new HashSet<>();
 
     public Role() {
     }
@@ -35,7 +37,7 @@ public class Role extends AbstractVersionedEntity<String> {
         this.description = description;
     }
 
-    public Role(String id, String name, String description, List<PrivilegeAction> privilegeAction) {
+    public Role(String id, String name, String description, Set<PrivilegeAction> privilegeAction) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -80,11 +82,11 @@ public class Role extends AbstractVersionedEntity<String> {
         this.description = description;
     }
 
-    public List<PrivilegeAction> getPrivilegeAction() {
+    public Set<PrivilegeAction> getPrivilegeAction() {
         return privilegeAction;
     }
 
-    public void setPrivilegeAction(List<PrivilegeAction> privilege) {
+    public void setPrivilegeAction(Set<PrivilegeAction> privilege) {
         this.privilegeAction = privilege;
     }
 }

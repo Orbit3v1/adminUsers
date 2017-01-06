@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.*;
 import java.util.EnumSet;
@@ -26,9 +27,9 @@ public class PersonScreen extends EntityScreen<Person>{
     private List<Role> roleSourceList;
     private String oldPassword;
 
-    @Autowired
+    @Inject
     private PersonDao personDao;
-    @Autowired
+    @Inject
     private RoleDao roleDao;
 
     @PostConstruct

@@ -37,6 +37,11 @@ public class PrivilegeAction implements Unique<PrivilegeActionId> {
                 : (obj == this);
     }
 
+    @Override
+    public int hashCode() {
+        return (getClass().hashCode() + id.hashCode());
+    }
+
     public PrivilegeActionId getId() {
         return id;
     }

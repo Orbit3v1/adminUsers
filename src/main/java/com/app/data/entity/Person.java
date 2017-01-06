@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -37,7 +38,7 @@ public class Person extends AbstractVersionedEntity<Integer>{
     @JoinTable(name = "person_role",
         joinColumns = @JoinColumn(name = "person"),
         inverseJoinColumns = @JoinColumn(name = "role"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "developer")
     private List<OrderItem> orderItems;
@@ -65,7 +66,7 @@ public class Person extends AbstractVersionedEntity<Integer>{
         this.active = active;
     }
 
-    public Person(String firstName, String lastName, String email, boolean active, List<Role> roles) {
+    public Person(String firstName, String lastName, String email, boolean active, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -143,11 +144,11 @@ public class Person extends AbstractVersionedEntity<Integer>{
         this.active = state;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Named("roleList")
 @Scope("request")
 public class RoleList {
-    @Autowired
+    @Inject
     private RoleDao roleDao;
 
     private List<Role> roles;

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +20,7 @@ import java.util.Map;
 @Scope("request")
 public class PersonList {
 
-    @Autowired
+    @Inject
     private PersonDao personDao;
 
     private List<Person> persons;

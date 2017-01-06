@@ -16,7 +16,11 @@ public class HPrivilegeActionDao extends HGenericDao<PrivilegeAction, PrivilegeA
 
     @Override
     public List<PrivilegeAction> getAll() {
-        Query query = em.createQuery("select r from PrivilegeAction r");
+        Query query = em.createQuery(
+                "select r " +
+                        "from PrivilegeAction r " +
+                        "left join fetch r.privilege p " +
+                        "left join fetch r.action a ");
         return query.getResultList();
     }
 }
