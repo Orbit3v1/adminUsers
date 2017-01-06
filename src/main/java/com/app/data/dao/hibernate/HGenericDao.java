@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-public class HGenericDao<T extends Unique<K>, K> implements GenericDao<T, K>{
+public abstract class HGenericDao<T extends Unique<K>, K> implements GenericDao<T, K>{
 
     @PersistenceContext
     protected EntityManager em;

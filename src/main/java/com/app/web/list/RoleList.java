@@ -1,6 +1,8 @@
 package com.app.web.list;
 
+import com.app.data.dao.RoleDao;
 import com.app.data.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
@@ -15,8 +17,8 @@ import java.util.Map;
 @Named("roleList")
 @Scope("request")
 public class RoleList {
-    @PersistenceContext
-    protected EntityManager em;
+    @Autowired
+    private RoleDao roleDao;
 
     private List<Role> roles;
     private Map<String, Boolean> userPA;
@@ -24,8 +26,7 @@ public class RoleList {
 
     @PostConstruct
     public void init(){
-        Query query = em.createQuery("select r from Role r order by r.id");
-        roles = query.getResultList();
+        roles = roleDao.getAll();
         userPA = Security.getUserPrivilegeAction("roleList");
     }
 

@@ -1,6 +1,7 @@
 package com.app.web.screen;
 
 import com.app.data.dao.PersonDao;
+import com.app.data.dao.RoleDao;
 import com.app.data.dao.hibernate.HPersonDao;
 import com.app.data.entity.Person;
 import com.app.data.entity.Role;
@@ -27,13 +28,14 @@ public class PersonScreen extends EntityScreen<Person>{
 
     @Autowired
     private PersonDao personDao;
+    @Autowired
+    private RoleDao roleDao;
 
     @PostConstruct
     public void init() {
         logger.info("init");
         initEntity();
-        Query query = em.createQuery("select r from Role r order by r.name");
-        roleSourceList = query.getResultList();
+        roleSourceList = roleDao.getAll();
     }
 
     @Transactional

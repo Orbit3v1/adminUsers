@@ -9,8 +9,6 @@ public interface PersonDao extends GenericDao<Person, Integer> {
 
     public Person getByIdWithResources(Integer id, Collection<Resource> resources);
 
-    public List<Person> getAll();
-
     public enum Resource{
         ROLES
     }

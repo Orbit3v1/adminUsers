@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "role")
-public class Role extends AbstractVersionedEntity {
+public class Role extends AbstractVersionedEntity<String> {
     @Id
     @Column(name = "id")
     private String id;

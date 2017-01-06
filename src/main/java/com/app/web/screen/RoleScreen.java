@@ -1,9 +1,11 @@
 package com.app.web.screen;
 
+import com.app.data.dao.RoleDao;
 import com.app.data.entity.Privilege;
 import com.app.data.entity.PrivilegeAction;
 import com.app.data.entity.PrivilegeActionId;
 import com.app.data.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
@@ -17,6 +19,8 @@ import java.util.*;
 @Scope("view")
 public class RoleScreen extends EntityScreen<Role>{
 
+    @Autowired
+    private RoleDao roleDao;
 
     private List<PrivilegeRow> privilegeRows;
     private Set<PrivilegeActionId> privilegeActions;
@@ -38,7 +42,7 @@ public class RoleScreen extends EntityScreen<Role>{
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
         if(id != null){
-            entity = em.find(Role.class, id);
+            entity = roleDao.getById(id);
             edit = true;
         } else{
             entity = new Role();
@@ -58,7 +62,7 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @Transactional
     private void saveData(){
-        entity = em.merge(entity);
+        entity = roleDao.save(entity);
     }
 
 
