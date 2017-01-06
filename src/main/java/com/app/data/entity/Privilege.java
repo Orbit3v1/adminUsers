@@ -1,10 +1,12 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Unique;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "privilege")
-public class Privilege {
+public class Privilege implements Unique<String>{
     @Id
     @Column(name = "id")
     private String id;

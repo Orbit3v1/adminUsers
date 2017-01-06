@@ -1,5 +1,7 @@
 package com.app.web.screen;
 
+import com.app.data.dao.PrivilegeActionDao;
+import com.app.data.dao.PrivilegeDao;
 import com.app.data.dao.RoleDao;
 import com.app.data.entity.Privilege;
 import com.app.data.entity.PrivilegeAction;
@@ -14,6 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.persistence.Query;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Named("roleScreen")
 @Scope("view")
@@ -21,6 +25,10 @@ public class RoleScreen extends EntityScreen<Role>{
 
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private PrivilegeDao privilegeDao;
+    @Autowired
+    private PrivilegeActionDao privilegeActionDao;
 
     private List<PrivilegeRow> privilegeRows;
     private Set<PrivilegeActionId> privilegeActions;
@@ -34,9 +42,7 @@ public class RoleScreen extends EntityScreen<Role>{
     public void init() {
         logger.info("init");
         initEntity();
-        Query query = em.createQuery("select r.id from PrivilegeAction r");
-        privilegeActions = new HashSet<>(query.getResultList());
-
+        privilegeActions = privilegeActionDao.getAll().stream().map(PrivilegeAction::getId).collect(Collectors.toSet());
     }
 
     public void initEntity() {
@@ -90,8 +96,7 @@ public class RoleScreen extends EntityScreen<Role>{
 
 
     private void initPrivilegeRows() {
-        Query query = em.createQuery("select r from Privilege r order by r.pos");
-        List<Privilege> privileges = query.getResultList();
+        List<Privilege> privileges = privilegeDao.getAll();
 
         privilegeRows = new ArrayList<>();
         for (Privilege privilege : privileges) {

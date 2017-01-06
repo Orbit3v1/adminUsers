@@ -1,10 +1,12 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Unique;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "privilege_action")
-public class PrivilegeAction {
+public class PrivilegeAction implements Unique<PrivilegeActionId> {
 
     @EmbeddedId
     private PrivilegeActionId id;

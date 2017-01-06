@@ -10,5 +10,7 @@
 
     <bean id="personDao" class="com.app.data.dao.hibernate.HPersonDao"/>
     <bean id="roleDao" class="com.app.data.dao.hibernate.HRoleDao"/>
+    <bean id="privilegeDao" class="com.app.data.dao.hibernate.HPrivilegeDao"/>
+    <bean id="privilegeActionDao" class="com.app.data.dao.hibernate.HPrivilegeActionDao"/>
 
 </beans>
