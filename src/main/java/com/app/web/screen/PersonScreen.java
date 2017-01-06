@@ -1,10 +1,13 @@
 package com.app.web.screen;
 
+import com.app.data.dao.PersonDao;
+import com.app.data.dao.hibernate.HPersonDao;
 import com.app.data.entity.Person;
 import com.app.data.entity.Role;
 import com.app.utils.AppUtil;
 import com.app.utils.EntityUtil;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 import com.app.utils.SessionUtil;
@@ -12,6 +15,7 @@ import com.app.utils.SessionUtil;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.persistence.*;
+import java.util.EnumSet;
 import java.util.List;
 
 @Named("personScreen")
@@ -20,6 +24,9 @@ public class PersonScreen extends EntityScreen<Person>{
 
     private List<Role> roleSourceList;
     private String oldPassword;
+
+    @Autowired
+    private PersonDao personDao;
 
     @PostConstruct
     public void init() {
@@ -33,8 +40,7 @@ public class PersonScreen extends EntityScreen<Person>{
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
-            entity = em.find(Person.class, AppUtil.toInteger(id));
-            entity.getRoles().size();
+            entity = personDao.getByIdWithResources(AppUtil.toInteger(id), EnumSet.of(PersonDao.Resource.ROLES));
             oldPassword = entity.getPassword();
             edit = true;
         } else{
@@ -51,12 +57,12 @@ public class PersonScreen extends EntityScreen<Person>{
     public void save(){
         passwordCode();
         saveData();
-        EntityUtil.refreshPersons(em);
+        EntityUtil.refreshPersons();
     }
 
     @Transactional
     protected boolean canDelete(){
-        Person person = em.find(Person.class, entity.getId());
+        Person person = personDao.getById(entity.getId());
         return super.canDelete()
                 && person.getOrderItems().size() == 0
                 && person.getOrders().size() == 0
@@ -66,12 +72,12 @@ public class PersonScreen extends EntityScreen<Person>{
     }
 
     protected void postDelete(){
-        EntityUtil.refreshPersons(em);
+        EntityUtil.refreshPersons();
     }
 
     @Transactional
     private void saveData(){
-        entity = em.merge(entity);
+        entity = personDao.save(entity);
     }
 
     private void passwordCode(){

@@ -28,7 +28,7 @@ public class OrderScreen extends EntityScreen<Order>  {
         logger.info("init");
         initEntity();
 
-        developers = EntityUtil.getDevelopers(em);
+        developers = EntityUtil.getDevelopers();
         OPM = new OrderPaymentManager(entity);
     }
 

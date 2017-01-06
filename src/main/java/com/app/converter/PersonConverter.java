@@ -16,14 +16,11 @@ import java.util.List;
 @Scope("request")
 public class PersonConverter implements Converter {
 
-    @PersistenceContext
-    protected EntityManager em;
-
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         Object person = null;
         if(!s.equals("")){
-            List<Person> persons = EntityUtil.getDevelopers(em);
+            List<Person> persons = EntityUtil.getDevelopers();
             for(Person p : persons){
                 if(p.getId().equals(Integer.valueOf(s))){
                     person = p;

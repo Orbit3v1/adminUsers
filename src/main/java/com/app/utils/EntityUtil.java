@@ -1,27 +1,30 @@
 package com.app.utils;
 
+import com.app.data.dao.PersonDao;
 import com.app.data.entity.Person;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.ResourceBundle;
 
-/**
- * Created by Andrey on 24.08.2016.
- */
 public class EntityUtil {
 
     private static List<Person> persons;
 
-    static public List<Person> getDevelopers(EntityManager em){
+    public static List<Person> getDevelopers(){
         if(persons == null){
-            refreshPersons(em);
+            refreshPersons();
         }
         return persons;
     }
 
-    public static void refreshPersons(EntityManager em){
-        Query query = em.createQuery("select r from Person r order by r.lastName, r.firstName");
-        persons = query.getResultList();
+    public static void refreshPersons(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        PersonDao personDao = context.getBean("personDao", PersonDao.class);
+        persons = personDao.getAll();
     }
 }

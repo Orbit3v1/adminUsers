@@ -1,7 +1,9 @@
 package com.app.web.list;
 
+import com.app.data.dao.PersonDao;
 import com.app.data.entity.Person;
 import com.app.web.Loggable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
@@ -17,8 +19,8 @@ import java.util.Map;
 @Scope("request")
 public class PersonList {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private PersonDao personDao;
 
     private List<Person> persons;
     private Map<String, Boolean> userPA;
@@ -26,8 +28,7 @@ public class PersonList {
     @Loggable
     @PostConstruct
     public void init(){
-        Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName");
-        persons = query.getResultList();
+        persons = personDao.getAll();
         userPA = Security.getUserPrivilegeAction("personList");
     }
 

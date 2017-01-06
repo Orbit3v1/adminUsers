@@ -53,7 +53,7 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
 
-        developers = EntityUtil.getDevelopers(em);
+        developers = EntityUtil.getDevelopers();
     }
 
     public void updateList() {

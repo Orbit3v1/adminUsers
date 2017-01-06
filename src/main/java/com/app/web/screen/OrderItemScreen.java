@@ -30,7 +30,7 @@ public class OrderItemScreen extends EntityScreen<OrderItem> {
         initSource();
         initEntity();
 
-        developers = EntityUtil.getDevelopers(em);
+        developers = EntityUtil.getDevelopers();
     }
 
     @Override

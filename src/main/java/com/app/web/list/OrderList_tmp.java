@@ -56,7 +56,7 @@ public class OrderList_tmp {
         userPA = Security.getUserPrivilegeAction("orderList");
         filter = ((OrderListFilterBean) listFilterBean).getFilterOriginal();
 
-        developers = EntityUtil.getDevelopers(em);
+        developers = EntityUtil.getDevelopers();
     }
 
     public void updateList() {

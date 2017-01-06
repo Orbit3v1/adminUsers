@@ -35,7 +35,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
         logger.info("init");
         initEntity();
 
-        developers = EntityUtil.getDevelopers(em);
+        developers = EntityUtil.getDevelopers();
     }
 
     @Override

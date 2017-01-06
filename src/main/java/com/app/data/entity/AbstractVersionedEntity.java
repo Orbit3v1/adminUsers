@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class AbstractVersionedEntity implements Unique {
+public abstract class AbstractVersionedEntity<T> implements Unique<T> {
     @Version
     @Column(name = "version", nullable = false)
     private int version;
