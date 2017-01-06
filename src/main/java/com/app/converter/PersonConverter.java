@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,11 +17,14 @@ import java.util.List;
 @Scope("request")
 public class PersonConverter implements Converter {
 
+    @Inject
+    private EntityUtil entityUtil;
+
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         Object person = null;
         if(!s.equals("")){
-            List<Person> persons = EntityUtil.getDevelopers();
+            List<Person> persons = entityUtil.getDevelopers();
             for(Person p : persons){
                 if(p.getId().equals(Integer.valueOf(s))){
                     person = p;

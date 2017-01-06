@@ -40,6 +40,8 @@ public class OrderList {
     ListFilterBean listFilterBean;
     @Inject
     private AddMessage addMessage;
+    @Inject
+    private EntityUtil entityUtil;
 
     private List<ProductionReportDTO> listRows;
     private Map<String, Boolean> userPA;
@@ -53,7 +55,7 @@ public class OrderList {
         logger.info("init");
         userPA = Security.getUserPrivilegeAction("orderList");
 
-        developers = EntityUtil.getDevelopers();
+        developers = entityUtil.getDevelopers();
     }
 
     public void updateList() {

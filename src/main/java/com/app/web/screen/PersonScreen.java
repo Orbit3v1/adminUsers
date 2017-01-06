@@ -60,7 +60,7 @@ public class PersonScreen extends EntityScreen<Person>{
     public void save(){
         passwordCode();
         saveData();
-        EntityUtil.refreshPersons();
+        entityUtil.refreshPersons();
     }
 
     @Transactional
@@ -75,7 +75,7 @@ public class PersonScreen extends EntityScreen<Person>{
     }
 
     protected void postDelete(){
-        EntityUtil.refreshPersons();
+        entityUtil.refreshPersons();
     }
 
     @Transactional

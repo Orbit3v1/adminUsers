@@ -4,6 +4,7 @@ import com.app.data.entity.TNCSupplyItem;
 import com.app.data.entity.interfaces.Unique;
 import com.app.utils.AddMessage;
 import com.app.security.Security;
+import com.app.utils.EntityUtil;
 import com.app.validator.Validator;
 import com.app.web.Loggable;
 import org.apache.log4j.Logger;
@@ -28,6 +29,8 @@ public abstract class EntityScreen<T extends Unique> {
     protected AddMessage addMessage;
     @Inject
     protected Validator<T> validator;
+    @Inject
+    protected EntityUtil entityUtil;
 
     @PersistenceContext
     protected EntityManager em;

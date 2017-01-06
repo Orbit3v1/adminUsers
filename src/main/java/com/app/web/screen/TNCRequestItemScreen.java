@@ -3,7 +3,6 @@ package com.app.web.screen;
 import com.app.data.dictionary.TNCRequestState;
 import com.app.data.entity.*;
 import com.app.utils.AppUtil;
-import com.app.utils.EntityUtil;
 import com.app.utils.SessionUtil;
 import com.app.utils.TNCChooser;
 import org.primefaces.context.RequestContext;

@@ -4,6 +4,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +40,7 @@ public class Person extends AbstractVersionedEntity<Integer>{
     @JoinTable(name = "person_role",
         joinColumns = @JoinColumn(name = "person"),
         inverseJoinColumns = @JoinColumn(name = "role"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "developer")
     private List<OrderItem> orderItems;
@@ -144,12 +146,12 @@ public class Person extends AbstractVersionedEntity<Integer>{
         this.active = state;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public List<Role> getRoles() {
+        return new ArrayList<>(roles);
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(List<Role> roles) {
+        this.roles = new HashSet<>(roles);
     }
 
     public String getLogin() {

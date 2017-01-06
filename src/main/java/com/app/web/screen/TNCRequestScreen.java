@@ -30,7 +30,7 @@ public class TNCRequestScreen extends EntityScreen<TNCRequest>{
     @PostConstruct
     public void init() {
         initEntity();
-        developers = EntityUtil.getDevelopers();
+        developers = entityUtil.getDevelopers();
     }
 
     @Transactional
