@@ -2,6 +2,7 @@ package com.app.data.entity;
 
 import com.app.data.dictionary.TNCRequestState;
 import com.app.data.entity.interfaces.TNCOwner;
+import com.app.utils.AppUtil;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -123,5 +124,9 @@ public class TNCRequestItem extends AbstractVersionedEntity implements TNCOwner 
 
     public void setState(TNCRequestState status) {
         this.state = status;
+    }
+
+    public Integer getNameAsInt(){
+        return AppUtil.isNumeric(name) ? AppUtil.toInteger(name) : 0;
     }
 }

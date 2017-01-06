@@ -21,6 +21,7 @@
                  emptyMessage="#{messages.getString('table.emptyMessage')}"
                  var="item"
                  tableStyle="width:auto"
+                 sortBy="#{item.nameAsInt}"
                  resizableColumns="true">
 
         <p:column rendered="#{TNCRequestScreen.userPA.TNCRequestItemName}"
