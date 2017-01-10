@@ -2,14 +2,18 @@ package com.app.security;
 
 public class PrivilegeCheckerFactory {
 
-    private static PrivilegeCheckerFactory factory;
+    private static volatile PrivilegeCheckerFactory factory;
 
     private PrivilegeCheckerFactory() {
     }
 
     public static PrivilegeCheckerFactory getFactory() {
         if (factory == null) {
-            factory = new PrivilegeCheckerFactory();
+            synchronized (PrivilegeCheckerFactory.class){
+                if (factory == null){
+                    factory = new PrivilegeCheckerFactory();
+                }
+            }
         }
         return factory;
     }
