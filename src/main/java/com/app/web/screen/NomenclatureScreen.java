@@ -1,6 +1,7 @@
 package com.app.web.screen;
 
 import com.app.common.NomenclatureComponentManager;
+import com.app.data.dao.AttachmentContentDao;
 import com.app.data.dao.NomenclatureDao;
 import com.app.data.dao.RoleDao;
 import com.app.data.dictionary.NAType;
@@ -29,6 +30,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private Download downloader;
     @Inject
     private NomenclatureDao nomenclatureDao;
+    @Inject
+    private AttachmentContentDao attachmentContentDao;
 
     private String gib;
     private Part file;
@@ -77,21 +80,29 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     private void saveData() {
+        saveAttachment();
+        saveSpecification();
+        entity = nomenclatureDao.save(entity);
+    }
+
+    private void saveAttachment(){
         for(NomenclatureAttachment na : entity.getNomenclatureAttachments()){
             Attachment attachment = na.getAttachment();
             if(attachment.getId() == 0) {
                 AttachmentContent attachmentContent = attachment.getContent();
-                attachmentContent = em.merge(attachmentContent);
+                attachmentContent = attachmentContentDao.save(attachmentContent);
 
                 attachment.setId(attachmentContent.getId());
                 attachment.setContent(attachmentContent);
             }
         }
+    }
+
+    private void saveSpecification(){
         if(spToSave != null) {
             em.merge(spToSave);
             spToSave = null;
         }
-        entity = nomenclatureDao.save(entity);
     }
 
     @Override

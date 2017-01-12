@@ -1,5 +1,6 @@
 package com.app.utils;
 
+import com.app.data.dao.AttachmentContentDao;
 import com.app.data.entity.Attachment;
 import com.app.data.entity.AttachmentContent;
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,8 +21,8 @@ import java.net.URLEncoder;
 @Scope("request")
 public class AttachmentDownloader implements Download{
 
-    @PersistenceContext
-    private EntityManager em;
+    @Inject
+    private AttachmentContentDao attachmentContentDao;
     private Logger logger = Logger.getLogger(getClass());
     
     private FacesContext facesContext;
@@ -73,7 +75,7 @@ public class AttachmentDownloader implements Download{
     private byte[] getContent(){
         AttachmentContent attachmentContent;
         if(isAttachmentSaved()){
-            attachmentContent = em.find(AttachmentContent.class, attachment.getId());
+            attachmentContent = attachmentContentDao.getById(attachment.getId());
         } else {
             attachmentContent = attachment.getContent();
         }

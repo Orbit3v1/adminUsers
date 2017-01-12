@@ -1,10 +1,12 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Unique;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "attachment")
-public class AttachmentContent {
+public class AttachmentContent implements Unique<Integer> {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -21,7 +23,7 @@ public class AttachmentContent {
     public AttachmentContent() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
