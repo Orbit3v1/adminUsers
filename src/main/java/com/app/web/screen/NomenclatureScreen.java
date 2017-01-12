@@ -1,6 +1,8 @@
 package com.app.web.screen;
 
 import com.app.common.NomenclatureComponentManager;
+import com.app.data.dao.NomenclatureDao;
+import com.app.data.dao.RoleDao;
 import com.app.data.dictionary.NAType;
 import com.app.data.entity.*;
 import com.app.utils.Download;
@@ -17,6 +19,7 @@ import javax.persistence.EntityGraph;
 import javax.servlet.http.Part;
 import java.util.*;
 import java.util.stream.Collectors;
+import static com.app.data.dao.NomenclatureDao.Resource.*;
 
 @Named("nomenclatureScreen")
 @Scope("view")
@@ -24,6 +27,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Inject
     private Download downloader;
+    @Inject
+    private NomenclatureDao nomenclatureDao;
 
     private String gib;
     private Part file;
@@ -51,7 +56,9 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         String type = SessionUtil.getParameter("type");
 
         if(id != null && AppUtil.isNumeric(id)){
-            entity = loadEntity(AppUtil.toInteger(id));
+            entity = nomenclatureDao.getByIdWithResources(AppUtil.toInteger(id)
+                    , EnumSet.of(ATTACHMENTS, COMPONENTS, SPECIFICATIONS)
+            );
             gib = AppUtil.toString(entity.getGib());
             if(type != null && type.equals("copy")){
                 entity = new Nomenclature(entity);
@@ -61,18 +68,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         } else{
             entity = new Nomenclature();
         }
-    }
-
-    private Nomenclature loadEntity(int id){
-        EntityGraph<Nomenclature> graph = em.createEntityGraph(Nomenclature.class);
-        graph.addAttributeNodes("nomenclatureAttachments");
-        graph.addAttributeNodes("components");
-        graph.addAttributeNodes("orderItems");
-        graph.addAttributeNodes("specifications");
-        Map<String, Object> hints = new HashMap<>();
-        hints.put("javax.persistence.loadgraph", graph);
-
-        return  em.find(Nomenclature.class, id, hints);
     }
 
     public void save() {
@@ -96,8 +91,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
             em.merge(spToSave);
             spToSave = null;
         }
-        entity = em.merge(entity);
-        entity.getSpecifications().size();
+        entity = nomenclatureDao.save(entity);
     }
 
     @Override
@@ -130,7 +124,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Transactional
     protected boolean canDelete(){
-        Nomenclature nomenclature = em.find(Nomenclature.class, entity.getId());
+        Nomenclature nomenclature = nomenclatureDao.getById(entity.getId());
         return super.canDelete()
                 && nomenclature.getOrderItems().size() == 0
                 && nomenclature.getSpecification() == null

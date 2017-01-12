@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "nomenclature")
-public class Nomenclature extends AbstractVersionedEntity {
+public class Nomenclature extends AbstractVersionedEntity<Integer> {
     @Id
     @GeneratedValue
     @Column(name = "id")

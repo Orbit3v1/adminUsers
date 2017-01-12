@@ -1,11 +1,14 @@
 package com.app.web.list;
 
+import com.app.data.dao.NomenclatureDao;
+import com.app.data.dao.PersonDao;
 import com.app.data.entity.Nomenclature;
 import com.app.web.Loggable;
 import org.springframework.context.annotation.Scope;
 import com.app.security.Security;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,8 +20,8 @@ import java.util.Map;
 @Scope("request")
 public class NomenclatureList {
 
-    @PersistenceContext
-    protected EntityManager em;
+    @Inject
+    private NomenclatureDao nomenclatureDao;
 
     private List<Nomenclature> nomenclatures;
     private Map<String, Boolean> userPA;
@@ -27,10 +30,7 @@ public class NomenclatureList {
     @Loggable
     @PostConstruct
     public void init(){
-        Query query = em.createQuery("select p from Nomenclature p " +
-                "left join fetch p.specifications " +
-                "order by p.name");
-        nomenclatures = query.getResultList();
+        nomenclatures = nomenclatureDao.getAll();
         userPA = Security.getUserPrivilegeAction("nomenclatureList");
     }
 
