@@ -1,5 +1,9 @@
 package com.app.web.screen;
 
+import com.app.data.dao.AttachmentContentDao;
+import com.app.data.dao.NomenclatureDao;
+import com.app.data.dao.RoleDao;
+import com.app.data.dao.SpecificationDao;
 import com.app.data.entity.*;
 import com.app.msOffice.SpecificationDoc;
 import com.app.security.Security;
@@ -25,6 +29,12 @@ public class SpecificationScreen extends EntityScreen<Specification>{
 
     @Inject
     private Download downloader;
+    @Inject
+    private SpecificationDao specificationDao;
+    @Inject
+    private AttachmentContentDao attachmentContentDao;
+    @Inject
+    private NomenclatureDao nomenclatureDao;
 
     private List<Person> developers;
     private Part file;
@@ -47,13 +57,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     public void initEntity() {
         String id = SessionUtil.getParameter("id");
         if(id != null && AppUtil.isNumeric(id)){
-            EntityGraph<Specification> graph = em.createEntityGraph(Specification.class);
-            graph.addAttributeNodes("specificationAttachments");
-            graph.addAttributeNodes("nomenclature");
-            Map<String, Object> hints = new HashMap<>();
-            hints.put("javax.persistence.loadgraph", graph);
-
-            entity = em.find(Specification.class, AppUtil.toInteger(id), hints);
+            entity = specificationDao.getByIdWithResources(AppUtil.toInteger(id), EnumSet.of(SpecificationDao.Resource.ATTACHMENTS, SpecificationDao.Resource.NOMENCLATURE));
             workDays = AppUtil.toString(entity.getWorkDays());
             edit = true;
         } else {
@@ -61,7 +65,6 @@ public class SpecificationScreen extends EntityScreen<Specification>{
             entity.setResponsible(Security.getCurrentUser());
             entity.setStart(new Date());
         }
-
     }
 
     public void uploadFile() {
@@ -123,26 +126,28 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     }
 
     private void generateSubName(){
-        Query query = em.createQuery("select max(cast(p.subName as int)) from Specification p where p.name like :name");
-        query.setParameter("name", entity.getName());
-        Integer lastSubName = (Integer) query.getSingleResult();
+        Integer lastSubName = specificationDao.getMaxSubName(entity.getName());
         lastSubName = lastSubName == null ? 1 : lastSubName + 1;
         entity.setSubName(String.valueOf(lastSubName));
     }
 
     @Transactional
     private void saveData() {
+        saveAttachment();
+        entity = specificationDao.save(entity);
+    }
+
+    private void saveAttachment(){
         for(SpecificationAttachment sa : entity.getSpecificationAttachments()){
             Attachment attachment = sa.getAttachment();
             if(attachment.getId() == 0) {
                 AttachmentContent attachmentContent = attachment.getContent();
-                attachmentContent = em.merge(attachmentContent);
+                attachmentContent = attachmentContentDao.save(attachmentContent);
 
                 attachment.setId(attachmentContent.getId());
                 attachment.setContent(attachmentContent);
             }
         }
-        entity = em.merge(entity);
     }
 
     public void shareEntity(){
@@ -158,7 +163,7 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     @Transactional
     public void refresh(){
         logger.info("refresh");
-        Nomenclature nomenclature = em.find(Nomenclature.class, entity.getNomenclature().getId());
+        Nomenclature nomenclature = nomenclatureDao.getById(entity.getNomenclature().getId());
         entity.setNomenclature(nomenclature);
     }
 

@@ -14,6 +14,7 @@
     <bean id="privilegeActionDao" class="com.app.data.dao.hibernate.HPrivilegeActionDao"/>
     <bean id="nomenclatureDao" class="com.app.data.dao.hibernate.HNomenclatureDao"/>
     <bean id="attachmentContentDao" class="com.app.data.dao.hibernate.HAttachmentContentDao"/>
+    <bean id="specificationDao" class="com.app.data.dao.hibernate.HSpecificationDao"/>
 
 
 </beans>

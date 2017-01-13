@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "specification")
-public class Specification extends AbstractVersionedEntity implements SetNomenclature {
+public class Specification extends AbstractVersionedEntity<Integer> implements SetNomenclature {
     @Id
     @GeneratedValue
     @Column(name = "id")

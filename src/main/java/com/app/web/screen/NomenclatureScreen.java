@@ -4,6 +4,7 @@ import com.app.common.NomenclatureComponentManager;
 import com.app.data.dao.AttachmentContentDao;
 import com.app.data.dao.NomenclatureDao;
 import com.app.data.dao.RoleDao;
+import com.app.data.dao.SpecificationDao;
 import com.app.data.dictionary.NAType;
 import com.app.data.entity.*;
 import com.app.utils.Download;
@@ -32,6 +33,8 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     private NomenclatureDao nomenclatureDao;
     @Inject
     private AttachmentContentDao attachmentContentDao;
+    @Inject
+    private SpecificationDao specificationDao;
 
     private String gib;
     private Part file;
@@ -100,7 +103,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     private void saveSpecification(){
         if(spToSave != null) {
-            em.merge(spToSave);
+            specificationDao.save(spToSave);
             spToSave = null;
         }
     }
@@ -181,7 +184,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
         logger.info("refresh");
         List<Specification> specifications = new ArrayList<>();
         for(Specification sp : entity.getSpecifications()){
-            specifications.add(em.find(Specification.class, sp.getId()));
+            specifications.add(specificationDao.getById(sp.getId()));
         }
         entity.setSpecifications(specifications);
     }
