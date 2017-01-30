@@ -1,0 +1,18 @@
+DB
+- entity table
+- filter table
+- insert roles
+
+Java: Entity
+- Entity
+- Entity filter
+- DAO
+
+
+Java: Screen
+- privilegeChecker
+- bundle resource
+- screen
+- validator
+- list
+- list filter
