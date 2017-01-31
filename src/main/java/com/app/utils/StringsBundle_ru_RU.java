@@ -88,8 +88,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"TNCEntity.ratio", "Коэф."},
             {"TNCEntity.price", "Цена"},
             {"TNCEntity.nameInner", "Вн. наименование"},
-            {"TNCEntity.limitLow", "Лимит нижний"},
-            {"TNCEntity.limitHigh", "Лимит верхний"},
+            {"TNCEntity.limitLow", "Лимит нижн."},
+            {"TNCEntity.limitHigh", "Лимит верхн."},
             {"TNCEntity.balance", "Остаток"},
 
             {"TNCLinkEntity", "Ссылка"},
@@ -121,7 +121,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncRequestItemEntity.tnc", "ТНЦ"},
             {"tncRequestItemEntity.count", "Кол-во"},
             {"tncRequestItemEntity.reason", "Причина"},
-            {"tncRequestItemEntity.endPlan", "План поставки"},
+            {"tncRequestItemEntity.endPlan", "Требуемый срок"},
             {"tncRequestItemEntity.endActual", "Поставка"},
             {"tncRequestItemEntity.state", "Статус"},
 
@@ -132,8 +132,9 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
             {"tncSupplyEntity.deliveryType", "Вид доставки"},
             {"tncSupplyEntity.start", "Дата взятия счета"},
             {"tncSupplyEntity.paymentDate", "Дата оплаты"},
-            {"tncSupplyEntity.endPlan", "Планируемая доставка"},
+            {"tncSupplyEntity.endPlan", "План доставки"},
             {"tncSupplyEntity.endActual", "Получение кладовщика"},
+            {"tncSupplyEntity.endActualShort", "Получение"},
 
             {"tncSupplyItemEntity", "Позиция заявки на поставку ТНЦ"},
             {"tncSupplyItemEntity.name", "#"},

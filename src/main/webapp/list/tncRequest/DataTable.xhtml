@@ -68,7 +68,7 @@
         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
         <p:column rendered="#{tncRequestList.userPA.tncLimitLowR}"
-                  style="width:90px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                  style="width:80px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('TNCEntity.limitLow')}"
                                action="#{tncRequestListFilterBean.setSort('LIMIT_LOW_ASC')}"
@@ -81,7 +81,7 @@
             <h:outputText value="#{row.limitLow}"/>
         </p:column>
         <p:column rendered="#{tncRequestList.userPA.tncLimitHighR}"
-                  style="width:90px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                  style="width:80px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('TNCEntity.limitHigh')}"
                                action="#{tncRequestListFilterBean.setSort('LIMIT_HIGH_ASC')}"
