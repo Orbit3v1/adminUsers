@@ -68,11 +68,11 @@
         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
         <p:column rendered="#{tncRequestList.userPA.tncLimitLowR}"
-                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                  style="width:90px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('TNCEntity.limitLow')}"
                                action="#{tncRequestListFilterBean.setSort('LIMIT_LOW_ASC')}"
-                               styleClass="headerSort">
+                               styleClass="headerSortSmall">
                     <h:graphicImage
                             value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('LIMIT_LOW')}.png.xhtml"
                             styleClass="headerSortImg"/>
@@ -81,11 +81,11 @@
             <h:outputText value="#{row.limitLow}"/>
         </p:column>
         <p:column rendered="#{tncRequestList.userPA.tncLimitHighR}"
-                  style="#{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
+                  style="width:90px; #{row.fromNewRequest ? 'border-top-width: 2px; border-top-style: solid' : ''}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('TNCEntity.limitHigh')}"
                                action="#{tncRequestListFilterBean.setSort('LIMIT_HIGH_ASC')}"
-                               styleClass="headerSort">
+                               styleClass="headerSortSmall">
                     <h:graphicImage
                             value="/javax.faces.resource/images/#{tncRequestListFilterBean.getImage('LIMIT_HIGH')}.png.xhtml"
                             styleClass="headerSortImg"/>

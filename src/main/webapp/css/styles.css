@@ -72,10 +72,18 @@
 
 
 .headerSort{
+     display: block; !important;
+     text-decoration: none; !important;
+     font-size: 16px; !important;
+     color: black !important;
+ }
+
+.headerSortSmall{
     display: block; !important;
     text-decoration: none; !important;
     font-size: 16px; !important;
     color: black !important;
+    white-space: normal !important;
 }
 
 .headerSortImg{
