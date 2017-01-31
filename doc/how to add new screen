@@ -7,11 +7,12 @@ Java: Entity
 - Entity
 - Entity filter
 - DAO
+- Sort Enum
 
 
 Java: Screen
 - privilegeChecker
-- bundle resource
+- bundle resource (for entity, list, screen)
 - screen
 - validator
 - list

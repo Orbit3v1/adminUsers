@@ -9,6 +9,7 @@ import org.primefaces.model.UploadedFile;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -151,6 +152,24 @@ public class AppUtil {
             }
         }
         return item;
+    }
+
+    public static Object[][] addAll(Object[][] ... arrays) {
+        if(arrays.length > 0){
+            int length = 0;
+            for(Object[][] array : arrays){
+                length += array.length;
+            }
+            Object[][] joinedArray = (Object[][]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
+            int startIndex = 0;
+            for(Object[][] array : arrays){
+                System.arraycopy(array, 0, joinedArray, startIndex, array.length);
+                startIndex += array.length;
+            }
+            return joinedArray;
+        } else {
+            return null;
+        }
     }
 
 }
