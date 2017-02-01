@@ -23,9 +23,12 @@ public class CarRequestSB {
 
             {"carRequestList.title", "График заявок на автомобиль"},
 
-            {"carRequestScreen.title", "Заявок на автомобиль"},
-            {"carRequestScreen.editText", "Редактирование заявоки на автомобиль"},
-            {"carRequestScreen.addText", "Добавление заявоки на автомобиль"},
+            {"carRequestScreen.title", "Заявки на автомобиль"},
+            {"carRequestScreen.editText", "Редактирование заявки на автомобиль"},
+            {"carRequestScreen.addText", "Добавление заявки на автомобиль"},
+            {"carRequestScreen.files", "Файлы"},
+            {"carRequestScreen.success.save", "Заявка успешно создана"},
+            {"carRequestScreen.success.edit", "Заявка успешно изменена"}
     };
 
     public static Object[][] getContents(){

@@ -99,7 +99,7 @@
                                 <h:column>
                                     <h:commandLink value="#{row.attachment.name}"
                                                    styleClass="link"
-                                                   action="#{nomenclatureScreen.download(row)}"/>
+                                                   action="#{downloader.download(row.attachment)}"/>
                                 </h:column>
                                 <h:column rendered="#{!nomenclatureScreen.isDisabled('sketches')}">
                                     <h:commandButton value="X"
@@ -139,7 +139,7 @@
                         <h:column>
                             <h:commandLink value="#{row.attachment.name}"
                                            styleClass="link"
-                                           action="#{nomenclatureScreen.download(row)}"/>
+                                           action="#{downloader.download(row.attachment)}"/>
                         </h:column>
                         <h:column rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
                             <h:commandButton value="X"

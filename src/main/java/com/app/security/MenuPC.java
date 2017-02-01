@@ -15,27 +15,21 @@ public class MenuPC implements PrivilegeChecker {
         userPA.put("graphMenuR", hasAnyPrivilegeAction(
                         new PrivilegeAction("graphMenu", "READ"))
         );
-
         userPA.put("adminMenuR", hasAnyPrivilegeAction(
                         new PrivilegeAction("adminMenu", "READ"))
         );
-
         userPA.put("calcMenuR", hasAnyPrivilegeAction(
                         new PrivilegeAction("calcMenu", "READ"))
         );
-
         userPA.put("adminMenuPersonR", hasAnyPrivilegeAction(
                         new PrivilegeAction("adminMenuPerson", "READ"))
         );
-
         userPA.put("adminMenuRoleR", hasAnyPrivilegeAction(
                         new PrivilegeAction("adminMenuRole", "READ"))
         );
-
         userPA.put("adminMenuNomenclatureR", hasAnyPrivilegeAction(
                         new PrivilegeAction("adminMenuNomenclature", "READ"))
         );
-
         userPA.put("graphicMenuProductionR", hasAnyPrivilegeAction(
                         new PrivilegeAction("graphicMenuProduction", "READ"))
         );
@@ -47,6 +41,9 @@ public class MenuPC implements PrivilegeChecker {
         );
         userPA.put("graphicMenuTNCSupplyR", hasAnyPrivilegeAction(
                         new PrivilegeAction("graphicMenuTNCSupply", "READ"))
+        );
+        userPA.put("graphicMenuCarRequestR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("graphicMenuCarRequest", "READ"))
         );
 
         return userPA;

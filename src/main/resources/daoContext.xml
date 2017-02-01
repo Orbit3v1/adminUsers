@@ -15,6 +15,7 @@
     <bean id="nomenclatureDao" class="com.app.data.dao.hibernate.HNomenclatureDao"/>
     <bean id="attachmentContentDao" class="com.app.data.dao.hibernate.HAttachmentContentDao"/>
     <bean id="specificationDao" class="com.app.data.dao.hibernate.HSpecificationDao"/>
+    <bean id="carRequestDao" class="com.app.data.dao.hibernate.HCarRequestDao"/>
 
 
 </beans>

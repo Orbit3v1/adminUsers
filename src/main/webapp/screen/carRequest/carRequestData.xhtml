@@ -1,0 +1,204 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="1">
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.nameR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.name')}"
+                           for="name"
+                           styleClass="labelPF"/>
+            <p:inputText id="name"
+                         value="#{carRequestScreen.entity.id}"
+                         readonly="true"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="name" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.responsibleR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.responsible')}"
+                           for="responsible"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="responsible"
+                             value="#{carRequestScreen.entity.responsible}"
+                             converter="#{personConverter}"
+                             rendered="#{!carRequestScreen.isDisabled('responsible')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{carRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="responsibleRO"
+                         value="#{carRequestScreen.entity.responsible}"
+                         styleClass="inputLarge"
+                         rendered="#{carRequestScreen.isDisabled('responsible')}"
+                         readonly="#{carRequestScreen.isDisabled('responsible')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.addressFromR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.addressFrom')}"
+                           for="addressFrom"
+                           styleClass="labelPF"/>
+            <p:inputText id="addressFrom"
+                         value="#{carRequestScreen.entity.addressFrom}"
+                         readonly="#{carRequestScreen.isDisabled('addressFrom')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="addressFrom" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.addressToR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.addressTo')}"
+                           for="addressTo"
+                           styleClass="labelPF"/>
+            <p:inputText id="addressTo"
+                         value="#{carRequestScreen.entity.addressTo}"
+                         readonly="#{carRequestScreen.isDisabled('addressTo')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="addressTo" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.receiverNameR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.receiverName')}"
+                           for="addressFrom"
+                           styleClass="labelPF"/>
+            <p:inputText id="receiverName"
+                         value="#{carRequestScreen.entity.receiverName}"
+                         readonly="#{carRequestScreen.isDisabled('receiverName')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="receiverName" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.receiverPhoneR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.receiverPhone')}"
+                           for="receiverPhone"
+                           styleClass="labelPF"/>
+            <p:inputText id="receiverPhone"
+                         value="#{carRequestScreen.entity.receiverPhone}"
+                         readonly="#{carRequestScreen.isDisabled('receiverPhone')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="receiverPhone" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.paymentR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.payment')}"
+                           for="payment"
+                           styleClass="labelPF"/>
+            <p:inputText id="payment"
+                         value="#{carRequestScreen.entity.payment}"
+                         readonly="#{carRequestScreen.isDisabled('payment')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="payment" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.descriptionR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.description')}"
+                           for="description"
+                           styleClass="labelPF"/>
+            <p:inputTextarea id="description"
+                             value="#{carRequestScreen.entity.description}"
+                             readonly="#{carRequestScreen.isDisabled('description')}"
+                             styleClass="textareaLargePF"
+                    />
+            <h:message for="description" errorClass="error"/>
+        </p:panelGrid>
+        
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.creatorR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.creator')}"
+                           for="creator"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="creator"
+                             value="#{carRequestScreen.entity.creator}"
+                             converter="#{personConverter}"
+                             rendered="#{!carRequestScreen.isDisabled('creator')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{carRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="creatorRO"
+                         value="#{carRequestScreen.entity.creator}"
+                         styleClass="inputLarge"
+                         rendered="#{carRequestScreen.isDisabled('creator')}"
+                         readonly="#{carRequestScreen.isDisabled('creator')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.priorityR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.priority')}"
+                           for="priority"
+                           styleClass="labelPF"/>
+            <p:inputNumber id="priority"
+                           value="#{carRequestScreen.entity.priority}"
+                           decimalPlaces="0"
+                           readonly="#{carRequestScreen.isDisabled('priority')}"
+                           inputStyleClass="inputLarge"
+                    />
+            <h:message for="priority" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.startR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.start')}" for="start"
+                           styleClass="labelPF"/>
+            <p:calendar id="start"
+                        value="#{carRequestScreen.entity.start}"
+                        locale="ru"
+                        readonlyInput="true"
+                        pattern="#{messages.getString('datePattern')}"
+                        showOn="button"
+                        disabled="#{carRequestScreen.isDisabled('start')}"
+                        styleClass="calendarPF"
+                    />
+            <h:message for="start" errorClass="error"/>
+        </p:panelGrid>
+
+        <h:panelGroup id="endActualPG" rendered="#{carRequestScreen.userPA.endActualR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.endActual')}" for="endActual"
+                           styleClass="labelPF"/>
+
+            <h:panelGroup id="endActualSet" rendered="#{carRequestScreen.entity.endActual != null}">
+                <p:inputText id="endActual"
+                             value="#{carRequestScreen.entity.endActual}"
+                             readonly="true"
+                             styleClass="inputLarge">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                </p:inputText>
+                <p:commandLink id="endActualRevert"
+                               update=":mainForm:panel:endActualPG"
+                               title="#{messages.getString('button.delete')}"
+                               actionListener="#{carRequestScreen.cancelEndActual}"
+                               rendered="#{carRequestScreen.userPA.endActualE}"
+                               styleClass="ui-icon delete resetPF">
+                    <p:confirm header="#{messages.getString('button.revert.confirmation')}"
+                               message="#{messages.getString('button.revert.message')}"
+                               icon="ui-icon-alert"/>
+                </p:commandLink>
+            </h:panelGroup>
+
+            <p:commandButton id="endActualB"
+                             value="#{messages.getString('order.setEnd')}"
+                             actionListener="#{carRequestScreen.setEndActual}"
+                             disabled="#{!carRequestScreen.userPA.endActualW}"
+                             styleClass="buttonPF"
+                             rendered="#{carRequestScreen.entity.endActual == null}"
+                             update=":mainForm:panel:endActualPG"/>
+            <h:message for="endActual" errorClass="error"/>
+        </h:panelGroup>
+
+
+        <HR/>
+    </p:panelGrid>
+</ui:composition>

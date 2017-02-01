@@ -28,8 +28,6 @@ import static com.app.data.dao.NomenclatureDao.Resource.*;
 public class NomenclatureScreen extends EntityScreen<Nomenclature> {
 
     @Inject
-    private Download downloader;
-    @Inject
     private NomenclatureDao nomenclatureDao;
     @Inject
     private AttachmentContentDao attachmentContentDao;
@@ -143,13 +141,6 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
                 && nomenclature.getOrderItems().size() == 0
                 && nomenclature.getSpecification() == null
                 ;
-    }
-
-
-    public void download(NomenclatureAttachment nomenclatureAttachment) {
-        logger.info("download attachment. fileName = " + nomenclatureAttachment.getAttachment().getName());
-        Attachment attachment = nomenclatureAttachment.getAttachment();
-        downloader.download(attachment);
     }
 
     public Part getFile() {

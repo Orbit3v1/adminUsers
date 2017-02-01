@@ -8,13 +8,16 @@ Java: Entity
 - Entity filter
 - DAO
 - Sort Enum
+- Entity filter bean
 
 
 Java: Screen
 - privilegeChecker
 - bundle resource (for entity, list, screen)
-- screen
+- screen bean
+- screen jsf
 - validator
-- list
-- list filter
-
+- list bean
+- list filter bean
+- list jsf
+- add to menu

@@ -27,10 +27,6 @@ import java.util.Map;
 @Named("specificationList")
 @Scope("session")
 public class SpecificationList {
-    @PersistenceContext
-    private EntityManager em;
-    private Logger logger = Logger.getLogger(getClass());
-
     @SpecificationCDI
     @Autowired
     ListFilterBean listFilterBean;

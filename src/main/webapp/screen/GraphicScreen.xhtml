@@ -39,6 +39,12 @@
                         outcome="/list/TNCSupplyList"
                         rendered="#{menu.userPA.graphicMenuTNCSupplyR}"/>
             </li>
+            <li>
+                <h:link id="carRequest"
+                        value="#{messages.getString('menu.graphic.carRequest')}"
+                        outcome="/list/CarRequestList"
+                        rendered="#{menu.userPA.graphicMenuCarRequestR}"/>
+            </li>
 
         </ul>
     </ui:define>

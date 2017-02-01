@@ -12,7 +12,7 @@
 
         <resource-bundle>
             <base-name>
-                com.app.utils.StringsBundle
+                com.app.StringBundle.StringsBundle
             </base-name>
             <var>bundle</var>
         </resource-bundle>

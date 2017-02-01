@@ -268,7 +268,7 @@
                         <h:column>
                             <h:commandLink value="#{row.attachment.name}"
                                            styleClass="link"
-                                           action="#{specificationScreen.download(row)}"/>
+                                           action="#{downloader.download(row.attachment)}"/>
                         </h:column>
                         <h:column rendered="#{!specificationScreen.isDisabled('sketches')}">
                             <h:commandButton value="X"

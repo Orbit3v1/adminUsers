@@ -39,7 +39,7 @@
     </bean>
 
     <bean id="messages" class="java.util.ResourceBundle" factory-method="getBundle">
-        <constructor-arg index="0" value="com.app.utils.StringsBundle"/>
+        <constructor-arg index="0" value="com.app.StringBundle.StringsBundle"/>
         <constructor-arg index="1" ref="locale"/>
     </bean>
 

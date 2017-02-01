@@ -1,0 +1,36 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:fileUpload mode="advanced"
+                  fileUploadListener="#{carRequestScreen.uploadFile}"
+                  auto="true"
+                  skinSimple="true"
+                  update=":mainForm:panel:files"
+                  label="#{messages.getString('button.upload')}"/>
+    <p:dataTable id="files"
+                 value="#{carRequestScreen.entity.attachments}"
+                 var="row"
+                 tableStyle="width:auto">
+        <p:column>
+            <h:commandLink value="#{row.name}"
+                           styleClass="link"
+                           action="#{downloader.download(row)}"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:panel:files, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{carRequestScreen.deleteAttachment(row)}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+    </p:dataTable>
+</ui:composition>

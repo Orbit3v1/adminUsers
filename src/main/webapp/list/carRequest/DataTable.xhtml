@@ -1,0 +1,260 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:message for="entities" infoClass="info" errorClass="error"/>
+    <p:dataTable id="entities"
+                 value="#{carRequestList.listRows}"
+                 var="row"
+                 resizableColumns="true"
+                 tableStyle="width:auto">
+
+        <p:column rendered="#{carRequestList.userPA.nameR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.name')}"
+                               action="#{carRequestListFilterBean.setSort('ID_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('ID')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.name}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <p:commandLink value="#{row.id}"
+                           onclick="openPopUp('/screen/CarRequestScreen.xhtml?id=#{row.id}', 'CarRequestScreen#{row.id}')"
+                           style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{carRequestList.userPA.responsibleR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.responsible')}"
+                               action="#{carRequestListFilterBean.setSort('RESPONSIBLE_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('RESPONSIBLE')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.responsible}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.responsible}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.addressFromR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.addressFrom')}"
+                               action="#{carRequestListFilterBean.setSort('ADDRESS_FROM_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('ADDRESS_FROM')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.addressFrom}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.addressFrom}"  converter="cutStringConverter"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.addressToR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.addressTo')}"
+                               action="#{carRequestListFilterBean.setSort('ADDRESS_TO_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('ADDRESS_TO')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.addressTo}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.addressTo}"  converter="cutStringConverter"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.receiverNameR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.receiverName')}"
+                               action="#{carRequestListFilterBean.setSort('RECEIVER_NAME_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('RECEIVER_NAME')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.receiverName}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.receiverName}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.receiverPhoneR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.receiverPhone')}"
+                               action="#{carRequestListFilterBean.setSort('RECEIVER_PHONE_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('RECEIVER_PHONE')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.receiverPhone}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.receiverPhone}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.paymentR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.payment')}"
+                               action="#{carRequestListFilterBean.setSort('PAYMENT_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('PAYMENT')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.payment}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.payment}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.descriptionR and false}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.description')}"
+                               action="#{carRequestListFilterBean.setSort('DESCRIPTION_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('DESCRIPTION')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.description}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.description}" converter="cutStringConverter"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.creatorR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.creator')}"
+                               action="#{carRequestListFilterBean.setSort('CREATOR_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('CREATOR')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.creator}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.creator}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.priorityR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.priority')}"
+                               action="#{carRequestListFilterBean.setSort('PRIORITY_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('PRIORITY')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.priority}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.priority}"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.startR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.start')}"
+                               action="#{carRequestListFilterBean.setSort('START_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('START')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+
+                <div>
+                    <h:outputLabel value="≥" for="startL"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="startL"
+                                value="#{carRequestListFilterBean.filter.startL}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="startL" infoClass="info" errorClass="error"/>
+                </div>
+                <div>
+                    <h:outputLabel value="≤" for="startH"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="startH"
+                                value="#{carRequestListFilterBean.filter.startH}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="startH" infoClass="info" errorClass="error"/>
+                </div>
+            </f:facet>
+            <h:outputText value="#{row.start}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.endActualR}">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.endActual')}"
+                               action="#{carRequestListFilterBean.setSort('END_ACTUAL_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('END_ACTUAL')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+
+                <div>
+                    <h:outputLabel value="≥" for="endActualL"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endActualL"
+                                value="#{carRequestListFilterBean.filter.endActualL}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endActualL" infoClass="info" errorClass="error"/>
+                </div>
+                <div>
+                    <h:outputLabel value="≤" for="endActualH"
+                                   style="font-size: 12px; vertical-align: middle !important;"/>
+                    <p:calendar id="endActualH"
+                                value="#{carRequestListFilterBean.filter.endActualH}"
+                                locale="ru"
+                                converterMessage="#{messages.getString('error.dateFormat')}"
+                                pattern="#{messages.getString('datePattern')}"
+                                showOn="button"
+                                styleClass="calendarSmallPF"
+                            />
+                    <h:message for="endActualH" infoClass="info" errorClass="error"/>
+                </div>
+            </f:facet>
+            <h:outputText value="#{row.endActual}">
+                <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
+            </h:outputText>
+        </p:column>
+    </p:dataTable>
+
+</ui:composition>

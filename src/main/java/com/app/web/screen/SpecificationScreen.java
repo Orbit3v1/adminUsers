@@ -28,8 +28,6 @@ import java.util.*;
 public class SpecificationScreen extends EntityScreen<Specification>{
 
     @Inject
-    private Download downloader;
-    @Inject
     private SpecificationDao specificationDao;
     @Inject
     private AttachmentContentDao attachmentContentDao;
@@ -79,12 +77,6 @@ public class SpecificationScreen extends EntityScreen<Specification>{
     public void deleteAttachment(SpecificationAttachment specificationAttachment) {
         logger.info("deleteAttachment attachment. fileName = " + specificationAttachment.getAttachment().getName());
         entity.getSpecificationAttachments().remove(specificationAttachment);
-    }
-
-    public void download(SpecificationAttachment specificationAttachment) {
-        logger.info("download attachment. fileName = " + specificationAttachment.getAttachment().getName());
-        Attachment attachment = specificationAttachment.getAttachment();
-        downloader.download(attachment);
     }
 
     @Override

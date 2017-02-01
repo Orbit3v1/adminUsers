@@ -39,7 +39,7 @@ public class ProductionXLS {
     }
 
     private void init() {
-        resourceBundle = ResourceBundle.getBundle("com.app.utils.StringsBundle", new Locale("ru", "RU"));
+        resourceBundle = ResourceBundle.getBundle("com.app.StringBundle.StringsBundle", new Locale("ru", "RU"));
 
         wb = new HSSFWorkbook();
         sheet = wb.createSheet("export");

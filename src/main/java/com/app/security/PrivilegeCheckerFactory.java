@@ -81,6 +81,14 @@ public class PrivilegeCheckerFactory {
                 privilegeChecker = new TNCSupplyScreenPC();
                 break;
             }
+            case ("carRequestList"):{
+                privilegeChecker = new CarRequestListPC();
+                break;
+            }
+            case ("carRequestScreen"):{
+                privilegeChecker = new CarRequestScreenPC();
+                break;
+            }
             case ("tncSupplyItemScreen"):{
                 privilegeChecker = new TNCSupplyItemScreenPC();
                 break;
