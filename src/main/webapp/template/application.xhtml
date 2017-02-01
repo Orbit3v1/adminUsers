@@ -7,14 +7,16 @@
 <h:head>
     <title><ui:insert name="title"></ui:insert></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/menu.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/primefaces.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/richfaces.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/buttons.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/inputs.css"/>
-    <script src="../js/common.js" type="text/javascript"/>
-    <script src="../js/pfCalendarLocal.js" type="text/javascript"/>
+
+    <h:outputStylesheet name="css/styles.css" />
+    <h:outputStylesheet name="css/menu.css" />
+    <h:outputStylesheet name="css/primefaces.css" />
+    <h:outputStylesheet name="css/richfaces.css" />
+    <h:outputStylesheet name="css/buttons.css" />
+    <h:outputStylesheet name="css/inputs.css" />
+
+    <h:outputScript name="js/default.js" />
+    <h:outputScript name="js/pfCalendarLocal.js" />
 </h:head>
 <h:body>
     <h:panelGroup layout="block" id="content">
