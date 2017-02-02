@@ -32,10 +32,15 @@
             <ui:include src="DataTable.xhtml"/>
 
             <p:commandButton id="refresh"
-                             update=":mainForm:entities"
+                             update=":mainForm:entities, :mainForm:growl"
                              actionListener="#{carRequestList.updateList}"
                              style="display: none"
                              value="refresh"/>
+
+            <p:commandButton id="refreshNoReload"
+                             update=":mainForm:entities, :mainForm:growl"
+                             style="display: none"
+                             value="refreshNoReload"/>
 
         </h:form>
 

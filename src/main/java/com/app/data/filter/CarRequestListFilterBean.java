@@ -45,7 +45,8 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
         Map<String, Object> parameters = new HashMap<>();
         String sqlFrom = "select distinct r from CarRequest r " +
                 "left join fetch r.responsible resp " +
-                "left join fetch r.creator cr " ;
+                "left join fetch r.creator cr " +
+                "left join fetch r.attachments a ";
 
         StringJoiner sqlWhere = new StringJoiner(" AND ");
         sqlWhere.add("1 = 1");

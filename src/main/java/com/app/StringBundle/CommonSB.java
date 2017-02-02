@@ -32,6 +32,7 @@ public class CommonSB {
             {"button.change", "Изменить"},
             {"button.copy", "Копировать"},
             {"button.create", "Сформировать"},
+            {"button.setEnd", "Сдать"},
 
             {"button.calc.addProduct", "+ деталь"},
             {"button.calc.addTNC", "+ ТНЦ"},

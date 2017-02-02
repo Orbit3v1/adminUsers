@@ -11,7 +11,7 @@ public class CarRequest extends AbstractVersionedEntity<Integer> {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;

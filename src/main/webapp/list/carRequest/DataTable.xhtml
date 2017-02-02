@@ -9,7 +9,18 @@
                  value="#{carRequestList.listRows}"
                  var="row"
                  resizableColumns="true"
-                 tableStyle="width:auto">
+                 tableStyle="width:auto"
+                 rows="100"
+                 paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="10,100,1000"
+                 editable="true"
+                 editMode="cell"
+            >
+
+        <p:ajax event="cellEdit"
+                listener="#{carRequestList.onCellEdit(row)}"
+                />
 
         <p:column rendered="#{carRequestList.userPA.nameR}">
             <f:facet name="header">
@@ -140,6 +151,18 @@
             <h:outputText value="#{row.description}" converter="cutStringConverter"/>
         </p:column>
 
+        <p:column rendered="#{carRequestList.userPA.attachmentR}">
+            <f:facet name="header">
+                <h:outputText value="#{messages.getString('carRequestEntity.attachment')}" styleClass="headerSort"/>
+            </f:facet>
+            <ui:repeat var="item" value="#{row.attachments}">
+                <h:commandLink value="#{item.name}"
+                               action="#{downloader.download(item)}"
+                               styleClass="link"
+                               style="display: block;"/>
+            </ui:repeat>
+        </p:column>
+
         <p:column rendered="#{carRequestList.userPA.creatorR}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.creator')}"
@@ -169,7 +192,17 @@
                              onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                              styleClass="inputSmall"/>
             </f:facet>
-            <h:outputText value="#{row.priority}"/>
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{row.priority}"/>
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputNumber value="#{row.priority}"
+                                   inputStyleClass="inputSmall"
+                                   decimalPlaces="0"/>
+                </f:facet>
+            </p:cellEditor>
+
         </p:column>
 
         <p:column rendered="#{carRequestList.userPA.startR}">
@@ -251,9 +284,17 @@
                     <h:message for="endActualH" infoClass="info" errorClass="error"/>
                 </div>
             </f:facet>
-            <h:outputText value="#{row.endActual}">
+            <h:outputText value="#{row.endActual}"
+                          rendered="#{row.endActual != null}">
                 <f:convertDateTime type="date" pattern="#{messages.getString('datePattern')}"/>
             </h:outputText>
+            <p:commandButton id="endActualB"
+                             value="#{messages.getString('button.setEnd')}"
+                             actionListener="#{carRequestList.setEndActual(row)}"
+                             disabled="#{!carRequestList.userPA.endActualW}"
+                             styleClass="buttonPF"
+                             rendered="#{row.endActual == null}"
+                             update=":mainForm:entities, :mainForm:growl"/>
         </p:column>
     </p:dataTable>
 

@@ -49,7 +49,6 @@ public class CarRequestScreen extends EntityScreen<CarRequest>{
         } else {
             entity = new CarRequest();
             entity.setCreator(Security.getCurrentUser());
-            entity.setResponsible(Security.getCurrentUser());
             entity.setStart(new Date());
         }
     }
