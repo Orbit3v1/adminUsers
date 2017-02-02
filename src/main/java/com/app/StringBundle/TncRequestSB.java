@@ -5,36 +5,36 @@ package com.app.StringBundle;
  */
 public class TncRequestSB {
     private static Object[][] contents = {
-            {"tncRequestEntity", "Заявка ТНЦ"},
+            {"tncRequestEntity", "Заявка ТМЦ"},
             {"tncRequestEntity.name", "#"},
             {"tncRequestEntity.creator", "Затребовал"},
             {"tncRequestEntity.responsible", "Ответственный"},
             {"tncRequestEntity.start", "Дата заявки"},
             {"tncRequestEntity.endPlan", "План поставки"},
 
-            {"tncRequestItemEntity", "Позиция заявки ТНЦ"},
+            {"tncRequestItemEntity", "Позиция заявки ТМЦ"},
             {"tncRequestItemEntity.name", "#"},
-            {"tncRequestItemEntity.tnc", "ТНЦ"},
+            {"tncRequestItemEntity.tnc", "ТМЦ"},
             {"tncRequestItemEntity.count", "Кол-во"},
             {"tncRequestItemEntity.reason", "Причина"},
             {"tncRequestItemEntity.endPlan", "Требуемый срок"},
             {"tncRequestItemEntity.endActual", "Поставка"},
             {"tncRequestItemEntity.state", "Статус"},
 
-            {"TNCRequestScreen.title", "Заявка ТНЦ"},
-            {"TNCRequestScreen.editText", "Редактирование заявки ТНЦ"},
-            {"TNCRequestScreen.addText", "Добавление заявки ТНЦ"},
+            {"TNCRequestScreen.title", "Заявка ТМЦ"},
+            {"TNCRequestScreen.editText", "Редактирование заявки ТМЦ"},
+            {"TNCRequestScreen.addText", "Добавление заявки ТМЦ"},
             {"TNCRequestScreen.table.orderItems", "Позиции"},
-            {"TNCRequestScreen.success.save", "Заявка ТНЦ успешно создана"},
-            {"TNCRequestScreen.success.edit", "Заявка ТНЦ успешно изменена"},
+            {"TNCRequestScreen.success.save", "Заявка ТМЦ успешно создана"},
+            {"TNCRequestScreen.success.edit", "Заявка ТМЦ успешно изменена"},
             {"TNCRequestScreen.error.title", "Неверные данные"},
 
-            {"TNCRequestItemScreen.title", "Позиция заявки ТНЦ"},
-            {"TNCRequestItemScreen.editText", "Редактирование позиции заявки ТНЦ"},
-            {"TNCRequestItemScreen.addText", "Добавление позиции заявки ТНЦ"},
+            {"TNCRequestItemScreen.title", "Позиция заявки ТМЦ"},
+            {"TNCRequestItemScreen.editText", "Редактирование позиции заявки ТМЦ"},
+            {"TNCRequestItemScreen.addText", "Добавление позиции заявки ТМЦ"},
             {"TNCRequestItemScreen.error.title", "Неверные данные"},
-            {"TNCRequestItemScreen.success.save", "Позиция заявки ТНЦ успешно создана"},
-            {"TNCRequestItemScreen.success.edit", "Позиция заявки ТНЦ успешно изменена"}
+            {"TNCRequestItemScreen.success.save", "Позиция заявки ТМЦ успешно создана"},
+            {"TNCRequestItemScreen.success.edit", "Позиция заявки ТМЦ успешно изменена"}
     };
 
     public static Object[][] getContents() {

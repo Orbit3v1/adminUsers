@@ -16,11 +16,11 @@ public class MenuSB {
 
             {"menu.graphic.production", "Производство"},
             {"menu.graphic.specification", "Реестр ТЗ"},
-            {"menu.graphic.tncRequest", "Заявки ТНЦ"},
-            {"menu.graphic.tncSupply", "Заявки на поставку ТНЦ"},
+            {"menu.graphic.tncRequest", "Заявки ТМЦ"},
+            {"menu.graphic.tncSupply", "Заявки на поставку ТМЦ"},
             {"menu.graphic.carRequest", "Заявки на автомобиль"},
 
-            {"menu.calculation.TNC", "ТНЦ"},
+            {"menu.calculation.TNC", "ТМЦ"},
             {"menu.calculation.work", "Работа"},
             {"menu.calculation.function", "Функции"},
             {"menu.calculation.product", "Расчет"},

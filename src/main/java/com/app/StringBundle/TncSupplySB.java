@@ -5,7 +5,7 @@ package com.app.StringBundle;
  */
 public class TncSupplySB {
     private static Object[][] contents = {
-            {"tncSupplyEntity", "Заявка на поставку ТНЦ"},
+            {"tncSupplyEntity", "Заявка на поставку ТМЦ"},
             {"tncSupplyEntity.name", "#"},
             {"tncSupplyEntity.provider", "Поставщик"},
             {"tncSupplyEntity.accountNumber", "№ счета"},
@@ -16,29 +16,29 @@ public class TncSupplySB {
             {"tncSupplyEntity.endActual", "Получение кладовщика"},
             {"tncSupplyEntity.endActualShort", "Получение"},
 
-            {"tncSupplyItemEntity", "Позиция заявки на поставку ТНЦ"},
+            {"tncSupplyItemEntity", "Позиция заявки на поставку ТМЦ"},
             {"tncSupplyItemEntity.name", "#"},
-            {"tncSupplyItemEntity.tnc", "ТНЦ"},
+            {"tncSupplyItemEntity.tnc", "ТМЦ"},
             {"tncSupplyItemEntity.count", "Кол-во"},
             {"tncSupplyItemEntity.units", "Ед. изм."},
 
-            {"tncSupplyList.title", "Заявки на поставку ТНЦ"},
+            {"tncSupplyList.title", "Заявки на поставку ТМЦ"},
 
-            {"tncSupplyScreen.title", "Заявка на поставку ТНЦ"},
-            {"tncSupplyScreen.editText", "Редактирование заявки на поставку ТНЦ"},
-            {"tncSupplyScreen.addText", "Добавление заявки на поставку ТНЦ"},
+            {"tncSupplyScreen.title", "Заявка на поставку ТМЦ"},
+            {"tncSupplyScreen.editText", "Редактирование заявки на поставку ТМЦ"},
+            {"tncSupplyScreen.addText", "Добавление заявки на поставку ТМЦ"},
             {"tncSupplyScreen.table.items", "Позиции"},
             {"tncSupplyScreen.table.requests", "Связанные заявки"},
-            {"tncSupplyScreen.success.save", "Заявка на поставку ТНЦ успешно создана"},
-            {"tncSupplyScreen.success.edit", "Заявка на поставку ТНЦ успешно изменена"},
+            {"tncSupplyScreen.success.save", "Заявка на поставку ТМЦ успешно создана"},
+            {"tncSupplyScreen.success.edit", "Заявка на поставку ТМЦ успешно изменена"},
             {"tncSupplyScreen.error.title", "Неверные данные"},
 
-            {"tncSupplyItemScreen.title", "Позиция заявки на поставку ТНЦ"},
-            {"tncSupplyItemScreen.editText", "Редактирование позиции заявки на поставку ТНЦ"},
-            {"tncSupplyItemScreen.addText", "Добавление позиции заявки на поставку ТНЦ"},
+            {"tncSupplyItemScreen.title", "Позиция заявки на поставку ТМЦ"},
+            {"tncSupplyItemScreen.editText", "Редактирование позиции заявки на поставку ТМЦ"},
+            {"tncSupplyItemScreen.addText", "Добавление позиции заявки на поставку ТМЦ"},
             {"tncSupplyItemScreen.error.title", "Неверные данные"},
-            {"tncSupplyItemScreen.success.save", "Позиция заявки на поставку ТНЦ успешно создана"},
-            {"tncSupplyItemScreen.success.edit", "Позиция заявки на поставку ТНЦ успешно изменена"}
+            {"tncSupplyItemScreen.success.save", "Позиция заявки на поставку ТМЦ успешно создана"},
+            {"tncSupplyItemScreen.success.edit", "Позиция заявки на поставку ТМЦ успешно изменена"}
     };
 
     public static Object[][] getContents() {

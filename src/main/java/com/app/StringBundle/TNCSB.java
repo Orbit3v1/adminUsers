@@ -5,7 +5,7 @@ package com.app.StringBundle;
  */
 public class TNCSB {
     private static Object[][] contents = {
-            {"TNCEntity", "ТНЦ"},
+            {"TNCEntity", "ТМЦ"},
             {"TNCEntity.name", "Наименование 1C"},
             {"TNCEntity.description", "Описание"},
             {"TNCEntity.unitsFrom", "Ед. изм. (1С)"},
@@ -20,9 +20,9 @@ public class TNCSB {
             {"TNCLinkEntity", "Ссылка"},
             {"TNCLinkEntity.link", "Ссылка"},
 
-            {"TNCScreen.title", "ТНЦ"},
-            {"TNCScreen.editText", "Редактирование ТНЦ"},
-            {"TNCScreen.addText", "Добавление ТНЦ"},
+            {"TNCScreen.title", "ТМЦ"},
+            {"TNCScreen.editText", "Редактирование ТМЦ"},
+            {"TNCScreen.addText", "Добавление ТМЦ"},
             {"TNCScreen.panel.images", "Изображения"},
             {"TNCScreen.panel.links", "Где купить"},
             {"TNCScreen.column.consumption", "Расход материала"},
@@ -30,9 +30,9 @@ public class TNCSB {
             {"TNCScreen.column.consumptionEnd", "Период до"},
             {"TNCScreen.column.consumptionResult", "Средний расход"},
 
-            {"TNCList.success.save", "ТНЦ успешно создана"},
-            {"TNCList.success.edit", "ТНЦ успешно изменена"},
-            {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТНЦ"}
+            {"TNCList.success.save", "ТМЦ успешно создана"},
+            {"TNCList.success.edit", "ТМЦ успешно изменена"},
+            {"TNCList.error.nameInnerDuplicate", "Такое же внутренне имя есть у другой ТМЦ"}
     };
 
     public static Object[][] getContents() {

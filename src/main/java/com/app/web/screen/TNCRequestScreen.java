@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Scope("view")
 public class TNCRequestScreen extends EntityScreen<TNCRequest>{
 
-    private static final String NAME_PREFIX = "ТНЦ";
+    private static final String NAME_PREFIX = "ТМЦ";
     private List<Person> developers;
 
     @Loggable
