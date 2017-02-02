@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../template/application.xhtml"
+<ui:composition template="../../template/application.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -30,20 +30,20 @@
                               multiple="true"
                               activeIndex="0,2">
                 <p:tab title="#{messages.getString('orderScreen.title')}">
-                    <ui:include src="order/OrderData.xhtml"/>
+                    <ui:include src="Data.xhtml"/>
                 </p:tab>
                 <p:tab title="#{messages.getString('orderScreen.table.payment')}"
                        rendered="#{orderScreen.userPA.paymentR}">
-                    <ui:include src="order/OrderPayments.xhtml"/>
+                    <ui:include src="PaymentsTable.xhtml"/>
                 </p:tab>
                 <p:tab title="#{messages.getString('orderScreen.table.orderItems')}">
-                    <ui:include src="order/OrderItemsTable.xhtml"/>
+                    <ui:include src="ItemsTable.xhtml"/>
                 </p:tab>
             </p:accordionPanel>
 
             <HR/>
 
-            <ui:include src="../template/ScreenEditButtons.xhtml"/>
+            <ui:include src="../../template/ScreenEditButtons.xhtml"/>
 
             <p:commandButton id="refresh"
                              update=":mainForm:panel:orderItems"

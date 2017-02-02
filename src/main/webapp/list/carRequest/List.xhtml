@@ -22,7 +22,7 @@
             <h:outputText value="#{messages.getString('carRequestList.title')}" styleClass="listTitle"/>
             <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
-                             onclick="openPopUp('/screen/CarRequestScreen.xhtml', 'CarRequestScreen')"
+                             onclick="openPopUp('/screen/carRequest/Screen.xhtml', 'CarRequestScreen')"
                              styleClass="buttonPF"
                              rendered="#{carRequestList.userPA.addR}"
                              disabled="#{!carRequestList.userPA.addEx}"/>

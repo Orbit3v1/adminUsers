@@ -6,7 +6,7 @@
         xmlns:p="http://primefaces.org/ui">
 
     <p:commandButton value="#{messages.getString('button.add')}"
-                       onclick="openPopUp('/screen/OrderScreen.xhtml', 'OrderScreen')"
+                       onclick="openPopUp('/screen/order/Screen.xhtml', 'OrderScreen')"
                        styleClass="buttonPF"
                        rendered="#{orderList.userPA.addR}"
                        disabled="#{!orderList.userPA.addEx}"/>

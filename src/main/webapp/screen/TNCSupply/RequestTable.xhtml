@@ -27,7 +27,7 @@
                   headerText="#{messages.getString('tncRequestItemEntity.name')}"
                 >
             <p:commandLink value="#{itemRequest.tncRequest.name.concat('_').concat(itemRequest.name)}"
-                           onclick="openPopUp('/screen/TNCRequestScreen.xhtml?id=#{itemRequest.tncRequest.id}', 'TNCRequestScreen#{itemRequest.tncRequest.id}')"
+                           onclick="openPopUp('/screen/TNCRequest/Screen.xhtml?id=#{itemRequest.tncRequest.id}', 'TNCRequestScreen#{itemRequest.tncRequest.id}')"
                            style="display: block;"/>
         </p:column>
 

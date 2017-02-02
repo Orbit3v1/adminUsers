@@ -29,7 +29,7 @@
                              styleClass="inputSmall"/>
             </f:facet>
             <p:commandLink value="#{row.name}"
-                           onclick="openPopUp('/screen/TNCRequestScreen.xhtml?id=#{row.tncRequest.id}', 'TNCRequestScreen#{row.tncRequest.id}')"
+                           onclick="openPopUp('/screen/TNCRequest/Screen.xhtml?id=#{row.tncRequest.id}', 'TNCRequestScreen#{row.tncRequest.id}')"
                            style="display: block;"/>
         </p:column>
         <p:column rendered="#{tncRequestList.userPA.tncR}"

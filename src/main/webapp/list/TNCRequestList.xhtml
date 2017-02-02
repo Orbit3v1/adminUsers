@@ -22,7 +22,7 @@
             <h:outputText value="#{messages.getString('menu.graphic.tncRequest')}" styleClass="listTitle"/>
             <br/>
             <p:commandButton value="#{messages.getString('button.add')}"
-                             onclick="openPopUp('/screen/TNCRequestScreen.xhtml', 'TNCRequestScreen')"
+                             onclick="openPopUp('/screen/TNCRequest/Screen.xhtml', 'TNCRequestScreen')"
                              styleClass="buttonPF"
                              rendered="#{tncRequestList.userPA.addR}"
                              disabled="#{!tncRequestList.userPA.addEx}"/>
@@ -31,8 +31,8 @@
 
             <p:commandButton id="btnCreate"
                              value="#{messages.getString('button.create')}"
-                             onclick="openPopUp('/screen/TNCSupplyScreen.xhtml', 'TNCSupplyScreen')"
-                             oncomplete="openPopUp('/screen/TNCSupplyScreen.xhtml?type=CREATED', 'TNCSupplyScreen')"
+                             onclick="openPopUp('/screen/TNCSupply/Screen.xhtml', 'TNCSupplyScreen')"
+                             oncomplete="openPopUp('/screen/TNCSupply/Screen.xhtml?type=CREATED', 'TNCSupplyScreen')"
                              styleClass="buttonPF"
                              actionListener="#{tncRequestList.createSupply}"
                              rendered="#{tncRequestList.userPA.supplyAddR}"
