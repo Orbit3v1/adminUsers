@@ -1,0 +1,79 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGroup id="buttons">
+
+        <p:commandButton value="#{messages.getString('button.save')}"
+                         action="#{productScreen.save}"
+                         onclick="this.disabled=true"
+                         oncomplete="this.disabled=false"
+                         update=":mainForm"
+                         styleClass="buttonPF"/>
+        <p:commandButton update=":mainForm:entities, :mainForm:calcsPG, :mainForm:growl"
+                         action="#{productScreen.calculate}"
+                         title="#{messages.getString('button.calc.calculate')}"
+                         value="#{messages.getString('button.calc.calculate')}"
+                         styleClass="buttonPF">
+        </p:commandButton>
+        <br/>
+        <p:commandButton update=":mainForm:entities"
+                         title="Добавить деталь"
+                         action="#{productScreen.addProduct}"
+                         value="#{messages.getString('button.calc.addProduct')}"
+                         disabled="#{productScreen.selectedNode == null}"
+                         styleClass="buttonPF"/>
+        <p:commandButton value="#{messages.getString('button.calc.addTNC')}"
+                         title="Добавить ТМЦ"
+                         actionListener="#{productScreen.choose('selectTNC')}"
+                         disabled="#{productScreen.selectedNode == null}"
+                         styleClass="buttonPF">
+            <p:ajax event="dialogReturn"
+                    listener="#{productScreen.onTNCChosen}"
+                    update=":mainForm:entities"/>
+        </p:commandButton>
+
+        <p:commandButton value="#{messages.getString('button.calc.addWork')}"
+                         title="Добавить работу"
+                         actionListener="#{productScreen.choose('selectWork')}"
+                         disabled="#{productScreen.selectedNode == null}"
+                         styleClass="buttonPF">
+            <p:ajax event="dialogReturn"
+                    listener="#{productScreen.onWorkChosen}"
+                    update=":mainForm:entities"/>
+        </p:commandButton>
+        <p:commandButton value="#{messages.getString('button.calc.addFunction')}"
+                         title="Добавить функцию"
+                         actionListener="#{productScreen.choose('selectFunction')}"
+                         disabled="#{productScreen.selectedNode == null}"
+                         styleClass="buttonPF">
+            <p:ajax event="dialogReturn"
+                    listener="#{productScreen.onFunctionChosen}"
+                    update=":mainForm:entities"/>
+        </p:commandButton>
+        <p:commandButton update=":mainForm:entities, :mainForm:buttons, :mainForm:growl"
+                         action="#{productScreen.delete}"
+                         title="#{messages.getString('button.delete')}"
+                         value="#{messages.getString('button.delete')}"
+                         disabled="#{productScreen.selectedNode.data.parent == null}"
+                         styleClass="buttonPF">
+            <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                       message="#{messages.getString('button.delete.message')}"
+                       icon="ui-icon-alert"/>
+        </p:commandButton>
+
+        <p:commandButton value="#{messages.getString('button.change')}"
+                         title="#{messages.getString('button.change')}"
+                         actionListener="#{productScreen.choose()}"
+                         rendered="#{productScreen.isSelectable()}"
+                         styleClass="buttonPF">
+            <p:ajax event="dialogReturn"
+                    listener="#{productScreen.onChosen}"
+                    update=":mainForm:entities"/>
+        </p:commandButton>
+
+    </h:panelGroup>
+</ui:composition>

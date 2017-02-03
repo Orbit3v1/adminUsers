@@ -5,16 +5,20 @@ package com.app.StringBundle;
  */
 public class ProductSB {
     private static Object[][] contents = {
-            {"productEntity", "Продукция"},
+            {"productEntity", "Изделие"},
             {"productEntity.name", "Наименование"},
-            {"productEntity.detail", "Описание"},
+            {"productEntity.detail", "Примечание"},
+            {"productEntity.description", "Дополнительно"},
             {"productEntity.height", "Высота"},
             {"productEntity.width", "Ширина"},
             {"productEntity.length", "Длина"},
+            {"productEntity.count", "Кол-во"},
             {"productEntity.formula", "Формула"},
             {"productEntity.price", "Цена"},
 
-            {"productScreen.calculation", "Стоимость"}
+            {"productScreen.calculation", "Стоимость"},
+            {"productScreen.product", "Деталь"},
+            {"productScreen.TNC", "Материал"},
     };
 
     public static Object[][] getContents() {

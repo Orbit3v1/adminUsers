@@ -11,6 +11,8 @@ import com.app.utils.JSEngine;
 import com.app.utils.SessionUtil;
 import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.NodeCollapseEvent;
+import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -77,6 +79,17 @@ public class ProductScreen {
             tn.setExpanded(true);
             initSubordinates(p, tn);
         }
+    }
+
+    public void sync(){
+    }
+
+    public void nodeExpand(NodeExpandEvent event) {
+        event.getTreeNode().setExpanded(true);
+    }
+
+    public void nodeCollapse(NodeCollapseEvent event) {
+        event.getTreeNode().setExpanded(false);
     }
 
     public void addProduct() {
@@ -167,6 +180,7 @@ public class ProductScreen {
         TNC tnc = (TNC) event.getObject();
         ProductTNC pTNC = new ProductTNC();
         pTNC.setTnc(tnc);
+        pTNC.setType("TNC");
         add(selectedNode, pTNC);
     }
 
@@ -174,6 +188,7 @@ public class ProductScreen {
         Work work = (Work) event.getObject();
         ProductWork pWork = new ProductWork();
         pWork.setWork(work);
+        pWork.setType("WORK");
         add(selectedNode, pWork);
     }
 
@@ -304,5 +319,9 @@ public class ProductScreen {
 
     public void setErrorProducts(Map<Product, String> errorProducts) {
         this.errorProducts = errorProducts;
+    }
+
+    public Product getSelectedProduct(){
+        return selectedNode == null ? null : (Product) selectedNode.getData();
     }
 }

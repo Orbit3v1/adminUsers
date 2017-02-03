@@ -17,7 +17,7 @@ public class ProductTNC extends Product implements Valuable, Converted, Selectab
 
     @Override
     public String getName() {
-        return tnc.getName();
+        return tnc.getNameInner();
     }
 
     public TNC getTnc() {

@@ -1,0 +1,30 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGroup id="calcsPG">
+
+        <h:panelGroup rendered="#{productScreen.rootCalc != null}">
+            <HR/>
+            <h:outputText value="#{messages.getString('productScreen.calculation')}" styleClass="listTitle"/>
+        </h:panelGroup>
+        <p:treeTable id="calcs"
+                     value="#{productScreen.rootCalc}"
+                     var="calc"
+                     rendered="#{productScreen.rootCalc != null}"
+                     style="width: 550px">
+            <p:column headerText="#{messages.getString('productEntity.name')}"
+                      style="width:450px">
+                <h:outputText value="#{calc.name}"/>
+            </p:column>
+            <p:column headerText="#{messages.getString('productEntity.price')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.price}"/>
+            </p:column>
+
+        </p:treeTable>
+    </h:panelGroup>
+</ui:composition>

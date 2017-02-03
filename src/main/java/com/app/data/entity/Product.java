@@ -27,20 +27,26 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
     @Column(name = "detail")
     private String detail;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "height")
-    private Float height;
+    private String height;
 
     @Column(name = "width")
-    private Float width;
+    private String width;
 
     @Column(name = "length")
-    private Float length;
+    private String length;
+
+    @Column(name = "count")
+    private String count;
 
     @Column(name = "formula")
     private String formula;
 
     @Column(name = "type", insertable = false, updatable = false)
-    private String type;
+    private String type = "PRODUCT";
 
     @ManyToOne
     @JoinColumn(name="parentId")
@@ -67,27 +73,27 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         this.detail = detail;
     }
 
-    public Float getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(Float height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public Float getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(Float width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    public Float getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(Float length) {
+    public void setLength(String length) {
         this.length = length;
     }
 
@@ -131,6 +137,22 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         this.type = type;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
     public Product copy(){
         Product copy = new Product();
         copy.name = this.name;
@@ -154,10 +176,13 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         product.setId(0);
         product.setVersion(this.getVersion());
         product.detail = this.detail;
+        product.description = this.description;
         product.height = this.height;
         product.width = this.width;
         product.length = this.length;
+        product.count = this.count;
         product.formula = this.formula;
+        product.type = this.type;
         List<Product> subordinates = new ArrayList<>();
         for(Product p : this.subordinates){
             Product subProduct = (Product) p.clone();

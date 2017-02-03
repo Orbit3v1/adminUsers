@@ -35,7 +35,7 @@ public class CommonSB {
             {"button.setEnd", "Сдать"},
 
             {"button.calc.addProduct", "+ деталь"},
-            {"button.calc.addTNC", "+ ТМЦ"},
+            {"button.calc.addTNC", "+ материал"},
             {"button.calc.addWork", "+ работа"},
             {"button.calc.addFunction", "+ функция"},
             {"button.calc.calculate", "Рассчитать"},

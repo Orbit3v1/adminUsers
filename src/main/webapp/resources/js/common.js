@@ -4,8 +4,9 @@ function openPopUp(source, name){
 }
 
 function openPopUpFull(source, name){
-    var w = screen.width * 0.9;
-    var popUp = window.open(source.replace(/\|\|/g, '&'), name, 'width=' + w + ',height=750,resizable=yes,scrollbars=yes');
+    var w = screen.width - 20;
+    var h = screen.height - 120;
+    var popUp = window.open(source.replace(/\|\|/g, '&'), name, 'width=' + w + ',height=' + h + ',resizable=yes,scrollbars=yes');
     return popUp;
 }
 

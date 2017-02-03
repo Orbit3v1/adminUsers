@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:treeTable id="entities"
+                 value="#{productScreen.root}"
+                 var="product"
+                 nodeVar="node"
+                 editable="true"
+                 editMode="cell"
+                 selectionMode="single"
+                 resizableColumns="true"
+                 selection="#{productScreen.selectedNode}"
+                 tableStyle="width:auto"
+            >
+
+        <p:ajax event="select" update=":mainForm:buttons, :mainForm:wrapperPanel"/>
+        <p:ajax event="expand" listener="#{productScreen.nodeExpand}" />
+        <p:ajax event="collapse" listener="#{productScreen.nodeCollapse}" />
+
+        <p:column headerText="#{messages.getString('productEntity.name')}"
+                  style="width:450px">
+            <p:cellEditor>
+                <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.name}"/>
+                            </span>
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{product.name}"
+                                 disabled="#{productScreen.isSelectable(product)}"
+                                 style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column headerText="#{messages.getString('productEntity.detail')}">
+            <p:cellEditor>
+                <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.detail}"/>
+                            </span>
+                </f:facet>
+                <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column headerText="#{messages.getString('productEntity.formula')}"
+                  styleClass="#{productScreen.isError(product) ? 'errorColumn' : ''}">
+            <p:cellEditor>
+                <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                &zwnj;
+                                <h:outputText value="#{product.formula}"
+                                        />
+                            </span>
+                </f:facet>
+                <f:facet name="input"><p:inputText value="#{product.formula}" style="width:100%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column rendered="#{false and productScreen.hasErrors()}">
+
+            <h:outputText value="#{productScreen.errorProducts[product]}"/>
+
+        </p:column>
+    </p:treeTable>
+</ui:composition>
