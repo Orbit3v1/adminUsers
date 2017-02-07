@@ -17,7 +17,13 @@
                          action="#{productScreen.calculate}"
                          title="#{messages.getString('button.calc.calculate')}"
                          value="#{messages.getString('button.calc.calculate')}"
+                         styleClass="buttonPF"/>
+        <p:commandButton value="#{messages.getString('button.calc.inParameters')}"
+                         actionListener="#{productScreen.editInParameters}"
                          styleClass="buttonPF">
+            <p:ajax event="dialogReturn"
+                    listener="#{productScreen.onInParametersSaved}"
+                    />
         </p:commandButton>
         <br/>
         <p:commandButton update=":mainForm:entities"

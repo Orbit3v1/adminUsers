@@ -1,0 +1,109 @@
+
+.calcHeader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 3px 3px 3px 8px
+}
+
+.calcContent{
+    margin: 100px 3px 210px 3px;
+}
+
+
+.calcDetails {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 3px;
+    height: 200px;
+    background-color: #ffffff;
+}
+
+.calcDetailsTitle{
+    font-size: 16px; !important;
+    font-weight: bold !important;
+    color: black !important;
+    padding: 3px !important;
+}
+
+.calcDetailsLabel{
+    display:inline-block; !important;
+    width: 70px; !important;
+    vertical-align: top !important;
+    margin: 3px !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+    font-size: 14px; !important;
+    font-family: Arial, Verdana, sans-serif !important;
+}
+
+.calcOutputTextSmall{
+    display:block; !important;
+    width: 70px; !important;
+    vertical-align: top !important;
+    margin: 3px !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+    font-size: 14px; !important;
+    font-family: Arial, Verdana, sans-serif !important;
+    text-align: center !important;
+}
+
+.calcOutputTextMedium{
+    display:block; !important;
+    width: 160px; !important;
+    vertical-align: top !important;
+    margin: 3px !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+    font-size: 14px; !important;
+    font-family: Arial, Verdana, sans-serif !important;
+    text-align: center !important;
+}
+
+.calcOutputTextArea{
+    display:block; !important;
+    width: 276px !important;
+    vertical-align: top !important;
+    margin: 3px 3px 3px 30px !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+    font-size: 14px; !important;
+    font-family: Arial, Verdana, sans-serif !important;
+    text-align: center !important;
+}
+
+.alignTop{
+    vertical-align: top;
+}
+
+.inParametersContent{
+    margin: 3px 3px 55px 3px;
+}
+
+.inParametersFooter {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 3px;
+    height: 50px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.inputSmallCalc{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 70px !important;
+}
+
+.inputMediumCalc{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 150px !important;
+}

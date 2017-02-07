@@ -14,6 +14,14 @@ public class ProductWork  extends Product implements Valuable, Selectable {
     @JoinColumn(name="calc_work")
     private Work work;
 
+    public ProductWork(){
+        super();
+        this.setHeightAlias(null);
+        this.setWidthAlias(null);
+        this.setLengthAlias(null);
+        this.setCountAlias(null);
+    }
+
     @Override
     public String getName() {
         return work.getName();

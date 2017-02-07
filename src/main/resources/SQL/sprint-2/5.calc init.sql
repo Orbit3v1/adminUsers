@@ -65,6 +65,10 @@ create table calc_product(
   width varchar(500),
   length varchar(500),
   count varchar(500),
+  heightAlias varchar(500),
+  widthAlias varchar(500),
+  lengthAlias varchar(500),
+  countAlias varchar(500),
   formula varchar(4000),
   calc_tnc int,
   calc_work int
@@ -85,3 +89,17 @@ create table calc_function(
 );
 
 create unique index calc_function_U1 on calc_function(name);
+
+
+create table calc_productInParams(
+  id int IDENTITY(1,1) not null primary key,
+  version int default 0,
+  calc_product int,
+  name varchar(500) not null,
+  description varchar(4000),
+  value varchar(4000),
+
+  CONSTRAINT calc_productInParams_FK1 FOREIGN KEY (calc_product) REFERENCES calc_product(id),
+);
+
+create index calc_productInParams_I1 on calc_productInParams(calc_product, name);

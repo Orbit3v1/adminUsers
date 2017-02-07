@@ -51,14 +51,17 @@ public class ProductScreen {
     private Product entity;
     private TreeNode selectedNode;
     private String includedFunctions;
+    private String inParameters;
     private Map<Product, String> errorProducts;
 
     @PostConstruct
+    @Transactional
     public void init() {
         String id = SessionUtil.getParameter("id");
         if (id != null && AppUtil.isNumeric(id)) {
             entity = em.find(Product.class, AppUtil.toInteger(id));
-            entity.getSubordinates();
+            entity.getSubordinates().size();
+            entity.getInParameters().size();
         } else {
             entity = new Product();
         }
@@ -81,7 +84,7 @@ public class ProductScreen {
         }
     }
 
-    public void sync(){
+    public void sync() {
     }
 
     public void nodeExpand(NodeExpandEvent event) {
@@ -149,29 +152,29 @@ public class ProductScreen {
         return true;
     }
 
-    public boolean isSelectable(){
+    public boolean isSelectable() {
         return selectedNode != null && selectedNode.getData() instanceof Selectable;
     }
 
-    public boolean isSelectable(Product product){
+    public boolean isSelectable(Product product) {
         return product instanceof Selectable;
     }
 
-    public void choose(){
+    public void choose() {
         Product product = (Product) selectedNode.getData();
-        if(product instanceof ProductTNC) {
+        if (product instanceof ProductTNC) {
             choose("selectTNC");
-        } else if(product instanceof ProductWork) {
+        } else if (product instanceof ProductWork) {
             choose("selectWork");
         }
     }
 
-    public void onChosen(SelectEvent event){
+    public void onChosen(SelectEvent event) {
         Selectable selectable = (Selectable) selectedNode.getData();
         selectable.onSelect(event);
     }
 
-    public void choose(String screenName){
+    public void choose(String screenName) {
         RequestContext rq = RequestContext.getCurrentInstance();
         rq.openDialog("/select/" + screenName, getStandardOptions(), null);
     }
@@ -209,17 +212,41 @@ public class ProductScreen {
         options.put("resizable", true);
         options.put("draggable", true);
         options.put("modal", true);
-        options.put("width", 650);
-        options.put("height", 400);
+        options.put("width", 800);
+        options.put("height", 430);
         return options;
     }
+
+    public void editInParameters() {
+        String paramKey = "inParameters" + entity.hashCode();
+        SessionUtil.addSessionVariable(paramKey, entity.getInParameters());
+
+        Map<String, List<String>> params = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        list.add(paramKey);
+        params.put("inParameters", list);
+
+        RequestContext rq = RequestContext.getCurrentInstance();
+        rq.openDialog("/screen/ProductInParameterScreen", getStandardOptions(), params);
+    }
+
+    public void onInParametersSaved(SelectEvent event) {
+        List<ProductInParameter> inParameters = (List<ProductInParameter>) event.getObject();
+        if (inParameters != null) {
+            inParameters.stream().forEach(x -> x.setProduct(entity));
+            entity.setInParameters(inParameters);
+        }
+    }
+
 
     public void calculate() {
         errorProducts.clear();
         initFunctions();
+        initInParameters();
+        String formula = includedFunctions + " " + inParameters;
         rootCalc = new DefaultTreeNode();
-        generateCalcTree(rootCalc, entity, entity.getFormula());
-        if(hasErrors()){
+        generateCalcTree(rootCalc, entity, formula);
+        if (hasErrors()) {
             addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
         }
     }
@@ -234,58 +261,118 @@ public class ProductScreen {
         }
     }
 
-    private void generateCalcTree(TreeNode parentNode, Product product, String formula) {
-        BigDecimal price = getPrice(product, formula);
-        CalculationDTO calc = new CalculationDTO(product.getName(), price);
+    private void initInParameters() {
+        inParameters = "";
+        for(ProductInParameter p : entity.getInParameters()){
+            inParameters += p.getName() + " = " + p.getValue() + ";";
+        }
+    }
+
+    private void generateCalcTree(TreeNode parentNode, Product product, String parentFormula) {
+        String formula = parentFormula + ";" + generateFormula(product);
+        CalculationDTO calc = new CalculationDTO(product.getName());
+        try {
+            calc.setCount(calculateParameter(formula, product.getCount()));
+            calc.setHeight(calculateParameter(formula, product.getHeight()));
+            calc.setLength(calculateParameter(formula, product.getLength()));
+            calc.setWidth(calculateParameter(formula, product.getWidth()));
+            if(hasValue(product.getFormula())) {
+                calc.setFormula(executeCode(formula));
+            }
+            updateCalcName(calc, product);
+        } catch (ScriptException e) {
+            e.printStackTrace();
+            errorProducts.put(product, e.getMessage());
+        }
+
+        //calc.setPrice(getPrice(product, formulaResult));
+
         TreeNode tn = new DefaultTreeNode(calc, parentNode);
         tn.setExpanded(true);
 
         for (Product p : product.getSubordinates()) {
-            generateCalcTree(tn, p, formula + "; " + p.getFormula());
-        }
-
-        if (parentNode.getData() != null) {
-            CalculationDTO parentCalc = (CalculationDTO) parentNode.getData();
-            parentCalc.setPrice(parentCalc.getPrice().add(calc.getPrice()));
+            generateCalcTree(tn, p, formula);
         }
     }
 
-    private BigDecimal getPrice(Product product, String formula) {
-        BigDecimal result = BigDecimal.ZERO;
-        if(product.getFormula() != null && !product.getFormula().replaceAll(" ", "").equals("")){
-            try {
-                result = executeCode(formula);
-                if (product instanceof Converted) {
-                    BigDecimal ratio = ((Converted) product).getRatio();
-                    ratio = ratio == null ? BigDecimal.ONE : ratio;
-                    result = result.divide(ratio, BigDecimal.ROUND_CEILING);
-                }
-                if (product instanceof Valuable) {
-                    BigDecimal price = ((Valuable) product).getPrice();
-                    price = price == null ? BigDecimal.ZERO : price;
-                    result = result.multiply(price);
-                }
-            } catch (ScriptException e) {
-                e.printStackTrace();
-                errorProducts.put(product, e.getMessage());
-            }
-        }
-        return result.setScale(2, RoundingMode.CEILING);
+    private void updateCalcName(CalculationDTO calc, Product product){
+        String name = calc.getName();
+        name = replaceAll(name, product.getCountAlias(), calc.getCount());
+        name = replaceAll(name, product.getHeightAlias(), calc.getHeight());
+        name = replaceAll(name, product.getLengthAlias(), calc.getLength());
+        name = replaceAll(name, product.getWidthAlias(), calc.getWidth());
+        calc.setName(name);
     }
 
+    private String replaceAll(String str, String regex, BigDecimal val){
+        if(!hasValue(regex)){
+            return str;
+        }
+        return str.replaceAll(regex, bigDecimalToString(val));
+    }
+
+    private String bigDecimalToString(BigDecimal val){
+        String result = "0";
+        if(val != null){
+            result = val.setScale(0, BigDecimal.ROUND_CEILING).toString();
+        }
+        return result;
+    }
+
+    private String generateFormula(Product product){
+        StringJoiner result = new StringJoiner(";");
+        if(hasValue(product.getDetail())) {
+            result.add(product.getDetail());
+        }
+        if(hasValue(product.getFormula())) {
+            result.add(product.getFormula());
+        }
+        return result.toString();
+    }
+
+    private BigDecimal calculateParameter(String formula, String parameter) throws ScriptException {
+        BigDecimal result = null;
+
+        if(hasValue(parameter)) {
+            formula += "; " + parameter;
+            result = executeCode(formula);
+        }
+        return result;
+    }
 
     private BigDecimal executeCode(String formula) throws ScriptException {
-        String result = "0";
-        formula = includedFunctions + " " + formula;
-        result = jsEngine.calculate(formula);
+        String result = jsEngine.calculate(formula);
         return new BigDecimal(result);
     }
 
-    public boolean isError(Product product){
+    private boolean hasValue(String code){
+        return code != null && !code.replaceAll(" ", "").equals("");
+    }
+
+
+    private BigDecimal getPrice(Product product, BigDecimal formulaResult) {
+        BigDecimal result = formulaResult;
+        if(result != null) {
+            if (product instanceof Converted) {
+                BigDecimal ratio = ((Converted) product).getRatio();
+                ratio = ratio == null ? BigDecimal.ONE : ratio;
+                result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+            }
+            if (product instanceof Valuable) {
+                BigDecimal price = ((Valuable) product).getPrice();
+                price = price == null ? BigDecimal.ZERO : price;
+                result = result.multiply(price);
+            }
+            result.setScale(2, RoundingMode.CEILING);
+        }
+        return result;
+    }
+
+    public boolean isError(Product product) {
         return errorProducts.containsKey(product);
     }
 
-    public boolean hasErrors(){
+    public boolean hasErrors() {
         return errorProducts.size() != 0;
     }
 
@@ -321,7 +408,7 @@ public class ProductScreen {
         this.errorProducts = errorProducts;
     }
 
-    public Product getSelectedProduct(){
+    public Product getSelectedProduct() {
         return selectedNode == null ? null : (Product) selectedNode.getData();
     }
 }

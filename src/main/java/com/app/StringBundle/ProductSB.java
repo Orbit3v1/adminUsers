@@ -7,8 +7,8 @@ public class ProductSB {
     private static Object[][] contents = {
             {"productEntity", "Изделие"},
             {"productEntity.name", "Наименование"},
-            {"productEntity.detail", "Примечание"},
-            {"productEntity.description", "Дополнительно"},
+            {"productEntity.detail", "Дополнительно"},
+            {"productEntity.description", "Примечание"},
             {"productEntity.height", "Высота"},
             {"productEntity.width", "Ширина"},
             {"productEntity.length", "Длина"},
@@ -19,6 +19,10 @@ public class ProductSB {
             {"productScreen.calculation", "Стоимость"},
             {"productScreen.product", "Деталь"},
             {"productScreen.TNC", "Материал"},
+            {"productScreen.work", "Работа"},
+            {"productScreen.value", "Значение"},
+            {"productScreen.map", "Заменить"},
+
     };
 
     public static Object[][] getContents() {

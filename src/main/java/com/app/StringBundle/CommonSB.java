@@ -39,6 +39,7 @@ public class CommonSB {
             {"button.calc.addWork", "+ работа"},
             {"button.calc.addFunction", "+ функция"},
             {"button.calc.calculate", "Рассчитать"},
+            {"button.calc.inParameters", "Вх. параметры"},
 
             {"datePattern", "dd.MM.yyyy"},
             {"dateTimePattern", "dd.MM.yyyy HH:mm"},
@@ -68,7 +69,9 @@ public class CommonSB {
             {"error.copy", "Ошибка при копировании"},
             {"error.dateFormat", "Неверная дата"},
             {"error.emptyItems", "Добавте позиции"},
-            {"error.nameDuplicate", "Такое же имя есть у другой записи"}
+            {"error.nameDuplicate", "Такое же имя есть у другой записи"},
+            {"error.namesIsNotUnique", "Наименования должны быть уникальными"}
+
     };
 
     public static Object[][] getContents(){

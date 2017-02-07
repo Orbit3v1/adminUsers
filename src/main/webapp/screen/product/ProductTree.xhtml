@@ -40,15 +40,15 @@
                 </f:facet>
             </p:cellEditor>
         </p:column>
-        <p:column headerText="#{messages.getString('productEntity.detail')}">
+        <p:column headerText="#{messages.getString('productEntity.description')}">
             <p:cellEditor>
                 <f:facet name="output">
                             <span style="display: inline-block; width: 100%; height: 100%">
                                 &zwnj;
-                                <h:outputText value="#{product.detail}"/>
+                                <h:outputText value="#{product.description}"/>
                             </span>
                 </f:facet>
-                <f:facet name="input"><p:inputText value="#{product.detail}" style="width:100%"/></f:facet>
+                <f:facet name="input"><p:inputText value="#{product.description}" style="width:100%"/></f:facet>
             </p:cellEditor>
         </p:column>
         <p:column headerText="#{messages.getString('productEntity.formula')}"

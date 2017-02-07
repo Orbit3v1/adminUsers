@@ -30,6 +30,7 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
                 OrderSB.getContents(),
                 PaymentSB.getContents(),
                 PersonSB.getContents(),
+                ProductInParameterSB.getContents(),
                 ProductSB.getContents(),
                 RoleSB.getContents(),
                 SpecificationSB.getContents(),

@@ -116,32 +116,3 @@ a{
     font-size: 14px; !important;
 }
 
-
-.calcHeader{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    padding: 3px 3px 3px 8px
-}
-
-.calcContent{
-    margin: 100px 3px 210px 3px;
-}
-
-
-.calcDetails {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 3px;
-    height: 200px;
-    background-color: #ffffff;
-    text-align: center;
-}
-
-.alignTop{
-    vertical-align: top;
-}

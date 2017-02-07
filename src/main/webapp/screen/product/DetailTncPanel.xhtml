@@ -5,56 +5,19 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
 
-    <p:panelGrid columns="2" columnClasses="alignTop">
-        <p:panelGrid columns="1">
-            <h:outputLabel value="#{messages.getString('productScreen.TNC')}"
-                           for="headerTNC"
-                           styleClass="labelPF"/>
-            <p:panelGrid id="headerTNC" columns="3">
-                <h:outputLabel value="#{messages.getString('productEntity.length')}"
-                               for="lengthTNC"
-                               styleClass="labelPF"/>
-                <p:inputText id="lengthTNC"
-                               value="#{productScreen.selectedProduct.length}">
-                    <p:ajax event="change" listener="#{productScreen.sync}"/>
-                </p:inputText>
-                <h:message for="lengthTNC" errorClass="error"/>
-            </p:panelGrid>
-            <p:panelGrid columns="3">
-                <h:outputLabel value="#{messages.getString('productEntity.width')}"
-                               for="widthTNC"
-                               styleClass="labelPF"/>
-                <p:inputText id="widthTNC"
-                               value="#{productScreen.selectedProduct.width}">
-                    <p:ajax event="change" listener="#{productScreen.sync}"/>
-                </p:inputText>
-                <h:message for="widthTNC" errorClass="error"/>
-            </p:panelGrid>
-            <p:panelGrid columns="3">
-                <h:outputLabel value="#{messages.getString('productEntity.height')}"
-                               for="heightTNC"
-                               styleClass="labelPF"/>
-                <p:inputText id="heightTNC"
-                               value="#{productScreen.selectedProduct.height}">
-                    <p:ajax event="change" listener="#{productScreen.sync}"/>
-                </p:inputText>
-                <h:message for="heightTNC" errorClass="error"/>
-            </p:panelGrid>
-        </p:panelGrid>
-        <p:panelGrid columns="1">
-            <p:panelGrid columns="1">
-                <h:outputLabel value="#{messages.getString('productEntity.description')}"
-                               for="descriptionTNC"
-                               styleClass="labelPF"/>
-                <p:inputTextarea id="descriptionTNC"
-                                 value="#{productScreen.selectedProduct.description}"
-                                 styleClass="calcDetailTextArea"
-                        >
-                    <p:ajax event="change" listener="#{productScreen.sync}"/>
-                </p:inputTextarea>
-                <h:message for="descriptionTNC" errorClass="error"/>
-            </p:panelGrid>
-        </p:panelGrid>
+    <h:outputText value="#{messages.getString('productScreen.TNC')}" styleClass="calcDetailsTitle"/>
+
+    <p:panelGrid columns="1" columnClasses="alignTop">
+        <h:outputLabel value="#{messages.getString('productEntity.detail')}"
+                       for="detailTNC"
+                       styleClass="calcOutputTextArea"/>
+        <p:inputTextarea id="detailTNC"
+                         value="#{productScreen.selectedProduct.detail}"
+                         styleClass="calcDetailTextArea"
+                >
+            <p:ajax event="change" listener="#{productScreen.sync}"/>
+        </p:inputTextarea>
+        <h:message for="detailTNC" errorClass="error"/>
     </p:panelGrid>
 
 </ui:composition>

@@ -28,6 +28,15 @@ public class ProductTNC extends Product implements Valuable, Converted, Selectab
         this.tnc = tnc;
     }
 
+    public ProductTNC(){
+        super();
+        this.setHeightAlias(null);
+        this.setWidthAlias(null);
+        this.setLengthAlias(null);
+        this.setCountAlias(null);
+    }
+
+
     @Override
     public BigDecimal getPrice() {
         return tnc == null ? null : tnc.getPrice();

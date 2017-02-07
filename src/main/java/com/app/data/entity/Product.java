@@ -42,6 +42,18 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
     @Column(name = "count")
     private String count;
 
+    @Column(name = "heightAlias")
+    private String heightAlias;
+
+    @Column(name = "widthAlias")
+    private String widthAlias;
+
+    @Column(name = "lengthAlias")
+    private String lengthAlias;
+
+    @Column(name = "countAlias")
+    private String countAlias;
+
     @Column(name = "formula")
     private String formula;
 
@@ -54,6 +66,17 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
 
     @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
     private List<Product> subordinates = new ArrayList<>();
+
+    @OneToMany(mappedBy="product", fetch = FetchType.LAZY, cascade={CascadeType.ALL}, orphanRemoval = true)
+    private List<ProductInParameter> inParameters = new ArrayList<>();
+
+    public Product(){
+        super();
+        this.heightAlias = "H";
+        this.widthAlias = "B";
+        this.lengthAlias = "L";
+        this.countAlias = "N";
+    }
 
 
     @Override
@@ -153,6 +176,46 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         this.count = count;
     }
 
+    public List<ProductInParameter> getInParameters() {
+        return inParameters;
+    }
+
+    public void setInParameters(List<ProductInParameter> inParameters) {
+        this.inParameters = inParameters;
+    }
+
+    public String getHeightAlias() {
+        return heightAlias;
+    }
+
+    public void setHeightAlias(String heightAlias) {
+        this.heightAlias = heightAlias;
+    }
+
+    public String getWidthAlias() {
+        return widthAlias;
+    }
+
+    public void setWidthAlias(String widthAlias) {
+        this.widthAlias = widthAlias;
+    }
+
+    public String getLengthAlias() {
+        return lengthAlias;
+    }
+
+    public void setLengthAlias(String lengthAlias) {
+        this.lengthAlias = lengthAlias;
+    }
+
+    public String getCountAlias() {
+        return countAlias;
+    }
+
+    public void setCountAlias(String countAlias) {
+        this.countAlias = countAlias;
+    }
+
     public Product copy(){
         Product copy = new Product();
         copy.name = this.name;
@@ -181,6 +244,10 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         product.width = this.width;
         product.length = this.length;
         product.count = this.count;
+        product.heightAlias = this.heightAlias;
+        product.widthAlias = this.widthAlias;
+        product.lengthAlias = this.lengthAlias;
+        product.countAlias = this.countAlias;
         product.formula = this.formula;
         product.type = this.type;
         List<Product> subordinates = new ArrayList<>();
@@ -190,6 +257,13 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
             subordinates.add(subProduct);
         }
         product.subordinates = subordinates;
+        List<ProductInParameter> inParameters = new ArrayList<>();
+        for(ProductInParameter p : this.inParameters){
+            ProductInParameter inParameter = (ProductInParameter) p.clone();
+            inParameter.setProduct(product);
+            inParameters.add(inParameter);
+        }
+        product.inParameters = inParameters;
         return product;
     }
 

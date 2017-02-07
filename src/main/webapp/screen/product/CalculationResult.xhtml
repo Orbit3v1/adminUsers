@@ -20,6 +20,36 @@
                       style="width:450px">
                 <h:outputText value="#{calc.name}"/>
             </p:column>
+            <p:column headerText="#{messages.getString('productEntity.count')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.count}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{messages.getString('productEntity.length')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.length}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{messages.getString('productEntity.width')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.width}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{messages.getString('productEntity.height')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.height}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{messages.getString('productEntity.formula')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.formula}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
             <p:column headerText="#{messages.getString('productEntity.price')}"
                       style="width:100px">
                 <h:outputText value="#{calc.price}"/>

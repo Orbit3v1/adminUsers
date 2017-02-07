@@ -5,7 +5,20 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
 
+    <h:outputText value="#{messages.getString('productScreen.work')}" styleClass="calcDetailsTitle"/>
 
+    <p:panelGrid columns="1" columnClasses="alignTop">
+        <h:outputLabel value="#{messages.getString('productEntity.detail')}"
+                       for="detailWork"
+                       styleClass="calcOutputTextArea"/>
+        <p:inputTextarea id="detailWork"
+                         value="#{productScreen.selectedProduct.detail}"
+                         styleClass="calcDetailTextArea"
+                >
+            <p:ajax event="change" listener="#{productScreen.sync}"/>
+        </p:inputTextarea>
+        <h:message for="detailWork" errorClass="error"/>
+    </p:panelGrid>
 
 
 </ui:composition>
