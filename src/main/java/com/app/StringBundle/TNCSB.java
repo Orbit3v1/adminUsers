@@ -3,7 +3,7 @@ package com.app.StringBundle;
 /**
  * Created by ayaroslavtsev on 31.01.2017.
  */
-public class TNCSB {
+public class TncSB {
     private static Object[][] contents = {
             {"TNCEntity", "ТМЦ"},
             {"TNCEntity.name", "Наименование 1C"},
