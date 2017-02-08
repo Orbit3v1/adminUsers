@@ -55,7 +55,8 @@
             <h:outputText value="#{row.responsible}"/>
         </p:column>
 
-        <p:column rendered="#{carRequestList.userPA.addressFromR}">
+        <p:column rendered="#{carRequestList.userPA.addressFromR}"
+                  styleClass="wordWrap">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.addressFrom')}"
                                action="#{carRequestListFilterBean.setSort('ADDRESS_FROM_ASC')}"
@@ -71,7 +72,8 @@
             <h:outputText value="#{row.addressFrom}"  converter="cutStringConverter"/>
         </p:column>
 
-        <p:column rendered="#{carRequestList.userPA.addressToR}">
+        <p:column rendered="#{carRequestList.userPA.addressToR}"
+                  styleClass="wordWrap">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.addressTo')}"
                                action="#{carRequestListFilterBean.setSort('ADDRESS_TO_ASC')}"
@@ -119,7 +121,8 @@
             <h:outputText value="#{row.receiverPhone}"/>
         </p:column>
 
-        <p:column rendered="#{carRequestList.userPA.paymentR}">
+        <p:column rendered="#{carRequestList.userPA.paymentR}"
+                  styleClass="wordWrap">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.payment')}"
                                action="#{carRequestListFilterBean.setSort('PAYMENT_ASC')}"
@@ -135,7 +138,8 @@
             <h:outputText value="#{row.payment}"/>
         </p:column>
 
-        <p:column rendered="#{carRequestList.userPA.descriptionR and false}">
+        <p:column rendered="#{carRequestList.userPA.descriptionR}"
+                  styleClass="wordWrap">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.description')}"
                                action="#{carRequestListFilterBean.setSort('DESCRIPTION_ASC')}"
@@ -148,7 +152,7 @@
                              onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                              styleClass="inputSmall"/>
             </f:facet>
-            <h:outputText value="#{row.description}" converter="cutStringConverter"/>
+            <h:outputText value="#{row.description}"/>
         </p:column>
 
         <p:column rendered="#{carRequestList.userPA.attachmentR}">

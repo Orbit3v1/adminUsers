@@ -67,7 +67,7 @@ tr.ui-widget-content{
 }
 
 .ui-datatable-resizable tbody td {
-    white-space: pre !important;
+    white-space: pre;
 }
 
 .ui-button-text-only .ui-button-text{
