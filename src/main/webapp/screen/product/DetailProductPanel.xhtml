@@ -1,0 +1,96 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:outputText value="#{messages.getString('productScreen.product')}" styleClass="calcDetailsTitle"/>
+    <p:panelGrid columns="2" columnClasses="alignTop">
+        <p:panelGrid columns="1">
+            <p:panelGrid columns="3">
+                <h:outputLabel value=""
+                              styleClass="calcOutputTextSmall"/>
+                <h:outputLabel value="#{messages.getString('productScreen.value')}"
+                              styleClass="calcOutputTextMedium"/>
+                <h:outputLabel value="#{messages.getString('productScreen.map')}"
+                              styleClass="calcOutputTextSmall"/>
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <h:outputLabel value="#{messages.getString('productEntity.count')}"
+                               for="count"
+                               styleClass="calcDetailsLabel"/>
+                <p:inputText id="count"
+                             value="#{productScreen.selectedProduct.count}"
+                        styleClass="inputMediumCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+                <p:inputText id="countAlias"
+                             value="#{productScreen.selectedProduct.countAlias}"
+                             styleClass="inputSmallCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <h:outputLabel value="#{messages.getString('productEntity.length')}"
+                               for="length"
+                               styleClass="calcDetailsLabel"/>
+                <p:inputText id="length"
+                             value="#{productScreen.selectedProduct.length}"
+                             styleClass="inputMediumCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+                <p:inputText id="lengthAlias"
+                             value="#{productScreen.selectedProduct.lengthAlias}"
+                             styleClass="inputSmallCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <h:outputLabel value="#{messages.getString('productEntity.width')}"
+                               for="width"
+                               styleClass="calcDetailsLabel"/>
+                <p:inputText id="width"
+                             value="#{productScreen.selectedProduct.width}"
+                             styleClass="inputMediumCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+                <p:inputText id="widthAlias"
+                             value="#{productScreen.selectedProduct.widthAlias}"
+                             styleClass="inputSmallCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <h:outputLabel value="#{messages.getString('productEntity.height')}"
+                               for="height"
+                               styleClass="calcDetailsLabel"/>
+                <p:inputText id="height"
+                             value="#{productScreen.selectedProduct.height}"
+                             styleClass="inputMediumCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+                <p:inputText id="heightAlias"
+                             value="#{productScreen.selectedProduct.heightAlias}"
+                             styleClass="inputSmallCalc">
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputText>
+            </p:panelGrid>
+        </p:panelGrid>
+        <p:panelGrid columns="1">
+            <p:panelGrid columns="1">
+                <h:outputLabel value="#{messages.getString('productEntity.detail')}"
+                               for="detail"
+                               styleClass="calcOutputTextArea"/>
+                <p:inputTextarea id="detail"
+                                 value="#{productScreen.selectedProduct.detail}"
+                                 styleClass="calcDetailTextArea"
+                        >
+                    <p:ajax event="change" listener="#{productScreen.sync}"/>
+                </p:inputTextarea>
+                <h:message for="detail" errorClass="error"/>
+            </p:panelGrid>
+        </p:panelGrid>
+    </p:panelGrid>
+
+</ui:composition>
