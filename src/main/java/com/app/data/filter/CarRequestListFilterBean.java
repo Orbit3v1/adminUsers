@@ -108,6 +108,17 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
             parameters.put("priority", filterOriginal.getPriority());
         }
 
+        switch (filterOriginal.getState()) {
+            case IN_WORK:
+                sqlWhere.add("r.endActual is null");
+                break;
+            case FINISHED:
+                sqlWhere.add("r.endActual is not null");
+                break;
+            default:
+                break;
+        }
+
         StringJoiner sqlOrder = new StringJoiner(", ");
         if(filterOriginal.getSort() != null){
             sqlOrder.add(filterOriginal.getSort().getSqlOrder());

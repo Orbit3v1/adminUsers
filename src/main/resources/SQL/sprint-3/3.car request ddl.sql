@@ -55,6 +55,7 @@ create table carRequestListFilter(
   priority varchar(500),
 
   sort varchar(500),
+  state varchar(500),
 
   CONSTRAINT carRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
 );

@@ -3,6 +3,8 @@ package com.app.web.list;
 import com.app.data.dao.CarRequestDao;
 import com.app.data.dao.NomenclatureDao;
 import com.app.data.dictionary.CarRequestSort;
+import com.app.data.dictionary.CarRequestState;
+import com.app.data.dictionary.OrderItemState;
 import com.app.data.dto.SpecificationDTO;
 import com.app.data.entity.CarRequest;
 import com.app.data.entity.Nomenclature;
@@ -25,9 +27,11 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named("carRequestList")
 @Scope("session")
@@ -105,5 +109,9 @@ public class CarRequestList {
 
     public void setListRows(List<CarRequest> listRows) {
         this.listRows = listRows;
+    }
+
+    public List<CarRequestState> getFilterStates() {
+        return Arrays.asList(CarRequestState.values());
     }
 }

@@ -60,6 +60,13 @@ select[readonly],
     margin: 3px !important;
     width: 260px !important;
 }
+.selectOneMenuFindPF{
+    font-size: 14px !important;
+    margin: 3px !important;
+    width: 100px !important;
+    position: absolute;!important;
+}
+
 
 .calendarPF{
     margin: 3px !important;

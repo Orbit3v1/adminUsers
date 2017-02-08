@@ -27,7 +27,17 @@
                              rendered="#{carRequestList.userPA.addR}"
                              disabled="#{!carRequestList.userPA.addEx}"/>
 
-            <ui:decorate template="../../template/ListFilterButtonsPF.xhtml"/>
+            <ui:decorate template="../../template/ListFilterButtonsPF.xhtml">
+                <ui:define name="specific">
+                    <p:selectOneMenu value="#{carRequestListFilterBean.filter.state}"
+                                     styleClass="selectOneMenuFindPF">
+                        <f:selectItems value="#{carRequestList.filterStates}"
+                                       var="type"
+                                       itemValue="#{type}"
+                                       itemLabel="#{type.description}"/>
+                    </p:selectOneMenu>
+                </ui:define>
+            </ui:decorate>
 
             <ui:include src="DataTable.xhtml"/>
 

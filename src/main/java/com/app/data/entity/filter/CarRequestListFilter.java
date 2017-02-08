@@ -1,6 +1,8 @@
 package com.app.data.entity.filter;
 
 import com.app.data.dictionary.CarRequestSort;
+import com.app.data.dictionary.CarRequestState;
+import com.app.data.dictionary.OrderItemState;
 import com.app.data.dictionary.Sort;
 import com.app.data.entity.AbstractVersionedEntity;
 
@@ -56,6 +58,10 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
     @Column(name = "priority")
     private String priority;
 
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
+    private CarRequestState state;
+
     @Column(name = "sort")
     @Enumerated(EnumType.STRING)
     private CarRequestSort sort;
@@ -76,6 +82,7 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         description = null;
         priority = null;
         sort = null;
+        state = CarRequestState.ALL;
     }
 
     public void copyFrom(CarRequestListFilter filter){
@@ -94,6 +101,7 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         description = filter.description;
         priority = filter.priority;
         sort = filter.sort;
+        state = filter.state;
     }
 
     @Override
@@ -224,6 +232,14 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
 
     public void setSort(Sort sort) {
         this.sort = (CarRequestSort) sort;
+    }
+
+    public CarRequestState getState() {
+        return state;
+    }
+
+    public void setState(CarRequestState state) {
+        this.state = state;
     }
 }
 
