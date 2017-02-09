@@ -5,42 +5,35 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
 
-    <h:panelGroup id="calcsPG">
+    <h:panelGroup id="pricesPG">
 
-        <h:panelGroup rendered="#{productScreen.rootCalc != null}">
+        <h:panelGroup rendered="#{productScreen.rootPrice != null}">
             <HR/>
-            <h:outputText value="#{messages.getString('productScreen.calculation')}" styleClass="listTitle"/>
+            <h:outputText value="#{messages.getString('productScreen.price')}" styleClass="listTitle"/>
         </h:panelGroup>
-        <p:treeTable id="calcs"
-                     value="#{productScreen.rootCalc}"
+        <p:treeTable id="prices"
+                     value="#{productScreen.rootPrice}"
                      var="calc"
-                     rendered="#{productScreen.rootCalc != null}"
+                     rendered="#{productScreen.rootPrice != null}"
                      style="width: 550px">
             <p:column headerText="#{messages.getString('productEntity.name')}"
                       style="width:450px">
                 <h:outputText value="#{calc.name}"/>
             </p:column>
-            <p:column headerText="#{messages.getString('productEntity.count')}"
+            <p:column headerText="#{messages.getString('productScreen.units')}"
                       style="width:100px">
-                <h:outputText value="#{calc.count}">
+                <h:outputText value="#{calc.units}">
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{messages.getString('productScreen.formulaConverted')}"
+                      style="width:100px">
+                <h:outputText value="#{calc.formulaConverted}">
                     <f:convertNumber pattern="#0.00" />
                 </h:outputText>
             </p:column>
-            <p:column headerText="#{messages.getString('productEntity.length')}"
+            <p:column headerText="#{messages.getString('productEntity.price')}"
                       style="width:100px">
-                <h:outputText value="#{calc.length}">
-                    <f:convertNumber pattern="#0.00" />
-                </h:outputText>
-            </p:column>
-            <p:column headerText="#{messages.getString('productEntity.width')}"
-                      style="width:100px">
-                <h:outputText value="#{calc.width}">
-                    <f:convertNumber pattern="#0.00" />
-                </h:outputText>
-            </p:column>
-            <p:column headerText="#{messages.getString('productEntity.height')}"
-                      style="width:100px">
-                <h:outputText value="#{calc.height}">
+                <h:outputText value="#{calc.price}">
                     <f:convertNumber pattern="#0.00" />
                 </h:outputText>
             </p:column>
@@ -50,6 +43,7 @@
                     <f:convertNumber pattern="#0.00" />
                 </h:outputText>
             </p:column>
-          </p:treeTable>
+
+        </p:treeTable>
     </h:panelGroup>
 </ui:composition>

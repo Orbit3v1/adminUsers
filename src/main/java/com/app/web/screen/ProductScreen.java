@@ -1,5 +1,6 @@
 package com.app.web.screen;
 
+import com.app.common.CalculatorTreePriceGenerator;
 import com.app.common.CalculatorTreeResultGenerator;
 import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.*;
@@ -45,10 +46,13 @@ public class ProductScreen {
     protected AddMessage addMessage;
     @Inject
     private CalculatorTreeResultGenerator calculatorTreeResultGenerator;
+    @Inject
+    private CalculatorTreePriceGenerator calculatorTreePriceGenerator;
     protected Logger logger = Logger.getLogger(getClass());
 
     private TreeNode root;
     private TreeNode rootCalc;
+    private TreeNode rootPrice;
     private Product entity;
     private TreeNode selectedNode;
     private Map<Product, String> errorProducts;
@@ -237,36 +241,18 @@ public class ProductScreen {
         }
     }
 
-
     public void calculate() {
         rootCalc = null;
+        rootPrice = null;
         errorProducts.clear();
         try {
             calculatorTreeResultGenerator.calculate(entity);
             rootCalc = calculatorTreeResultGenerator.getResultRoot();
+            rootPrice = calculatorTreePriceGenerator.generate(rootCalc);
         } catch (ScriptException e){
             addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
             errorProducts = calculatorTreeResultGenerator.getErrorProducts();
         }
-    }
-
-
-    private BigDecimal getPrice(Product product, BigDecimal formulaResult) {
-        BigDecimal result = formulaResult;
-        if(result != null) {
-            if (product instanceof Converted) {
-                BigDecimal ratio = ((Converted) product).getRatio();
-                ratio = ratio == null ? BigDecimal.ONE : ratio;
-                result = result.divide(ratio, BigDecimal.ROUND_CEILING);
-            }
-            if (product instanceof Valuable) {
-                BigDecimal price = ((Valuable) product).getPrice();
-                price = price == null ? BigDecimal.ZERO : price;
-                result = result.multiply(price);
-            }
-            result.setScale(2, RoundingMode.CEILING);
-        }
-        return result;
     }
 
     public boolean isError(Product product) {
@@ -307,5 +293,13 @@ public class ProductScreen {
 
     public Product getSelectedProduct() {
         return selectedNode == null ? null : (Product) selectedNode.getData();
+    }
+
+    public TreeNode getRootPrice() {
+        return rootPrice;
+    }
+
+    public void setRootPrice(TreeNode rootPrice) {
+        this.rootPrice = rootPrice;
     }
 }

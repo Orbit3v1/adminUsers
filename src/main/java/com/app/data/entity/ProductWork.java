@@ -1,5 +1,6 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Converted;
 import com.app.data.entity.interfaces.Selectable;
 import com.app.data.entity.interfaces.Valuable;
 import org.primefaces.event.SelectEvent;
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("WORK")
-public class ProductWork  extends Product implements Valuable, Selectable {
+public class ProductWork  extends Product implements Valuable, Selectable, Converted {
     @ManyToOne()
     @JoinColumn(name="calc_work")
     private Work work;
@@ -38,6 +39,16 @@ public class ProductWork  extends Product implements Valuable, Selectable {
     @Override
     public BigDecimal getPrice() {
         return work == null ? null : work.getPrice();
+    }
+
+    @Override
+    public BigDecimal getRatio() {
+        return new BigDecimal("60");
+    }
+
+    @Override
+    public String getUnits() {
+        return "час";
     }
 
     @Override

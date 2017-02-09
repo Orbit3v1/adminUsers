@@ -48,6 +48,11 @@ public class ProductTNC extends Product implements Valuable, Converted, Selectab
     }
 
     @Override
+    public String getUnits() {
+        return tnc == null ? null : tnc.getUnitsFrom();
+    }
+
+    @Override
     public void onSelect(SelectEvent event) {
         TNC tnc = (TNC) event.getObject();
         setTnc(tnc);

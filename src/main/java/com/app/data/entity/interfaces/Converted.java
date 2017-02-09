@@ -7,4 +7,5 @@ import java.math.BigDecimal;
  */
 public interface Converted {
     public BigDecimal getRatio();
+    public String getUnits();
 }

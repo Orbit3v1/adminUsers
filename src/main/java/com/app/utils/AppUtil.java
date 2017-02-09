@@ -10,6 +10,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -170,6 +171,13 @@ public class AppUtil {
         } else {
             return null;
         }
+    }
+
+    public static BigDecimal add(BigDecimal a, BigDecimal b){
+        if(a == null){
+            a = BigDecimal.ZERO;
+        }
+        return a.add(b);
     }
 
 }

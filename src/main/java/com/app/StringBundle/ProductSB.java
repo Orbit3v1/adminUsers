@@ -16,13 +16,16 @@ public class ProductSB {
             {"productEntity.formula", "Формула"},
             {"productEntity.price", "Цена"},
 
-            {"productScreen.calculation", "Стоимость"},
+
+            {"productScreen.calculation", "Результаты"},
+            {"productScreen.price", "Стоимость"},
             {"productScreen.product", "Деталь"},
             {"productScreen.TNC", "Материал"},
             {"productScreen.work", "Работа"},
             {"productScreen.value", "Значение"},
             {"productScreen.map", "Заменить"},
-
+            {"productScreen.units", "Ед. изм."},
+            {"productScreen.formulaConverted", "Кол-во"}
     };
 
     public static Object[][] getContents() {

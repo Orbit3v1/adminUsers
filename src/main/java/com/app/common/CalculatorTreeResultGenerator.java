@@ -5,6 +5,8 @@ import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.Function;
 import com.app.data.entity.Product;
 import com.app.data.entity.ProductInParameter;
+import com.app.data.entity.interfaces.Converted;
+import com.app.data.entity.interfaces.Valuable;
 import com.app.utils.JSEngine;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.script.ScriptException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +75,7 @@ public class CalculatorTreeResultGenerator {
 
     private void generateCalcTree(TreeNode parentNode, Product product, String parentFormula) {
         String formula = parentFormula + ";" + generateFormula(product);
-        CalculationDTO calc = new CalculationDTO(product.getName());
+        CalculationDTO calc = new CalculationDTO(product);
         try {
             calc.setCount(calculateParameter(formula, product.getCount()));
             calc.setHeight(calculateParameter(formula, product.getHeight()));
@@ -81,13 +84,14 @@ public class CalculatorTreeResultGenerator {
             if(hasValue(product.getFormula())) {
                 calc.setFormula(executeCode(formula));
             }
-            updateCalcName(calc, product);
+            updateCalcName(calc);
+            updateFormulaConverted(calc);
+            updatePrice(calc);
+            updateUnits(calc);
         } catch (ScriptException e) {
             e.printStackTrace();
             errorProducts.put(product, e.getMessage());
         }
-
-        //calc.setPrice(getPrice(product, formulaResult));
 
         TreeNode tn = new DefaultTreeNode(calc, parentNode);
         tn.setExpanded(true);
@@ -97,14 +101,45 @@ public class CalculatorTreeResultGenerator {
         }
     }
 
-    private void updateCalcName(CalculationDTO calc, Product product){
-        String name = calc.getName();
+    private void updateCalcName(CalculationDTO calc){
+        String name = calc.getProduct().getName();
+        Product product = calc.getProduct();
         name = replaceAll(name, product.getCountAlias(), calc.getCount());
         name = replaceAll(name, product.getHeightAlias(), calc.getHeight());
         name = replaceAll(name, product.getLengthAlias(), calc.getLength());
         name = replaceAll(name, product.getWidthAlias(), calc.getWidth());
         calc.setName(name);
     }
+
+    private void updateFormulaConverted(CalculationDTO calc){
+        Product product = calc.getProduct();
+        BigDecimal result = calc.getFormula();
+        if(result != null && product instanceof Converted) {
+            BigDecimal ratio = ((Converted) product).getRatio();
+            ratio = ratio == null ? BigDecimal.ONE : ratio;
+            result = result.divide(ratio, BigDecimal.ROUND_CEILING);
+        }
+        calc.setFormulaConverted(result);
+    }
+
+    private void updateUnits(CalculationDTO calc){
+        Product product = calc.getProduct();
+        if(product instanceof Converted) {
+            calc.setUnits(((Converted) product).getUnits());
+        }
+    }
+
+    private void updatePrice(CalculationDTO calc){
+        Product product = calc.getProduct();
+        BigDecimal result = calc.getFormulaConverted();
+        if(result != null && product instanceof Valuable) {
+            BigDecimal price = ((Valuable) product).getPrice();
+            price = price == null ? BigDecimal.ZERO : price;
+            result = result.multiply(price);
+        }
+        calc.setPrice(result);
+    }
+
 
     private String generateFormula(Product product){
         StringJoiner result = new StringJoiner(";");
