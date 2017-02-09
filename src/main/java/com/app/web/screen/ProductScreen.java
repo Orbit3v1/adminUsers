@@ -1,5 +1,6 @@
 package com.app.web.screen;
 
+import com.app.common.CalculatorTreeResultGenerator;
 import com.app.data.dto.CalculationDTO;
 import com.app.data.entity.*;
 import com.app.data.entity.interfaces.Converted;
@@ -39,19 +40,17 @@ public class ProductScreen {
     @PersistenceContext
     protected EntityManager em;
     @Inject
-    private JSEngine jsEngine;
-    @Inject
     protected ResourceBundle resourceBundle;
     @Inject
     protected AddMessage addMessage;
+    @Inject
+    private CalculatorTreeResultGenerator calculatorTreeResultGenerator;
     protected Logger logger = Logger.getLogger(getClass());
 
     private TreeNode root;
     private TreeNode rootCalc;
     private Product entity;
     private TreeNode selectedNode;
-    private String includedFunctions;
-    private String inParameters;
     private Map<Product, String> errorProducts;
 
     @PostConstruct
@@ -240,113 +239,15 @@ public class ProductScreen {
 
 
     public void calculate() {
+        rootCalc = null;
         errorProducts.clear();
-        initFunctions();
-        initInParameters();
-        String formula = includedFunctions + " " + inParameters;
-        rootCalc = new DefaultTreeNode();
-        generateCalcTree(rootCalc, entity, formula);
-        if (hasErrors()) {
-            addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
-        }
-    }
-
-    @Transactional
-    private void initFunctions() {
-        includedFunctions = "";
-        Query query = em.createQuery("select p from Function p order by p.name");
-        List<Function> functions = query.getResultList();
-        for (Function f : functions) {
-            includedFunctions += f.getCode();
-        }
-    }
-
-    private void initInParameters() {
-        inParameters = "";
-        for(ProductInParameter p : entity.getInParameters()){
-            inParameters += p.getName() + " = " + p.getValue() + ";";
-        }
-    }
-
-    private void generateCalcTree(TreeNode parentNode, Product product, String parentFormula) {
-        String formula = parentFormula + ";" + generateFormula(product);
-        CalculationDTO calc = new CalculationDTO(product.getName());
         try {
-            calc.setCount(calculateParameter(formula, product.getCount()));
-            calc.setHeight(calculateParameter(formula, product.getHeight()));
-            calc.setLength(calculateParameter(formula, product.getLength()));
-            calc.setWidth(calculateParameter(formula, product.getWidth()));
-            if(hasValue(product.getFormula())) {
-                calc.setFormula(executeCode(formula));
-            }
-            updateCalcName(calc, product);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-            errorProducts.put(product, e.getMessage());
+            calculatorTreeResultGenerator.calculate(entity);
+            rootCalc = calculatorTreeResultGenerator.getResultRoot();
+        } catch (ScriptException e){
+            addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
+            errorProducts = calculatorTreeResultGenerator.getErrorProducts();
         }
-
-        //calc.setPrice(getPrice(product, formulaResult));
-
-        TreeNode tn = new DefaultTreeNode(calc, parentNode);
-        tn.setExpanded(true);
-
-        for (Product p : product.getSubordinates()) {
-            generateCalcTree(tn, p, formula);
-        }
-    }
-
-    private void updateCalcName(CalculationDTO calc, Product product){
-        String name = calc.getName();
-        name = replaceAll(name, product.getCountAlias(), calc.getCount());
-        name = replaceAll(name, product.getHeightAlias(), calc.getHeight());
-        name = replaceAll(name, product.getLengthAlias(), calc.getLength());
-        name = replaceAll(name, product.getWidthAlias(), calc.getWidth());
-        calc.setName(name);
-    }
-
-    private String replaceAll(String str, String regex, BigDecimal val){
-        if(!hasValue(regex)){
-            return str;
-        }
-        return str.replaceAll(regex, bigDecimalToString(val));
-    }
-
-    private String bigDecimalToString(BigDecimal val){
-        String result = "0";
-        if(val != null){
-            result = val.setScale(0, BigDecimal.ROUND_CEILING).toString();
-        }
-        return result;
-    }
-
-    private String generateFormula(Product product){
-        StringJoiner result = new StringJoiner(";");
-        if(hasValue(product.getDetail())) {
-            result.add(product.getDetail());
-        }
-        if(hasValue(product.getFormula())) {
-            result.add(product.getFormula());
-        }
-        return result.toString();
-    }
-
-    private BigDecimal calculateParameter(String formula, String parameter) throws ScriptException {
-        BigDecimal result = null;
-
-        if(hasValue(parameter)) {
-            formula += "; " + parameter;
-            result = executeCode(formula);
-        }
-        return result;
-    }
-
-    private BigDecimal executeCode(String formula) throws ScriptException {
-        String result = jsEngine.calculate(formula);
-        return new BigDecimal(result);
-    }
-
-    private boolean hasValue(String code){
-        return code != null && !code.replaceAll(" ", "").equals("");
     }
 
 
@@ -370,10 +271,6 @@ public class ProductScreen {
 
     public boolean isError(Product product) {
         return errorProducts.containsKey(product);
-    }
-
-    public boolean hasErrors() {
-        return errorProducts.size() != 0;
     }
 
     public TreeNode getRoot() {

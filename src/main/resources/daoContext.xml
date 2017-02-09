@@ -16,6 +16,7 @@
     <bean id="attachmentContentDao" class="com.app.data.dao.hibernate.HAttachmentContentDao"/>
     <bean id="specificationDao" class="com.app.data.dao.hibernate.HSpecificationDao"/>
     <bean id="carRequestDao" class="com.app.data.dao.hibernate.HCarRequestDao"/>
+    <bean id="functionDao" class="com.app.data.dao.hibernate.HFunctionDao"/>
 
 
 </beans>

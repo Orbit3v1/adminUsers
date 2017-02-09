@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "calc_function")
-public class Function extends AbstractVersionedEntity implements Copy<Function> {
+public class Function extends AbstractVersionedEntity<Integer> implements Copy<Function> {
     @Id
     @GeneratedValue
     @Column(name = "id")
