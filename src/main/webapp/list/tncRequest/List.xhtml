@@ -31,8 +31,8 @@
 
             <p:commandButton id="btnCreate"
                              value="#{messages.getString('button.create')}"
-                             onclick="openPopUp('/screen/TNCSupply/Screen.xhtml', 'TNCSupplyScreen')"
-                             oncomplete="openPopUp('/screen/TNCSupply/Screen.xhtml?type=CREATED', 'TNCSupplyScreen')"
+
+                             onclick="openPopUp('/screen/TNCSupply/Screen.xhtml?type=CREATED', 'TNCSupplyScreen')"
                              styleClass="buttonPF"
                              actionListener="#{tncRequestList.createSupply}"
                              rendered="#{tncRequestList.userPA.supplyAddR}"

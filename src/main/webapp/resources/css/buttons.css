@@ -37,6 +37,18 @@ td .ui-button-text-only .ui-button-text{
     opacity: 0.2 !important
 }
 
+.download {
+    background-image: url(/javax.faces.resource/images/download.png.xhtml) !important;
+    height: 24px !important;
+    width: 24px !important;
+}
+
+.find {
+    background-image: url(/javax.faces.resource/images/find.png.xhtml) !important;
+    height: 24px !important;
+    width: 24px !important;
+}
+
 .btn {
     display: inline-block !important;
     background-color: #e3e3e3 !important;

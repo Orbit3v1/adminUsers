@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named("downloader")
 @Scope("request")
@@ -31,8 +33,23 @@ public class AttachmentDownloader implements Download{
 
     public void download(Attachment attachment) {
         init(attachment);
-        populateExternalContent();
+        populateExternalContent("attachment");
         sendResponse();
+    }
+
+    public void open(Attachment attachment){
+        init(attachment);
+        populateExternalContent("inline");
+        sendResponse();
+    }
+
+    public boolean isViewable(Attachment attachment){
+        List<String> mimeTypes = new ArrayList<>();
+        mimeTypes.add("image/jpeg");
+        mimeTypes.add("image/png");
+        mimeTypes.add("text/plain");
+        mimeTypes.add("application/pdf");
+        return mimeTypes.contains(attachment.getType());
     }
     
     private void init(Attachment attachment){
@@ -41,11 +58,11 @@ public class AttachmentDownloader implements Download{
         externalContext = facesContext.getExternalContext();
     }
 
-    private void populateExternalContent(){
+    private void populateExternalContent(String type){
         externalContext.responseReset();
         externalContext.setResponseContentType(attachment.getType());
         externalContext.setResponseContentLength(Math.toIntExact(attachment.getSize()));
-        externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + getFileName(attachment) + "\"");
+        externalContext.setResponseHeader("Content-Disposition", type + "; filename=\"" + getFileName(attachment) + "\"");
 
         addContent();
     }

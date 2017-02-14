@@ -10,8 +10,7 @@
                      actionListener="#{orderScreen.shareOrder}"
                      rendered="#{orderScreen.userPA.addItemR}"
                      disabled="#{!orderScreen.userPA.addItemEx}"
-                     onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.id}')"
-                     oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?orderId=#{orderScreen.entity.id}', 'OrderItemScreen')"
+                     onclick="openPopUp('/screen/OrderItemScreen.xhtml?orderId=#{orderScreen.entity.id}', 'OrderItemScreen')"
                      styleClass="buttonPF"
             />
 
@@ -32,8 +31,7 @@
                   filterType="custom">
             <p:commandButton value="#{orderI.name}"
                              actionListener="#{orderScreen.shareOrder}"
-                             onclick="openPopUp('about:blank', 'OrderItemScreen#{orderI.hashCode()}')"
-                             oncomplete="openPopUp('/screen/OrderItemScreen.xhtml?hash=#{orderI.hashCode()}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.hashCode()}')">
+                             onclick="openPopUp('/screen/OrderItemScreen.xhtml?hash=#{orderI.hashCode()}||orderId=#{orderScreen.entity.id}', 'OrderItemScreen#{orderI.hashCode()}')">
             </p:commandButton>
         </p:column>
 

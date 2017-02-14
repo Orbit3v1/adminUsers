@@ -63,8 +63,7 @@
                         <a4j:commandButton
                                 rendered="#{!specificationScreen.isDisabled('nomenclature')}"
                                 action="#{specificationScreen.shareEntity}"
-                                onclick="openPopUp('about:blank', 'NomenclatureListPopUp')"
-                                oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
+                                onclick="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
                                 styleClass="findBtn"/>
 
@@ -266,16 +265,27 @@
 
                     <rich:dataTable id="drawings" value="#{specificationScreen.sketches}" var="row">
                         <h:column>
-                            <h:commandLink value="#{row.attachment.name}"
-                                           styleClass="link"
-                                           action="#{downloader.download(row.attachment)}"/>
+                            <h:outputText value="#{row.attachment.name}"/>
                         </h:column>
-                        <h:column rendered="#{!specificationScreen.isDisabled('sketches')}">
-                            <h:commandButton value="X"
-                                             action="#{specificationScreen.deleteAttachment(row)}"
-                                             render="sketches"
-                                             styleClass="btnDelete"
-                                             onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                        <h:column>
+                            <h:commandLink value="view"
+                                           styleClass="ui-icon download"
+                                           actionListener="#{downloader.download(row.attachment)}"
+                                    />
+                        </h:column>
+                        <h:column>
+                            <h:commandLink value="view"
+                                           styleClass="ui-icon find"
+                                           target = "_blank"
+                                           rendered="#{downloader.isViewable(row.attachment)}"
+                                           actionListener="#{downloader.open(row.attachment)}"
+                                    />
+                        </h:column>
+                        <h:column rendered="#{!nomenclatureScreen.isDisabled('drawings')}">
+                            <h:commandLink action="#{specificationScreen.deleteAttachment(row)}"
+                                           render="sketches"
+                                           styleClass="ui-icon delete"
+                                           onclick="return confirm('Вы действительно хотите удалить запись?')"/>
                         </h:column>
                     </rich:dataTable>
 

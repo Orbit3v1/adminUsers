@@ -69,7 +69,8 @@ public class CalculatorTreeResultGenerator {
     private void initInParameters() {
         inParameters = "";
         for(ProductInParameter p : rootEntity.getInParameters()){
-            inParameters += p.getName() + " = " + p.getValue() + ";";
+            String value = hasValue(p.getValue()) ? p.getValue() : "0";
+            inParameters += p.getName() + " = " + value  + ";";
         }
     }
 

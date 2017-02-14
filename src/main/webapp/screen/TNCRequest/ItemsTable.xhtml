@@ -10,8 +10,7 @@
                      actionListener="#{TNCRequestScreen.shareEntity}"
                      rendered="#{TNCRequestScreen.userPA.addItemR}"
                      disabled="#{!TNCRequestScreen.userPA.addItemEx}"
-                     onclick="openPopUp('about:blank', 'TNCRequestItemScreen#{orderI.id}')"
-                     oncomplete="openPopUp('/screen/TNCRequestItemScreen.xhtml?sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen')"
+                     onclick="openPopUp('/screen/TNCRequestItemScreen.xhtml?sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen')"
                      styleClass="buttonPF"
             />
 
@@ -31,8 +30,7 @@
                   >
             <p:commandButton value="#{item.name}"
                              actionListener="#{TNCRequestScreen.shareEntity}"
-                             onclick="openPopUp('about:blank', 'TNCRequestItemScreen#{item.hashCode()}')"
-                             oncomplete="openPopUp('/screen/TNCRequestItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen#{item.hashCode()}')">
+                             onclick="openPopUp('/screen/TNCRequestItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{TNCRequestScreen.entity.id}', 'TNCRequestItemScreen#{item.hashCode()}')">
             </p:commandButton>
         </p:column>
 

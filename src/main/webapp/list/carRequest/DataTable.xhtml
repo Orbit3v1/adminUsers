@@ -161,7 +161,8 @@
             </f:facet>
             <ui:repeat var="item" value="#{row.attachments}">
                 <h:commandLink value="#{item.name}"
-                               action="#{downloader.download(item)}"
+                               action="#{downloader.open(item)}"
+                               target = "_blank"
                                styleClass="link"
                                style="display: block;"/>
             </ui:repeat>

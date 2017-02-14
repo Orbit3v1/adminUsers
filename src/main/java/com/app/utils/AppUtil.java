@@ -177,6 +177,9 @@ public class AppUtil {
         if(a == null){
             a = BigDecimal.ZERO;
         }
+        if(b == null){
+            b = BigDecimal.ZERO;
+        }
         return a.add(b);
     }
 

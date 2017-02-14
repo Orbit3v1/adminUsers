@@ -16,9 +16,21 @@
                  var="row"
                  tableStyle="width:auto">
         <p:column>
-            <h:commandLink value="#{row.name}"
-                           styleClass="link"
-                           action="#{downloader.download(row)}"/>
+            <h:outputText value="#{row.name}"/>
+        </p:column>
+        <p:column>
+            <h:commandLink value="view"
+                           styleClass="ui-icon download"
+                           actionListener="#{downloader.download(row)}"
+                    />
+        </p:column>
+        <p:column>
+            <h:commandLink value="view"
+                           styleClass="ui-icon find"
+                           target = "_blank"
+                           rendered="#{downloader.isViewable(row)}"
+                           actionListener="#{downloader.open(row)}"
+                    />
         </p:column>
         <p:column rendered="#{true}"
                   headerText=""
