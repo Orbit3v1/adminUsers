@@ -67,12 +67,17 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/NotFound.xhtml</location>
+        <location>/errorPages/NotFound.xhtml</location>
     </error-page>
 
     <error-page>
         <error-code>500</error-code>
-        <location>/NotFound.xhtml</location>
+        <location>/errorPages/NotFound.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/errorPages/Expired.xhtml</location>
     </error-page>
 
     <context-param>

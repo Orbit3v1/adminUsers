@@ -59,7 +59,6 @@ public class CommonSB {
 
             {"error.data", "Неверные данные"},
             {"error.notNull", "Поле не может быть пустым"},
-            {"error.pageNotFound", "Страница не найдена"},
             {"error.entityWasChanged", "Запись была удалена или изменена другим пользователем"},
             {"error.exception", "Ошибка приложения"},
             {"error.notNumber", "Поле должно быть числом"},
@@ -70,7 +69,11 @@ public class CommonSB {
             {"error.dateFormat", "Неверная дата"},
             {"error.emptyItems", "Добавте позиции"},
             {"error.nameDuplicate", "Такое же имя есть у другой записи"},
-            {"error.namesIsNotUnique", "Наименования должны быть уникальными"}
+            {"error.namesIsNotUnique", "Наименования должны быть уникальными"},
+
+            {"error.pageNotFound", "Страница не найдена"},
+            {"error.error", "Ошибка приложения"},
+            {"error.expired", "Сессия устарела"}
 
     };
 
