@@ -1,6 +1,6 @@
 function openPopUp(source, name){
     var param = 'width=940,height=750,resizable=yes,scrollbars=yes';
-    var popUp = window.open(source.replace(/\|\|/g, '&'), name, param);
+    var popUp = window.open(source.replace(/\|\|/g, '&'), null, null);
     return popUp;
 }
 
@@ -8,7 +8,7 @@ function openPopUpFull(source, name){
     var w = screen.width - 20;
     var h = screen.height - 120;
     var param = 'width=' + w + ',height=' + h + ',resizable=yes,scrollbars=yes';
-    var popUp = window.open(source.replace(/\|\|/g, '&'), name, param);
+    var popUp = window.open(source.replace(/\|\|/g, '&'), null, null);
     return popUp;
 }
 

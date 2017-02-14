@@ -58,6 +58,7 @@
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('TNCEntity.description')}"
+                          styleClass="wordWrap"
                           sortBy="#{row.description}">
                     <h:outputText value="#{row.description}"/>
                 </p:column>
