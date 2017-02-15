@@ -57,6 +57,7 @@ create table calc_product(
   id int IDENTITY(1,1) not null primary key,
   version int default 0,
   parentId int,
+  product_group int,
   type varchar(500),
   name varchar(500),
   detail  varchar(500),
@@ -76,9 +77,11 @@ create table calc_product(
   CONSTRAINT calc_product_FK1 FOREIGN KEY (parentId) REFERENCES calc_product(id),
   CONSTRAINT calc_product_FK2 FOREIGN KEY (calc_tnc) REFERENCES calc_tnc(id),
   CONSTRAINT calc_product_FK3 FOREIGN KEY (calc_work) REFERENCES calc_work(id),
+  CONSTRAINT calc_product_FK4 FOREIGN KEY (product_group) REFERENCES calc_product_group(id)
 );
 
 create index calc_product_I1 on calc_product(parentId);
+create index calc_product_I2 on calc_product(product_group);
 
 create table calc_function(
   id int IDENTITY(1,1) not null primary key,
@@ -103,3 +106,14 @@ create table calc_productInParams(
 );
 
 create index calc_productInParams_I1 on calc_productInParams(calc_product, name);
+
+create table calc_product_group(
+  id int IDENTITY(1,1) not null primary key,
+  version int default 0,
+  parentId int,
+  name varchar(500),
+
+  CONSTRAINT calc_product_group_FK1 FOREIGN KEY (parentId) REFERENCES calc_product_group(id)
+);
+
+create index calc_product_group_I1 on calc_product_group(parentId);

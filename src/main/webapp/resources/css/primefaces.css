@@ -9,7 +9,7 @@
 }
 /*disable borders*/
 .ui-panelgrid .ui-panelgrid-cell{
-    padding: 0 !important;
+    padding: 0;
     border: none !important;
 }
 

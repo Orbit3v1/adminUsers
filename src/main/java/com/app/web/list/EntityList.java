@@ -66,9 +66,11 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     }
 
     public void save(){
+        preSave();
         if (validate()) {
             try {
                 saveAttempt();
+                postSave();
                 addMessage.setMessage(null, "success.save", FacesMessage.SEVERITY_INFO);
             } catch (OptimisticLockException e){
                 logger.error(e.getMessage());
@@ -83,6 +85,10 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
         }
     }
+
+    protected void preSave(){}
+
+    protected void postSave(){}
 
     protected boolean validate(){
        return validator.validate(editEntity);
@@ -113,13 +119,13 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
         editEntity = em.merge(editEntity);
     }
 
-    private void closeDialog(){
+    protected void closeDialog(){
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('popup').hide();");
     }
 
     @Transactional
-    public void delete(T entity){
+    public boolean delete(T entity){
         logger.info("delete. id = " + entity.getId());
         if(canDelete(entity)){
             em.remove(em.contains(entity) ? entity : em.merge(entity));
@@ -127,12 +133,13 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             filteredEntities.remove(entity);
             addMessage.setMessage(null, "success.delete", FacesMessage.SEVERITY_INFO);
             logger.info("delete success");
+            return true;
         } else {
             logger.info("delete fail");
             addMessage.setMessage("mainForm:panel", "error.calc.delete", FacesMessage.SEVERITY_ERROR);
+            return false;
         }
     }
-
 
     protected boolean canDelete(T entity){
         return true;

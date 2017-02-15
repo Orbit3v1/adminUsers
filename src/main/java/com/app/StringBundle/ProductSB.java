@@ -16,6 +16,10 @@ public class ProductSB {
             {"productEntity.formula", "Формула"},
             {"productEntity.price", "Цена"},
 
+            {"productGroupEntity", "Раздел"},
+            {"productGroupEntity.name", "Наименование"},
+            {"productList.productTitle", "Изделия"},
+            {"productList.groupsTitle", "Разделы"},
 
             {"productScreen.calculation", "Результаты"},
             {"productScreen.price", "Стоимость"},

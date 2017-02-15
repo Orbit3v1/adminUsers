@@ -64,7 +64,11 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
     @JoinColumn(name="parentId")
     private Product parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name="product_group")
+    private ProductGroup productGroup;
+
+    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY, cascade={CascadeType.ALL}, orphanRemoval = true)
     private List<Product> subordinates = new ArrayList<>();
 
     @OneToMany(mappedBy="product", fetch = FetchType.LAZY, cascade={CascadeType.ALL}, orphanRemoval = true)
@@ -216,6 +220,14 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         this.countAlias = countAlias;
     }
 
+    public ProductGroup getProductGroup() {
+        return productGroup;
+    }
+
+    public void setProductGroup(ProductGroup productGroup) {
+        this.productGroup = productGroup;
+    }
+
     public Product copy(){
         Product copy = new Product();
         copy.name = this.name;
@@ -250,6 +262,7 @@ public class Product extends AbstractVersionedEntity implements Copy<Product>, C
         product.countAlias = this.countAlias;
         product.formula = this.formula;
         product.type = this.type;
+        product.productGroup = this.productGroup;
         List<Product> subordinates = new ArrayList<>();
         for(Product p : this.subordinates){
             Product subProduct = (Product) p.clone();

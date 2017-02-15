@@ -81,6 +81,15 @@
     vertical-align: top;
 }
 
+.groupProductPart{
+    vertical-align: top;
+    padding-right: 30px !important;
+}
+
+.groupProductPart th{
+    height: 44px
+}
+
 .inParametersContent{
     margin: 3px 3px 55px 3px;
 }

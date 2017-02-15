@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:treeTable id="groups"
+                 value="#{productGroupList.rootGroup}"
+                 var="group"
+                 nodeVar="node"
+                 selectionMode="single"
+                 resizableColumns="true"
+                 selection="#{productGroupList.selectedNode}"
+                 tableStyle="width:auto"
+                 styleClass=""
+            >
+
+        <p:ajax event="select" listener="#{productList.groupSelected}" />
+        <p:ajax event="select" update=":mainForm:entities, :mainForm:productButtons" />
+        <p:ajax event="expand" listener="#{productGroupList.nodeExpand}" />
+        <p:ajax event="collapse" listener="#{productGroupList.nodeCollapse}" />
+
+        <p:column headerText="#{messages.getString('productGroupEntity.name')}"
+                  style="width:450px">
+            <h:outputText value="#{group.name}"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:groups, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{productGroupList.delete(node)}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+    </p:treeTable>
+</ui:composition>

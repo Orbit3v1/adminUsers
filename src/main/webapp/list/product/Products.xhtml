@@ -1,0 +1,48 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:message for="entities" infoClass="info" errorClass="error"/>
+    <p:dataTable id="entities" value="#{productGroupList.selectedNode.data.products}"
+                 var="row"
+                 filteredValue="#{productList.filteredEntities}"
+                 sortMode="multiple"
+                 resizableColumns="true"
+                 selectionMode="single"
+                 selection="#{productList.selectedProduct}"
+                 rowKey="#{row.id}"
+                 binding="#{table}"
+                 style="width: 600px">
+
+        <p:ajax event="rowSelect" update=":mainForm:productButtons"/>
+        <p:column rendered="#{true}"
+                  width="40">
+            <p:commandButton value="#{table.rowIndex + 1}"
+                             onclick="openPopUpFull('/screen/product/ProductScreen.xhtml?id=#{row.id}', 'ProductScreen#{row.id}')"
+                             style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText="#{messages.getString('productEntity.name')}"
+                  sortBy="#{row.name}"
+                  filterBy="#{row.name}"
+                  filterMatchMode="contains">
+            <h:outputText value="#{row.name}"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:entities, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{productList.delete(row)}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+    </p:dataTable>
+
+</ui:composition>
