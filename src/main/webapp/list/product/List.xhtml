@@ -16,6 +16,8 @@
         <h:form id="mainForm">
             <p:growl id="growl" showDetail="true"/>
 
+            <p:message for="infoPanel" infoClass="info" errorClass="error"/>
+            <p:panelGrid id="infoPanel"/>
             <p:panelGrid columns="2" columnClasses="groupProductPart, alignTop">
                 <p:panelGrid columns="1">
                     <h:outputText value="#{messages.getString('productList.groupsTitle')}" styleClass="listTitle"/>
@@ -36,9 +38,9 @@
                              style="display: none"
                              value="refresh"/>
 
-
             <ui:include src="GroupPopUp.xhtml"/>
             <ui:include src="ProductPopUp.xhtml"/>
+            <ui:include src="CopyPopUp.xhtml"/>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>

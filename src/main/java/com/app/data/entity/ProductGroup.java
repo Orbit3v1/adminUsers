@@ -21,7 +21,7 @@ public class ProductGroup  extends AbstractVersionedEntity<Integer> implements C
     @JoinColumn(name="parentId")
     private ProductGroup parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade={CascadeType.REMOVE}, orphanRemoval = true)
     private List<ProductGroup> subordinates = new ArrayList<>();
 
     @OneToMany(mappedBy="productGroup", fetch = FetchType.EAGER)

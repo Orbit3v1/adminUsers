@@ -31,7 +31,7 @@
         <p>
             <p:commandButton value="#{messages.getString('button.save')}"
                              actionListener="#{productGroupList.save}"
-                             update=":mainForm:entities, :mainForm:groups, :mainForm:groupPopUp, :mainForm:growl"/>
+                             update=":mainForm:entities, :mainForm:groups, :mainForm:groupPopUp, :mainForm:growl, :mainForm:infoPanel"/>
             <p:commandButton value="#{messages.getString('button.cancel')}"
                              onclick="PF('groupPopUp').hide()"/>
         </p>

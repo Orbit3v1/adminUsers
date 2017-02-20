@@ -75,11 +75,11 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             } catch (OptimisticLockException e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                addMessage.setMessage("mainForm:entities", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage(":mainForm:infoPanel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
             } catch (Exception e){
                 logger.error(e.getMessage());
                 e.printStackTrace();
-                addMessage.setMessage("mainForm:entities", "error.exception", FacesMessage.SEVERITY_ERROR);
+                addMessage.setMessage(":mainForm:infoPanel", "error.exception", FacesMessage.SEVERITY_ERROR);
             }
         } else {
             addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
@@ -119,15 +119,20 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
         editEntity = em.merge(editEntity);
     }
 
-    protected void closeDialog(){
+    public void closeDialog(){
+        closeDialog("popup");
+    }
+
+    public void closeDialog(String popupName){
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('popup').hide();");
+        context.execute("PF('" + popupName + "').hide();");
     }
 
     @Transactional
     public boolean delete(T entity){
         logger.info("delete. id = " + entity.getId());
         if(canDelete(entity)){
+            removeFromParent(entity);
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             entities.remove(entity);
             filteredEntities.remove(entity);
@@ -136,9 +141,16 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             return true;
         } else {
             logger.info("delete fail");
-            addMessage.setMessage("mainForm:panel", "error.calc.delete", FacesMessage.SEVERITY_ERROR);
+            setErrorMessage();
             return false;
         }
+    }
+
+    protected void removeFromParent(T entity){
+    }
+
+    protected void setErrorMessage(){
+        addMessage.setMessage(":mainForm:infoPanel", "error.calc.delete", FacesMessage.SEVERITY_ERROR);
     }
 
     protected boolean canDelete(T entity){

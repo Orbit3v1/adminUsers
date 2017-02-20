@@ -19,6 +19,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Named("productList")
@@ -42,24 +44,24 @@ public class ProductList extends EntityList<Product>{
 
     @Override
     protected List<Product> getData(){
-        return  null;
+        return Collections.EMPTY_LIST;
     }
 
     @Transactional
-    public void copy(){
+    public void copy(TreeNode node){
         try {
-            ProductGroup productGroup = selectedProduct.getProductGroup();
+            ProductGroup productGroup = (ProductGroup) node.getData();
             selectedProduct = em.find(Product.class, selectedProduct.getId());
             Product copyProduct = (Product) selectedProduct.clone();
             copyProduct = em.merge(copyProduct);
             productGroup.getProducts().add(copyProduct);
-            //entities.add(copyProduct);
             addMessage.setMessage(null, "success.copy", FacesMessage.SEVERITY_INFO);
             selectedProduct = null;
+            closeDialog("copyPopUp");
         } catch (CloneNotSupportedException e) {
             logger.error(e.getMessage());
             e.printStackTrace();
-            addMessage.setMessage("mainForm:entities", "error.copy", FacesMessage.SEVERITY_ERROR);
+            addMessage.setMessage(":mainForm:infoPanel", "error.copy", FacesMessage.SEVERITY_ERROR);
         }
     }
 
@@ -79,9 +81,13 @@ public class ProductList extends EntityList<Product>{
     }
 
     @Override
-    protected void closeDialog(){
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('productPopUp').hide();");
+    protected void removeFromParent(Product entity){
+        entity.getProductGroup().getProducts().remove(entity);
+    }
+
+    @Override
+    public void closeDialog(){
+        closeDialog("productPopUp");
     }
 
     public void groupSelected(NodeSelectEvent event){

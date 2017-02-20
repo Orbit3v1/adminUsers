@@ -17,8 +17,9 @@
                          styleClass="btn"
                 />
         <p:commandButton value="#{messages.getString('button.copy')}"
-                         actionListener="#{productList.copy()}"
-                         update=":mainForm:entities, :mainForm:productButtons, :mainForm:growl"
+                         update=":mainForm:copyPopUp"
+                         oncomplete="PF('copyPopUp').show()"
+                         actionListener="#{productGroupList.setSelectionFalse(productGroupList.selectedNode)}"
                          disabled="#{productList.selectedProduct == null}"
                          styleClass="btn"
                 />

@@ -34,7 +34,7 @@
         <p:column rendered="#{true}"
                   headerText=""
                   width="25">
-            <p:commandLink update=":mainForm:entities, :mainForm:growl"
+            <p:commandLink update=":mainForm:entities, :mainForm:growl, :mainForm:infoPanel"
                            title="#{messages.getString('button.delete')}"
                            actionListener="#{productList.delete(row)}"
                            styleClass="ui-icon delete">

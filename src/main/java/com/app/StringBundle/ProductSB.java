@@ -20,6 +20,7 @@ public class ProductSB {
             {"productGroupEntity.name", "Наименование"},
             {"productList.productTitle", "Изделия"},
             {"productList.groupsTitle", "Разделы"},
+            {"productList.copyTo", "Выберете раздел куда копировать изделие"},
 
             {"productScreen.calculation", "Результаты"},
             {"productScreen.price", "Стоимость"},

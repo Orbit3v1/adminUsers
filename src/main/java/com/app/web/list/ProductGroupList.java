@@ -1,6 +1,7 @@
 package com.app.web.list;
 
 import com.app.data.dao.ProductGroupDao;
+import com.app.data.entity.Person;
 import com.app.data.entity.Product;
 import com.app.data.entity.ProductGroup;
 import com.app.security.Security;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class ProductGroupList extends EntityList<ProductGroup> {
     ProductGroupDao productGroupDao;
     private TreeNode rootGroup;
     private TreeNode selectedNode;
+    private TreeNode selectedPopupNode;
 
     @Override
     protected ProductGroup createEntity() {
@@ -79,6 +82,7 @@ public class ProductGroupList extends EntityList<ProductGroup> {
     protected void postSave() {
         super.postSave();
         TreeNode parentNode = selectedNode == null ? rootGroup : selectedNode;
+        parentNode.setExpanded(true);
         TreeNode tn = new DefaultTreeNode(editEntity, parentNode);
     }
 
@@ -88,13 +92,38 @@ public class ProductGroupList extends EntityList<ProductGroup> {
            TreeNode parentNode = node.getParent();
            parentNode.getChildren().remove(node);
            node.setParent(null);
+           selectedNode = null;
        }
    }
 
+    protected void removeFromParent(ProductGroup entity){
+        ProductGroup parent = entity.getParent();
+        if(parent != null){
+            parent.getSubordinates().remove(entity);
+        }
+    }
+
     @Override
-    protected void closeDialog(){
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('groupPopUp').hide();");
+    protected void setErrorMessage(){
+        addMessage.setMessage("mainForm:infoPanel", "error.delete.products", FacesMessage.SEVERITY_ERROR);
+    }
+
+    protected boolean canDelete(ProductGroup entity){
+        boolean result = super.canDelete(entity)
+                && entity.getProducts().size() == 0;
+        for(ProductGroup child : entity.getSubordinates()){
+            result &= canDelete(child);
+        }
+        return result;
+    }
+
+    public void setSelectionFalse(TreeNode node){
+        node.setSelected(false);
+    }
+
+    @Override
+    public void closeDialog(){
+        closeDialog("groupPopUp");
     }
 
     public void nodeExpand(NodeExpandEvent event) {
@@ -119,5 +148,13 @@ public class ProductGroupList extends EntityList<ProductGroup> {
 
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
+    }
+
+    public TreeNode getSelectedPopupNode() {
+        return selectedPopupNode;
+    }
+
+    public void setSelectedPopupNode(TreeNode selectedPopupNode) {
+        this.selectedPopupNode = selectedPopupNode;
     }
 }
