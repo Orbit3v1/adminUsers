@@ -15,7 +15,7 @@ import java.util.List;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type",discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("PRODUCT")
-public class Product extends AbstractVersionedEntity implements Copy<Product>, Cloneable {
+public class Product extends AbstractVersionedEntity<Integer> implements Copy<Product>, Cloneable {
     @Id
     @GeneratedValue
     @Column(name = "id")

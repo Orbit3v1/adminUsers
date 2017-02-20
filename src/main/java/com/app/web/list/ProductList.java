@@ -1,5 +1,6 @@
 package com.app.web.list;
 
+import com.app.data.dao.ProductDao;
 import com.app.data.dao.ProductGroupDao;
 import com.app.data.entity.Product;
 import com.app.data.entity.ProductGroup;
@@ -27,6 +28,8 @@ import java.util.List;
 @Scope("view")
 public class ProductList extends EntityList<Product>{
 
+    @Autowired
+    ProductDao productDao;
 
     private Product selectedProduct;
     private ProductGroup selectedProductGroup;
@@ -53,8 +56,10 @@ public class ProductList extends EntityList<Product>{
             ProductGroup productGroup = (ProductGroup) node.getData();
             selectedProduct = em.find(Product.class, selectedProduct.getId());
             Product copyProduct = (Product) selectedProduct.clone();
-            copyProduct = em.merge(copyProduct);
+            copyProduct = productDao.save(copyProduct);
+
             productGroup.getProducts().add(copyProduct);
+            copyProduct.setProductGroup(productGroup);
             addMessage.setMessage(null, "success.copy", FacesMessage.SEVERITY_INFO);
             selectedProduct = null;
             closeDialog("copyPopUp");
@@ -62,6 +67,33 @@ public class ProductList extends EntityList<Product>{
             logger.error(e.getMessage());
             e.printStackTrace();
             addMessage.setMessage(":mainForm:infoPanel", "error.copy", FacesMessage.SEVERITY_ERROR);
+        } finally {
+            node.setSelected(false);
+        }
+    }
+
+    @Transactional
+    public void move(TreeNode node){
+        try {
+            Product moveProduct = selectedProduct;
+            ProductGroup productGroupTo = (ProductGroup) node.getData();
+            ProductGroup productGroupFrom = moveProduct.getProductGroup();
+
+            productGroupFrom.getProducts().remove(moveProduct);
+            moveProduct = productDao.getById(moveProduct.getId());
+            moveProduct.setProductGroup(productGroupTo);
+            moveProduct = productDao.save(moveProduct);
+            productGroupTo.getProducts().add(moveProduct);
+
+            addMessage.setMessage(null, "success.move", FacesMessage.SEVERITY_INFO);
+            selectedProduct = null;
+            closeDialog("copyPopUp");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            addMessage.setMessage(":mainForm:infoPanel", "error.move", FacesMessage.SEVERITY_ERROR);
+        } finally {
+            node.setSelected(false);
         }
     }
 
@@ -78,6 +110,16 @@ public class ProductList extends EntityList<Product>{
         editEntity.setProductGroup(selectedProductGroup);
         selectedProductGroup.getProducts().add(editEntity);
         selectedProductGroup = null;
+    }
+
+    @Override
+    public boolean delete(Product entity) {
+        if(super.delete(entity)){
+            selectedProduct = null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -73,6 +73,7 @@ public class ProductGroup  extends AbstractVersionedEntity<Integer> implements C
         copy.name = this.name;
         copy.id = this.id;
         copy.setVersion(this.getVersion());
+        copy.setParent(this.getParent());
         return copy;
     }
 

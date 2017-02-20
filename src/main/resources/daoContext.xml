@@ -18,6 +18,6 @@
     <bean id="carRequestDao" class="com.app.data.dao.hibernate.HCarRequestDao"/>
     <bean id="functionDao" class="com.app.data.dao.hibernate.HFunctionDao"/>
     <bean id="productGroupDao" class="com.app.data.dao.hibernate.HProductGroupDao"/>
-
+    <bean id="productDao" class="com.app.data.dao.hibernate.HProductDao"/>
 
 </beans>

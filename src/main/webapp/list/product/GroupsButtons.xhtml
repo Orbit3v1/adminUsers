@@ -15,5 +15,12 @@
                          oncomplete="PF('groupPopUp').show()"
                          styleClass="btn"
                 />
+        <p:commandButton value="#{messages.getString('button.edit')}"
+                         actionListener="#{productGroupList.edit(productGroupList.selectedNode.data)}"
+                         update=":mainForm:groupPopUp"
+                         oncomplete="PF('groupPopUp').show()"
+                         disabled="#{productGroupList.selectedNode == null}"
+                         styleClass="btn"
+                />
     </h:panelGroup>
 </ui:composition>

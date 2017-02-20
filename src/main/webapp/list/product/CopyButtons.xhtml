@@ -10,10 +10,15 @@
 
     <h:panelGroup id="copyButtons">
         <p>
-            <p:commandButton value="#{messages.getString('string.copy')}"
+            <p:commandButton value="#{messages.getString('button.copy')}"
                              actionListener="#{productList.copy(productGroupList.selectedPopupNode)}"
                              disabled="#{productGroupList.selectedPopupNode == null}"
-                             update=":mainForm:entities, :mainForm:copyPopUp, :mainForm:growl, :mainForm:infoPanel"
+                             update=":mainForm:entities, :mainForm:copyPopUp, :mainForm:growl, :mainForm:infoPanel, :mainForm:productButtons"
+                             styleClass="btn"/>
+            <p:commandButton value="#{messages.getString('button.move')}"
+                             actionListener="#{productList.move(productGroupList.selectedPopupNode)}"
+                             disabled="#{productGroupList.selectedPopupNode == null}"
+                             update=":mainForm:entities, :mainForm:copyPopUp, :mainForm:growl, :mainForm:infoPanel, :mainForm:productButtons"
                              styleClass="btn"/>
             <p:commandButton value="#{messages.getString('button.cancel')}"
                              actionListener="#{productList.closeDialog('copyPopUp')}"

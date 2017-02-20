@@ -20,7 +20,7 @@
             >
 
         <p:ajax event="select" listener="#{productList.groupSelected}" />
-        <p:ajax event="select" update=":mainForm:entities, :mainForm:productButtons" />
+        <p:ajax event="select" update=":mainForm:entities, :mainForm:productButtons, :mainForm:groupsButtons" />
         <p:ajax event="expand" listener="#{productGroupList.nodeExpand}" />
         <p:ajax event="collapse" listener="#{productGroupList.nodeCollapse}" />
 

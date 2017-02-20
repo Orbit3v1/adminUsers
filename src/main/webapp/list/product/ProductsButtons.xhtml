@@ -16,10 +16,10 @@
                          disabled="#{productGroupList.selectedNode == null}"
                          styleClass="btn"
                 />
-        <p:commandButton value="#{messages.getString('button.copy')}"
+        <p:commandButton value="#{messages.getString('button.copy/move')}"
                          update=":mainForm:copyPopUp"
                          oncomplete="PF('copyPopUp').show()"
-                         actionListener="#{productGroupList.setSelectionFalse(productGroupList.selectedNode)}"
+                         actionListener="#{productGroupList.setPoPupSelection()}"
                          disabled="#{productList.selectedProduct == null}"
                          styleClass="btn"
                 />

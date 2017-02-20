@@ -31,6 +31,8 @@ public class CommonSB {
             {"button.refresh1C", "Обновить из 1С"},
             {"button.change", "Изменить"},
             {"button.copy", "Копировать"},
+            {"button.move", "Переместить"},
+            {"button.copy/move", "Копировать/Переместить"},
             {"button.create", "Сформировать"},
             {"button.setEnd", "Сдать"},
 
@@ -56,6 +58,7 @@ public class CommonSB {
             {"success.save", "Запись сохраненна"},
             {"success.refresh1C", "Обновленние успешно завершено"},
             {"success.copy", "Строка успешно скопирована"},
+            {"success.move", "Строка успешно перемещена"},
 
             {"error.data", "Неверные данные"},
             {"error.notNull", "Поле не может быть пустым"},
@@ -67,6 +70,7 @@ public class CommonSB {
             {"error.delete.products", "В разделе есть изделия. Сначала удалите все изделия"},
             {"error.refresh1C", "Ошибка при обновлении из 1С"},
             {"error.copy", "Ошибка при копировании"},
+            {"error.move", "Ошибка при перемещении"},
             {"error.dateFormat", "Неверная дата"},
             {"error.emptyItems", "Добавте позиции"},
             {"error.nameDuplicate", "Такое же имя есть у другой записи"},

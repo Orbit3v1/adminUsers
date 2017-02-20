@@ -73,9 +73,11 @@ public class ProductGroupList extends EntityList<ProductGroup> {
     @Override
     protected void preSave() {
         super.preSave();
-        TreeNode parentNode = selectedNode == null ? rootGroup : selectedNode;
-        ProductGroup parentGroup = (ProductGroup) parentNode.getData();
-        editEntity.setParent(parentGroup);
+        if(!edit) {
+            TreeNode parentNode = selectedNode == null ? rootGroup : selectedNode;
+            ProductGroup parentGroup = (ProductGroup) parentNode.getData();
+            editEntity.setParent(parentGroup);
+        }
     }
 
     @Override
@@ -117,8 +119,14 @@ public class ProductGroupList extends EntityList<ProductGroup> {
         return result;
     }
 
-    public void setSelectionFalse(TreeNode node){
-        node.setSelected(false);
+    public void setPoPupSelection(){
+        if(selectedNode != null){
+            selectedNode.setSelected(false);
+        }
+        if(selectedPopupNode != null){
+            selectedPopupNode.setSelected(true);
+        }
+
     }
 
     @Override

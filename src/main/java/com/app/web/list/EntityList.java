@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class EntityList <T extends Unique & Copy<T>> {
+public abstract class EntityList<T extends Unique & Copy<T>> {
     @PersistenceContext
     protected EntityManager em;
     @Inject
@@ -37,46 +37,47 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
     protected boolean edit;
 
     protected abstract T createEntity();
+
     protected abstract String getScreenName();
+
     protected abstract List<T> getData();
 
     @Loggable
     @PostConstruct
-    public void init(){
+    public void init() {
         userPA = Security.getUserPrivilegeAction(getScreenName());
         editEntity = createEntity();
         initList();
         filteredEntities = entities;
     }
 
-    public void initList(){
+    public void initList() {
         entities.clear();
         entities.addAll(getData());
     }
 
-    public void add(){
+    public void add() {
         edit = false;
         editEntity = createEntity();
     }
 
-    public void edit(T entity){
+    public void edit(T entity) {
         edit = true;
         original = entity;
         editEntity = entity.copy();
     }
 
-    public void save(){
+    public void save() {
         preSave();
         if (validate()) {
             try {
                 saveAttempt();
-                postSave();
                 addMessage.setMessage(null, "success.save", FacesMessage.SEVERITY_INFO);
-            } catch (OptimisticLockException e){
+            } catch (OptimisticLockException e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
                 addMessage.setMessage(":mainForm:infoPanel", "error.entityWasChanged", FacesMessage.SEVERITY_ERROR);
-            } catch (Exception e){
+            } catch (Exception e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
                 addMessage.setMessage(":mainForm:infoPanel", "error.exception", FacesMessage.SEVERITY_ERROR);
@@ -86,54 +87,56 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
         }
     }
 
-    protected void preSave(){}
-
-    protected void postSave(){}
-
-    protected boolean validate(){
-       return validator.validate(editEntity);
+    protected void preSave() {
     }
 
-    protected void saveAttempt(){
-        if(edit){
+    protected void postSave() {
+    }
+
+    protected boolean validate() {
+        return validator.validate(editEntity);
+    }
+
+    protected void saveAttempt() {
+        if (edit) {
             editEntity();
         } else {
             saveEntity();
+            postSave();
         }
         closeDialog();
     }
 
-    private void saveEntity(){
+    private void saveEntity() {
         mergeEntity();
         //filteredEntities.add(editEntity);
         entities.add(editEntity);
     }
 
-    private void editEntity(){
+    private void editEntity() {
         mergeEntity();
         original.copyData(editEntity);
     }
 
     @Transactional
-    protected void mergeEntity(){
+    protected void mergeEntity() {
         editEntity = em.merge(editEntity);
     }
 
-    public void closeDialog(){
+    public void closeDialog() {
         closeDialog("popup");
     }
 
-    public void closeDialog(String popupName){
+    public void closeDialog(String popupName) {
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('" + popupName + "').hide();");
     }
 
-    @Transactional
-    public boolean delete(T entity){
+    public boolean delete(T entity) {
         logger.info("delete. id = " + entity.getId());
-        if(canDelete(entity)){
+        if (canDelete(entity)) {
+            deleteAttempt(entity);
             removeFromParent(entity);
-            em.remove(em.contains(entity) ? entity : em.merge(entity));
             entities.remove(entity);
             filteredEntities.remove(entity);
             addMessage.setMessage(null, "success.delete", FacesMessage.SEVERITY_INFO);
@@ -144,16 +147,22 @@ public abstract class EntityList <T extends Unique & Copy<T>> {
             setErrorMessage();
             return false;
         }
+
     }
 
-    protected void removeFromParent(T entity){
+    @Transactional
+    protected void deleteAttempt(T entity) {
+        em.remove(em.find(entity.getClass(), entity.getId()));
     }
 
-    protected void setErrorMessage(){
+    protected void removeFromParent(T entity) {
+    }
+
+    protected void setErrorMessage() {
         addMessage.setMessage(":mainForm:infoPanel", "error.calc.delete", FacesMessage.SEVERITY_ERROR);
     }
 
-    protected boolean canDelete(T entity){
+    protected boolean canDelete(T entity) {
         return true;
     }
 

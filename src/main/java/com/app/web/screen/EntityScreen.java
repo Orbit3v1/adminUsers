@@ -85,7 +85,6 @@ public abstract class EntityScreen<T extends Unique> {
             try {
                 save();
                 postSave();
-
                 success = true;
             } catch (OptimisticLockException e){
                 logger.error(e.getMessage());
