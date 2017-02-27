@@ -48,13 +48,6 @@ select[readonly],
     background: #e9e9e9 !important;
 }
 
-.textareaLargePF{
-    font-size: 14px !important;
-    margin: 3px !important;
-    height: 80px !important;
-    width: 280px !important;
-}
-
 .selectOneMenuLargePF{
     font-size: 14px !important;
     margin: 3px !important;
@@ -105,6 +98,13 @@ select[readonly],
     margin: 3px !important;
     height: 80px !important;
     width: 280px !important;
+}
+
+.textareaFunctionCode{
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 200px !important;
+    width: 600px !important;
 }
 
 .calcDetailTextArea {

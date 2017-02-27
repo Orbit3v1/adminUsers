@@ -117,3 +117,16 @@ create table calc_product_group(
 );
 
 create index calc_product_group_I1 on calc_product_group(parentId);
+
+create table calc_functionInParams(
+  id int IDENTITY(1,1) not null primary key,
+  version int default 0,
+  calc_function int,
+  name varchar(500) not null,
+  description varchar(4000),
+  pos int,
+
+  CONSTRAINT calc_functionInParams_FK1 FOREIGN KEY (calc_function) REFERENCES calc_function(id),
+);
+
+create unique index calc_functionInParams_U1 on calc_functionInParams(calc_function, name);

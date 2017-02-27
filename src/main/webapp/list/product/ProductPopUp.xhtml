@@ -30,7 +30,7 @@
         <HR/>
         <p>
             <p:commandButton value="#{messages.getString('button.save')}"
-                             actionListener="#{productList.save}"
+                             actionListener="#{productList.saveExit}"
                              update=":mainForm:entities, :mainForm:productPopUp, :mainForm:growl, :mainForm:infoPanel"/>
             <p:commandButton value="#{messages.getString('button.cancel')}"
                              onclick="PF('productPopUp').hide()"/>

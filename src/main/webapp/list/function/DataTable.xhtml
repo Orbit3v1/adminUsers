@@ -1,0 +1,43 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:message for="entities" infoClass="info" errorClass="error"/>
+    <p:dataTable id="entities" value="#{functionList.entities}" var="row"
+                 filteredValue="#{functionList.filteredEntities}"
+                 sortMode="multiple"
+                 resizableColumns="true">
+        <p:column rendered="#{true}"
+                  headerText="#{messages.getString('functionEntity.name')}"
+                  sortBy="#{row.name}"
+                  filterBy="#{row.name}"
+                  filterMatchMode="contains"
+                  filterStyle="width: 150px">
+            <p:commandLink value="#{row.name}"
+                           actionListener="#{functionList.edit(row)}"
+                           update=":mainForm:popupDetail"
+                           oncomplete="PF('popup').show()"
+                           style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText="#{messages.getString('functionEntity.description')}"
+                  sortBy="#{row.description}">
+            <h:outputText value="#{row.description}"/>
+        </p:column>
+        <p:column rendered="#{true}"
+                  headerText=""
+                  width="25">
+            <p:commandLink update=":mainForm:entities, :mainForm:growl"
+                           title="#{messages.getString('button.delete')}"
+                           actionListener="#{functionList.delete(row)}"
+                           styleClass="ui-icon delete">
+                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                           message="#{messages.getString('button.delete.message')}"
+                           icon="ui-icon-alert"/>
+            </p:commandLink>
+        </p:column>
+    </p:dataTable>
+
+</ui:composition>

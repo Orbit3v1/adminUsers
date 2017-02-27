@@ -1,0 +1,126 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog widgetVar="popup"
+              modal="true"
+              resizeable="true"
+              width="800"
+              height="640"
+              header="#{messages.getString('functionEntity')}"
+            >
+        <h:panelGrid columns="1" id="popupDetail">
+            <p:panelGrid columns="2" columnClasses="groupProductPart, alignTop">
+                <p:panelGrid columns="1">
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('functionEntity.name')}"
+                                       for="name"
+                                       styleClass="labelPF"/>
+                        <p:inputText id="name"
+                                     value="#{functionList.editEntity.name}"
+                                     styleClass="inputLarge"
+                                />
+                        <h:message for="name" errorClass="error"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:outputLabel value="#{messages.getString('functionEntity.description')}"
+                                       for="description"
+                                       styleClass="labelPF"/>
+                        <p:inputTextarea id="description"
+                                         value="#{functionList.editEntity.description}"
+                                         disabled="#{false}"
+                                         styleClass="textareaLargePF"
+                                />
+                    </h:panelGroup>
+                </p:panelGrid>
+                <p:panelGrid columns="1">
+                    <p:commandButton update=":mainForm:parameters"
+                                     action="#{functionList.addParameter}"
+                                     value="#{messages.getString('button.add')}"
+                                     styleClass="buttonPF"/>
+                    <h:message for="parameters" infoClass="info" errorClass="error"/>
+                    <p:dataTable id="parameters"
+                                 value="#{functionList.editEntity.inParameters}"
+                                 var="row"
+                                 editable="true"
+                                 editMode="cell"
+                                 style="width: 400px">
+
+                        <p:column rendered="#{true}"
+                                  headerText="#{messages.getString('functionInParameterEntity.name')}"
+                                >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                <h:outputText value="#{row.name}"/>
+                            </span>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{row.name}" style="width:100%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column rendered="#{true}"
+                                  headerText="#{messages.getString('functionInParameterEntity.description')}"
+                                >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                            <span style="display: inline-block; width: 100%; height: 100%">
+                                <h:outputText value="#{row.description}"/>
+                            </span>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{row.description}"
+                                                 style="width:100%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column rendered="#{true}"
+                                  headerText=""
+                                  width="25">
+                            <p:commandLink update=":mainForm:parameters, :mainForm:growl"
+                                           title="#{messages.getString('button.delete')}"
+                                           actionListener="#{functionList.delete(row)}"
+                                           styleClass="ui-icon delete">
+                                <p:confirm header="#{messages.getString('button.delete.confirmation')}"
+                                           message="#{messages.getString('button.delete.message')}"
+                                           icon="ui-icon-alert"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panelGrid>
+            </p:panelGrid>
+
+            <HR/>
+            <h:panelGroup>
+                <p:panelGrid columns="1">
+                <h:outputLabel value="#{messages.getString('functionEntity.code')}"
+                               for="code"
+                               styleClass="labelPF"/>
+                <p:inputTextarea id="code"
+                                 value="#{functionList.editEntity.code}"
+                                 disabled="#{false}"
+                                 styleClass="textareaFunctionCode"
+                        />
+                <h:message for="code" errorClass="error"/>
+                </p:panelGrid>
+            </h:panelGroup>
+        </h:panelGrid>
+        <HR/>
+        <p>
+            <p:commandButton value="#{messages.getString('button.saveAndExit')}"
+                             actionListener="#{functionList.saveExit}"
+                             update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
+            <p:commandButton value="#{messages.getString('button.save')}"
+                             actionListener="#{functionList.save}"
+                             update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
+            <p:commandButton value="#{messages.getString('button.cancel')}"
+                             onclick="PF('popup').hide()"/>
+        </p>
+    </p:dialog>
+
+</ui:composition>

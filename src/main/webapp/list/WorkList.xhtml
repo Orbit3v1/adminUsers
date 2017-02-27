@@ -111,7 +111,7 @@
                 <HR/>
                 <p>
                     <p:commandButton value="#{messages.getString('button.save')}"
-                                     actionListener="#{workList.save}"
+                                     actionListener="#{workList.saveExit}"
                                      update=":mainForm:entities, :mainForm:popupDetail, :mainForm:growl"/>
                     <p:commandButton value="#{messages.getString('button.cancel')}"
                                      onclick="PF('popup').hide()"/>

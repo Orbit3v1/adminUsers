@@ -67,12 +67,14 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
         editEntity = entity.copy();
     }
 
-    public void save() {
+    public boolean save() {
+        boolean success = false;
         preSave();
         if (validate()) {
             try {
                 saveAttempt();
                 addMessage.setMessage(null, "success.save", FacesMessage.SEVERITY_INFO);
+                success = true;
             } catch (OptimisticLockException e) {
                 logger.error(e.getMessage());
                 e.printStackTrace();
@@ -84,6 +86,13 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
             }
         } else {
             addMessage.setMessage(null, "error.data", FacesMessage.SEVERITY_ERROR);
+        }
+        return success;
+    }
+
+    public void saveExit(){
+        if(save()){
+            closeDialog();
         }
     }
 
@@ -108,7 +117,6 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
             saveEntity();
             postSave();
         }
-        closeDialog();
     }
 
     private void saveEntity() {

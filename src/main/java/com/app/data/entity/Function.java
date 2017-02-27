@@ -3,6 +3,8 @@ package com.app.data.entity;
 import com.app.data.entity.interfaces.Copy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "calc_function")
@@ -20,6 +22,9 @@ public class Function extends AbstractVersionedEntity<Integer> implements Copy<F
 
     @Column(name = "code")
     private String code;
+
+    @OneToMany(mappedBy="function", fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval = true)
+    private List<FunctionInParameter> inParameters = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -53,6 +58,14 @@ public class Function extends AbstractVersionedEntity<Integer> implements Copy<F
         this.code = code;
     }
 
+    public List<FunctionInParameter> getInParameters() {
+        return inParameters;
+    }
+
+    public void setInParameters(List<FunctionInParameter> inParameters) {
+        this.inParameters = inParameters;
+    }
+
     public Function copy(){
         Function copy = new Function();
         copy.name = this.name;
@@ -60,6 +73,13 @@ public class Function extends AbstractVersionedEntity<Integer> implements Copy<F
         copy.code = this.code;
         copy.id = this.id;
         copy.setVersion(this.getVersion());
+        List<FunctionInParameter> inParameters = new ArrayList<>();
+        for(FunctionInParameter p : this.inParameters){
+            FunctionInParameter inParameter = p.copy();
+            inParameter.setFunction(copy);
+            inParameters.add(inParameter);
+        }
+        copy.inParameters = inParameters;
         return copy;
     }
 
@@ -69,5 +89,6 @@ public class Function extends AbstractVersionedEntity<Integer> implements Copy<F
         this.name = copy.name;
         this.description = copy.description;
         this.code = copy.code;
+        this.inParameters = copy.inParameters;
     }
 }

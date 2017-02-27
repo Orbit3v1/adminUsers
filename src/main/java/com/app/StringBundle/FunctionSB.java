@@ -10,6 +10,9 @@ public class FunctionSB {
             {"functionEntity.description", "Описание"},
             {"functionEntity.code", "Код"},
 
+            {"functionInParameterEntity.name", "Параметр"},
+            {"functionInParameterEntity.description", "Описание"},
+
             {"functionList.error.nameDuplicate", "Такое же имя есть у другой функции"}
     };
 

@@ -86,7 +86,9 @@ public class ProductGroupList extends EntityList<ProductGroup> {
         TreeNode parentNode = selectedNode == null ? rootGroup : selectedNode;
         parentNode.setExpanded(true);
         TreeNode tn = new DefaultTreeNode(editEntity, parentNode);
-        selectedPopupNode.setSelected(false);
+        if(selectedPopupNode != null) {
+            selectedPopupNode.setSelected(false);
+        }
     }
 
     @Override
