@@ -6,6 +6,7 @@ package com.app.StringBundle;
 public class SpecificationSB {
     private static Object[][] contents = {
             {"specificationEntity.name", "#"},
+            {"specificationEntity.innerName", "Вн. наименование"},
             {"specificationEntity.description", "Назначение изделия"},
             {"specificationEntity.nomenclature", "Номенклатура"},
             {"specificationEntity.responsible", "Ответственный"},

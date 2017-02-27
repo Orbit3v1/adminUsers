@@ -3,6 +3,7 @@ create table specification(
   version int default 0,
   name varchar(500) not null,
   subName varchar(50),
+  innerName varchar(500),
   description varchar(4000),
   nomenclature int,
   responsible int,

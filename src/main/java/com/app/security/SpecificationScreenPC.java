@@ -44,6 +44,16 @@ public class SpecificationScreenPC implements PrivilegeChecker {
                         new PrivilegeAction("specificationName", "EDIT"))
         );
 
+        userPA.put("innerNameR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationInnerName", "READ"))
+        );
+        userPA.put("innerNameW", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationInnerName", "WRITE"))
+        );
+        userPA.put("innerNameE", hasAnyPrivilegeAction(
+                        new PrivilegeAction("specificationInnerName", "EDIT"))
+        );
+
         userPA.put("descriptionR", hasAnyPrivilegeAction(
                         new PrivilegeAction("specificationDescription", "READ"))
         );

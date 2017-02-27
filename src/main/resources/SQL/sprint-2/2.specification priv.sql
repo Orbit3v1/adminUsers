@@ -167,6 +167,34 @@ insert into privilege_action(privilege, action)
 values('specificationMaterial', 'EDIT');
 
 insert into privilege(id, name, description, pos)
+values('specificationSketches', 'ТЗ - Поле - Эскизы', '', 7019);
+insert into privilege_action(privilege, action)
+values('specificationSketches', 'READ');
+insert into privilege_action(privilege, action)
+values('specificationSketches', 'WRITE');
+insert into privilege_action(privilege, action)
+values('specificationSketches', 'EDIT');
+
+
+insert into privilege(id, name, description, pos)
+values('specificationDescription', 'ТЗ - Поле - Назначение изделия', '', 7020);
+insert into privilege_action(privilege, action)
+values('specificationDescription', 'READ');
+insert into privilege_action(privilege, action)
+values('specificationDescription', 'WRITE');
+insert into privilege_action(privilege, action)
+values('specificationDescription', 'EDIT');
+
+insert into privilege(id, name, description, pos)
+values('specificationInnerName', 'ТЗ - Поле - Вн. наименование', '', 7021);
+insert into privilege_action(privilege, action)
+values('specificationInnerName', 'READ');
+insert into privilege_action(privilege, action)
+values('specificationInnerName', 'WRITE');
+insert into privilege_action(privilege, action)
+values('specificationInnerName', 'EDIT');
+
+insert into privilege(id, name, description, pos)
 values('specificationApprove', 'ТЗ - Подписать', '', 7050);
 insert into privilege_action(privilege, action)
 values('specificationApprove', 'READ');

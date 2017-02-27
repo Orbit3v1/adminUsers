@@ -50,6 +50,15 @@
                     <h:message for="name" errorClass="error"/>
                 </h:panelGroup>
 
+                <h:panelGroup rendered="#{specificationScreen.userPA.innerNameR}">
+                    <h:outputLabel value="#{messages.getString('specificationEntity.innerName')}" for="innerName"
+                                   styleClass="labelLarge"/>
+                    <h:inputText id="innerName" value="#{specificationScreen.entity.innerName}"
+                                 styleClass="inputLarge"
+                                 readonly="#{specificationScreen.isDisabled('innerName')}"/>
+                    <h:message for="innerName" errorClass="error"/>
+                </h:panelGroup>
+
                 <h:panelGroup id="nomenclatureP" rendered="#{specificationScreen.userPA.nomenclatureR}">
                     <h:outputLabel value="#{messages.getString('specificationEntity.nomenclature')}" for="nomenclature"
                                    styleClass="labelLarge"/>

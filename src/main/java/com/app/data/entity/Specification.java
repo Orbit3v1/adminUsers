@@ -22,6 +22,9 @@ public class Specification extends AbstractVersionedEntity<Integer> implements S
     @Column(name = "subName")
     private String subName;
 
+    @Column(name = "innerName")
+    private String innerName;
+
     @Column(name = "description")
     private String description;
 
@@ -266,5 +269,13 @@ public class Specification extends AbstractVersionedEntity<Integer> implements S
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public String getInnerName() {
+        return innerName;
+    }
+
+    public void setInnerName(String innerName) {
+        this.innerName = innerName;
     }
 }
