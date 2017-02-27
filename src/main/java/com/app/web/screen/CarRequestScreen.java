@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +52,15 @@ public class CarRequestScreen extends EntityScreen<CarRequest>{
             entity = new CarRequest();
             entity.setCreator(Security.getCurrentUser());
             entity.setStart(new Date());
+            entity.setName(getGeneratedName());
         }
+    }
+
+    private String getGeneratedName(){
+        final String PREFIX = "Д";
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String name = df.format(new Date());
+        return PREFIX + name;
     }
 
     @Override

@@ -11,8 +11,8 @@
                            for="name"
                            styleClass="labelPF"/>
             <p:inputText id="name"
-                         value="#{carRequestScreen.entity.id}"
-                         readonly="true"
+                         value="#{carRequestScreen.entity.name}"
+                         rendered="#{!carRequestScreen.isDisabled('name')}"
                          styleClass="inputLarge"
                     />
             <h:message for="name" errorClass="error"/>
@@ -156,8 +156,7 @@
             <p:calendar id="start"
                         value="#{carRequestScreen.entity.start}"
                         locale="ru"
-                        readonlyInput="true"
-                        pattern="#{messages.getString('datePattern')}"
+                        pattern="#{messages.getString('dateTimePattern')}"
                         showOn="button"
                         disabled="#{carRequestScreen.isDisabled('start')}"
                         styleClass="calendarPF"

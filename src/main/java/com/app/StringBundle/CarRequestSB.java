@@ -22,6 +22,8 @@ public class CarRequestSB {
             {"carRequestEntity.attachment", "Файл"},
 
             {"carRequestList.title", "График заявок на автомобиль"},
+            {"carRequestList.receiver", "Конт. Лицо"},
+            {"carRequestList.time", "T"},
 
             {"carRequestScreen.title", "Заявки на автомобиль"},
             {"carRequestScreen.editText", "Редактирование заявки на автомобиль"},

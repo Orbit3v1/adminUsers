@@ -52,7 +52,7 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
         sqlWhere.add("1 = 1");
 
         if (notEmpty(filterOriginal.getName())) {
-            sqlWhere.add("cast(r.id as string) like :name");
+            sqlWhere.add("r.name like :name");
             parameters.put("name", "%" + filterOriginal.getName() + "%");
         }
         if (notEmpty(filterOriginal.getResponsible())) {
@@ -88,12 +88,8 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
             parameters.put("addressTo", "%" + filterOriginal.getAddressTo() + "%");
         }
         if (notEmpty(filterOriginal.getReceiverName())) {
-            sqlWhere.add("r.receiverName like :receiverName");
+            sqlWhere.add("concat(r.receiverName, ' ', r.receiverPhone) like :receiverName");
             parameters.put("receiverName", "%" + filterOriginal.getReceiverName() + "%");
-        }
-        if (notEmpty(filterOriginal.getReceiverPhone())) {
-            sqlWhere.add("r.receiverPhone like :receiverPhone");
-            parameters.put("receiverPhone", "%" + filterOriginal.getReceiverPhone() + "%");
         }
         if (notEmpty(filterOriginal.getPayment())) {
             sqlWhere.add("r.payment like :payment");

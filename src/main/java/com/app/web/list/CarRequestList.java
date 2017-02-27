@@ -5,6 +5,7 @@ import com.app.data.dao.NomenclatureDao;
 import com.app.data.dictionary.CarRequestSort;
 import com.app.data.dictionary.CarRequestState;
 import com.app.data.dictionary.OrderItemState;
+import com.app.data.dto.CarRequestDTO;
 import com.app.data.dto.SpecificationDTO;
 import com.app.data.entity.CarRequest;
 import com.app.data.entity.Nomenclature;
@@ -48,7 +49,7 @@ public class CarRequestList {
     private AddMessage addMessage;
 
     private Map<String, Boolean> userPA;
-    private List<CarRequest> listRows;
+    private List<CarRequestDTO> listRows;
 
     @Loggable
     @PostConstruct
@@ -62,7 +63,8 @@ public class CarRequestList {
 
     @Loggable
     private void initList() {
-        listRows = listFilterBean.getList();
+        List<CarRequest> carRequests = listFilterBean.getList();
+        listRows = carRequests.stream().map(CarRequestDTO::new).collect(Collectors.toList());
     }
 
     @Loggable
@@ -103,11 +105,11 @@ public class CarRequestList {
         this.userPA = userPA;
     }
 
-    public List<CarRequest> getListRows() {
+    public List<CarRequestDTO> getListRows() {
         return listRows;
     }
 
-    public void setListRows(List<CarRequest> listRows) {
+    public void setListRows(List<CarRequestDTO> listRows) {
         this.listRows = listRows;
     }
 

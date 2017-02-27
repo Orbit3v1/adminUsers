@@ -19,25 +19,31 @@
             >
 
         <p:ajax event="cellEdit"
-                listener="#{carRequestList.onCellEdit(row)}"
+                listener="#{carRequestList.onCellEdit(row.carRequest)}"
                 />
 
         <p:column rendered="#{carRequestList.userPA.nameR}">
             <f:facet name="header">
                 <h:commandLink value="#{messages.getString('carRequestEntity.name')}"
-                               action="#{carRequestListFilterBean.setSort('ID_ASC')}"
+                               action="#{carRequestListFilterBean.setSort('NAME_ASC')}"
                                styleClass="headerSort">
                     <h:graphicImage
-                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('ID')}.png.xhtml"
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('NAME')}.png.xhtml"
                             styleClass="headerSortImg"/>
                 </h:commandLink>
                 <p:inputText value="#{carRequestListFilterBean.filter.name}"
                              onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                              styleClass="inputSmall"/>
             </f:facet>
-            <p:commandLink value="#{row.id}"
+            <p:commandLink value="#{row.name}"
                            onclick="openPopUp('/screen/carRequest/Screen.xhtml?id=#{row.id}', 'CarRequestScreen#{row.id}')"
                            style="display: block;"/>
+        </p:column>
+        <p:column rendered="#{carRequestList.userPA.startR}">
+            <f:facet name="header">
+                <h:outputText value="#{messages.getString('carRequestList.time')}" styleClass="headerSort"/>
+            </f:facet>
+            <h:outputText value="#{row.time}"/>
         </p:column>
         <p:column rendered="#{carRequestList.userPA.responsibleR}">
             <f:facet name="header">
@@ -89,9 +95,10 @@
             <h:outputText value="#{row.addressTo}"  converter="cutStringConverter"/>
         </p:column>
 
-        <p:column rendered="#{carRequestList.userPA.receiverNameR}">
+        <p:column rendered="#{carRequestList.userPA.receiverNameR}"
+                  styleClass="wordWrap">
             <f:facet name="header">
-                <h:commandLink value="#{messages.getString('carRequestEntity.receiverName')}"
+                <h:commandLink value="#{messages.getString('carRequestList.receiver')}"
                                action="#{carRequestListFilterBean.setSort('RECEIVER_NAME_ASC')}"
                                styleClass="headerSort">
                     <h:graphicImage
@@ -102,23 +109,7 @@
                              onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                              styleClass="inputSmall"/>
             </f:facet>
-            <h:outputText value="#{row.receiverName}"/>
-        </p:column>
-
-        <p:column rendered="#{carRequestList.userPA.receiverPhoneR}">
-            <f:facet name="header">
-                <h:commandLink value="#{messages.getString('carRequestEntity.receiverPhone')}"
-                               action="#{carRequestListFilterBean.setSort('RECEIVER_PHONE_ASC')}"
-                               styleClass="headerSort">
-                    <h:graphicImage
-                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('RECEIVER_PHONE')}.png.xhtml"
-                            styleClass="headerSortImg"/>
-                </h:commandLink>
-                <p:inputText value="#{carRequestListFilterBean.filter.receiverPhone}"
-                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
-                             styleClass="inputSmall"/>
-            </f:facet>
-            <h:outputText value="#{row.receiverPhone}"/>
+            <h:outputText value="#{row.receiver}"/>
         </p:column>
 
         <p:column rendered="#{carRequestList.userPA.paymentR}"
@@ -159,7 +150,7 @@
             <f:facet name="header">
                 <h:outputText value="#{messages.getString('carRequestEntity.attachment')}" styleClass="headerSort"/>
             </f:facet>
-            <ui:repeat var="item" value="#{row.attachments}">
+            <ui:repeat var="item" value="#{row.carRequest.attachments}">
                 <h:commandLink value="#{item.name}"
                                action="#{downloader.open(item)}"
                                target = "_blank"
@@ -295,7 +286,7 @@
             </h:outputText>
             <p:commandButton id="endActualB"
                              value="#{messages.getString('button.setEnd')}"
-                             actionListener="#{carRequestList.setEndActual(row)}"
+                             actionListener="#{carRequestList.setEndActual(row.carRequest)}"
                              disabled="#{!carRequestList.userPA.endActualW}"
                              styleClass="buttonPF"
                              rendered="#{row.endActual == null}"
