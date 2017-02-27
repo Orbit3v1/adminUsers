@@ -93,6 +93,9 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
     protected void postSave() {
     }
 
+    protected void postEdit() {
+    }
+
     protected boolean validate() {
         return validator.validate(editEntity);
     }
@@ -100,6 +103,7 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
     protected void saveAttempt() {
         if (edit) {
             editEntity();
+            postEdit();
         } else {
             saveEntity();
             postSave();
