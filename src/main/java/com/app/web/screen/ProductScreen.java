@@ -179,7 +179,7 @@ public class ProductScreen {
 
     public void choose(String screenName) {
         RequestContext rq = RequestContext.getCurrentInstance();
-        rq.openDialog("/select/" + screenName, getStandardOptions(), null);
+        rq.openDialog("/select/" + screenName, getDialogOptions(screenName), null);
     }
 
     public void onTNCChosen(SelectEvent event) {
@@ -199,15 +199,11 @@ public class ProductScreen {
     }
 
     public void onFunctionChosen(SelectEvent event) {
-        Function function = (Function) event.getObject();
-        Product product = (Product) selectedNode.getData();
-        product.setFormula(product.getFormula() + getFunctionName(function));
-    }
-
-    private String getFunctionName(Function f) {
-        String code = f.getCode();
-        code = code.substring(0, code.indexOf("{"));
-        return code.replaceAll("(?i)function", "");
+        String function = (String) event.getObject();
+        if(function != null) {
+            Product product = (Product) selectedNode.getData();
+            product.setFormula(product.getFormula() + function);
+        }
     }
 
     private Map<String, Object> getStandardOptions() {
@@ -217,6 +213,17 @@ public class ProductScreen {
         options.put("modal", true);
         options.put("width", 800);
         options.put("height", 430);
+        options.put("contentWidth", 800);
+        options.put("contentHeight", 430);
+        return options;
+    }
+
+    private Map<String, Object> getDialogOptions(String screenName){
+        Map<String, Object> options = getStandardOptions();
+        if(screenName.equals("selectFunction")){
+            options.put("height", 650);
+            options.put("contentHeight", 650);
+        }
         return options;
     }
 

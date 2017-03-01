@@ -1,0 +1,17 @@
+.textareaFunctionCode {
+    font-size: 14px !important;
+    margin: 3px !important;
+    height: 200px !important;
+    width: 750px !important;
+}
+
+.buttonFunction {
+    margin-left: 0px !important;
+    margin-bottom: 7px !important;
+}
+
+.labelFunction {
+    font-size: 14px !important;
+    display: inline-block;!important;
+    margin-left: 5px !important;
+}

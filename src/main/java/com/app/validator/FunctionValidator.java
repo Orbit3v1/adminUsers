@@ -1,5 +1,6 @@
 package com.app.validator;
 
+import com.app.common.FunctionCodeGenerator;
 import com.app.data.entity.Function;
 import com.app.data.entity.FunctionInParameter;
 import com.app.data.entity.ProductInParameter;
@@ -21,6 +22,8 @@ public class FunctionValidator extends AbstractValidator<Function> {
 
     @Inject
     JSEngine jsEngine;
+    @Inject
+    FunctionCodeGenerator functionCodeGenerator;
 
     @Override
     public boolean validate(Function entity, Object... args) {
@@ -30,7 +33,7 @@ public class FunctionValidator extends AbstractValidator<Function> {
 
     private boolean isValidCode() {
         boolean valid = true;
-        String err = jsEngine.validate(entity.getCode());
+        String err = jsEngine.validate(functionCodeGenerator.generate(entity));
         if (err != null) {
             valid = false;
             addMessage.setMessage("mainForm:code", err, FacesMessage.SEVERITY_ERROR);
@@ -40,7 +43,10 @@ public class FunctionValidator extends AbstractValidator<Function> {
 
     protected boolean isValidName() {
         boolean valid = true;
-        if (getEntityWithSameName().size() != 0) {
+        if(entity.getName() == null || entity.getName().equals("")){
+            valid = false;
+            addMessage.setMessage("mainForm:name", "error.notNull", FacesMessage.SEVERITY_ERROR);
+        } else if (getEntityWithSameName().size() != 0) {
             valid = false;
             addMessage.setMessage("mainForm:name", "functionList.error.nameDuplicate", FacesMessage.SEVERITY_ERROR);
         }

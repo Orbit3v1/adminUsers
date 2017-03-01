@@ -35,10 +35,6 @@ public class FunctionList extends EntityList<Function>{
         return  query.getResultList();
     }
 
-    public void select(Function entity) {
-        RequestContext.getCurrentInstance().closeDialog(entity);
-    }
-
     public void delete(FunctionInParameter parameter){
         editEntity.getInParameters().remove(parameter);
     }
@@ -64,6 +60,8 @@ public class FunctionList extends EntityList<Function>{
     public void setSelectedParameter(FunctionInParameter selectedParameter) {
         this.selectedParameter = selectedParameter;
     }
+
+
 
 
 }

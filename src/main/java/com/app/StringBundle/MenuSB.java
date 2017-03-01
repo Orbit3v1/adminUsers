@@ -21,7 +21,7 @@ public class MenuSB {
             {"menu.graphic.carRequest", "Заявки на автомобиль"},
 
             {"menu.calculation.TNC", "ТМЦ"},
-            {"menu.calculation.work", "Работа"},
+            {"menu.calculation.work", "Тех. операция"},
             {"menu.calculation.function", "Функции"},
             {"menu.calculation.product", "Расчет"},
 

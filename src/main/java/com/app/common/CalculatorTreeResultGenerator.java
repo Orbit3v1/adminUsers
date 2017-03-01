@@ -31,6 +31,8 @@ public class CalculatorTreeResultGenerator {
     private FunctionDao functionDao;
     @Inject
     private JSEngine jsEngine;
+    @Inject
+    private FunctionCodeGenerator functionCodeGenerator;
 
     private Map<Product, String> errorProducts;
     private String includedFunctions;
@@ -62,7 +64,7 @@ public class CalculatorTreeResultGenerator {
         includedFunctions = "";
         List<Function> functions = functionDao.getAll();
         for (Function f : functions) {
-            includedFunctions += f.getCode();
+            includedFunctions += functionCodeGenerator.generate(f);
         }
     }
 

@@ -15,38 +15,36 @@
         <h:panelGrid columns="1" id="popupDetail">
             <p:panelGrid columns="2" columnClasses="groupProductPart, alignTop">
                 <p:panelGrid columns="1">
-                    <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.name')}"
                                        for="name"
-                                       styleClass="labelPF"/>
+                                       styleClass="labelFunction"/>
+                        <h:message for="name" errorClass="error"/>
                         <p:inputText id="name"
                                      value="#{functionList.editEntity.name}"
                                      styleClass="inputLarge"
                                 />
-                        <h:message for="name" errorClass="error"/>
-                    </h:panelGroup>
-                    <h:panelGroup>
                         <h:outputLabel value="#{messages.getString('functionEntity.description')}"
                                        for="description"
-                                       styleClass="labelPF"/>
+                                       styleClass="labelFunction"/>
                         <p:inputTextarea id="description"
                                          value="#{functionList.editEntity.description}"
                                          disabled="#{false}"
                                          styleClass="textareaLargePF"
                                 />
-                    </h:panelGroup>
                 </p:panelGrid>
                 <p:panelGrid columns="1">
                     <p:commandButton update=":mainForm:parameters"
                                      action="#{functionList.addParameter}"
                                      value="#{messages.getString('button.add')}"
-                                     styleClass="buttonPF"/>
+                                     styleClass="buttonFunction"/>
                     <h:message for="parameters" infoClass="info" errorClass="error"/>
                     <p:dataTable id="parameters"
                                  value="#{functionList.editEntity.inParameters}"
                                  var="row"
                                  editable="true"
                                  editMode="cell"
+                                 scrollable="true"
+                                 scrollHeight="166"
                                  style="width: 400px">
 
                         <p:column rendered="#{true}"
@@ -54,9 +52,9 @@
                                 >
                             <p:cellEditor>
                                 <f:facet name="output">
-                            <span style="display: inline-block; width: 100%; height: 100%">
-                                <h:outputText value="#{row.name}"/>
-                            </span>
+                                    <span style="display: inline-block; width: 100%; height: 100%">
+                                        <h:outputText value="#{row.name}"/>
+                                    </span>
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:inputText value="#{row.name}" style="width:100%"/>
@@ -68,9 +66,9 @@
                                 >
                             <p:cellEditor>
                                 <f:facet name="output">
-                            <span style="display: inline-block; width: 100%; height: 100%">
-                                <h:outputText value="#{row.description}"/>
-                            </span>
+                                    <span style="display: inline-block; width: 100%; height: 100%">
+                                        <h:outputText value="#{row.description}"/>
+                                    </span>
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:inputText value="#{row.description}"
@@ -98,15 +96,15 @@
             <HR/>
             <h:panelGroup>
                 <p:panelGrid columns="1">
-                <h:outputLabel value="#{messages.getString('functionEntity.code')}"
-                               for="code"
-                               styleClass="labelPF"/>
-                <p:inputTextarea id="code"
-                                 value="#{functionList.editEntity.code}"
-                                 disabled="#{false}"
-                                 styleClass="textareaFunctionCode"
-                        />
-                <h:message for="code" errorClass="error"/>
+                    <h:outputLabel value="#{messages.getString('functionEntity.code')}"
+                                   for="code"
+                                   styleClass="labelFunction"/>
+                    <p:inputTextarea id="code"
+                                     value="#{functionList.editEntity.code}"
+                                     disabled="#{false}"
+                                     styleClass="textareaFunctionCode"
+                            />
+                    <h:message for="code" errorClass="error"/>
                 </p:panelGrid>
             </h:panelGroup>
         </h:panelGrid>

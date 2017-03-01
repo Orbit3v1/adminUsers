@@ -15,34 +15,86 @@
     <!--TODO add privs and labels -->
     <ui:define name="body">
         <h:form id="mainForm">
-            <p:dataTable id="entities" value="#{functionList.entities}" var="row"
-                         filteredValue="#{functionList.filteredEntities}"
+            <p:dataTable id="entities"
+                         value="#{functionSelectList.entities}"
+                         var="row"
+                         filteredValue="#{functionSelectList.filteredEntities}"
                          sortMode="multiple"
                          resizableColumns="true"
                          paginator="true"
+                         selectionMode="single"
+                         selection="#{functionSelectList.selectedEntity}"
+                         rowKey="#{row.id}"
                          rows="10">
+
+                <p:ajax event="rowSelect" listener="#{functionSelectList.functionSelected}"/>
+                <p:ajax event="rowSelect" update=":mainForm:buttons, :mainForm:inParameters"/>
+
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('functionEntity.name')}"
                           sortBy="#{row.name}"
                           filterBy="#{row.name}"
                           filterMatchMode="contains"
-                          style="width:350px"
+                          style="width:150px"
                           filterStyle="width: 150px">
                     <h:outputText value="#{row.name}"/>
                 </p:column>
                 <p:column rendered="#{true}"
                           headerText="#{messages.getString('functionEntity.description')}"
-                          style="width:100px"
+                          style="width:320px"
                           sortBy="#{row.description}">
                     <h:outputText value="#{row.description}"/>
                 </p:column>
-                <p:column style="width:20px;text-align: center">
-                    <h:commandButton value=">"
-                                     action="#{functionList.select(row)}"
-                                     styleClass="selectBtnPF"/>
-                </p:column>
             </p:dataTable>
             <HR/>
+
+            <p:dataTable id="inParameters"
+                         value="#{functionSelectList.inParameters}"
+                         var="inParam"
+                         editable="true"
+                         editMode="cell"
+                         scrollable="true"
+                         scrollHeight="150"
+                    >
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('functionInParameterEntity.name')}"
+                          style="width:75px">
+                    <h:outputText value="#{inParam.functionInParameter.name}"/>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('functionEntity.description')}"
+                          style="width:320px">
+                    <h:outputText value="#{inParam.functionInParameter.description}"/>
+                </p:column>
+                <p:column rendered="#{true}"
+                          headerText="#{messages.getString('functionInParameterEntity.value')}"
+                          style="width:75px">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <span style="display: inline-block; width: 100%;">
+                                <h:outputText value="#{inParam.value}"/>
+                            </span>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{inParam.value}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+            </p:dataTable>
+
+            <HR/>
+
+            <h:panelGroup id="buttons">
+                <p:commandButton value="#{messages.getString('button.select')}"
+                                 actionListener="#{functionSelectList.select()}"
+                                 disabled="#{functionSelectList.selectedEntity == null}"
+                                 styleClass="buttonPF"/>
+                <p:commandButton value="#{messages.getString('button.cancel')}"
+                                 actionListener="#{functionSelectList.cancel()}"
+                                 styleClass="buttonPF"
+                        />
+            </h:panelGroup>
         </h:form>
     </ui:define>
 </ui:composition>

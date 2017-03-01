@@ -35,10 +35,11 @@ public class CommonSB {
             {"button.copy/move", "Копировать/Переместить"},
             {"button.create", "Сформировать"},
             {"button.setEnd", "Сдать"},
+            {"button.select", "Выбрать"},
 
             {"button.calc.addProduct", "+ деталь"},
             {"button.calc.addTNC", "+ материал"},
-            {"button.calc.addWork", "+ работа"},
+            {"button.calc.addWork", "+ тех. опер."},
             {"button.calc.addFunction", "+ функция"},
             {"button.calc.calculate", "Рассчитать"},
             {"button.calc.inParameters", "Вх. параметры"},

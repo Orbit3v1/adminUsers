@@ -116,12 +116,12 @@ public abstract class EntityList<T extends Unique & Copy<T>> {
         } else {
             saveEntity();
             postSave();
+            edit(editEntity);
         }
     }
 
     private void saveEntity() {
         mergeEntity();
-        //filteredEntities.add(editEntity);
         entities.add(editEntity);
     }
 

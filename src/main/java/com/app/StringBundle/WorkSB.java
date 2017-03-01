@@ -5,7 +5,7 @@ package com.app.StringBundle;
  */
 public class WorkSB {
     private static Object[][] contents = {
-            {"workEntity", "Работа"},
+            {"workEntity", "Тех. операция"},
             {"workEntity.name", "Наименование"},
             {"workEntity.description", "Описание"},
             {"workEntity.price", "Цена"},
