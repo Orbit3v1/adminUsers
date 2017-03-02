@@ -79,6 +79,7 @@ public class ProductInParameter extends AbstractVersionedEntity<Integer> impleme
     @Override
     public Object clone() throws CloneNotSupportedException {
         ProductInParameter inParameter = (ProductInParameter) super.clone();
+        inParameter.setId(0);
         return inParameter;
     }
 }

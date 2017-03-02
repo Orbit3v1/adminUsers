@@ -66,21 +66,13 @@ public class FunctionSelectList extends FunctionList {
         this.inParameters = inParameters;
     }
 
-    public class FunctionInParameterValue{
-        private FunctionInParameter functionInParameter;
+    public class FunctionInParameterValue extends FunctionInParameter{
         private String value;
 
         public FunctionInParameterValue(FunctionInParameter functionInParameter, String value) {
-            this.functionInParameter = functionInParameter;
+            setName(functionInParameter.getName());
+            setDescription(functionInParameter.getDescription());
             this.value = value;
-        }
-
-        public FunctionInParameter getFunctionInParameter() {
-            return functionInParameter;
-        }
-
-        public void setFunctionInParameter(FunctionInParameter functionInParameter) {
-            this.functionInParameter = functionInParameter;
         }
 
         public String getValue() {
