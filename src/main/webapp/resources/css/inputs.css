@@ -57,7 +57,7 @@ select[readonly],
     font-size: 14px !important;
     margin: 3px !important;
     width: 100px !important;
-    position: absolute;!important;
+    vertical-align: bottom !important;
 }
 
 

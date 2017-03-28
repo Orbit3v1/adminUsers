@@ -14,6 +14,8 @@ import com.app.data.entity.Specification;
 import com.app.data.filter.FilterBean;
 import com.app.data.filter.ListFilterBean;
 import com.app.data.filter.SpecificationCDI;
+import com.app.msOffice.CarRequestXLS;
+import com.app.msOffice.ProductionXLS;
 import com.app.security.Security;
 import com.app.utils.AddMessage;
 import com.app.web.Loggable;
@@ -95,6 +97,11 @@ public class CarRequestList {
     protected void executeJS(String script){
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute(script);
+    }
+
+    public void exportExcel(){
+        CarRequestXLS pXLS = new CarRequestXLS(listRows, userPA);
+        pXLS.renderExcel();
     }
 
     public Map<String, Boolean> getUserPA() {

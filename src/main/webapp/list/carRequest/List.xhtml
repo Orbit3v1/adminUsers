@@ -39,6 +39,14 @@
                 </ui:define>
             </ui:decorate>
 
+            <h:outputLabel for="exportExcel" value="|" style="display: inline-block"/>
+            <p:commandButton id="exportExcel"
+                             value="#{messages.getString('button.export.excel')}"
+                             update=":mainForm:entities, :mainForm:growl"
+                             actionListener="#{carRequestList.exportExcel}"
+                             ajax="false"
+                             styleClass="buttonPF"/>
+
             <ui:include src="DataTable.xhtml"/>
 
             <p:commandButton id="refresh"

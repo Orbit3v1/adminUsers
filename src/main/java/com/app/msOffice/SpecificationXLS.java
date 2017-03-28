@@ -1,122 +1,28 @@
 package com.app.msOffice;
 
 import com.app.data.dto.SpecificationDTO;
-import com.app.data.entity.Person;
-import com.app.security.Security;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by ayaroslavtsev on 30.08.2016.
  */
-public class SpecificationXLS {
-    private ResourceBundle resourceBundle;
+public class SpecificationXLS extends GeneratorXLS{
 
     private List<SpecificationDTO> listRows;
-    private Map<String, Boolean> userPA;
-    private Workbook wb;
-    private Sheet sheet;
-    private CellStyle cellStyle;
-    private int lastRow = 0;
-
-    private static final String FILE_NAME = "реестрт_ТЗ";
 
     public SpecificationXLS(List<SpecificationDTO> listRows, Map<String, Boolean> userPA) {
+        super(userPA);
         this.listRows = listRows;
-        this.userPA = userPA;
-        init();
     }
 
-    private void init() {
-        resourceBundle = ResourceBundle.getBundle("com.app.StringBundle.StringsBundle", new Locale("ru", "RU"));
-
-        wb = new HSSFWorkbook();
-        sheet = wb.createSheet("export");
-        CreationHelper createHelper = wb.getCreationHelper();
-        cellStyle = wb.createCellStyle();
-        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+    @Override
+    protected String getReportName() {
+        return "реестрт_ТЗ";
     }
 
-    public void renderExcel() {
-        generateTitle();
-        generateFilter();
-        generateHeader();
-        generateBody();
-
-        generateResponse();
-
-    }
-
-    private void generateResponse() {
-        String file = getFileName();
-        try {
-            file = URLEncoder.encode(file, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        ec.responseReset();
-        ec.setResponseContentType("text/xsl");
-
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
-
-        try {
-            OutputStream output = ec.getResponseOutputStream();
-            wb.write(output);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        fc.responseComplete();
-    }
-
-    private String getFileName() {
-        Date today = new Date();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String reportDate = df.format(today);
-
-        return FILE_NAME + "_" + reportDate + ".xls";
-    }
-
-    private void generateTitle() {
-        Row row;
-        Cell cell;
-
-        row = sheet.createRow(lastRow++);
-        cell = row.createCell(0);
-        cell.setCellValue("Создал");
-
-        Person creator = Security.getCurrentUser();
-        cell = row.createCell(1);
-        cell.setCellValue(creator.getLastName() + " " + creator.getFirstName());
-
-        row = sheet.createRow(lastRow++);
-        cell = row.createCell(0);
-        cell.setCellValue("Дата");
-
-        cell = row.createCell(1);
-        cell.setCellValue(new Date());
-        cell.setCellStyle(cellStyle);
-
-        row = sheet.createRow(lastRow++);
-    }
-
-    private void generateFilter() {
-
-    }
-
-    private void generateHeader() {
+    protected void generateHeader() {
         Row row;
         Cell cell;
         int lastCell = 0;
@@ -155,12 +61,12 @@ public class SpecificationXLS {
             cell.setCellValue(resourceBundle.getString("specificationEntity.developer"));
         }
         if (userPA.get("responsibleR")) {
-            cell = row.createCell(lastCell++);
+            cell = row.createCell(lastCell);
             cell.setCellValue(resourceBundle.getString("specificationEntity.responsible"));
         }
     }
 
-    private void generateBody() {
+    protected void generateBody() {
         Row row;
         Cell cell;
 
@@ -176,7 +82,7 @@ public class SpecificationXLS {
                 cell = row.createCell(lastCell++);
                 if (r.getStart() != null) {
                     cell.setCellValue(r.getStart());
-                    cell.setCellStyle(cellStyle);
+                    cell.setCellStyle(csDate);
                 }
             }
             if (userPA.get("typeR")) {
@@ -207,7 +113,7 @@ public class SpecificationXLS {
                 cell = row.createCell(lastCell++);
                 if (r.getResponseDate() != null) {
                     cell.setCellValue(r.getResponseDate());
-                    cell.setCellStyle(cellStyle);
+                    cell.setCellStyle(csDate);
                 }
             }
             if (userPA.get("developerR")) {
@@ -217,7 +123,7 @@ public class SpecificationXLS {
                 }
             }
             if (userPA.get("responsibleR")) {
-                cell = row.createCell(lastCell++);
+                cell = row.createCell(lastCell);
                 if (r.getResponsible() != null) {
                     cell.setCellValue(r.getResponsible());
                 }
