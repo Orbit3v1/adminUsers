@@ -16,16 +16,22 @@
 
     <ui:define name="body">
         <h:form>
-        <h:outputText style="font-size: 18px; font-weight: bold" value="Тестовый экран"/>
-
-        <HR/>
-
-        <h:outputText value="Отправка email"/>
-        <h:commandButton id="sendEmail" value="Send email" action="#{testScreen.sendEmail()}"/>
+            <h:outputText style="font-size: 18px; font-weight: bold" value="Тестовый экран"/>
 
             <HR/>
 
-            <rich:calendar value="#{testScreen.date}" styleClass="textBox" datePattern="dd-MMM-yyyy" required="false" onchange="alert(1)">
+            <h:outputText value="Test JNDI"/>
+            <h:commandButton id="testJNDI" value="Test JNDI" action="#{testScreen.testJNDI()}"/>
+
+            <HR/>
+
+            <h:outputText value="Отправка email"/>
+            <h:commandButton id="sendEmail" value="Send email" action="#{testScreen.sendEmail()}"/>
+
+            <HR/>
+
+            <rich:calendar value="#{testScreen.date}" styleClass="textBox" datePattern="dd-MMM-yyyy" required="false"
+                           onchange="alert(1)">
             </rich:calendar>
 
             <h:commandButton value="setDate" action="#{testScreen.onChangeDate(1, testScreen.date)}"/>
@@ -33,15 +39,14 @@
             <HR/>
 
 
+            <h:outputText value="Загрузка файла"/>
 
-        <h:outputText value="Загрузка файла"/>
 
+            <rich:fileUpload fileUploadListener="#{testScreen.listener}" id="upload">
+                <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
+            </rich:fileUpload>
 
-        <rich:fileUpload fileUploadListener="#{testScreen.listener}" id="upload" >
-            <a4j:ajax event="uploadcomplete" execute="@none" render="attachments"/>
-        </rich:fileUpload>
-
-        <br/>
+            <br/>
         </h:form>
 
         <h:form enctype="multipart/form-data">
@@ -50,36 +55,36 @@
         </h:form>
 
         <h:form>
-        <rich:dataTable id="attachments" value="#{testScreen.attachments}" var="row" binding="#{table}"
-                        rowClasses="odd-row, even-row">
-            <rich:column style="text-align: center">
-                <f:facet name="header">#</f:facet>
-                <h:outputText value="#{table.rowIndex + 1}"/>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Name</f:facet>
-                <h:commandLink value="#{row.name}" action="#{testScreen.download(row)}"/>
-                <!--<h:outputText value="#{row.name}"/>-->
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Size</f:facet>
-                <h:outputText value="#{row.size}"/>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Download</f:facet>
-                <h:commandButton value="Download" action="#{testScreen.download(row)}"/>
-            </rich:column>>
-            <rich:column>
-                <f:facet name="header">Delete</f:facet>
-                <a4j:commandButton value="Delete" action="#{testScreen.delete(row)}"
-                                   render="attachments"
-                                   onclick="return confirm('Вы действительно хотите удалить запись?')"/>
-            </rich:column>>
-        </rich:dataTable>
+            <rich:dataTable id="attachments" value="#{testScreen.attachments}" var="row" binding="#{table}"
+                            rowClasses="odd-row, even-row">
+                <rich:column style="text-align: center">
+                    <f:facet name="header">#</f:facet>
+                    <h:outputText value="#{table.rowIndex + 1}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:commandLink value="#{row.name}" action="#{testScreen.download(row)}"/>
+                    <!--<h:outputText value="#{row.name}"/>-->
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Size</f:facet>
+                    <h:outputText value="#{row.size}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Download</f:facet>
+                    <h:commandButton value="Download" action="#{testScreen.download(row)}"/>
+                </rich:column>>
+                <rich:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <a4j:commandButton value="Delete" action="#{testScreen.delete(row)}"
+                                       render="attachments"
+                                       onclick="return confirm('Вы действительно хотите удалить запись?')"/>
+                </rich:column>>
+            </rich:dataTable>
 
-        <HR/>
+            <HR/>
 
-        <h:commandButton value="Generate Excel" action="#{testScreen.renderExcel}"/>
+            <h:commandButton value="Generate Excel" action="#{testScreen.renderExcel}"/>
 
         </h:form>
 
