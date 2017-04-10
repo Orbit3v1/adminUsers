@@ -4,6 +4,7 @@ import javax.inject.Named;
 import javax.persistence.Query;
 
 import com.app.data.dictionary.CarRequestSort;
+import com.app.data.dictionary.CarRequestState;
 import com.app.data.dictionary.TNCSupplySort;
 import com.app.data.entity.CarRequest;
 import com.app.data.entity.TNCSupply;
@@ -29,6 +30,11 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
     @Override
     protected CarRequestListFilter createNew() {
         return new CarRequestListFilter();
+    }
+    @Override
+    protected void resetFilter(){
+        super.resetFilter();
+        getFilter().setState(CarRequestState.ALL);
     }
 
     public CarRequestListFilter getFilterOriginal() {
