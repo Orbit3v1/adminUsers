@@ -12,6 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -45,6 +46,9 @@ public class TestScreen {
     private EntityManagerFactory entityManagerFactory;
     @PersistenceContext
     private EntityManager em;
+
+    @Resource(mappedName = "jdbc/appOwnerDB")
+    DataSource ds2;
 
     private List<Attachment> attachments;
     private Part file;

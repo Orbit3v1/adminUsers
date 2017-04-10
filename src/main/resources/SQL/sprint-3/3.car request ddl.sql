@@ -57,6 +57,6 @@ create table carRequestListFilter(
   sort varchar(500),
   state varchar(500),
 
-  CONSTRAINT carRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+  CONSTRAINT carRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)  ON DELETE CASCADE
 );
 

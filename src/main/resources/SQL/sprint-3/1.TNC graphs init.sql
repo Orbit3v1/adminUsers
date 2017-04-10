@@ -56,7 +56,7 @@ create table tncRequestListFilter(
   state varchar(500),
   sort varchar(500),
 
-  CONSTRAINT tncRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+  CONSTRAINT tncRequestListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id) ON DELETE CASCADE
 );
 
 
@@ -124,5 +124,5 @@ create table tncSupplyListFilter(
 
   sort varchar(500),
 
-  CONSTRAINT tncSupplyListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id)
+  CONSTRAINT tncSupplyListFilter_FK1 FOREIGN KEY (id) REFERENCES person(id) ON DELETE CASCADE
 );
