@@ -46,7 +46,8 @@ public class HPersonDao extends HGenericDao<Person, Integer> implements PersonDa
 
     @Override
     public List<Person> getAll() {
-        Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName");
+        Query query = em.createQuery("select p from Person p order by p.lastName, p.firstName")
+                .setHint("org.hibernate.cacheable", true);
         return query.getResultList();
     }
 }

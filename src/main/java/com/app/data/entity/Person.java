@@ -11,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "person")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Person extends AbstractVersionedEntity<Integer>{
     @Id
     @GeneratedValue

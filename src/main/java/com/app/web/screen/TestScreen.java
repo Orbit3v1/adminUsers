@@ -1,7 +1,9 @@
 package com.app.web.screen;
 
+import com.app.data.dao.PersonDao;
 import com.app.data.entity.Attachment;
 import com.app.data.entity.AttachmentContent;
+import com.app.data.entity.Person;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.richfaces.event.FileUploadEvent;
@@ -46,6 +48,8 @@ public class TestScreen {
     private EntityManagerFactory entityManagerFactory;
     @PersistenceContext
     private EntityManager em;
+    @Inject
+    private PersonDao personDao;
 
     @Resource(mappedName = "jdbc/appOwnerDB")
     DataSource ds2;
@@ -212,6 +216,13 @@ public class TestScreen {
 
         Connection conn = ds.getConnection();
         conn.close();
+    }
+
+    public void testSecondLevelCash(){
+        List<Person> persons1 = personDao.getAll();
+        List<Person> persons2 = personDao.getAll();
+        Person person1 = personDao.getById(15);
+        Person person2 = personDao.getById(15);
     }
 
     public List<Attachment> getAttachments() {
