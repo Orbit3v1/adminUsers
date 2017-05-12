@@ -1,10 +1,13 @@
 package com.app.data.entity;
 
+import com.app.data.entity.interfaces.Copy;
+import com.app.data.entity.interfaces.CopyData;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "component")
-public class Component extends AbstractVersionedEntity {
+public class Component extends AbstractVersionedEntity implements Copy<Component> {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -44,8 +47,16 @@ public class Component extends AbstractVersionedEntity {
         this.nomenclature = nomenclature;
     }
 
-    public void copyForm(Component component){
+    public void copyData(Component component){
         this.name = component.name;
         this.nomenclature = component.nomenclature;
+    }
+
+    @Override
+    public Component copy() {
+        Component entity = new Component();
+        entity.name = this.name;
+        entity.nomenclature = this.nomenclature;
+        return entity;
     }
 }

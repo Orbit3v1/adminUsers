@@ -77,6 +77,7 @@ public class NomenclatureScreen extends EntityScreen<Nomenclature> {
     public void save() {
         entity.setGib(AppUtil.toInteger(gib));
         saveData();
+        NCM.setNomenclature(entity);
     }
 
     @Transactional

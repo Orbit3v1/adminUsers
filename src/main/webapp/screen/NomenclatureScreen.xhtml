@@ -280,7 +280,7 @@
                                for="componentName"
                                styleClass="label"/>
                 <h:inputText id="componentName"
-                             value="#{nomenclatureScreen.NCM.tmpComponent.name}"
+                             value="#{nomenclatureScreen.NCM.component.name}"
                              styleClass="inputLarge"
                              readonly="#{nomenclatureScreen.isDisabled('name')}"/>
 
@@ -294,7 +294,8 @@
                                      disabled="#{!(nomenclatureScreen.NCM.edit ? nomenclatureScreen.userPA.componentEditEx : nomenclatureScreen.userPA.componentAddEx)}"
                                      onclick="#{rich:component('popupComponents')}.hide();"/>
                     <h:commandButton value="#{messages.getString('button.cancel')}"
-                                     onclick="#{rich:component('popupComponents')}.hide(); return false;"
+                                     action="#{nomenclatureScreen.NCM.cancel}"
+                                     onclick="#{rich:component('popupComponents')}.hide();"
                                      styleClass="btn"/>
                 </p>
             </rich:popupPanel>

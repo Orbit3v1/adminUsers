@@ -1,35 +1,41 @@
 package com.app.common;
 
+import com.app.data.MementoEntity;
 import com.app.data.entity.Component;
 import com.app.data.entity.Nomenclature;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+
+import javax.inject.Named;
 
 public class NomenclatureComponentManager {
 
     private Nomenclature nomenclature;
     private Logger logger = Logger.getLogger(getClass());
 
-    private Component tmpComponent;
-    private Component originalComponent;
+    private Component component;
     private boolean edit;
+
+    MementoEntity<Component> mementoEntity;
 
     public NomenclatureComponentManager(Nomenclature nomenclature) {
         this.nomenclature = nomenclature;
-        tmpComponent = new Component();
+        component = new Component();
     }
 
     public void add(){
         logger.info("add component");
-        tmpComponent = new Component();
-        tmpComponent.setNomenclature(nomenclature);
+        component = new Component();
+        component.setNomenclature(nomenclature);
+
         edit = false;
     }
 
     public void edit(Component component){
         logger.info("edit component");
-        originalComponent = component;
-        tmpComponent = new Component();
-        tmpComponent.copyForm(component);
+        mementoEntity = new MementoEntity<>(component);
+        this.component = component;
         edit = true;
     }
 
@@ -40,20 +46,26 @@ public class NomenclatureComponentManager {
     public void save(){
         if(edit){
             logger.info("save existing component");
-            originalComponent.copyForm(tmpComponent);
+            mementoEntity.save(component);
         } else {
             logger.info("save new component");
-            nomenclature.getComponents().add(tmpComponent);
+            nomenclature.getComponents().add(component);
             edit = true;
         }
     }
 
-    public Component getTmpComponent() {
-        return tmpComponent;
+    public void cancel(){
+        if(edit){
+            mementoEntity.undo();
+        }
     }
 
-    public void setTmpComponent(Component tmpComponent) {
-        this.tmpComponent = tmpComponent;
+    public Component getComponent() {
+        return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     public boolean isEdit() {
@@ -62,5 +74,13 @@ public class NomenclatureComponentManager {
 
     public void setEdit(boolean edit) {
         this.edit = edit;
+    }
+
+    public Nomenclature getNomenclature() {
+        return nomenclature;
+    }
+
+    public void setNomenclature(Nomenclature nomenclature) {
+        this.nomenclature = nomenclature;
     }
 }
