@@ -19,9 +19,9 @@ create table car_request(
   CONSTRAINT car_request_FK2 FOREIGN KEY (responsible) REFERENCES person(id)
 );
 
-create index car_request_I1 on tnc_request(creator);
-create index car_request_I2 on tnc_request(responsible);
-create index car_request_I3 on tnc_request(name);
+create index car_request_I1 on car_request(creator);
+create index car_request_I2 on car_request(responsible);
+create index car_request_I3 on car_request(name);
 
 create table car_request_attachment(
   id int IDENTITY(1,1) not null primary key,

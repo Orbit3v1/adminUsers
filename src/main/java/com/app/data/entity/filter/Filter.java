@@ -11,6 +11,6 @@ public interface Filter<T> {
     public void copyFrom(T filter);
     public void setSort(Sort o);
     public Sort getSort();
-    public void setId(int id);
+    public void setId(Integer id);
 
 }

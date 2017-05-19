@@ -19,7 +19,9 @@
     <ui:define name="body">
         <script src="../resources/js/roleScreen.js" type="text/javascript"/>
 
-        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm"
+                onkeypress="if (event.target.tagName.toUpperCase() == 'TEXTAREA') return;
+                            if (event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{roleScreen.edit ? messages.getString('roleScreen.editText') : messages.getString('roleScreen.addText')}"/>
 

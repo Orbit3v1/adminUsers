@@ -86,7 +86,7 @@ public class TNCRequestListFilter extends AbstractVersionedEntity implements Fil
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

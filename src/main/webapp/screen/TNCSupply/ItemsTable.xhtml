@@ -10,7 +10,7 @@
                      actionListener="#{tncSupplyScreen.shareEntity}"
                      rendered="#{tncSupplyScreen.userPA.addItemR}"
                      disabled="#{!tncSupplyScreen.userPA.addItemEx}"
-                     onclick="openPopUp('/screen/TNCSupplyItemScreen.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen')"
+                     oncomplete="openPopUp('/screen/TNCSupplyItemScreen.xhtml?sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen')"
                      styleClass="buttonPF"
             />
 
@@ -30,7 +30,7 @@
                 >
             <p:commandButton value="#{table.rowIndex + 1}"
                              actionListener="#{tncSupplyScreen.shareEntity}"
-                             onclick="openPopUp('/screen/TNCSupplyItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen#{item.hashCode()}')"
+                             oncomplete="openPopUp('/screen/TNCSupplyItemScreen.xhtml?hash=#{item.hashCode()}||sourceId=#{tncSupplyScreen.entity.id}', 'TNCSupplyItemScreen#{item.hashCode()}')"
             />
         </p:column>
 

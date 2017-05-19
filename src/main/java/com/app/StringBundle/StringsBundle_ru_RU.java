@@ -37,7 +37,8 @@ public class StringsBundle_ru_RU extends ListResourceBundle {
                 TncRequestSB.getContents(),
                 TncSB.getContents(),
                 TncSupplySB.getContents(),
-                WorkSB.getContents()
+                WorkSB.getContents(),
+                ServiceRequestSB.getContents()
         );
     }
 }

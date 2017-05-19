@@ -1,0 +1,214 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="1">
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.nameR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.name')}"
+                           for="name"
+                           styleClass="labelPF"/>
+            <p:inputText id="name"
+                         value="#{serviceRequestScreen.entity.name}"
+                         rendered="#{!serviceRequestScreen.isDisabled('name')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="name" errorClass="error"/>
+        </p:panelGrid>
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.responsibleR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.responsible')}"
+                           for="responsible"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="responsible"
+                             value="#{serviceRequestScreen.entity.responsible}"
+                             converter="#{personConverter}"
+                             rendered="#{!serviceRequestScreen.isDisabled('responsible')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{serviceRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="responsibleRO"
+                         value="#{serviceRequestScreen.entity.responsible}"
+                         styleClass="inputLarge"
+                         rendered="#{serviceRequestScreen.isDisabled('responsible')}"
+                         readonly="#{serviceRequestScreen.isDisabled('responsible')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.warrantyNumberR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.warrantyNumber')}"
+                           for="warrantyNumber"
+                           styleClass="labelPF"/>
+            <p:inputText id="warrantyNumber"
+                         value="#{serviceRequestScreen.entity.warrantyNumber}"
+                         readonly="#{serviceRequestScreen.isDisabled('warrantyNumber')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="warrantyNumber" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.counterpartyR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.counterparty')}"
+                           for="counterparty"
+                           styleClass="labelPF"/>
+            <p:inputText id="counterparty"
+                         value="#{serviceRequestScreen.entity.counterparty}"
+                         readonly="#{serviceRequestScreen.isDisabled('counterparty')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="counterparty" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.contactNameR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.contactName')}"
+                           for="contactName"
+                           styleClass="labelPF"/>
+            <p:inputText id="contactName"
+                         value="#{serviceRequestScreen.entity.contactName}"
+                         readonly="#{serviceRequestScreen.isDisabled('contactName')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="contactName" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.contactPhoneR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.contactPhone')}"
+                           for="contactPhone"
+                           styleClass="labelPF"/>
+            <p:inputText id="contactPhone"
+                         value="#{serviceRequestScreen.entity.contactPhone}"
+                         readonly="#{serviceRequestScreen.isDisabled('contactPhone')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="contactPhone" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.paymentR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.payment')}"
+                           for="payment"
+                           styleClass="labelPF"/>
+            <p:inputText id="payment"
+                         value="#{serviceRequestScreen.entity.payment}"
+                         readonly="#{serviceRequestScreen.isDisabled('payment')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="payment" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.descriptionR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.description')}"
+                           for="description"
+                           styleClass="labelPF"/>
+            <p:inputTextarea id="description"
+                             value="#{serviceRequestScreen.entity.description}"
+                             readonly="#{serviceRequestScreen.isDisabled('description')}"
+                             styleClass="textareaLargePF"
+                    />
+            <h:message for="description" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.addressR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.address')}"
+                           for="address"
+                           styleClass="labelPF"/>
+            <p:inputTextarea id="address"
+                             value="#{serviceRequestScreen.entity.address}"
+                             readonly="#{serviceRequestScreen.isDisabled('address')}"
+                             styleClass="textareaLargePF"
+                    />
+            <h:message for="address" errorClass="error"/>
+        </p:panelGrid>
+        
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.creatorR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.creator')}"
+                           for="creator"
+                           styleClass="labelPF"/>
+            <p:selectOneMenu id="creator"
+                             value="#{serviceRequestScreen.entity.creator}"
+                             converter="#{personConverter}"
+                             rendered="#{!serviceRequestScreen.isDisabled('creator')}"
+                             styleClass="selectOneMenuLargePF">
+                <f:selectItem itemLabel=""
+                              itemValue="#{null}"/>
+                <f:selectItems value="#{serviceRequestScreen.developers}"
+                               var="row"
+                               itemLabel="#{row}"
+                               itemValue="#{row}"/>
+            </p:selectOneMenu>
+            <p:inputText id="creatorRO"
+                         value="#{serviceRequestScreen.entity.creator}"
+                         styleClass="inputLarge"
+                         rendered="#{serviceRequestScreen.isDisabled('creator')}"
+                         readonly="#{serviceRequestScreen.isDisabled('creator')}"/>
+            <h:message for="creator" errorClass="error"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.startR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.start')}" for="start"
+                           styleClass="labelPF"/>
+            <p:calendar id="start"
+                        value="#{serviceRequestScreen.entity.start}"
+                        locale="ru"
+                        pattern="#{messages.getString('dateTimePattern')}"
+                        showOn="button"
+                        disabled="#{serviceRequestScreen.isDisabled('start')}"
+                        styleClass="calendarPF"
+                    />
+            <h:message for="start" errorClass="error"/>
+        </p:panelGrid>
+
+        <h:panelGroup id="endActualPG" rendered="#{serviceRequestScreen.userPA.endActualR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.endActual')}" for="endActual"
+                           styleClass="labelPF"/>
+
+            <h:panelGroup id="endActualSet" rendered="#{serviceRequestScreen.entity.endActual != null}">
+                <p:inputText id="endActual"
+                             value="#{serviceRequestScreen.entity.endActual}"
+                             readonly="true"
+                             styleClass="inputLarge">
+                    <f:convertDateTime type="date" pattern="#{messages.getString('dateTimePattern')}"/>
+                </p:inputText>
+                <p:commandLink id="endActualRevert"
+                               update=":mainForm:panel:endActualPG"
+                               title="#{messages.getString('button.delete')}"
+                               actionListener="#{serviceRequestScreen.cancelEndActual}"
+                               rendered="#{serviceRequestScreen.userPA.endActualE}"
+                               styleClass="ui-icon delete resetPF">
+                    <p:confirm header="#{messages.getString('button.revert.confirmation')}"
+                               message="#{messages.getString('button.revert.message')}"
+                               icon="ui-icon-alert"/>
+                </p:commandLink>
+            </h:panelGroup>
+
+            <p:commandButton id="endActualB"
+                             value="#{messages.getString('button.setEnd')}"
+                             actionListener="#{serviceRequestScreen.setEndActual}"
+                             disabled="#{!serviceRequestScreen.userPA.endActualW}"
+                             styleClass="buttonPF"
+                             rendered="#{serviceRequestScreen.entity.endActual == null}"
+                             update=":mainForm:panel:endActualPG"/>
+            <h:message for="endActual" errorClass="error"/>
+        </h:panelGroup>
+
+        <p:panelGrid columns="3" rendered="#{serviceRequestScreen.userPA.resultR}">
+            <h:outputLabel value="#{messages.getString('serviceRequestEntity.result')}"
+                           for="result"
+                           styleClass="labelPF"/>
+            <p:inputTextarea id="result"
+                             value="#{serviceRequestScreen.entity.result}"
+                             readonly="#{serviceRequestScreen.isDisabled('result')}"
+                             styleClass="textareaLargePF"
+                    />
+            <h:message for="result" errorClass="error"/>
+        </p:panelGrid>
+
+
+        <HR/>
+    </p:panelGrid>
+</ui:composition>

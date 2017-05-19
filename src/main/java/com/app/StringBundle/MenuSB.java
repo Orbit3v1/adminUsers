@@ -19,6 +19,7 @@ public class MenuSB {
             {"menu.graphic.tncRequest", "Заявки ТМЦ"},
             {"menu.graphic.tncSupply", "Заявки на поставку ТМЦ"},
             {"menu.graphic.carRequest", "Заявки на автомобиль"},
+            {"menu.graphic.serviceRequest", "Заявки на сервис"},
 
             {"menu.calculation.TNC", "ТМЦ"},
             {"menu.calculation.work", "Тех. операция"},

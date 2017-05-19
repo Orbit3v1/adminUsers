@@ -16,7 +16,9 @@
     </ui:define>
 
     <ui:define name="body">
-        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm"
+                onkeypress="if (event.target.tagName.toUpperCase() == 'TEXTAREA') return;
+                            if (event.keyCode == 13) return false;">
             <h:outputText value="#{messages.getString('menu.admin.nomenclature')}" styleClass="listTitle"/>
             <br/>
             <a4j:commandButton value="#{messages.getString('button.add')}"

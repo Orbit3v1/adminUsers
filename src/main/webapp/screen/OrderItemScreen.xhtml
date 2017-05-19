@@ -20,7 +20,9 @@
     <ui:define name="body">
         <link rel="stylesheet" type="text/css" href="../resources/css/richLarge.css"/>
 
-        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm"
+                onkeypress="if (event.target.tagName.toUpperCase() == 'TEXTAREA') return;
+                            if (event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{orderItemScreen.edit ? messages.getString('orderItemScreen.editText') : messages.getString('orderItemScreen.addText')}"/>
 
@@ -41,7 +43,7 @@
                         <a4j:commandButton
                                 rendered="#{!orderItemScreen.isDisabled('nomenclature')}"
                                 action="#{orderItemScreen.shareOrderItem}"
-                                onclick="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
+                                oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
                                 styleClass="findBtn"/>
 

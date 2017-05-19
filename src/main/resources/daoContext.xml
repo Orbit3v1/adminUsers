@@ -19,5 +19,6 @@
     <bean id="functionDao" class="com.app.data.dao.hibernate.HFunctionDao"/>
     <bean id="productGroupDao" class="com.app.data.dao.hibernate.HProductGroupDao"/>
     <bean id="productDao" class="com.app.data.dao.hibernate.HProductDao"/>
+    <bean id="serviceRequestDao" class="com.app.data.dao.hibernate.HServiceRequestDao"/>
 
 </beans>

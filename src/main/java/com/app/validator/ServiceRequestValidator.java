@@ -1,16 +1,16 @@
 package com.app.validator;
 
 import com.app.data.entity.CarRequest;
-import com.app.data.entity.Nomenclature;
+import com.app.data.entity.ServiceRequest;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
 
-@Named("carRequestValidator")
+@Named("serviceRequestValidator")
 @Scope("request")
-public class CarRequestValidator extends AbstractValidator<CarRequest>{
+public class ServiceRequestValidator extends AbstractValidator<ServiceRequest>{
     @Override
-    public boolean validate(CarRequest entity, Object... args) {
+    public boolean validate(ServiceRequest entity, Object... args) {
         this.entity = entity;
         return true;
     }

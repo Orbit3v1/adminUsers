@@ -16,7 +16,9 @@
 
 
     <ui:define name="body">
-        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm"
+                onkeypress="if (event.target.tagName.toUpperCase() == 'TEXTAREA') return;
+                            if (event.keyCode == 13) return false;">
             <h:outputText style="font-size: 18px; font-weight: bold"
                           value="#{TNCRequestItemScreen.edit ? messages.getString('TNCRequestItemScreen.editText') : messages.getString('TNCRequestItemScreen.addText')}"/>
 

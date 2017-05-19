@@ -1,17 +1,14 @@
 package com.app.data.entity.filter;
 
-import com.app.data.dictionary.CarRequestSort;
-import com.app.data.dictionary.CarRequestState;
-import com.app.data.dictionary.OrderItemState;
-import com.app.data.dictionary.Sort;
+import com.app.data.dictionary.*;
 import com.app.data.entity.AbstractVersionedEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "carRequestListFilter")
-public class CarRequestListFilter extends AbstractVersionedEntity<Integer> implements Filter<CarRequestListFilter> {
+@Table(name = "serviceRequestListFilter")
+public class ServiceRequestListFilter extends AbstractVersionedEntity<Integer> implements Filter<ServiceRequestListFilter> {
     @Id
     @Column(name = "id")
     private Integer id;
@@ -37,17 +34,14 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
     @Column(name = "endActualH")
     private Date endActualH;
 
-    @Column(name = "addressFrom")
-    private String addressFrom;
+    @Column(name = "warranty_number")
+    private String warrantyNumber;
 
-    @Column(name = "addressTo")
-    private String addressTo;
+    @Column(name = "counterparty")
+    private String counterparty;
 
-    @Column(name = "receiverName")
-    private String receiverName;
-
-    @Column(name = "receiverPhone")
-    private String receiverPhone;
+    @Column(name = "contact")
+    private String contact;
 
     @Column(name = "payment")
     private String payment;
@@ -55,16 +49,19 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
     @Column(name = "description")
     private String description;
 
-    @Column(name = "priority")
-    private String priority;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "result")
+    private String result;
 
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
-    private CarRequestState state;
+    private ServiceRequestState state;
 
     @Column(name = "sort")
     @Enumerated(EnumType.STRING)
-    private CarRequestSort sort;
+    private ServiceRequestSort sort;
 
     public void clear() {
         name = null;
@@ -74,18 +71,18 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         startH = null;
         endActualL = null;
         endActualH = null;
-        addressFrom = null;
-        addressTo = null;
-        receiverName = null;
-        receiverPhone = null;
+        warrantyNumber = null;
+        counterparty = null;
+        contact = null;
         payment = null;
         description = null;
-        priority = null;
+        address = null;
+        result = null;
         sort = null;
-        state = CarRequestState.ALL;
+        state = ServiceRequestState.ALL;
     }
 
-    public void copyFrom(CarRequestListFilter filter){
+    public void copyFrom(ServiceRequestListFilter filter){
         name = filter.name;
         creator = filter.creator;
         responsible = filter.responsible;
@@ -93,13 +90,13 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         startH = filter.startH;
         endActualL = filter.endActualL;
         endActualH = filter.endActualH;
-        addressFrom = filter.addressFrom;
-        addressTo = filter.addressTo;
-        receiverName = filter.receiverName;
-        receiverPhone = filter.receiverPhone;
+        warrantyNumber = filter.warrantyNumber;
+        counterparty = filter.counterparty;
+        contact = filter.contact;
         payment = filter.payment;
         description = filter.description;
-        priority = filter.priority;
+        address = filter.address;
+        result = filter.result;
         sort = filter.sort;
         state = filter.state;
     }
@@ -169,36 +166,28 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         this.endActualH = endActualH;
     }
 
-    public String getAddressFrom() {
-        return addressFrom;
+    public String getWarrantyNumber() {
+        return warrantyNumber;
     }
 
-    public void setAddressFrom(String addressFrom) {
-        this.addressFrom = addressFrom;
+    public void setWarrantyNumber(String warrantyNumber) {
+        this.warrantyNumber = warrantyNumber;
     }
 
-    public String getAddressTo() {
-        return addressTo;
+    public String getCounterparty() {
+        return counterparty;
     }
 
-    public void setAddressTo(String addressTo) {
-        this.addressTo = addressTo;
+    public void setCounterparty(String counterparty) {
+        this.counterparty = counterparty;
     }
 
-    public String getReceiverName() {
-        return receiverName;
+    public String getContact() {
+        return contact;
     }
 
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public String getReceiverPhone() {
-        return receiverPhone;
-    }
-
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getPayment() {
@@ -217,30 +206,36 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         this.description = description;
     }
 
-    public String getPriority() {
-        return priority;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public ServiceRequestState getState() {
+        return state;
+    }
+
+    public void setState(ServiceRequestState state) {
+        this.state = state;
     }
 
     @Override
-    public CarRequestSort getSort() {
+    public ServiceRequestSort getSort() {
         return sort;
     }
 
     public void setSort(Sort sort) {
-        this.sort = (CarRequestSort) sort;
-    }
-
-    public CarRequestState getState() {
-        return state;
-    }
-
-    public void setState(CarRequestState state) {
-        this.state = state;
+        this.sort = (ServiceRequestSort) sort;
     }
 }
-
-

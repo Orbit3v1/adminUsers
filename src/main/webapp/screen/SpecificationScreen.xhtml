@@ -72,7 +72,7 @@
                         <a4j:commandButton
                                 rendered="#{!specificationScreen.isDisabled('nomenclature')}"
                                 action="#{specificationScreen.shareEntity}"
-                                onclick="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
+                                oncomplete="openPopUp('/popup/NomenclatureListPopUp.xhtml', 'NomenclatureListPopUp')"
                                 value="..."
                                 styleClass="findBtn"/>
 

@@ -166,7 +166,6 @@ public class CarRequestScreenPC implements PrivilegeChecker  {
                         new PrivilegeAction("carRequestEndActual", "EDIT"))
         );
 
-
         return userPA;
     }
 }

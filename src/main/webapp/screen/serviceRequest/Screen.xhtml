@@ -8,9 +8,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:param name="screen" value="#{TNCRequestScreen}"/>
+    <ui:param name="screen" value="#{serviceRequestScreen}"/>
     <ui:define name="title">
-        <h:outputText value="#{messages.getString('TNCRequestScreen.title')}"/>
+        <h:outputText value="#{messages.getString('serviceRequestScreen.title')}"/>
     </ui:define>
 
     <ui:define name="headerMenu"/>
@@ -24,18 +24,15 @@
             <p:growl id="growl" showDetail="true"/>
 
             <h:outputText style="font-size: 18px; font-weight: bold"
-                          value="#{TNCRequestScreen.edit ? messages.getString('TNCRequestScreen.editText') : messages.getString('TNCRequestScreen.addText')}"/>
+                          value="#{serviceRequestScreen.edit ? messages.getString('serviceRequestScreen.editText') : messages.getString('serviceRequestScreen.addText')}"/>
             <HR/>
 
             <h:message for="panel" infoClass="info" errorClass="error"/>
             <p:accordionPanel id="panel"
                               multiple="true"
-                              activeIndex="0,1">
-                <p:tab title="#{messages.getString('TNCRequestScreen.title')}">
+                              activeIndex="0">
+                <p:tab title="#{messages.getString('serviceRequestScreen.title')}">
                     <ui:include src="Data.xhtml"/>
-                </p:tab>
-                <p:tab title="#{messages.getString('TNCRequestScreen.table.orderItems')}">
-                    <ui:include src="ItemsTable.xhtml"/>
                 </p:tab>
             </p:accordionPanel>
 
@@ -47,8 +44,7 @@
             </p:confirmDialog>
 
             <p:commandButton id="refresh"
-                             update=":mainForm:panel:items"
-                             actionListener="#{TNCRequestScreen.refresh}"
+                             actionListener="#{serviceRequestScreen.refresh}"
                              style="display: none"
                              value="refresh"/>
 

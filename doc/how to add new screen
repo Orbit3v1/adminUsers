@@ -5,18 +5,20 @@ DB
 
 Java: Entity
 - Entity
+- Sort Enum
+- State Enum
 - Entity filter
 - DAO
-- Sort Enum
 - Entity filter bean
+- DTO if need
 
 
 Java: Screen
-- privilegeChecker
+- privilegeChecker (for list, screen) + add to PrivilegeCheckerFactory
 - bundle resource (for entity, list, screen)
+- validator
 - screen bean
 - screen jsf
-- validator
 - list bean
 - list filter bean
 - list jsf

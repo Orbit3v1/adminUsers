@@ -90,7 +90,7 @@ public class SpecificationListFilter extends AbstractVersionedEntity implements 
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

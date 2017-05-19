@@ -25,7 +25,7 @@ public class CarRequestSB {
             {"carRequestList.receiver", "Конт. Лицо"},
             {"carRequestList.time", "T"},
 
-            {"carRequestScreen.title", "Заявки на автомобиль"},
+            {"carRequestScreen.title", "Заявка на автомобиль"},
             {"carRequestScreen.editText", "Редактирование заявки на автомобиль"},
             {"carRequestScreen.addText", "Добавление заявки на автомобиль"},
             {"carRequestScreen.files", "Файлы"},

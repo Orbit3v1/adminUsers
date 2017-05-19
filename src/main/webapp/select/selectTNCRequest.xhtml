@@ -16,7 +16,9 @@
     <ui:define name="headerMenu"/>
 
     <ui:define name="body">
-        <h:form id="mainForm" onkeypress="if(event.keyCode == 13) return false;">
+        <h:form id="mainForm"
+                onkeypress="if (event.target.tagName.toUpperCase() == 'TEXTAREA') return;
+                            if (event.keyCode == 13) return false;">
             <f:event type="preRenderView" listener="#{tncRequestList.updateList}"/>
             <p:growl id="growl" showDetail="true"/>
 
