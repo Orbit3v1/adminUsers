@@ -8,6 +8,7 @@ import com.app.data.dto.ServiceRequestDTO;
 import com.app.data.entity.ServiceRequest;
 import com.app.data.filter.ListFilterBean;
 import com.app.msOffice.CarRequestXLS;
+import com.app.msOffice.ServiceRequestXLS;
 import com.app.security.Security;
 import com.app.utils.AddMessage;
 import com.app.web.Loggable;
@@ -90,8 +91,8 @@ public class ServiceRequestList {
     }
 
     public void exportExcel(){
-        //CarRequestXLS pXLS = new CarRequestXLS(listRows, userPA);
-        //pXLS.renderExcel();
+        ServiceRequestXLS pXLS = new ServiceRequestXLS(listRows, userPA);
+        pXLS.renderExcel();
     }
 
     public Map<String, Boolean> getUserPA() {

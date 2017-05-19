@@ -1,16 +1,21 @@
 package com.app.msOffice;
 
 import com.app.data.dto.CarRequestDTO;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.ss.usermodel.*;
+import com.app.data.dto.ServiceRequestDTO;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * Created by ayaroslavtsev on 19.05.2017.
+ */
+public class ServiceRequestXLS  extends GeneratorXLS{
+    private List<ServiceRequestDTO> listRows;
 
-public class CarRequestXLS extends GeneratorXLS {
-    private List<CarRequestDTO> listRows;
-
-    public CarRequestXLS(List<CarRequestDTO> listRows, Map<String, Boolean> userPA) {
+    public ServiceRequestXLS(List<ServiceRequestDTO> listRows, Map<String, Boolean> userPA) {
         super(userPA);
         this.listRows = listRows;
         setColumnsWidth();
@@ -26,14 +31,14 @@ public class CarRequestXLS extends GeneratorXLS {
         sheet.setColumnWidth(6, 4000);
         sheet.setColumnWidth(7, 4000);
         sheet.setColumnWidth(8, 4000);
-        sheet.setColumnWidth(9, 3000);
+        sheet.setColumnWidth(9, 3500);
         sheet.setColumnWidth(10, 3500);
-        sheet.setColumnWidth(11, 3500);
+        sheet.setColumnWidth(11, 4000);
     }
 
     @Override
     protected String getReportName() {
-        return "заявка_на_авто";
+        return "заявка_на_сервис";
     }
 
     protected void generateHeader() {
@@ -44,62 +49,62 @@ public class CarRequestXLS extends GeneratorXLS {
 
         if (userPA.get("nameR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.name"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.name"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("startR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestList.time"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestList.time"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("responsibleR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.responsible"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.responsible"));
             cell.setCellStyle(csHeader);
         }
-        if (userPA.get("addressFromR")) {
+        if (userPA.get("warrantyNumberR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.addressFrom"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.warrantyNumber"));
             cell.setCellStyle(csHeader);
         }
-        if (userPA.get("addressToR")) {
+        if (userPA.get("counterpartyR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.addressTo"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.counterparty"));
             cell.setCellStyle(csHeader);
         }
-        if (userPA.get("receiverNameR")) {
+        if (userPA.get("contactNameR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestList.receiver"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestList.contact"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("paymentR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.payment"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.payment"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("descriptionR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.description"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.description"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("creatorR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.creator"));
-            cell.setCellStyle(csHeader);
-        }
-        if (userPA.get("priorityR")) {
-            cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.priority"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.creator"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("startR")) {
             cell = row.createCell(lastCell++);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.start"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.start"));
             cell.setCellStyle(csHeader);
         }
         if (userPA.get("endActualR")) {
             cell = row.createCell(lastCell);
-            cell.setCellValue(resourceBundle.getString("carRequestEntity.endActual"));
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.endActual"));
+            cell.setCellStyle(csHeader);
+        }
+        if (userPA.get("resultR")) {
+            cell = row.createCell(lastCell++);
+            cell.setCellValue(resourceBundle.getString("serviceRequestEntity.result"));
             cell.setCellStyle(csHeader);
         }
 
@@ -109,7 +114,7 @@ public class CarRequestXLS extends GeneratorXLS {
         Row row;
         Cell cell;
 
-        for (CarRequestDTO r : listRows) {
+        for (ServiceRequestDTO r : listRows) {
             int lastCell = 0;
 
             CellStyle style = wb.createCellStyle();
@@ -137,25 +142,25 @@ public class CarRequestXLS extends GeneratorXLS {
                     cell.setCellValue(r.getResponsible());
                 }
             }
-            if (userPA.get("addressFromR")) {
+            if (userPA.get("warrantyNumberR")) {
                 cell = row.createCell(lastCell++);
                 cell.setCellStyle(csText);
-                if (r.getAddressFrom() != null) {
-                    cell.setCellValue(r.getAddressFrom());
+                if (r.getWarrantyNumber() != null) {
+                    cell.setCellValue(r.getWarrantyNumber());
                 }
             }
-            if (userPA.get("addressToR")) {
+            if (userPA.get("counterpartyR")) {
                 cell = row.createCell(lastCell++);
                 cell.setCellStyle(csText);
-                if (r.getAddressTo() != null) {
-                    cell.setCellValue(r.getAddressTo());
+                if (r.getCounterparty() != null) {
+                    cell.setCellValue(r.getCounterparty());
                 }
             }
-            if (userPA.get("receiverNameR")) {
+            if (userPA.get("contactNameR")) {
                 cell = row.createCell(lastCell++);
                 cell.setCellStyle(csText);
-                if (r.getReceiver() != null) {
-                    cell.setCellValue(r.getReceiver());
+                if (r.getContact() != null) {
+                    cell.setCellValue(r.getContact());
                 }
             }
             if (userPA.get("paymentR")) {
@@ -181,13 +186,6 @@ public class CarRequestXLS extends GeneratorXLS {
                     cell.setCellValue(r.getCreator());
                 }
             }
-            if (userPA.get("priorityR")) {
-                cell = row.createCell(lastCell++);
-                cell.setCellStyle(csText);
-                if (r.getPriority() != null) {
-                    cell.setCellValue(r.getPriority());
-                }
-            }
             if (userPA.get("startR")) {
                 cell = row.createCell(lastCell++);
                 cell.setCellStyle(csDate);
@@ -200,6 +198,13 @@ public class CarRequestXLS extends GeneratorXLS {
                 cell.setCellStyle(csDate);
                 if (r.getEndActual() != null) {
                     cell.setCellValue(r.getEndActual());
+                }
+            }
+            if (userPA.get("resultR")) {
+                cell = row.createCell(lastCell++);
+                cell.setCellStyle(csText);
+                if (r.getResult() != null) {
+                    cell.setCellValue(r.getResult());
                 }
             }
         }
