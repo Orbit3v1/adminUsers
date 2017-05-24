@@ -127,9 +127,9 @@ public class ServiceRequestListFilterBean  extends FilterBean implements ListFil
         if(filterOriginal.getSort() != null){
             sqlOrder.add(filterOriginal.getSort().getSqlOrder());
         }
-        if(!CarRequestSort.ID_ASC.equals(filterOriginal.getSort())
-                && !CarRequestSort.ID_DESC.equals(filterOriginal.getSort())) {
-            sqlOrder.add(CarRequestSort.ID_ASC.getSqlOrder());        }
+        if(!ServiceRequestSort.ID_ASC.equals(filterOriginal.getSort())
+                && !ServiceRequestSort.ID_DESC.equals(filterOriginal.getSort())) {
+            sqlOrder.add(ServiceRequestSort.ID_ASC.getSqlOrder());        }
 
         String sqlFull = sqlFrom + " WHERE " + sqlWhere.toString() + " order by " + sqlOrder.toString();
 
