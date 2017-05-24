@@ -14,6 +14,7 @@ create table car_request(
   payment varchar(500),
   description varchar(2000),
   priority int,
+  declaration varchar(500)
 
   CONSTRAINT car_request_FK1 FOREIGN KEY (creator) REFERENCES person(id),
   CONSTRAINT car_request_FK2 FOREIGN KEY (responsible) REFERENCES person(id)
@@ -53,6 +54,7 @@ create table carRequestListFilter(
   payment varchar(500),
   description varchar(500),
   priority varchar(500),
+  declaration varchar(500),
 
   sort varchar(500),
   state varchar(500),

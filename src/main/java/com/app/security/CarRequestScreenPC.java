@@ -166,6 +166,16 @@ public class CarRequestScreenPC implements PrivilegeChecker  {
                         new PrivilegeAction("carRequestEndActual", "EDIT"))
         );
 
+        userPA.put("declarationR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("carRequestDeclaration", "READ"))
+        );
+        userPA.put("declarationW", hasAnyPrivilegeAction(
+                        new PrivilegeAction("carRequestDeclaration", "WRITE"))
+        );
+        userPA.put("declarationE", hasAnyPrivilegeAction(
+                        new PrivilegeAction("carRequestDeclaration", "EDIT"))
+        );
+
         return userPA;
     }
 }

@@ -92,7 +92,7 @@
                              onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
                              styleClass="inputSmall"/>
             </f:facet>
-            <h:outputText value="#{row.addressTo}"  converter="cutStringConverter"/>
+            <h:outputText value="#{row.addressTo}"/>
         </p:column>
 
         <p:column rendered="#{carRequestList.userPA.receiverNameR}"
@@ -291,6 +291,23 @@
                              styleClass="buttonListPF"
                              rendered="#{row.endActual == null}"
                              update=":mainForm:entities, :mainForm:growl"/>
+        </p:column>
+
+        <p:column rendered="#{carRequestList.userPA.declarationR}"
+                  styleClass="wordWrap">
+            <f:facet name="header">
+                <h:commandLink value="#{messages.getString('carRequestEntity.declaration')}"
+                               action="#{carRequestListFilterBean.setSort('DECLARATION_ASC')}"
+                               styleClass="headerSort">
+                    <h:graphicImage
+                            value="/javax.faces.resource/images/#{carRequestListFilterBean.getImage('DECLARATION')}.png.xhtml"
+                            styleClass="headerSortImg"/>
+                </h:commandLink>
+                <p:inputText value="#{carRequestListFilterBean.filter.declaration}"
+                             onkeypress="if(event.keyCode == 13) {clickIn('mainForm:findBtn')}"
+                             styleClass="inputSmall"/>
+            </f:facet>
+            <h:outputText value="#{row.declaration}"/>
         </p:column>
     </p:dataTable>
 

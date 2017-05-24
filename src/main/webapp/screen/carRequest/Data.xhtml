@@ -112,6 +112,18 @@
                     />
             <h:message for="description" errorClass="error"/>
         </p:panelGrid>
+
+        <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.declarationR}">
+            <h:outputLabel value="#{messages.getString('carRequestEntity.declaration')}"
+                           for="declaration"
+                           styleClass="labelPF"/>
+            <p:inputText id="declaration"
+                         value="#{carRequestScreen.entity.declaration}"
+                         readonly="#{carRequestScreen.isDisabled('declaration')}"
+                         styleClass="inputLarge"
+                    />
+            <h:message for="declaration" errorClass="error"/>
+        </p:panelGrid>
         
         <p:panelGrid columns="3" rendered="#{carRequestScreen.userPA.creatorR}">
             <h:outputLabel value="#{messages.getString('carRequestEntity.creator')}"

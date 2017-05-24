@@ -20,6 +20,7 @@ public class CarRequestSB {
             {"carRequestEntity.description", "Доп. Инфо."},
             {"carRequestEntity.priority", "Приоритет"},
             {"carRequestEntity.attachment", "Файл"},
+            {"carRequestEntity.declaration", "№ декларации"},
 
             {"carRequestList.title", "График заявок на автомобиль"},
             {"carRequestList.receiver", "Конт. Лицо"},

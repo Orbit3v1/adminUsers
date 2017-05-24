@@ -58,6 +58,9 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
     @Column(name = "priority")
     private String priority;
 
+    @Column(name = "declaration")
+    private String declaration;
+
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
     private CarRequestState state;
@@ -81,6 +84,7 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         payment = null;
         description = null;
         priority = null;
+        declaration = null;
         sort = null;
         state = CarRequestState.ALL;
     }
@@ -100,6 +104,8 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
         payment = filter.payment;
         description = filter.description;
         priority = filter.priority;
+        declaration = filter.declaration;
+
         sort = filter.sort;
         state = filter.state;
     }
@@ -223,6 +229,14 @@ public class CarRequestListFilter extends AbstractVersionedEntity<Integer> imple
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public String getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(String declaration) {
+        this.declaration = declaration;
     }
 
     @Override

@@ -29,6 +29,7 @@ public class CarRequestDTO {
     private String payment;
     private String description;
     private Integer priority;
+    private String declaration;
 
     public CarRequestDTO(CarRequest carRequest){
         this.carRequest = carRequest;
@@ -45,6 +46,7 @@ public class CarRequestDTO {
         payment = carRequest.getPayment();
         description = carRequest.getDescription();
         priority = carRequest.getPriority();
+        declaration = carRequest.getDeclaration();
     }
 
     private String getTime(Date date){
@@ -166,5 +168,13 @@ public class CarRequestDTO {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(String declaration) {
+        this.declaration = declaration;
     }
 }

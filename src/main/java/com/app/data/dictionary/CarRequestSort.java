@@ -31,6 +31,8 @@ public enum CarRequestSort implements Sort{
     DESCRIPTION_DESC("r.description desc"),
     PRIORITY_ASC("r.priority"),
     PRIORITY_DESC("r.priority desc"),
+    DECLARATION_ASC("r.declaration"),
+    DECLARATION_DESC("r.declaration desc"),
     ;
 
     private String sqlOrder;

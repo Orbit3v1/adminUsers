@@ -80,6 +80,10 @@ public class CarRequestListPC implements PrivilegeChecker {
                         new PrivilegeAction("carRequestEndActual", "EDIT"))
         );
 
+        userPA.put("declarationR", hasAnyPrivilegeAction(
+                        new PrivilegeAction("carRequestDeclaration", "READ"))
+        );
+
         return userPA;
     }
 }

@@ -51,6 +51,9 @@ public class CarRequest extends AbstractVersionedEntity<Integer> {
     @Column(name = "priority")
     private Integer priority;
 
+    @Column(name = "declaration")
+    private String declaration;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "car_request_attachment",
             joinColumns = @JoinColumn(name = "car_request"),
@@ -171,4 +174,13 @@ public class CarRequest extends AbstractVersionedEntity<Integer> {
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
     }
+
+    public String getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(String declaration) {
+        this.declaration = declaration;
+    }
+
 }

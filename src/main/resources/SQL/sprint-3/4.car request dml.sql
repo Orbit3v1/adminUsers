@@ -141,3 +141,12 @@ insert into privilege_action(privilege, action)
 values('carRequestEndActual', 'WRITE');
 insert into privilege_action(privilege, action)
 values('carRequestEndActual', 'EDIT');
+
+insert into privilege(id, name, description, pos)
+values('carRequestDeclaration', 'Заявка на автомобиль - Поле - № декларации', '', 13016);
+insert into privilege_action(privilege, action)
+values('carRequestDeclaration', 'READ');
+insert into privilege_action(privilege, action)
+values('carRequestDeclaration', 'WRITE');
+insert into privilege_action(privilege, action)
+values('carRequestDeclaration', 'EDIT');

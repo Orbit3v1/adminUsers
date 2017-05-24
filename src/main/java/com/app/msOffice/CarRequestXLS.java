@@ -102,6 +102,11 @@ public class CarRequestXLS extends GeneratorXLS {
             cell.setCellValue(resourceBundle.getString("carRequestEntity.endActual"));
             cell.setCellStyle(csHeader);
         }
+        if (userPA.get("declarationR")) {
+            cell = row.createCell(lastCell);
+            cell.setCellValue(resourceBundle.getString("carRequestEntity.declaration"));
+            cell.setCellStyle(csHeader);
+        }
 
     }
 
@@ -200,6 +205,13 @@ public class CarRequestXLS extends GeneratorXLS {
                 cell.setCellStyle(csDate);
                 if (r.getEndActual() != null) {
                     cell.setCellValue(r.getEndActual());
+                }
+            }
+            if (userPA.get("declarationR")) {
+                cell = row.createCell(lastCell);
+                cell.setCellStyle(csDate);
+                if (r.getDeclaration() != null) {
+                    cell.setCellValue(r.getDeclaration());
                 }
             }
         }

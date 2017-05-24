@@ -110,6 +110,11 @@ public class CarRequestListFilterBean extends FilterBean implements ListFilterBe
             parameters.put("priority", filterOriginal.getPriority());
         }
 
+        if (notEmpty(filterOriginal.getDeclaration())) {
+            sqlWhere.add("r.declaration like :declaration");
+            parameters.put("declaration", "%" + filterOriginal.getDeclaration() + "%");
+        }
+
         switch (filterOriginal.getState()) {
             case IN_WORK:
                 sqlWhere.add("r.endActual is null");
